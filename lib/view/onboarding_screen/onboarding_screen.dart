@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/onBordingControllers/custom_clipper.dart';
+import 'package:hostel_management_app/controller/onBordingControllers/onboaring_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
-import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
+import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -13,20 +14,15 @@ class OnBoardingScreen extends StatefulWidget {
 }
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
-  final pageController = PageController();
-  @override
-  void dispose() {
-    pageController.dispose();
-    // TODO: implement dispose
-    super.dispose();
-  }
   @override
   Widget build(BuildContext context) {
+    OnBoardingController onBoardingController =
+        Provider.of<OnBoardingController>(context);
     return Scaffold(
       body: Container(
         height: MediaQuery.sizeOf(context).height,
         width: MediaQuery.sizeOf(context).width,
-        color: Colors.amber,
+        color: ColorConstants.primaryWhiteColor,
         child: Stack(
           children: [
             Positioned(
@@ -35,21 +31,19 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 width: MediaQuery.sizeOf(context).width,
                 height: MediaQuery.sizeOf(context).height * 2 / 3,
                 child: PageView(
-                  controller: pageController,
-                  children: [
-                    Image.asset(
-                      ImageConstants.onBoardingImage1,
+                  onPageChanged: (value) {
+                    Provider.of<OnBoardingController>(context, listen: false)
+                        .onPageChange(index: value);
+                  },
+                  padEnds: true,
+                  controller: onBoardingController.pageController,
+                  children: List.generate(
+                    onBoardingController.onBoardingScreens.length,
+                    (index) => Image.asset(
+                      onBoardingController.onBoardingScreens[index]['image'],
                       fit: BoxFit.cover,
                     ),
-                    Image.asset(
-                      ImageConstants.onBoardingImage2,
-                      fit: BoxFit.cover,
-                    ),
-                    Image.asset(
-                      ImageConstants.onBoardingImage3,
-                      fit: BoxFit.cover,
-                    )
-                  ],
+                  ),
                 ),
               ),
             ),
@@ -67,7 +61,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       height: 55,
                     ),
                     SmoothPageIndicator(
-                      controller: pageController,
+                      controller: onBoardingController.pageController,
                       count: 3,
                       effect: ExpandingDotsEffect(
                         activeDotColor: ColorConstants.primaryColor,
@@ -82,49 +76,56 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     Container(
                       width: MediaQuery.sizeOf(context).width * 80 / 100,
                       height: 150,
-                      child: PageView(
-                        controller: pageController,
+                      child: Column(
                         children: [
-                          Column(
-                            children: [
-                              SizedBox(
-                                width:
-                                    MediaQuery.sizeOf(context).width * 65 / 100,
-                                height: MediaQuery.sizeOf(context).height *
-                                    9.04 /
-                                    100,
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Your",
-                                      style: TextStyleConstants.onboardText1,
-                                    ),
-                                    Text(
-                                      "Comfort Zone Awaits!",
-                                      style: TextStyleConstants.onboardText1,
-                                    )
-                                  ],
+                          SizedBox(
+                            width: MediaQuery.sizeOf(context).width * 65 / 100,
+                            height:
+                                MediaQuery.sizeOf(context).height * 9.04 / 100,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  onBoardingController.title1,
+                                  style: TextStyleConstants.onboardText1,
                                 ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              SizedBox(
-                                child: Text(
-                                  "Discover the ease of room reservations, seamless communication, and a vibrant community.",
-                                  style: TextStyleConstants.onboardText2,
-                                  textAlign: TextAlign.center,
-                                ),
-                              )
-                            ],
+                                Text(
+                                  onBoardingController.title2,
+                                  style: TextStyleConstants.onboardText1,
+                                )
+                              ],
+                            ),
                           ),
-                          Text("2")
+                          SizedBox(
+                            height: 10,
+                          ),
+                          SizedBox(
+                            child: Text(
+                              onBoardingController.description,
+                              style: TextStyleConstants.onboardText2,
+                              textAlign: TextAlign.center,
+                            ),
+                          )
                         ],
                       ),
-                    )
+                    ),
+                    Expanded(
+                        child: Center(
+                      child: SizedBox(
+                        height: 40,
+                        width: 150,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          child: Text("Get Now !"),
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStatePropertyAll(
+                                  ColorConstants.primaryColor),
+                              textStyle: MaterialStatePropertyAll(
+                                  TextStyleConstants.onBoardButtonText)),
+                        ),
+                      ),
+                    ))
                   ]),
                 ),
               ),

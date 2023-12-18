@@ -11,4 +11,9 @@ class TextStyleConstants {
       fontSize: 14,
       color: ColorConstants.primaryBlackColor,
       fontWeight: FontWeight.w400);
+
+  static TextStyle onBoardButtonText = TextStyle(
+      fontSize: 15,
+      color: ColorConstants.primaryWhiteColor,
+      fontWeight: FontWeight.w500);
 }

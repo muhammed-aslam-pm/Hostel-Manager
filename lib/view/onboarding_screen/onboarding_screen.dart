@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/onBordingControllers/custom_clipper.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
+import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -19,7 +20,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     // TODO: implement dispose
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,6 +79,52 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     SizedBox(
                       height: 30,
                     ),
+                    Container(
+                      width: MediaQuery.sizeOf(context).width * 80 / 100,
+                      height: 150,
+                      child: PageView(
+                        controller: pageController,
+                        children: [
+                          Column(
+                            children: [
+                              SizedBox(
+                                width:
+                                    MediaQuery.sizeOf(context).width * 65 / 100,
+                                height: MediaQuery.sizeOf(context).height *
+                                    9.04 /
+                                    100,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Your",
+                                      style: TextStyleConstants.onboardText1,
+                                    ),
+                                    Text(
+                                      "Comfort Zone Awaits!",
+                                      style: TextStyleConstants.onboardText1,
+                                    )
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              SizedBox(
+                                child: Text(
+                                  "Discover the ease of room reservations, seamless communication, and a vibrant community.",
+                                  style: TextStyleConstants.onboardText2,
+                                  textAlign: TextAlign.center,
+                                ),
+                              )
+                            ],
+                          ),
+                          Text("2")
+                        ],
+                      ),
+                    )
                   ]),
                 ),
               ),

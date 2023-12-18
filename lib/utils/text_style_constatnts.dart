@@ -6,4 +6,9 @@ class TextStyleConstants {
       fontSize: 25,
       color: ColorConstants.primaryColor,
       fontWeight: FontWeight.w700);
+
+  static TextStyle onboardText2 = TextStyle(
+      fontSize: 14,
+      color: ColorConstants.primaryBlackColor,
+      fontWeight: FontWeight.w400);
 }

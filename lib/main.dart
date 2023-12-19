@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/onBordingControllers/onboaring_controller.dart';
+import 'package:hostel_management_app/controller/owner_bottom_navbar_controller/owner_bottom_navbar_controller.dart';
 import 'package:hostel_management_app/view/onboarding_screen/onboarding_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +17,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => OnBoardingController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => OwnerNavBarController(),
         )
       ],
       child: MaterialApp(

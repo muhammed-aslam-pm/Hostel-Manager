@@ -3,12 +3,12 @@ import 'package:hostel_management_app/controller/owner_bottom_navbar_controller/
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
-import 'package:hostel_management_app/owner_dashboard/widgets/date_card.dart';
-import 'package:hostel_management_app/owner_dashboard/widgets/date_sorting_button.dart';
-import 'package:hostel_management_app/owner_dashboard/widgets/going_to_vaccent_card.dart';
-import 'package:hostel_management_app/owner_dashboard/widgets/pending_payment_card.dart';
-import 'package:hostel_management_app/owner_dashboard/widgets/rooms_vaccent_card.dart';
-import 'package:hostel_management_app/owner_dashboard/widgets/upcoming_bookings_card.dart';
+import 'package:hostel_management_app/view/owner_dashboard/widgets/date_card.dart';
+import 'package:hostel_management_app/view/owner_dashboard/widgets/date_sorting_button.dart';
+import 'package:hostel_management_app/view/owner_dashboard/widgets/going_to_vaccent_card.dart';
+import 'package:hostel_management_app/view/owner_dashboard/widgets/pending_payment_card.dart';
+import 'package:hostel_management_app/view/owner_dashboard/widgets/rooms_vaccent_card.dart';
+import 'package:hostel_management_app/view/owner_dashboard/widgets/upcoming_bookings_card.dart';
 import 'package:provider/provider.dart';
 
 class OwnerHomeScreen extends StatelessWidget {

@@ -7,8 +7,6 @@ class DateSortingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.sizeOf(context).height * 4.5 / 100,
-      width: MediaQuery.sizeOf(context).width * 30 / 100,
       padding: EdgeInsets.symmetric(horizontal: 12.5, vertical: 10),
       decoration: BoxDecoration(
           color: ColorConstants.SecondaryColor3,

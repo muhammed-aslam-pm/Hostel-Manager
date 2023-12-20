@@ -17,5 +17,10 @@ class ImageConstants {
   static String ownerResidentsIconeDisabled =
       "assets/images/residents icon.png";
   static String ownerHomeProfilePhoto = "assets/images/profile image1.png";
+  static String ownerHomeProfilePhoto2 = "assets/images/profile photo 2.png";
+  static String ownerHomeProfilePhoto3 = "assets/images/profile photo 3.png";
   static String calenderIcon = "assets/images/calender Icon.png";
+  static String beadIcon = "assets/images/bead icon.png";
+  static String moneyIcon = "assets/images/money icon.png";
+  static String upRightArrowIcon = "assets/images/arrow-up icon.png";
 }

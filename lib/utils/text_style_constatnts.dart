@@ -41,7 +41,47 @@ class TextStyleConstants {
       fontWeight: FontWeight.w600);
 
   static TextStyle dashboardSubtitle1 = TextStyle(
+      fontSize: 20,
+      color: ColorConstants.primaryColor,
+      fontWeight: FontWeight.w700);
+
+  static TextStyle upComingVaccencyText1 = TextStyle(
+      fontSize: 15,
+      color: ColorConstants.primaryWhiteColor,
+      fontWeight: FontWeight.w500);
+
+  static TextStyle upComingVaccencyText2 = TextStyle(
+      fontSize: 20,
+      color: ColorConstants.primaryBlackColor,
+      fontWeight: FontWeight.w800);
+
+  static TextStyle dashboardSubtitle2 = TextStyle(
+      fontSize: 14,
+      color: ColorConstants.primaryBlackColor,
+      fontWeight: FontWeight.w400);
+
+  static TextStyle dashboardBookingName = TextStyle(
+      fontSize: 17,
+      color: ColorConstants.primaryBlackColor,
+      fontWeight: FontWeight.w600);
+
+  static TextStyle dashboardDate = TextStyle(
+      fontSize: 15,
+      color: ColorConstants.primaryBlackColor,
+      fontWeight: FontWeight.w500);
+
+  static TextStyle dashboardBookinRoomNo = TextStyle(
       fontSize: 17,
       color: ColorConstants.primaryColor,
       fontWeight: FontWeight.w700);
+
+  static TextStyle dashboardPendingDue = TextStyle(
+      fontSize: 12,
+      color: ColorConstants.colorRed,
+      fontWeight: FontWeight.w500);
+
+  static TextStyle dashboardPendingMoney = TextStyle(
+      fontSize: 22,
+      color: ColorConstants.primaryBlackColor,
+      fontWeight: FontWeight.w400);
 }

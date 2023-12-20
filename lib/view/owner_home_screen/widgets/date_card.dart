@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
+import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 
 class DateCard extends StatelessWidget {
   const DateCard({super.key, required this.date});
@@ -9,8 +10,6 @@ class DateCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.sizeOf(context).height * 4.5 / 100,
-      width: MediaQuery.sizeOf(context).width * 35 / 100,
       padding: EdgeInsets.symmetric(horizontal: 12.5, vertical: 10),
       decoration: BoxDecoration(
           color: ColorConstants.primaryWhiteColor,
@@ -29,7 +28,13 @@ class DateCard extends StatelessWidget {
           ]),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [Image.asset(ImageConstants.calenderIcon), Text(date)],
+        children: [
+          Image.asset(ImageConstants.calenderIcon),
+          Text(
+            date,
+            style: TextStyleConstants.dashboardDate,
+          )
+        ],
       ),
     );
   }

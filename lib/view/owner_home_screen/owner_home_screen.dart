@@ -3,6 +3,7 @@ import 'package:hostel_management_app/controller/owner_bottom_navbar_controller/
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
+import 'package:hostel_management_app/view/owner_home_screen/widgets/rooms_vaccent_card.dart';
 import 'package:provider/provider.dart';
 
 class OwnerHomeScreen extends StatelessWidget {
@@ -45,65 +46,33 @@ class OwnerHomeScreen extends StatelessWidget {
         titleSpacing: -20,
       ),
       body: SingleChildScrollView(
-          child: Column(
-        children: [
-          SizedBox(
-            height: 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(
-                height: 140,
-                width: 135,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: ColorConstants.SecondaryColor2),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 17.5,
-                      backgroundColor: ColorConstants.primaryWhiteColor,
-                    ),
-                    Text(
-                      "24",
-                      style: TextStyleConstants.dashboardVacentRoom1,
-                    ),
-                    Text("Rooms Vacant",
-                        style: TextStyleConstants.dashboardVacentRoom2)
-                  ],
-                ),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.sizeOf(context).width * 11 / 100),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  RoomVaccentCard(
+                      title: "Rooms Vacentnt",
+                      number: "24",
+                      bgColor: ColorConstants.SecondaryColor2,
+                      image: ImageConstants.ownerRoomsIconeDisabled),
+                  RoomVaccentCard(
+                      title: "Paymenys penting",
+                      number: "12",
+                      bgColor: ColorConstants.SecondaryColor1,
+                      image: ImageConstants.ownerRoomsIconeDisabled),
+                ],
               ),
-              Container(
-                height: 140,
-                width: 135,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: ColorConstants.primaryWhiteColor,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 17.5,
-                      backgroundColor: ColorConstants.primaryWhiteColor,
-                    ),
-                    Text(
-                      "24",
-                      style: TextStyleConstants.dashboardVacentRoom1,
-                    ),
-                    Text("Rooms Vacant",
-                        style: TextStyleConstants.dashboardVacentRoom2)
-                  ],
-                ),
-              )
-            ],
-          )
-        ],
-      )),
+            )
+          ],
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: navBarController.selectedIndex,
@@ -157,15 +126,16 @@ class OwnerHomeScreen extends StatelessWidget {
               ),
               label: 'Bookings'),
           BottomNavigationBarItem(
-              icon: Image.asset(
-                navBarController.selectedIndex == 3
-                    ? ImageConstants.ownerResidetsIconeEnabled
-                    : ImageConstants.ownerResidentsIconeDisabled,
-                height: 30,
-                width: 30,
-                color: ColorConstants.primaryBlackColor,
-              ),
-              label: 'Residents'),
+            icon: Image.asset(
+              navBarController.selectedIndex == 3
+                  ? ImageConstants.ownerResidetsIconeEnabled
+                  : ImageConstants.ownerResidentsIconeDisabled,
+              height: 30,
+              width: 30,
+              color: ColorConstants.primaryBlackColor,
+            ),
+            label: 'Residents',
+          ),
         ],
       ),
     );

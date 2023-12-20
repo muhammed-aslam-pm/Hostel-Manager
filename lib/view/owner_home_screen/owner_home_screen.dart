@@ -1,8 +1,12 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/owner_bottom_navbar_controller/owner_bottom_navbar_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
+import 'package:hostel_management_app/view/owner_home_screen/widgets/date_card.dart';
+import 'package:hostel_management_app/view/owner_home_screen/widgets/date_sorting_button.dart';
 import 'package:hostel_management_app/view/owner_home_screen/widgets/rooms_vaccent_card.dart';
 import 'package:provider/provider.dart';
 
@@ -47,6 +51,7 @@ class OwnerHomeScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               height: 10,
@@ -68,6 +73,47 @@ class OwnerHomeScreen extends StatelessWidget {
                       bgColor: ColorConstants.SecondaryColor1,
                       image: ImageConstants.ownerRoomsIconeDisabled),
                 ],
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Text(
+                "Going to vaccent",
+                style: TextStyleConstants.dashboardSubtitle1,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 17, left: 20),
+              child: Row(
+                children: [
+                  DateSortingButton(),
+                  SizedBox(
+                    width: 18.6,
+                  ),
+                  DateCard(date: "12/12/2023")
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: GridView.builder(
+                shrinkWrap: true,
+                itemCount: 4,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 5,
+                    crossAxisSpacing: 10),
+                itemBuilder: (context, index) => Container(
+                  height: 770,
+                  width: 153,
+                  color: Colors.amber,
+                ),
               ),
             )
           ],

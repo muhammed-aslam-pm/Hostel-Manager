@@ -5,6 +5,7 @@ import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/owner_dashboard/widgets/date_card.dart';
 import 'package:hostel_management_app/view/owner_dashboard/widgets/date_sorting_button.dart';
 import 'package:hostel_management_app/view/owner_dashboard/widgets/going_to_vaccent_card.dart';
+import 'package:hostel_management_app/view/owner_dashboard/widgets/maintenance_request_card.dart';
 import 'package:hostel_management_app/view/owner_dashboard/widgets/pending_payment_card.dart';
 import 'package:hostel_management_app/view/owner_dashboard/widgets/rooms_vaccent_card.dart';
 import 'package:hostel_management_app/view/owner_dashboard/widgets/upcoming_bookings_card.dart';
@@ -150,6 +151,53 @@ class OwnerDashBoardPage extends StatelessWidget {
                       profilePhot1: ImageConstants.ownerHomeProfilePhoto2,
                       profilePhot2: ImageConstants.ownerHomeProfilePhoto3),
                 ),
+              ),
+            ),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: InkWell(
+                  onTap: () {},
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: ColorConstants.primaryColor,
+                    ),
+                    height: 40,
+                    width: 150,
+                    child: Center(
+                      child: Text(
+                        "Show All",
+                        style: TextStyleConstants.buttonText,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                "Maintenance Request",
+                style: TextStyleConstants.dashboardSubtitle1,
+              ),
+            ),
+            SizedBox(
+              height: 13,
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: List.generate(
+                    10,
+                    (index) => MaintenanceRequestCard(
+                        roomNumber: "26",
+                        complaint1: 'complaint1',
+                        complaint2: 'complaint2',
+                        day: '5')),
               ),
             )
           ],

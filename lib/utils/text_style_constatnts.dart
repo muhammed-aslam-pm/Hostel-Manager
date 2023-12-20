@@ -84,4 +84,19 @@ class TextStyleConstants {
       fontSize: 22,
       color: ColorConstants.primaryBlackColor,
       fontWeight: FontWeight.w400);
+
+  static TextStyle buttonText = TextStyle(
+      fontSize: 14,
+      color: ColorConstants.primaryWhiteColor,
+      fontWeight: FontWeight.w500);
+
+  static TextStyle complaintText = TextStyle(
+      fontSize: 15,
+      color: ColorConstants.primaryColor,
+      fontWeight: FontWeight.w500);
+
+  static TextStyle complaintText2 = TextStyle(
+      fontSize: 12,
+      color: ColorConstants.colorGrey,
+      fontWeight: FontWeight.w400);
 }

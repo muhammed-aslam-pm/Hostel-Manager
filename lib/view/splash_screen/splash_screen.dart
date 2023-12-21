@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
+import 'package:hostel_management_app/view/login_and_register_screens/login_screen.dart';
 import 'package:hostel_management_app/view/onboarding_screen/onboarding_screen.dart';
 import 'package:hostel_management_app/view/owner_home_screen/owner_home_screen.dart';
 
@@ -18,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
         .then((value) => Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => OnBoardingScreen(),
+              builder: (context) => LoginScreen(),
             ),
             (route) => false));
     // TODO: implement initState

@@ -1,4 +1,6 @@
 class ImageConstants {
+  static String appLogo = "assets/images/App Logo.png";
+
   //onboarding screen images
   static String onBoardingImage1 = "assets/images/onboard imag1.png";
   static String onBoardingImage2 = "assets/images/onboard image2.png";

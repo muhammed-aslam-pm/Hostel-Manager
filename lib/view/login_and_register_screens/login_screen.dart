@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
+import 'package:hostel_management_app/view/owner_home_screen/owner_home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -32,7 +33,7 @@ class LoginScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(30),
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 40),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -117,31 +118,68 @@ class LoginScreen extends StatelessWidget {
                   ),
                   TextFormField(
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              width: 2, color: ColorConstants.colorGrey),
-                        ),
-                        hintText: "User Name",
-                        hintStyle: TextStyle(
-                            fontSize: 13,
-                            color: ColorConstants.colorGrey,
-                            fontWeight: FontWeight.w500)),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            width: 2, color: ColorConstants.colorGrey),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            width: 2, color: ColorConstants.primaryColor),
+                      ),
+                      labelText: "User Name",
+                      labelStyle: TextStyle(
+                          fontSize: 15,
+                          color: ColorConstants.colorGrey,
+                          fontWeight: FontWeight.w500),
+                    ),
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   TextFormField(
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              width: 2, color: ColorConstants.colorGrey),
-                        ),
-                        hintText: "Pssword ",
-                        hintStyle: TextStyle(
-                            fontSize: 13,
-                            color: ColorConstants.colorGrey,
-                            fontWeight: FontWeight.w500)),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            width: 2, color: ColorConstants.colorGrey),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            width: 2, color: ColorConstants.primaryColor),
+                      ),
+                      labelText: "Pssword ",
+                      labelStyle: TextStyle(
+                          fontSize: 15,
+                          color: ColorConstants.colorGrey,
+                          fontWeight: FontWeight.w500),
+                    ),
                   ),
+                  Expanded(
+                    child: Center(
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => OwnerHomeScreen(),
+                              ));
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: ColorConstants.primaryColor,
+                          ),
+                          height: 40,
+                          width: 150,
+                          child: Center(
+                            child: Text(
+                              "Sign In",
+                              style: TextStyleConstants.buttonText,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),

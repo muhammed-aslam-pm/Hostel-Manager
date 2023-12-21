@@ -3,6 +3,7 @@ import 'package:hostel_management_app/controller/onBordingControllers/custom_cli
 import 'package:hostel_management_app/controller/onBordingControllers/onboaring_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
+import 'package:hostel_management_app/view/login_and_register_screens/login_screen.dart';
 import 'package:hostel_management_app/view/owner_home_screen/owner_home_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -122,7 +123,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => OwnerHomeScreen(),
+                                    builder: (context) => LoginScreen(),
                                   ));
                             },
                             child: Container(

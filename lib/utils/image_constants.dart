@@ -24,4 +24,5 @@ class ImageConstants {
   static String moneyIcon = "assets/images/money icon.png";
   static String upRightArrowIcon = "assets/images/arrow-up icon.png";
   static String complaintIcon = "assets/images/complaint icon.png";
+  static String announcementIcon = "assets/images/announcement icon.png";
 }

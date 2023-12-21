@@ -57,84 +57,93 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   width: MediaQuery.sizeOf(context).width,
                   height: MediaQuery.sizeOf(context).height * 50 / 100,
                   color: ColorConstants.primaryWhiteColor,
-                  child: Column(children: [
-                    SizedBox(
-                      height: 55,
-                    ),
-                    SmoothPageIndicator(
-                      controller: onBoardingController.pageController,
-                      count: 3,
-                      effect: ExpandingDotsEffect(
-                        activeDotColor: ColorConstants.primaryColor,
-                        dotColor: ColorConstants.SecondaryColor1,
-                        dotHeight: 5,
-                        dotWidth: 10.5,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 55,
                       ),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Container(
-                      width: MediaQuery.sizeOf(context).width * 80 / 100,
-                      height: 150,
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.sizeOf(context).width * 65 / 100,
-                            height:
-                                MediaQuery.sizeOf(context).height * 9.04 / 100,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  onBoardingController.title1,
-                                  style: TextStyleConstants.onboardText1,
-                                ),
-                                Text(
-                                  onBoardingController.title2,
-                                  style: TextStyleConstants.onboardText1,
-                                )
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          SizedBox(
-                            child: Text(
-                              onBoardingController.description,
-                              style: TextStyleConstants.onboardText2,
-                              textAlign: TextAlign.center,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                        child: Center(
-                      child: SizedBox(
-                        height: 40,
-                        width: 150,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => OwnerHomeScreen(),
-                                ));
-                          },
-                          child: Text("Get Now !"),
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll(
-                                ColorConstants.primaryColor),
-                            textStyle: MaterialStatePropertyAll(
-                                TextStyleConstants.onBoardButtonText),
-                          ),
+                      SmoothPageIndicator(
+                        controller: onBoardingController.pageController,
+                        count: 3,
+                        effect: ExpandingDotsEffect(
+                          activeDotColor: ColorConstants.primaryColor,
+                          dotColor: ColorConstants.SecondaryColor1,
+                          dotHeight: 5,
+                          dotWidth: 10.5,
                         ),
                       ),
-                    ))
-                  ]),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Container(
+                        width: MediaQuery.sizeOf(context).width * 80 / 100,
+                        height: 150,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              width:
+                                  MediaQuery.sizeOf(context).width * 65 / 100,
+                              height: MediaQuery.sizeOf(context).height *
+                                  9.04 /
+                                  100,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    onBoardingController.title1,
+                                    style: TextStyleConstants.onboardText1,
+                                  ),
+                                  Text(
+                                    onBoardingController.title2,
+                                    style: TextStyleConstants.onboardText1,
+                                  )
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            SizedBox(
+                              child: Text(
+                                onBoardingController.description,
+                                style: TextStyleConstants.onboardText2,
+                                textAlign: TextAlign.center,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Center(
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => OwnerHomeScreen(),
+                                  ));
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: ColorConstants.primaryColor,
+                              ),
+                              height: 40,
+                              width: 150,
+                              child: Center(
+                                child: Text(
+                                  "Get now",
+                                  style: TextStyleConstants.buttonText,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             )

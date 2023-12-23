@@ -14,4 +14,6 @@ class ColorConstants {
   static Color colorRed = Color(0xFFFF7676);
   static Color colorGrey = Color(0xFFA4A4A4);
   static Color roomsCircleAvatarColor = Color(0x80002661);
+  static Color bedCircleAvtarColor = Color(0xFFD9D9D9);
+  static Color roomsBlackColor = Color(0xFF222222);
 }

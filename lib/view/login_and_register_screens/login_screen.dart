@@ -56,6 +56,10 @@ class LoginScreen extends StatelessWidget {
                         fontSize: 15,
                         color: ColorConstants.colorGrey,
                         fontWeight: FontWeight.w500),
+                    suffixIcon: Icon(
+                      Icons.email_outlined,
+                      color: ColorConstants.primaryColor.withOpacity(0.5),
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -90,6 +94,10 @@ class LoginScreen extends StatelessWidget {
                         fontSize: 15,
                         color: ColorConstants.colorGrey,
                         fontWeight: FontWeight.w500),
+                    suffixIcon: Icon(
+                      Icons.lock,
+                      color: ColorConstants.primaryColor.withOpacity(0.5),
+                    ),
                   ),
                 ),
                 SizedBox(

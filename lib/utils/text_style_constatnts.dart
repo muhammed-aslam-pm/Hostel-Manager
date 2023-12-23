@@ -18,6 +18,13 @@ class TextStyleConstants {
       color: ColorConstants.primaryWhiteColor,
       fontWeight: FontWeight.w500);
 
+  //login
+
+  static TextStyle loginTiltle = TextStyle(
+      fontSize: 35,
+      color: ColorConstants.primaryBlackColor,
+      fontWeight: FontWeight.w900);
+
   //owner dashboard styles
 
   static TextStyle homeMainTitle1 = TextStyle(

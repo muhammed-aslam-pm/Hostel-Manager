@@ -172,15 +172,24 @@ class RoomsViewScreen extends StatelessWidget {
                             SizedBox(
                               height: 10,
                             ),
-                            PentingPaymentNameCard(),
+                            PentingPaymentNameCard(
+                              name: "Rahul",
+                              amount: "1000",
+                            ),
                             SizedBox(
                               height: 10,
                             ),
-                            PentingPaymentNameCard(),
+                            PentingPaymentNameCard(
+                              name: "Rahul",
+                              amount: "1000",
+                            ),
                             SizedBox(
                               height: 10,
                             ),
-                            PentingPaymentNameCard(),
+                            PentingPaymentNameCard(
+                              name: "Rahul",
+                              amount: "1000",
+                            ),
                           ],
                         ),
                       )

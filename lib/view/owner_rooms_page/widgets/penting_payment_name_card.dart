@@ -1,12 +1,14 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 
 class PentingPaymentNameCard extends StatelessWidget {
-  const PentingPaymentNameCard({super.key});
+  const PentingPaymentNameCard(
+      {super.key, required this.name, required this.amount});
+
+  final String name;
+  final String amount;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class PentingPaymentNameCard extends StatelessWidget {
             width: 5,
           ),
           Text(
-            "Name",
+            name,
             style: TextStyleConstants.ownerRoomsText2,
           ),
           SizedBox(
@@ -57,7 +59,7 @@ class PentingPaymentNameCard extends StatelessWidget {
                   width: 4,
                 ),
                 Text(
-                  "8000",
+                  amount,
                   style: TextStyle(color: ColorConstants.primaryWhiteColor),
                 )
               ],

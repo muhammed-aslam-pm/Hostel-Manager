@@ -26,7 +26,11 @@ class RoomsCard extends StatelessWidget {
                   showAdaptiveDialog(
                       barrierColor: Colors.transparent,
                       context: context,
-                      builder: (context) => RoomsViewScreen());
+                      builder: (context) => RoomsViewScreen(
+                            roomNumber: roomNumber,
+                            numberOfBeds: "6",
+                            numberOfVaccentBeds: "2",
+                          ));
                 },
                 child: Container(
                   height: 80,

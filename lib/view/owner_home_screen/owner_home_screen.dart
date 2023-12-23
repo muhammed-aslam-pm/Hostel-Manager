@@ -13,37 +13,6 @@ class OwnerHomeScreen extends StatelessWidget {
     OwnerNavBarController navBarController =
         Provider.of<OwnerNavBarController>(context);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: ColorConstants.primaryWhiteColor,
-        elevation: 0,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Welcom Back,",
-              style: TextStyleConstants.homeMainTitle1,
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Text(
-              "Asha",
-              style: TextStyleConstants.homeMainTitle2,
-            )
-          ],
-        ),
-        actions: [
-          CircleAvatar(
-            radius: 20,
-            backgroundImage: AssetImage(ImageConstants.ownerHomeProfilePhoto),
-          ),
-          SizedBox(
-            width: 30,
-          ),
-        ],
-        titleSpacing: -20,
-      ),
       body: Provider.of<OwnerNavBarController>(context).ownerPages[
           Provider.of<OwnerNavBarController>(context).selectedIndex],
       bottomNavigationBar: BottomNavigationBar(

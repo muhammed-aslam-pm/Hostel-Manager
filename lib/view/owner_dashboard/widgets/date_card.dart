@@ -17,13 +17,8 @@ class DateCard extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               color: ColorConstants.primaryBlackColor.withOpacity(0.3),
-              blurRadius: 3,
-              offset: Offset(0, 3), // Offset for the bottom shadow
-            ),
-            BoxShadow(
-              color: ColorConstants.primaryBlackColor.withOpacity(0.3),
-              blurRadius: 3,
-              offset: Offset(-2, 0), // Offset for the left shadow
+              blurRadius: 1,
+              offset: Offset(0, 2), // Offset for the bottom shadow
             ),
           ]),
       child: Row(

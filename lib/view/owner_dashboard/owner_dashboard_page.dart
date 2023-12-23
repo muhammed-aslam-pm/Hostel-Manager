@@ -4,7 +4,7 @@ import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/owner_dashboard/widgets/announcement_bottom_sheet.dart';
 import 'package:hostel_management_app/view/owner_dashboard/widgets/date_card.dart';
-import 'package:hostel_management_app/view/owner_dashboard/widgets/date_sorting_button.dart';
+import 'package:hostel_management_app/view/global_widgets/date_sorting_button.dart';
 import 'package:hostel_management_app/view/owner_dashboard/widgets/going_to_vaccent_card.dart';
 import 'package:hostel_management_app/view/owner_dashboard/widgets/maintenance_request_card.dart';
 import 'package:hostel_management_app/view/owner_dashboard/widgets/pending_payment_card.dart';
@@ -17,6 +17,37 @@ class OwnerDashBoardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: ColorConstants.primaryWhiteColor,
+        elevation: 0,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "Welcom Back,",
+              style: TextStyleConstants.homeMainTitle1,
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+              "Asha",
+              style: TextStyleConstants.homeMainTitle2,
+            )
+          ],
+        ),
+        actions: [
+          CircleAvatar(
+            radius: 20,
+            backgroundImage: AssetImage(ImageConstants.ownerHomeProfilePhoto),
+          ),
+          SizedBox(
+            width: 30,
+          ),
+        ],
+        titleSpacing: -20,
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20),
@@ -59,7 +90,7 @@ class OwnerDashBoardPage extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 17, left: 20),
                 child: Row(
                   children: [
-                    DateSortingButton(),
+                    DateSortingButton(title: "This month"),
                     SizedBox(
                       width: 18.6,
                     ),

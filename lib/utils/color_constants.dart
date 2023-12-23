@@ -13,4 +13,5 @@ class ColorConstants {
   static Color SecondaryColor5 = Color(0x8083A3AA);
   static Color colorRed = Color(0xFFFF7676);
   static Color colorGrey = Color(0xFFA4A4A4);
+  static Color roomsCircleAvatarColor = Color(0x80002661);
 }

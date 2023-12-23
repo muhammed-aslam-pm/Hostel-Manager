@@ -18,7 +18,7 @@ class TextStyleConstants {
       color: ColorConstants.primaryWhiteColor,
       fontWeight: FontWeight.w500);
 
-  //homescreen styles
+  //owner dashboard styles
 
   static TextStyle homeMainTitle1 = TextStyle(
       fontSize: 19.6,
@@ -98,5 +98,16 @@ class TextStyleConstants {
   static TextStyle complaintText2 = TextStyle(
       fontSize: 12,
       color: ColorConstants.colorGrey,
+      fontWeight: FontWeight.w400);
+
+  //owner rooms
+  static TextStyle ownerRoomsCircleAvtarText = TextStyle(
+      fontSize: 15,
+      color: ColorConstants.primaryWhiteColor,
+      fontWeight: FontWeight.w500);
+
+  static TextStyle ownerRoomsText2 = TextStyle(
+      fontSize: 12,
+      color: ColorConstants.primaryBlackColor,
       fontWeight: FontWeight.w400);
 }

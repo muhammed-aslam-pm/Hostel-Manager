@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 
 class DateSortingButton extends StatelessWidget {
-  const DateSortingButton({super.key});
+  const DateSortingButton({super.key, required this.title});
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class DateSortingButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("This month"),
+          Text(title),
           DropdownButton(
             items: [],
             onChanged: (value) {},

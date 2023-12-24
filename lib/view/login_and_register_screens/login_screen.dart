@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
+import 'package:hostel_management_app/view/global_widgets/login_button.dart';
 import 'package:hostel_management_app/view/owner_home_screen/owner_home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -123,30 +124,16 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(
                   height: 15,
                 ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => OwnerHomeScreen(),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: ColorConstants.primaryColor,
-                    ),
-                    height: 45,
-                    width: double.infinity,
-                    child: Center(
-                      child: Text(
-                        "Login",
-                        style: TextStyleConstants.buttonText,
-                      ),
-                    ),
-                  ),
-                ),
+                LoginButton(
+                    buttonName: "Login",
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => OwnerHomeScreen(),
+                        ),
+                      );
+                    }),
                 SizedBox(
                   height: 15,
                 ),

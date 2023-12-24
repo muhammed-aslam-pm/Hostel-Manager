@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/global_widgets/login_button.dart';
+import 'package:hostel_management_app/view/login_and_register_screens/create_new_password_screen.dart';
 
 class OTPVerivicationScreen extends StatelessWidget {
   const OTPVerivicationScreen({super.key});
@@ -129,7 +130,16 @@ class OTPVerivicationScreen extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              LoginButton(buttonName: "Verify")
+              LoginButton(
+                buttonName: "Verify",
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CreateNewPasswordScreen(),
+                      ));
+                },
+              )
             ],
           ),
         ),

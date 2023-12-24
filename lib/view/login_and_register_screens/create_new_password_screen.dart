@@ -3,6 +3,7 @@ import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/global_widgets/login_button.dart';
 import 'package:hostel_management_app/view/login_and_register_screens/otp_verification_screen.dart';
+import 'package:hostel_management_app/view/login_and_register_screens/password_changed_screen.dart';
 
 class CreateNewPasswordScreen extends StatelessWidget {
   const CreateNewPasswordScreen({super.key});
@@ -118,7 +119,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => OTPVerivicationScreen(),
+                      builder: (context) => PasswordChangedScreen(),
                     ),
                   );
                 },

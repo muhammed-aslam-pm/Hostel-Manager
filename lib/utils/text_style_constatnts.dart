@@ -25,6 +25,11 @@ class TextStyleConstants {
       color: ColorConstants.primaryBlackColor,
       fontWeight: FontWeight.w900);
 
+  static TextStyle loginSubtitle1 = TextStyle(
+      fontSize: 14,
+      color: ColorConstants.colorGrey,
+      fontWeight: FontWeight.w500);
+
   //owner dashboard styles
 
   static TextStyle homeMainTitle1 = TextStyle(

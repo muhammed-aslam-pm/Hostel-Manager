@@ -3,6 +3,7 @@ import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/global_widgets/login_button.dart';
+import 'package:hostel_management_app/view/login_and_register_screens/fogot_password_screen.dart';
 import 'package:hostel_management_app/view/owner_home_screen/owner_home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -52,7 +53,7 @@ class LoginScreen extends StatelessWidget {
                       borderSide: BorderSide(
                           width: 2, color: ColorConstants.primaryColor),
                     ),
-                    hintText: "User Name",
+                    hintText: "Enter your email",
                     hintStyle: TextStyle(
                         fontSize: 15,
                         color: ColorConstants.colorGrey,
@@ -70,7 +71,7 @@ class LoginScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      "Password",
+                      "Enter your password",
                       style: TextStyleConstants.dashboardBookingName,
                     )
                   ],
@@ -118,7 +119,16 @@ class LoginScreen extends StatelessWidget {
                         Text("Remember")
                       ],
                     ),
-                    Text("Forgot Password?")
+                    InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ForgotPasswordScreen(),
+                            ),
+                          );
+                        },
+                        child: Text("Forgot Password?"))
                   ],
                 ),
                 SizedBox(

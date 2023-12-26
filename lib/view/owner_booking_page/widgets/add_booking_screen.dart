@@ -4,6 +4,7 @@ import 'package:hostel_management_app/utils/image_constants.dart';
 import 'dart:ui' as ui;
 
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
+import 'package:hostel_management_app/view/owner_booking_page/booking_successfull_page.dart';
 
 class AddBookingScreen extends StatelessWidget {
   const AddBookingScreen({super.key});
@@ -195,12 +196,16 @@ class AddBookingScreen extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 0,
                   ),
                   Center(
                     child: InkWell(
                       onTap: () {
-                        Navigator.pop(context);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BokkingsuccessfullScreen(),
+                            ));
                       },
                       child: Container(
                         height: 50,

@@ -6,7 +6,7 @@ import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/global_widgets/date_sorting_button.dart';
 import 'package:hostel_management_app/view/owner_booking_page/widgets/bookings_card.dart';
-import 'package:hostel_management_app/view/owner_rooms_page/widgets/room_card.dart';
+import 'package:hostel_management_app/view/global_widgets/room_card.dart';
 
 class OwnerBookingsPage extends StatelessWidget {
   const OwnerBookingsPage({super.key});

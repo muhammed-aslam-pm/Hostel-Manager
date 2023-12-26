@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
@@ -24,7 +22,7 @@ class AddBookingScreen extends StatelessWidget {
           height: double.infinity,
           width: double.infinity,
           decoration: BoxDecoration(
-              color: ColorConstants.SecondaryColor5,
+              color: ColorConstants.SecondaryColor5.withOpacity(0.5),
               borderRadius: BorderRadius.circular(40)),
           padding: EdgeInsets.all(25),
           child: Scaffold(
@@ -67,7 +65,7 @@ class AddBookingScreen extends StatelessWidget {
                             style: TextStyleConstants.OwnerRoomNumber3,
                           ),
                           SizedBox(
-                            height: 30,
+                            height: 20,
                           ),
                         ],
                       ),
@@ -197,7 +195,7 @@ class AddBookingScreen extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 10,
                   ),
                   Center(
                     child: InkWell(

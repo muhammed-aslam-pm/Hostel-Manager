@@ -3,7 +3,6 @@ import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/global_widgets/login_button.dart';
 import 'package:hostel_management_app/view/login_and_register_screens/login_screen.dart';
-import 'package:hostel_management_app/view/login_and_register_screens/otp_verification_screen.dart';
 
 class PasswordChangedScreen extends StatelessWidget {
   const PasswordChangedScreen({super.key});

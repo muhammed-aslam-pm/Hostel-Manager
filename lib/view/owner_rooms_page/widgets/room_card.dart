@@ -9,9 +9,11 @@ class RoomsCard extends StatelessWidget {
     super.key,
     required this.roomNumber,
     required this.vaccentBedNumber,
+    this.onTap,
   });
   final String roomNumber;
   final String vaccentBedNumber;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +24,7 @@ class RoomsCard extends StatelessWidget {
               bottom: 0,
               left: 0,
               child: InkWell(
-                onTap: () {
-                  showAdaptiveDialog(
-                      barrierColor: Colors.transparent,
-                      context: context,
-                      builder: (context) => RoomsViewScreen(
-                            roomNumber: roomNumber,
-                            numberOfBeds: "6",
-                            numberOfVaccentBeds: "2",
-                          ));
-                },
+                onTap: onTap,
                 child: Container(
                   height: 80,
                   width: 90,

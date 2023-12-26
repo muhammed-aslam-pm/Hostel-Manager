@@ -3,6 +3,7 @@ import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/global_widgets/date_sorting_button.dart';
 import 'package:hostel_management_app/view/owner_rooms_page/widgets/room_card.dart';
+import 'package:hostel_management_app/view/owner_rooms_page/widgets/rooms_view_page.dart';
 
 class OwnerRoomsPage extends StatelessWidget {
   const OwnerRoomsPage({super.key});
@@ -17,6 +18,7 @@ class OwnerRoomsPage extends StatelessWidget {
         ),
         backgroundColor: ColorConstants.primaryWhiteColor,
         elevation: 0,
+        leadingWidth: 10,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -96,6 +98,17 @@ class OwnerRoomsPage extends StatelessWidget {
                 itemBuilder: (context, index) => RoomsCard(
                   roomNumber: index.toString(),
                   vaccentBedNumber: "3",
+                  onTap: () {
+                    showAdaptiveDialog(
+                      barrierColor: Colors.transparent,
+                      context: context,
+                      builder: (context) => RoomsViewScreen(
+                        roomNumber: index.toString(),
+                        numberOfBeds: "6",
+                        numberOfVaccentBeds: "2",
+                      ),
+                    );
+                  },
                 ),
               )
             ],

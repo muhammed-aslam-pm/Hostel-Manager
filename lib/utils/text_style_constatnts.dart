@@ -137,4 +137,14 @@ class TextStyleConstants {
       fontSize: 35,
       color: ColorConstants.primaryWhiteColor,
       fontWeight: FontWeight.w800);
+
+  static TextStyle bookingsJoiningDate = TextStyle(
+      fontSize: 13,
+      color: ColorConstants.colorGreen,
+      fontWeight: FontWeight.w500);
+
+  static TextStyle bookingsRoomNumber = TextStyle(
+      fontSize: 16,
+      color: ColorConstants.colorGreen,
+      fontWeight: FontWeight.w500);
 }

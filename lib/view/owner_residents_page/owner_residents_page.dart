@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/global_widgets/date_sorting_button.dart';
+import 'package:hostel_management_app/view/owner_residents_page/widgets/residents_adding_form.dart';
 import 'package:hostel_management_app/view/owner_residents_page/widgets/residents_detailes_card.dart';
 
 class OwnerResidentsPage extends StatelessWidget {
@@ -50,6 +51,27 @@ class OwnerResidentsPage extends StatelessWidget {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        onPressed: () {
+          showModalBottomSheet(
+            isScrollControlled: true,
+            context: context,
+            builder: (context) => ResidentsAddingPage(),
+            elevation: 10,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+            ),
+            useSafeArea: true,
+          );
+        },
+        child: Icon(
+          Icons.person_add_alt_1,
+          color: ColorConstants.primaryColor,
+        ),
+        backgroundColor: ColorConstants.primaryWhiteColor,
+        elevation: 50,
       ),
     );
   }

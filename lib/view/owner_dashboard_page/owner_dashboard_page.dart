@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
+import 'package:hostel_management_app/view/all_pending_payments_screen/pending_payments_screen.dart';
 import 'package:hostel_management_app/view/announcement_adding_form/announcement_bottom_sheet.dart';
 import 'package:hostel_management_app/view/owner_dashboard_page/widgets/date_card.dart';
 import 'package:hostel_management_app/view/global_widgets/date_sorting_button.dart';
@@ -162,9 +163,12 @@ class OwnerDashBoardPage extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  "Pending Payments",
-                  style: TextStyleConstants.dashboardSubtitle1,
+                child: Hero(
+                  tag: Title,
+                  child: Text(
+                    "Pending Payments",
+                    style: TextStyleConstants.dashboardSubtitle1,
+                  ),
                 ),
               ),
               Padding(
@@ -190,7 +194,14 @@ class OwnerDashBoardPage extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PendingPaymentsScreen(),
+                        ),
+                      );
+                    },
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/global_widgets/date_sorting_button.dart';
-import 'package:hostel_management_app/view/owner_residents_page/widgets/residents_adding_form.dart';
+import 'package:hostel_management_app/view/owner_rooms_page/residents_adding_form.dart';
 import 'package:hostel_management_app/view/owner_residents_page/widgets/residents_detailes_card.dart';
 
 class OwnerResidentsPage extends StatelessWidget {
@@ -27,16 +27,16 @@ class OwnerResidentsPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [DateSortingButton(title: "All Residents")],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               ListView.separated(
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) => ResidentsDetailescard(
                       roomNumber: 1,
                       bedNumber: 3,
@@ -58,20 +58,20 @@ class OwnerResidentsPage extends StatelessWidget {
           showModalBottomSheet(
             isScrollControlled: true,
             context: context,
-            builder: (context) => ResidentsAddingPage(),
+            builder: (context) => const ResidentsAddingPage(),
             elevation: 10,
-            shape: RoundedRectangleBorder(
+            shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             ),
             useSafeArea: true,
           );
         },
+        backgroundColor: ColorConstants.primaryWhiteColor,
+        elevation: 50,
         child: Icon(
           Icons.person_add_alt_1,
           color: ColorConstants.primaryColor,
         ),
-        backgroundColor: ColorConstants.primaryWhiteColor,
-        elevation: 50,
       ),
     );
   }

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
-import 'package:hostel_management_app/view/owner_dashboard/widgets/announcement_bottom_sheet.dart';
-import 'package:hostel_management_app/view/owner_dashboard/widgets/date_card.dart';
+import 'package:hostel_management_app/view/announcement_adding_form/announcement_bottom_sheet.dart';
+import 'package:hostel_management_app/view/owner_dashboard_page/widgets/date_card.dart';
 import 'package:hostel_management_app/view/global_widgets/date_sorting_button.dart';
-import 'package:hostel_management_app/view/owner_dashboard/widgets/going_to_vaccent_card.dart';
-import 'package:hostel_management_app/view/owner_dashboard/widgets/maintenance_request_card.dart';
-import 'package:hostel_management_app/view/owner_dashboard/widgets/pending_payment_card.dart';
-import 'package:hostel_management_app/view/owner_dashboard/widgets/rooms_vaccent_card.dart';
-import 'package:hostel_management_app/view/owner_dashboard/widgets/upcoming_bookings_card.dart';
+import 'package:hostel_management_app/view/owner_dashboard_page/widgets/going_to_vaccent_card.dart';
+import 'package:hostel_management_app/view/owner_dashboard_page/widgets/maintenance_request_card.dart';
+import 'package:hostel_management_app/view/owner_dashboard_page/widgets/pending_payment_card.dart';
+import 'package:hostel_management_app/view/owner_dashboard_page/widgets/rooms_vaccent_card.dart';
+import 'package:hostel_management_app/view/owner_dashboard_page/widgets/upcoming_bookings_card.dart';
 
 class OwnerDashBoardPage extends StatelessWidget {
   const OwnerDashBoardPage({super.key});

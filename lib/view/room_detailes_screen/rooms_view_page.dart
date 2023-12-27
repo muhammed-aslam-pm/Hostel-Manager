@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
-import 'package:hostel_management_app/view/owner_rooms_page/widgets/penting_payment_name_card.dart';
+import 'package:hostel_management_app/view/room_detailes_screen/widgets/penting_payment_name_card.dart';
 import 'dart:ui' as ui;
 
 class RoomsViewScreen extends StatelessWidget {

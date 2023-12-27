@@ -20,13 +20,16 @@ class ResidentsAddingPage extends StatelessWidget {
                 child: Stack(
                   children: [
                     Positioned(
-                        child: CircleAvatar(
-                      radius: 50,
-                      backgroundColor: ColorConstants.SecondaryColor4,
-                      child: Icon(
-                        Icons.person,
-                        color: ColorConstants.primaryBlackColor,
-                        size: 40,
+                        child: Hero(
+                      tag: Form,
+                      child: CircleAvatar(
+                        radius: 50,
+                        backgroundColor: ColorConstants.SecondaryColor4,
+                        child: Icon(
+                          Icons.person,
+                          color: ColorConstants.primaryBlackColor,
+                          size: 40,
+                        ),
                       ),
                     )),
                     Positioned(
@@ -186,6 +189,29 @@ class ResidentsAddingPage extends StatelessWidget {
               height: 10,
             ),
             Text("Emergency Contact no"),
+            SizedBox(
+              height: 10,
+            ),
+            SizedBox(
+              height: 50,
+              child: TextFormField(
+                decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                          width: 1.5, color: ColorConstants.primaryColor),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                          width: 2, color: ColorConstants.primaryColor),
+                    )),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text("Purpose of Stay"),
             SizedBox(
               height: 10,
             ),

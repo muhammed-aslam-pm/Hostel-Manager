@@ -64,12 +64,9 @@ class RoomsCard extends StatelessWidget {
               child: CircleAvatar(
                 radius: 15,
                 backgroundColor: ColorConstants.SecondaryColor4,
-                child: Hero(
-                  tag: Image,
-                  child: Image.asset(
-                    ImageConstants.ownerRoomsIconeDisabled,
-                    color: ColorConstants.primaryBlackColor,
-                  ),
+                child: Image.asset(
+                  ImageConstants.ownerRoomsIconeDisabled,
+                  color: ColorConstants.primaryBlackColor,
                 ),
               )),
           Positioned(

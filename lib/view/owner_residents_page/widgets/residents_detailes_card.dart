@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
-import 'package:hostel_management_app/view/owner_residents_page/resident_deatailes_screen.dart';
+import 'package:hostel_management_app/view/resident_detailes_screen/resident_deatailes_screen.dart';
 
 class ResidentsDetailescard extends StatelessWidget {
   const ResidentsDetailescard(

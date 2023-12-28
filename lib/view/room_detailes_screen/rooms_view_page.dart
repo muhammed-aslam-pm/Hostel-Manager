@@ -79,6 +79,38 @@ class RoomsViewScreen extends StatelessWidget {
                     height: 20,
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            color: ColorConstants.primaryWhiteColor),
+                        padding: EdgeInsets.only(right: 15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            CircleAvatar(
+                              radius: 20,
+                              backgroundColor:
+                                  ColorConstants.bedCircleAvtarColor,
+                              child: Image.asset(
+                                ImageConstants.moneyIcon,
+                                color: ColorConstants.primaryBlackColor,
+                              ),
+                            ),
+                            Text(
+                              "  5750",
+                              style: TextStyleConstants.dashboardBookingName,
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Container(

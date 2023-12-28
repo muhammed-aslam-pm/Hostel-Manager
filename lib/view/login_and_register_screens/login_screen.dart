@@ -4,6 +4,7 @@ import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/global_widgets/login_button.dart';
 import 'package:hostel_management_app/view/login_and_register_screens/fogot_password_screen.dart';
+import 'package:hostel_management_app/view/login_and_register_screens/register_screen.dart';
 import 'package:hostel_management_app/view/owner_home_screen/owner_home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -151,7 +152,15 @@ class LoginScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text("Don't have an account? "),
-                    TextButton(onPressed: () {}, child: Text("Register Now"))
+                    TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => RegisterScreen(),
+                              ));
+                        },
+                        child: Text("Signup Now"))
                   ],
                 ),
                 SizedBox(

@@ -33,13 +33,14 @@ class ResidentsAddingPage extends StatelessWidget {
                       ),
                     )),
                     Positioned(
-                        bottom: 3,
-                        right: 3,
-                        child: CircleAvatar(
-                          radius: 13,
-                          backgroundColor: ColorConstants.SecondaryColor5,
-                          child: Icon(Icons.add),
-                        ))
+                      bottom: 3,
+                      right: 3,
+                      child: CircleAvatar(
+                        radius: 13,
+                        backgroundColor: ColorConstants.SecondaryColor5,
+                        child: Icon(Icons.add),
+                      ),
+                    )
                   ],
                 ),
               ),

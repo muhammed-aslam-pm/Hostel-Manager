@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/global_widgets/date_sorting_button.dart';
-import 'package:hostel_management_app/view/owner_rooms_page/residents_adding_form.dart';
+import 'package:hostel_management_app/view/residents_adding_form/residents_adding_form.dart';
 import 'package:hostel_management_app/view/owner_residents_page/widgets/residents_detailes_card.dart';
 
 class OwnerResidentsPage extends StatelessWidget {

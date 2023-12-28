@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
-import 'package:hostel_management_app/view/owner_rooms_page/residents_adding_form.dart';
+import 'package:hostel_management_app/view/residents_adding_form/residents_adding_form.dart';
 
 class ResidentDetailesScreen extends StatelessWidget {
   const ResidentDetailesScreen({super.key});

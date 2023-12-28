@@ -33,4 +33,7 @@ class ImageConstants {
   //Rooms
   static String roomsIcon2 = "assets/images/rooms icon 3.png";
   static String bedIcon2 = "assets/images/bed Icon 2.png";
+  static String washingMachineIcon = "assets/images/washing_machine.png";
+  static String ACIcon = "assets/images/air onditioner icon.png";
+  static String bathroomIcon = "assets/images/bathroom icon.png";
 }

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
-import 'package:hostel_management_app/view/room_detailes_screen/widgets/penting_payment_name_card.dart';
+import 'package:hostel_management_app/view/room_detailes_screen/widgets/facilities_card.dart';
 import 'dart:ui' as ui;
+
+import 'package:hostel_management_app/view/room_detailes_screen/widgets/residents_name_card.dart';
 
 class RoomsViewScreen extends StatelessWidget {
   RoomsViewScreen(
@@ -24,7 +26,7 @@ class RoomsViewScreen extends StatelessWidget {
         sigmaY: 1.0,
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 120),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 50),
         child: Container(
           decoration: BoxDecoration(
               color: ColorConstants.primaryColor.withOpacity(.7),
@@ -71,129 +73,127 @@ class RoomsViewScreen extends StatelessWidget {
                         roomNumber,
                         style: TextStyleConstants.OwnerRoomNumber3,
                       ),
-                      SizedBox(
-                        height: 40,
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            color: ColorConstants.primaryWhiteColor),
+                        padding: EdgeInsets.only(right: 15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            CircleAvatar(
+                              radius: 25,
+                              backgroundColor:
+                                  ColorConstants.bedCircleAvtarColor,
+                              child: Image.asset(
+                                ImageConstants.bedIcon2,
+                                color: ColorConstants.primaryBlackColor,
+                              ),
+                            ),
+                            Text(
+                              "  Total Bed : ",
+                              style: TextStyleConstants.ownerRoomsText2,
+                            ),
+                            Text(
+                              numberOfBeds,
+                              style: TextStyleConstants.dashboardVacentRoom1,
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            color: ColorConstants.primaryWhiteColor),
+                        padding: EdgeInsets.only(right: 15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            CircleAvatar(
+                              radius: 25,
+                              backgroundColor:
+                                  ColorConstants.bedCircleAvtarColor,
+                              child: Image.asset(
+                                ImageConstants.bedIcon2,
+                                color: ColorConstants.primaryBlackColor,
+                              ),
+                            ),
+                            Text(
+                              "  Vacant Bed : ",
+                              style: TextStyleConstants.ownerRoomsText2,
+                            ),
+                            Text(
+                              numberOfVaccentBeds,
+                              style: TextStyleConstants.dashboardVacentRoom1,
+                            )
+                          ],
+                        ),
                       ),
                     ],
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Container(
-                        width:
-                            MediaQuery.sizeOf(context).width * (50 / 100) - 35,
-                        height: 200,
-                        child: Stack(children: [
-                          Positioned(
-                            top: 25,
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 30, horizontal: 10),
-                              height: 142,
-                              width: MediaQuery.sizeOf(context).width *
-                                      (50 / 100) -
-                                  35,
-                              decoration: BoxDecoration(
-                                color: ColorConstants.primaryWhiteColor,
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Text(
-                                        "Bed Vaccent",
-                                        overflow: TextOverflow.ellipsis,
-                                        style:
-                                            TextStyleConstants.ownerRoomsText2,
-                                      ),
-                                      Text(
-                                        numberOfVaccentBeds,
-                                        style: TextStyleConstants
-                                            .dashboardVacentRoom1,
-                                      )
-                                    ],
-                                  ),
-                                  Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Text(
-                                        "Total Bed",
-                                        style:
-                                            TextStyleConstants.ownerRoomsText2,
-                                      ),
-                                      Text(
-                                        numberOfBeds,
-                                        style: TextStyleConstants
-                                            .dashboardVacentRoom1,
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                              top: 0,
-                              left: 10,
-                              right: 10,
-                              child: CircleAvatar(
-                                radius: 25,
-                                backgroundColor:
-                                    ColorConstants.bedCircleAvtarColor,
-                                child: Image.asset(
-                                  ImageConstants.bedIcon2,
-                                  color: ColorConstants.primaryBlackColor,
-                                ),
-                              )),
-                        ]),
+                      Text(
+                        "Facilities :",
+                        style: TextStyleConstants.OwnerRoomNumber2,
                       ),
-                      Container(
-                        padding: EdgeInsets.only(left: 10),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              color: ColorConstants.roomsBlackColor
-                                  .withOpacity(.25),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 5),
-                              child: Text(
-                                "Pending Payments",
-                                style: TextStyleConstants.upComingVaccencyText1,
-                                overflow: TextOverflow.clip,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            PentingPaymentNameCard(
-                              name: "Rahul",
-                              amount: "1000",
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            PentingPaymentNameCard(
-                              name: "Rahul",
-                              amount: "1000",
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            PentingPaymentNameCard(
-                              name: "Rahul",
-                              amount: "1000",
-                            ),
-                          ],
-                        ),
-                      )
                     ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        FacilitiesCard(
+                          name: "Washing Machine",
+                          icon: ImageConstants.washingMachineIcon,
+                        ),
+                        FacilitiesCard(
+                            name: "A/c", icon: ImageConstants.ACIcon),
+                        FacilitiesCard(
+                            name: "Atteched Bathroom",
+                            icon: ImageConstants.bathroomIcon),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Residents :",
+                        style: TextStyleConstants.OwnerRoomNumber2,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  ListView.separated(
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) => ResidentsNameCard(),
+                    separatorBuilder: (context, index) => Divider(
+                      height: 10,
+                    ),
+                    itemCount: int.parse(numberOfBeds) -
+                        int.parse(numberOfVaccentBeds),
                   )
                 ],
               ),

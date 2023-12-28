@@ -4,6 +4,7 @@ import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/global_widgets/date_sorting_button.dart';
 import 'package:hostel_management_app/view/global_widgets/room_card.dart';
 import 'package:hostel_management_app/view/room_detailes_screen/rooms_view_page.dart';
+import 'package:hostel_management_app/view/rooms_adding_form/rooms_adding_form.dart';
 
 class OwnerRoomsPage extends StatelessWidget {
   const OwnerRoomsPage({super.key});
@@ -114,6 +115,32 @@ class OwnerRoomsPage extends StatelessWidget {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        onPressed: () {
+          showModalBottomSheet(
+            isScrollControlled: true,
+            context: context,
+            builder: (context) => Padding(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: RoomsAddingForm(),
+            ),
+            elevation: 10,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+            ),
+            useSafeArea: true,
+          );
+        },
+        child: Icon(
+          Icons.add,
+          color: ColorConstants.primaryColor,
+          size: 30,
+        ),
+        backgroundColor: ColorConstants.primaryWhiteColor,
+        elevation: 20,
       ),
     );
   }

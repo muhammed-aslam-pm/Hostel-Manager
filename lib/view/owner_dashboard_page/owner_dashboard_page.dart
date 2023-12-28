@@ -241,9 +241,12 @@ class OwnerDashBoardPage extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  "Maintenance Request",
-                  style: TextStyleConstants.dashboardSubtitle1,
+                child: Hero(
+                  tag: "Maintenance request",
+                  child: Text(
+                    "Maintenance Request",
+                    style: TextStyleConstants.dashboardSubtitle1,
+                  ),
                 ),
               ),
               SizedBox(

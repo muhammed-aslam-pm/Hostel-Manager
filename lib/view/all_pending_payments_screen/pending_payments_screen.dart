@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
@@ -20,9 +18,16 @@ class PendingPaymentsScreen extends StatelessWidget {
             style: TextStyleConstants.homeMainTitle2,
           ),
         ),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back_ios_new,
+              color: ColorConstants.primaryColor,
+            )),
         backgroundColor: ColorConstants.primaryWhiteColor,
         elevation: 0,
-        leadingWidth: 10,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),

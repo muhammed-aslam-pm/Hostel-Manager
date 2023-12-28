@@ -11,6 +11,7 @@ import 'package:hostel_management_app/view/owner_dashboard_page/widgets/maintena
 import 'package:hostel_management_app/view/owner_dashboard_page/widgets/pending_payment_card.dart';
 import 'package:hostel_management_app/view/owner_dashboard_page/widgets/rooms_vaccent_card.dart';
 import 'package:hostel_management_app/view/owner_dashboard_page/widgets/upcoming_bookings_card.dart';
+import 'package:hostel_management_app/view/vacant_beds_screen/vacant_beds_screen.dart';
 
 class OwnerDashBoardPage extends StatelessWidget {
   const OwnerDashBoardPage({super.key});
@@ -65,15 +66,31 @@ class OwnerDashBoardPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     RoomVaccentCard(
-                        title: "Rooms Vacentnt",
-                        number: "24",
-                        bgColor: ColorConstants.SecondaryColor2,
-                        image: ImageConstants.ownerRoomsIconeDisabled),
+                      title: "Beds Vacantnt",
+                      number: "24",
+                      bgColor: ColorConstants.SecondaryColor2,
+                      image: ImageConstants.ownerRoomsIconeDisabled,
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => VacantBedsScreen(),
+                            ));
+                      },
+                    ),
                     RoomVaccentCard(
-                        title: "Paymenys penting",
-                        number: "12",
-                        bgColor: ColorConstants.SecondaryColor1,
-                        image: ImageConstants.ownerRoomsIconeDisabled),
+                      title: "Paymenys penting",
+                      number: "12",
+                      bgColor: ColorConstants.SecondaryColor1,
+                      image: ImageConstants.ownerRoomsIconeDisabled,
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PendingPaymentsScreen(),
+                            ));
+                      },
+                    ),
                   ],
                 ),
               ),

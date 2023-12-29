@@ -33,7 +33,7 @@ class RegisterScreen extends StatelessWidget {
                 color: ColorConstants.primaryWhiteColor,
                 borderRadius: BorderRadius.circular(30),
               ),
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.only(left: 20, right: 20, bottom: 15),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -46,10 +46,13 @@ class RegisterScreen extends StatelessWidget {
                     ),
                     Text(
                       "Sign up",
-                      style: TextStyleConstants.loginTiltle,
+                      style: TextStyle(
+                          color: ColorConstants.primaryColor,
+                          fontSize: 25,
+                          fontWeight: FontWeight.w700),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -88,7 +91,7 @@ class RegisterScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -131,7 +134,7 @@ class RegisterScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -172,7 +175,7 @@ class RegisterScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -226,6 +229,49 @@ class RegisterScreen extends StatelessWidget {
                             ),
                           );
                         },
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          height: 1,
+                          color: ColorConstants.colorGrey,
+                          width: MediaQuery.sizeOf(context).width * 35 / 100,
+                        ),
+                        Text(
+                          "or",
+                          style: TextStyle(color: ColorConstants.colorGrey),
+                        ),
+                        Container(
+                          height: 1,
+                          width: MediaQuery.sizeOf(context).width * 35 / 100,
+                          color: ColorConstants.colorGrey,
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      height: 47,
+                      padding: EdgeInsets.symmetric(vertical: 14),
+                      color: ColorConstants.secondaryWhiteColor,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(ImageConstants.googleLogo),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            "Sign in with Google",
+                            style: TextStyleConstants.dashboardDate,
+                          )
+                        ],
                       ),
                     ),
                   ],

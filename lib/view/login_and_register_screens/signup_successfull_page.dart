@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
-import 'package:hostel_management_app/view/login_and_register_screens/login_screen.dart';
+import 'package:hostel_management_app/view/account_setup_screen/account_setup_screen.dart';
 
 class SignUpSuccessfullScree extends StatefulWidget {
   const SignUpSuccessfullScree({super.key});
@@ -19,7 +19,7 @@ class _SignUpSuccessfullScreeState extends State<SignUpSuccessfullScree> {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => LoginScreen(),
+              builder: (context) => AccountSetupScreen(),
             ));
       },
     );

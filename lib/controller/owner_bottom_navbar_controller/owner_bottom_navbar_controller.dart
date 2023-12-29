@@ -10,7 +10,7 @@ class OwnerNavBarController with ChangeNotifier {
     OwnerDashBoardPage(),
     OwnerRoomsPage(),
     OwnerBookingsPage(),
-    OwnerResidentsPage()
+    OwnerResidentsPage(),
   ];
 
   void onNavTap(index) {

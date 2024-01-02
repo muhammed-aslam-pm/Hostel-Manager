@@ -21,18 +21,19 @@ class AccountSetupScreen extends StatelessWidget {
                 child: Stack(
                   children: [
                     Positioned(
-                        child: Hero(
-                      tag: Form,
-                      child: CircleAvatar(
-                        radius: 50,
-                        backgroundColor: ColorConstants.SecondaryColor4,
-                        child: Icon(
-                          Icons.person,
-                          color: ColorConstants.primaryBlackColor,
-                          size: 40,
+                      child: Hero(
+                        tag: Form,
+                        child: CircleAvatar(
+                          radius: 50,
+                          backgroundColor: ColorConstants.SecondaryColor4,
+                          child: Icon(
+                            Icons.person,
+                            color: ColorConstants.primaryBlackColor,
+                            size: 40,
+                          ),
                         ),
                       ),
-                    )),
+                    ),
                     Positioned(
                       bottom: 3,
                       right: 3,

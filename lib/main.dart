@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hostel_management_app/controller/account_setup_screen_controller/account_setup_screen_controller.dart';
 import 'package:hostel_management_app/controller/onBordingControllers/onboaring_controller.dart';
 import 'package:hostel_management_app/controller/owner_bottom_navbar_controller/owner_bottom_navbar_controller.dart';
 import 'package:hostel_management_app/controller/residents_controller/residents_controller.dart';
@@ -24,9 +25,12 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => residentsController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => AccountSetUpScreenController(),
         )
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: SplashScreen(),
       ),

@@ -12,7 +12,6 @@ class AccountSetUpScreenController with ChangeNotifier {
     '8',
   ];
   String selectedValue = "1";
-  notifyListeners();
 
   onChanged({required String value}) {
     selectedValue = value;

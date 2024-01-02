@@ -11,7 +11,7 @@ class CustomDropdownButton1 extends StatelessWidget {
     required this.height,
     required this.width,
   });
-  final selectedValue;
+  final String selectedValue;
   final List<String> items;
   final Function(String) onChanged;
   final double height;
@@ -65,7 +65,7 @@ class CustomDropdownButton1 extends StatelessWidget {
           ),
         ),
         iconStyleData: IconStyleData(
-          icon: Icon(
+          icon: const Icon(
             Icons.keyboard_arrow_down,
           ),
           iconSize: 25,
@@ -77,7 +77,8 @@ class CustomDropdownButton1 extends StatelessWidget {
             width: width,
             offset: const Offset(0, 10),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
+              borderRadius:
+                  const BorderRadius.vertical(bottom: Radius.circular(10)),
               color: ColorConstants.primaryColor,
             ),
             scrollbarTheme: ScrollbarThemeData(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/account_setup_screen_controller/account_setup_screen_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
+import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/global_widgets/custom_dropdown_button.dart';
 import 'package:hostel_management_app/view/global_widgets/login_button.dart';
 import 'package:provider/provider.dart';
@@ -76,7 +77,10 @@ class AccountSetupScreen extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    Text("Your Hostel Name"),
+                    Text(
+                      "Your Hostel Name",
+                      style: TextStyleConstants.dashboardBookingName,
+                    ),
                     SizedBox(
                       height: 10,
                     ),
@@ -105,7 +109,10 @@ class AccountSetupScreen extends StatelessWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text("No of Floors :     "),
+                        Text(
+                          "No of Floors :     ",
+                          style: TextStyleConstants.dashboardBookingName,
+                        ),
                         CustomDropdownButton1(
                           height: 50,
                           width: 100,
@@ -129,6 +136,7 @@ class AccountSetupScreen extends StatelessWidget {
                     ),
                     Text(
                       "No of Rooms In Each Floor",
+                      style: TextStyleConstants.dashboardBookingName,
                       textAlign: TextAlign.start,
                     ),
                     SizedBox(
@@ -141,14 +149,20 @@ class AccountSetupScreen extends StatelessWidget {
                           Provider.of<AccountSetUpScreenController>(context)
                               .selectedValue),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2, mainAxisExtent: 100),
+                          crossAxisCount: 2, mainAxisExtent: 90),
                       itemBuilder: (context, index) => Container(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             index == 0
-                                ? Text("Ground Floor")
-                                : Text("$index  Floor"),
+                                ? Text(
+                                    "Ground Floor",
+                                    style: TextStyleConstants.complaintText,
+                                  )
+                                : Text(
+                                    "$index  Floor",
+                                    style: TextStyleConstants.complaintText,
+                                  ),
                             SizedBox(
                               height: 10,
                             ),

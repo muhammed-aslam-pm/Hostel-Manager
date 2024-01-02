@@ -11,6 +11,7 @@ import 'package:hostel_management_app/view/owner_dashboard_page/widgets/maintena
 import 'package:hostel_management_app/view/owner_dashboard_page/widgets/pending_payment_card.dart';
 import 'package:hostel_management_app/view/owner_dashboard_page/widgets/rooms_vaccent_card.dart';
 import 'package:hostel_management_app/view/owner_dashboard_page/widgets/upcoming_bookings_card.dart';
+import 'package:hostel_management_app/view/owner_profile_screen/owner_profile_screen.dart';
 import 'package:hostel_management_app/view/vacant_beds_screen/vacant_beds_screen.dart';
 
 class OwnerDashBoardPage extends StatelessWidget {
@@ -41,9 +42,18 @@ class OwnerDashBoardPage extends StatelessWidget {
           ],
         ),
         actions: [
-          CircleAvatar(
-            radius: 20,
-            backgroundImage: AssetImage(ImageConstants.ownerHomeProfilePhoto),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => OwnerProfileScreen(),
+                  ));
+            },
+            child: CircleAvatar(
+              radius: 20,
+              backgroundImage: AssetImage(ImageConstants.ownerHomeProfilePhoto),
+            ),
           ),
           SizedBox(
             width: 30,

@@ -12,15 +12,22 @@ class AccountSetupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorConstants.secondaryWhiteColor2,
+      backgroundColor: ColorConstants.secondaryWhiteColor,
       body: SafeArea(
         child: Center(
           child: Container(
             height: MediaQuery.sizeOf(context).height * 85 / 100,
-            width: MediaQuery.sizeOf(context).width * 85 / 100,
+            width: MediaQuery.sizeOf(context).width * 90 / 100,
             decoration: BoxDecoration(
                 color: ColorConstants.primaryWhiteColor,
-                borderRadius: BorderRadius.circular(30)),
+                borderRadius: BorderRadius.circular(30),
+                boxShadow: [
+                  BoxShadow(
+                    color: ColorConstants.primaryBlackColor.withOpacity(0.3),
+                    blurRadius: 1,
+                    offset: Offset(0, 2), // Offset for the bottom shadow
+                  ),
+                ]),
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: SingleChildScrollView(

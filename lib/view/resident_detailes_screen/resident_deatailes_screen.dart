@@ -10,6 +10,7 @@ class ResidentDetailesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorConstants.primaryWhiteColor,
       appBar: AppBar(
         backgroundColor: ColorConstants.primaryWhiteColor,
         iconTheme: IconThemeData(color: ColorConstants.primaryBlackColor),

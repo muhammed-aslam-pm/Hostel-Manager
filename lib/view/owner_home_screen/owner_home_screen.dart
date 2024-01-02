@@ -12,6 +12,7 @@ class OwnerHomeScreen extends StatelessWidget {
     OwnerNavBarController navBarController =
         Provider.of<OwnerNavBarController>(context);
     return Scaffold(
+      backgroundColor: ColorConstants.primaryWhiteColor,
       body: Provider.of<OwnerNavBarController>(context).ownerPages[
           Provider.of<OwnerNavBarController>(context).selectedIndex],
       bottomNavigationBar: BottomNavigationBar(

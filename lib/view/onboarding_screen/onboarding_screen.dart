@@ -20,6 +20,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     OnBoardingController onBoardingController =
         Provider.of<OnBoardingController>(context);
     return Scaffold(
+      backgroundColor: ColorConstants.primaryWhiteColor,
       body: Container(
         height: MediaQuery.sizeOf(context).height,
         width: MediaQuery.sizeOf(context).width,

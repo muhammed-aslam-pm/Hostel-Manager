@@ -29,6 +29,7 @@ class _SignUpSuccessfullScreeState extends State<SignUpSuccessfullScree> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorConstants.primaryWhiteColor,
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),

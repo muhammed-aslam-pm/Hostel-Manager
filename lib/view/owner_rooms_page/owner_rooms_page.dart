@@ -12,6 +12,7 @@ class OwnerRoomsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorConstants.primaryWhiteColor,
       appBar: AppBar(
         title: Text(
           "Rooms",

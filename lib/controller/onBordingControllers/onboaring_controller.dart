@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
+import 'package:hostel_management_app/view/login_and_register_screens/login_screen.dart';
 
 class OnBoardingController with ChangeNotifier {
   PageController pageController = PageController();
@@ -39,5 +40,27 @@ class OnBoardingController with ChangeNotifier {
     description = onBoardingScreens[index]["description"];
 
     notifyListeners();
+  }
+
+  onDotClicked(index) {
+    pageController.jumpToPage(index);
+    notifyListeners();
+  }
+
+  onTap(context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => LoginScreen(),
+      ),
+    );
+  }
+
+  autoScroll() async {
+    await Future.delayed(Duration(seconds: 3)).then((value) {
+      var currntPage = pageController.page;
+      pageController.jumpTo(currntPage! + 1);
+      notifyListeners();
+    });
   }
 }

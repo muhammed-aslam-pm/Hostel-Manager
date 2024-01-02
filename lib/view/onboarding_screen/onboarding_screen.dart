@@ -3,7 +3,6 @@ import 'package:hostel_management_app/controller/onBordingControllers/custom_cli
 import 'package:hostel_management_app/controller/onBordingControllers/onboaring_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
-import 'package:hostel_management_app/view/login_and_register_screens/login_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -15,6 +14,13 @@ class OnBoardingScreen extends StatefulWidget {
 }
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<OnBoardingController>(context, listen: false).autoScroll();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     OnBoardingController onBoardingController =
@@ -66,6 +72,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       SmoothPageIndicator(
                         controller: onBoardingController.pageController,
                         count: 3,
+                        onDotClicked: (index) =>
+                            Provider.of<OnBoardingController>(context,
+                                    listen: false)
+                                .onDotClicked(index),
                         effect: ExpandingDotsEffect(
                           activeDotColor: ColorConstants.primaryColor,
                           dotColor: ColorConstants.SecondaryColor1,
@@ -119,13 +129,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       Expanded(
                         child: Center(
                           child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => LoginScreen(),
-                                  ));
-                            },
+                            onTap: () => Provider.of<OnBoardingController>(
+                                    context,
+                                    listen: false)
+                                .onTap(context),
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),

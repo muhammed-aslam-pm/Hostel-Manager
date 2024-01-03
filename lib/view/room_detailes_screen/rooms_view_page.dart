@@ -8,15 +8,15 @@ import 'dart:ui' as ui;
 import 'package:hostel_management_app/view/room_detailes_screen/widgets/residents_name_card.dart';
 
 class RoomsViewScreen extends StatelessWidget {
-  RoomsViewScreen(
+ const RoomsViewScreen(
       {super.key,
       required this.roomNumber,
       required this.numberOfBeds,
       required this.numberOfVaccentBeds});
 
-  String roomNumber;
-  String numberOfBeds;
-  String numberOfVaccentBeds;
+ final String roomNumber;
+ final String numberOfBeds;
+ final String numberOfVaccentBeds;
 
   @override
   Widget build(BuildContext context) {

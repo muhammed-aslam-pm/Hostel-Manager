@@ -1,0 +1,136 @@
+import 'package:flutter/material.dart';
+import 'package:hostel_management_app/controller/authentication/signup_controller.dart';
+import 'package:hostel_management_app/utils/color_constants.dart';
+import 'package:hostel_management_app/utils/text_style_constatnts.dart';
+import 'package:hostel_management_app/view/global_widgets/form_field.dart';
+import 'package:hostel_management_app/view/global_widgets/login_button.dart';
+import 'package:provider/provider.dart';
+
+class signupForm extends StatelessWidget {
+  const signupForm({
+    super.key,
+    required this.controller,
+  });
+
+  final SignupController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: controller.signupFormKey,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                "Name",
+                style: TextStyleConstants.dashboardBookingName,
+              )
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          formField(
+            controller: controller.nameController,
+            hitText: "Name",
+            validator: (p0) => controller.nameValidation(p0),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                "Email",
+                style: TextStyleConstants.dashboardBookingName,
+              )
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          formField(
+            controller: controller.emailController,
+            hitText: "Email",
+            validator: (p0) => controller.emailValidation(p0),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                "Enter password",
+                style: TextStyleConstants.dashboardBookingName,
+              )
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          formField(
+            controller: controller.passwordController,
+            hitText: "password",
+            validator: (p0) => controller.passwordValidation(p0),
+            suffixIcon: IconButton(
+                onPressed: () {
+                  Provider.of<SignupController>(context, listen: false)
+                      .togglePassword();
+                },
+                icon: Icon(
+                  Icons.remove_red_eye_outlined,
+                  color: ColorConstants.primaryColor.withOpacity(0.5),
+                )),
+            hideText: controller.hidePassword,
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                "Confirm password",
+                style: TextStyleConstants.dashboardBookingName,
+              )
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          formField(
+            controller: controller.confirmPasswordController,
+            hitText: "password",
+            validator: (p0) => controller.confirmPasswordValidaton(p0),
+            suffixIcon: IconButton(
+                onPressed: () {
+                  Provider.of<SignupController>(context, listen: false)
+                      .togglePassword();
+                },
+                icon: Icon(
+                  Icons.remove_red_eye_outlined,
+                  color: ColorConstants.primaryColor.withOpacity(0.5),
+                )),
+            hideText: controller.hidePassword,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Center(
+            child: LoginButton(
+              buttonName: "Sign up",
+              onTap: () {
+                Provider.of<SignupController>(context, listen: false)
+                    .signup(context);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

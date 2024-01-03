@@ -5,8 +5,14 @@ import 'package:hostel_management_app/controller/owner_bottom_navbar_controller/
 import 'package:hostel_management_app/controller/residents_controller/residents_controller.dart';
 import 'package:hostel_management_app/view/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
 

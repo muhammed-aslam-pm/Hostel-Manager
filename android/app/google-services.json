@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "721358647180",
+    "project_id": "hostel-management-app-4ae0f",
+    "storage_bucket": "hostel-management-app-4ae0f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:721358647180:android:8bba875f4f26ea2a8470a9",
+        "android_client_info": {
+          "package_name": "com.example.hostel_management_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUW30KcgMfmfMr7z6irFLCz9G9Dcv9Amw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

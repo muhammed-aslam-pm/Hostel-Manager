@@ -12,7 +12,20 @@
           "package_name": "com.example.hostel_management_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "721358647180-4kca96mt8vpvd9km7s3l7ak3d4isbenb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hostel_management_app",
+            "certificate_hash": "ddaa58dd334ca4fb225aa5f4b6735f5f526b8a50"
+          }
+        },
+        {
+          "client_id": "721358647180-hchma104slfjtm5bg0s9irr16r7dl2f7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBUW30KcgMfmfMr7z6irFLCz9G9Dcv9Amw"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "721358647180-hchma104slfjtm5bg0s9irr16r7dl2f7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

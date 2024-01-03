@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hostel_management_app/controller/authentication/authentication_repository.dart';
 import 'package:hostel_management_app/controller/connection_checker/connection_checher.dart';
+import 'package:hostel_management_app/view/authentications/signup_successfull_page.dart';
+import 'package:provider/provider.dart';
 
 class SignupController with ChangeNotifier {
   final nameController = TextEditingController();
@@ -14,18 +17,49 @@ class SignupController with ChangeNotifier {
 
   signup(context) async {
     try {
-      if (signupFormKey.currentState!.validate()) return;
-
       final isConnected = await connection.isConnected();
+      final authProvider =
+          Provider.of<AuthenticationRepository>(context, listen: false);
 
       if (!isConnected) {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text("Network error")));
       }
+      String? errorMessage = await authProvider.signUpWithEmailAndPassword(
+          emailController.text.trim(), passwordController.text.trim());
+      if (errorMessage == null) {
+        // Successful sign-up
+        // Navigate to the next screen or perform other actions
+      } else {
+        // Show error message to the user
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(errorMessage),
+        ));
+      }
+      nameController.clear();
+      emailController.clear();
+      passwordController.clear();
+      confirmPasswordController.clear();
+
+      if (authProvider.userCredential.user?.uid != null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SignUpSuccessfullScree(),
+          ),
+        );
+      }
     } on PlatformException catch (e) {
-      return ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("Somthing went wrong")));
-    } finally {}
+      if (e.code == 'weak-password') {
+        return ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('The password provided is too weak.')));
+      } else if (e.code == 'email-already-in-use') {
+        return ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('The account already exists for that email.')));
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   togglePassword() {
@@ -42,11 +76,7 @@ class SignupController with ChangeNotifier {
   }
 
   emailValidation(value) {
-    if (RegExp(
-            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(value.toString())) {
-      return "Invalied email address.";
-    } else if (value == null || value.isEmpty) {
+    if (value == null || value.isEmpty) {
       return "Email is required.";
     } else {
       return null;

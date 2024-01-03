@@ -124,8 +124,10 @@ class signupForm extends StatelessWidget {
             child: LoginButton(
               buttonName: "Sign up",
               onTap: () {
-                Provider.of<SignupController>(context, listen: false)
-                    .signup(context);
+                if (controller.signupFormKey.currentState!.validate()) {
+                  Provider.of<SignupController>(context, listen: false)
+                      .signup(context);
+                }
               },
             ),
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/account_setup_screen_controller/account_setup_screen_controller.dart';
+import 'package:hostel_management_app/controller/authentication/authentication_repository.dart';
 import 'package:hostel_management_app/controller/authentication/signup_controller.dart';
 import 'package:hostel_management_app/controller/onboarding/onboaring_controller.dart';
 import 'package:hostel_management_app/controller/bottomnavbar/bottomnavbar_controller.dart';
@@ -7,12 +8,16 @@ import 'package:hostel_management_app/controller/residents_controller/residents_
 import 'package:hostel_management_app/view/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+    options: FirebaseOptions(
+        apiKey: "AIzaSyBUW30KcgMfmfMr7z6irFLCz9G9Dcv9Amw",
+        appId: "1:721358647180:android:8bba875f4f26ea2a8470a9",
+        messagingSenderId: '',
+        projectId: "hostel-management-app-4ae0f",
+        storageBucket: "hostel-management-app-4ae0f.appspot.com"),
   );
   runApp(MyApp());
 }
@@ -38,6 +43,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => SignupController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => AuthenticationRepository(),
         )
       ],
       child: const MaterialApp(

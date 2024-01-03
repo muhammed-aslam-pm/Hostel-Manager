@@ -40,6 +40,7 @@ dependencies:
   carousel_slider: ^4.2.1
   dropdown_button2: ^2.3.9
   firebase_core: ^2.24.2
+  connectivity_plus: ^5.0.2
 
 dev_dependencies:
   flutter_test:

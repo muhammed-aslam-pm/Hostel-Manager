@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hostel_management_app/controller/onBordingControllers/custom_clipper.dart';
-import 'package:hostel_management_app/controller/onBordingControllers/onboaring_controller.dart';
+import 'package:hostel_management_app/controller/onboarding/custom_clipper.dart';
+import 'package:hostel_management_app/controller/onboarding/onboaring_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:provider/provider.dart';

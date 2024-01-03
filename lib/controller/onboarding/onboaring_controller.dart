@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
-import 'package:hostel_management_app/view/login_and_register_screens/login_screen.dart';
+import 'package:hostel_management_app/view/authentications/login_screen.dart';
 
 class OnBoardingController with ChangeNotifier {
   PageController pageController = PageController();

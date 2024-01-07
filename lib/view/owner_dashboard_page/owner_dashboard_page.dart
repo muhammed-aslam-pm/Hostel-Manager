@@ -59,7 +59,6 @@ class OwnerDashBoardPage extends StatelessWidget {
             width: 30,
           ),
         ],
-        titleSpacing: -20,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -92,7 +91,7 @@ class OwnerDashBoardPage extends StatelessWidget {
                     RoomVaccentCard(
                       title: "Paymenys penting",
                       number: "12",
-                      bgColor: ColorConstants.SecondaryColor1,
+                      bgColor: ColorConstants.SecondaryColor3,
                       image: ImageConstants.ownerRoomsIconeDisabled,
                       onTap: () {
                         Navigator.push(
@@ -134,6 +133,7 @@ class OwnerDashBoardPage extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: GridView.builder(
                   shrinkWrap: true,
+                  physics: ScrollPhysics(),
                   itemCount: 4,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,

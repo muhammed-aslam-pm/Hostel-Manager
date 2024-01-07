@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
           create: (context) => AuthenticationRepository(),
         ),
         ChangeNotifierProvider(
-          create: (context) => loginController(),
+          create: (context) => LoginController(),
         )
       ],
       child: const MaterialApp(

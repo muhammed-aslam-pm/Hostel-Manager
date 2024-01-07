@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hostel_management_app/controller/authentication/screen_redirector.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
-import 'package:hostel_management_app/view/onboarding_screen/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
         .then((value) => Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => OnBoardingScreen(),
+              builder: (context) => ScreenReDirector.redirectScreen(),
             ),
             (route) => false));
     // TODO: implement initState

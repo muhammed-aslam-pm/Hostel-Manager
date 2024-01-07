@@ -1,25 +1,22 @@
-import 'dart:html';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/connection_checker/connection_checher.dart';
 import 'package:hostel_management_app/view/owner_home_screen/owner_home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class loginController with ChangeNotifier {
+class LoginController with ChangeNotifier {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  bool hidePassword = true;
+  bool hidePassword = false;
   bool rememberCredentials = false;
-  GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
   final ConnectionChecker connection = ConnectionChecker();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  late UserCredential userCredential;
 
-  login(BuildContext context) async {
+  Future<void> login(BuildContext context) async {
     try {
-      final UserCredential = _auth.signInWithEmailAndPassword(
+      final credential = await _auth.signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
@@ -28,13 +25,14 @@ class loginController with ChangeNotifier {
         prefs.setString('email', emailController.text.trim());
         prefs.setString('password', passwordController.text.trim());
       }
-      if (userCredential.user!.uid != null) {
+      if (credential.user?.uid != null) {
         Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => OwnerHomeScreen(),
             ));
       }
+      print(credential);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');

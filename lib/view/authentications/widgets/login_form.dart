@@ -109,12 +109,14 @@ class LoginForm extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Consumer(
-                    builder: (context, value, child) => Checkbox(
-                        value: controller.hidePassword,
-                        onChanged: (value) =>
-                            Provider.of<LoginController>(context, listen: false)
-                                .remember()),
+                  Checkbox(
+                    activeColor: ColorConstants.primaryColor,
+                    value: Provider.of<LoginController>(context)
+                        .rememberCredentials,
+                    onChanged: (value) {
+                      Provider.of<LoginController>(context, listen: false)
+                          .remember();
+                    },
                   ),
                   Text("Remember")
                 ],

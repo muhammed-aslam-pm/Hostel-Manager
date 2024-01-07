@@ -8,11 +8,19 @@ class LoginController with ChangeNotifier {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool hidePassword = false;
+  notifyListeners();
+
   bool rememberCredentials = false;
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
   final ConnectionChecker connection = ConnectionChecker();
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  //remember credentials
+  remember() {
+    rememberCredentials = !rememberCredentials;
+    notifyListeners();
+  }
 
   Future<void> login(BuildContext context) async {
     try {
@@ -24,6 +32,8 @@ class LoginController with ChangeNotifier {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('email', emailController.text.trim());
         prefs.setString('password', passwordController.text.trim());
+        print(prefs.getString('email'));
+        print(prefs.getString('password'));
       }
       if (credential.user?.uid != null) {
         Navigator.push(
@@ -40,12 +50,6 @@ class LoginController with ChangeNotifier {
         print('Wrong password provided for that user.');
       }
     }
-  }
-
-//remember credentials
-  remember() {
-    rememberCredentials = !rememberCredentials;
-    notifyListeners();
   }
 
 //hive password

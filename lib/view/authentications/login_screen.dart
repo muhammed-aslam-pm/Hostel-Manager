@@ -4,7 +4,6 @@ import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/authentications/signup_screen.dart';
-import 'package:provider/provider.dart';
 
 import 'widgets/login_form.dart';
 
@@ -13,7 +12,6 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Provider.of<LoginController>(context);
     return Scaffold(
       backgroundColor: ColorConstants.primaryWhiteColor,
       body: SafeArea(

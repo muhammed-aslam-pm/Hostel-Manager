@@ -26,7 +26,9 @@ class SignupController with ChangeNotifier {
             .showSnackBar(const SnackBar(content: Text("Network error")));
       }
       String? errorMessage = await authProvider.signUpWithEmailAndPassword(
-          emailController.text.trim(), passwordController.text.trim());
+          email: emailController.text.trim(),
+          password: passwordController.text.trim(),
+          name: nameController.text);
       if (errorMessage == null) {
         // Successful sign-up
         // Navigate to the next screen or perform other actions

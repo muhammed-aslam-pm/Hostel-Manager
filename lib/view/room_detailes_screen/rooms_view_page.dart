@@ -8,15 +8,15 @@ import 'dart:ui' as ui;
 import 'package:hostel_management_app/view/room_detailes_screen/widgets/residents_name_card.dart';
 
 class RoomsViewScreen extends StatelessWidget {
- const RoomsViewScreen(
+  const RoomsViewScreen(
       {super.key,
       required this.roomNumber,
       required this.numberOfBeds,
       required this.numberOfVaccentBeds});
 
- final String roomNumber;
- final String numberOfBeds;
- final String numberOfVaccentBeds;
+  final String roomNumber;
+  final String numberOfBeds;
+  final String numberOfVaccentBeds;
 
   @override
   Widget build(BuildContext context) {
@@ -54,20 +54,23 @@ class RoomsViewScreen extends StatelessWidget {
                               )),
                         ],
                       ),
-                      CircleAvatar(
-                        radius: 25,
-                        backgroundColor: ColorConstants.primaryWhiteColor,
-                        child: Hero(
-                          tag: Image,
+                      Hero(
+                        tag: "room",
+                        child: CircleAvatar(
+                          radius: 25,
+                          backgroundColor: ColorConstants.primaryWhiteColor,
                           child: Image.asset(
                             ImageConstants.roomsIcon2,
                             color: ColorConstants.primaryBlackColor,
                           ),
                         ),
                       ),
-                      Text(
-                        "Room No",
-                        style: TextStyleConstants.OwnerRoomNumber2,
+                      Hero(
+                        tag: "roomNo",
+                        child: Text(
+                          "Room No",
+                          style: TextStyleConstants.OwnerRoomNumber2,
+                        ),
                       ),
                       Text(
                         roomNumber,

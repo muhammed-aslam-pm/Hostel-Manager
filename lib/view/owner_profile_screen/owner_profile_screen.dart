@@ -47,7 +47,7 @@ class OwnerProfileScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Hero(
-                tag: CircleAvatar,
+                tag: "profile",
                 child: CircleAvatar(
                   radius: 55,
                   backgroundColor: ColorConstants.SecondaryColor4,

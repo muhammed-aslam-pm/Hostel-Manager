@@ -50,9 +50,13 @@ class OwnerDashBoardPage extends StatelessWidget {
                     builder: (context) => OwnerProfileScreen(),
                   ));
             },
-            child: CircleAvatar(
-              radius: 20,
-              backgroundImage: AssetImage(ImageConstants.ownerHomeProfilePhoto),
+            child: Hero(
+              tag: "profile",
+              child: CircleAvatar(
+                radius: 20,
+                backgroundImage:
+                    AssetImage(ImageConstants.ownerHomeProfilePhoto),
+              ),
             ),
           ),
           SizedBox(

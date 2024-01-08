@@ -28,7 +28,8 @@ class AuthenticationRepository extends ChangeNotifier {
           mobileNumber: '',
           ownwerName: name,
           profilePictuer: '',
-          noOfRoomsInFloors: []);
+          noOfRooms: 0,
+          isAccountSetupCompleted: false);
 
       //saving owner data
       await owner.saveOwnerRecords(newOwner);

@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/connection_checker/connection_checher.dart';
+import 'package:hostel_management_app/view/account_setup_screen/account_setup_screen.dart';
 import 'package:hostel_management_app/view/owner_home_screen/owner_home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,6 +17,7 @@ class LoginController with ChangeNotifier {
 
   final ConnectionChecker connection = ConnectionChecker();
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   //remember credentials
   remember() {
@@ -36,17 +39,36 @@ class LoginController with ChangeNotifier {
         print(prefs.getString('password'));
       }
       if (credential.user?.uid != null) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => OwnerHomeScreen(),
-            ));
+        final DocumentSnapshot userData = await _firestore
+            .collection("Owners")
+            .doc(credential.user?.uid)
+            .get();
+        final bool isFirstTime = await userData['AccountSetupcompleted'];
+        print(' id first :$isFirstTime');
+        if (!isFirstTime) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AccountSetupScreen(),
+              ));
+        } else {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => OwnerHomeScreen(),
+              ));
+        }
       }
       print(credential);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
+        ScaffoldMessenger(
+            child: SnackBar(content: Text('No user found for that email.')));
         print('No user found for that email.');
       } else if (e.code == 'wrong-password') {
+        ScaffoldMessenger(
+            child: SnackBar(
+                content: Text('Wrong password provided for that user.')));
         print('Wrong password provided for that user.');
       }
     }

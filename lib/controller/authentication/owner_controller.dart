@@ -18,13 +18,13 @@ class OwnerController with ChangeNotifier {
       required String mobileNumber,
       required String hostelName,
       required String profilePictuer,
-      required List noOfRoomsInFloors}) async {
+      required int noOfRooms}) async {
     try {
       await _db.collection("Owners").doc(id).update({
         'HostelName': hostelName,
         'MobileNumber': mobileNumber,
         'ProfilePictuer': profilePictuer,
-        'RoomsInFloors': noOfRoomsInFloors
+        'NoOfRooms': noOfRooms
       });
     } catch (e) {
       print(e);

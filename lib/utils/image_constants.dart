@@ -20,6 +20,7 @@ class ImageConstants {
       "assets/images/residents icon 2.png";
   static String ownerResidentsIconeDisabled =
       "assets/images/residents icon.png";
+
   static String ownerHomeProfilePhoto = "assets/images/profile image1.png";
   static String ownerHomeProfilePhoto2 = "assets/images/profile photo 2.png";
   static String ownerHomeProfilePhoto3 = "assets/images/profile photo 3.png";
@@ -37,4 +38,9 @@ class ImageConstants {
   static String ACIcon = "assets/images/air onditioner icon.png";
   static String bathroomIcon = "assets/images/bathroom icon.png";
   static String wifiIcon = "assets/images/wi-fi icon.png";
+
+  //passoerd icons
+
+  static String hidePasswordIcon = "assets/images/invisibleIcon.png";
+  static String PasswordIcon = "assets/images/visibleicon.png";
 }

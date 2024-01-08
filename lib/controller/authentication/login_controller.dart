@@ -54,7 +54,7 @@ class LoginController with ChangeNotifier {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => OwnerHomeScreen(),
+                builder: (context) => const OwnerHomeScreen(),
               ));
         }
       }

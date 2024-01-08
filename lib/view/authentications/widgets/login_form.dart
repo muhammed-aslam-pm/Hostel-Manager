@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/authentication/login_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
+import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/authentications/fogot_password_screen.dart';
 import 'package:hostel_management_app/view/global_widgets/login_button.dart';
@@ -92,11 +93,18 @@ class LoginForm extends StatelessWidget {
                   fontSize: 15,
                   color: ColorConstants.colorGrey,
                   fontWeight: FontWeight.w500),
-              suffixIcon: Icon(
-                Icons.lock,
-                color: ColorConstants.primaryColor.withOpacity(0.5),
+              suffixIcon: IconButton(
+                onPressed: () {
+                  Provider.of<LoginController>(context, listen: false)
+                      .togglePassword();
+                },
+                icon: Icon(
+                  Icons.remove_red_eye_outlined,
+                  color: ColorConstants.primaryColor.withOpacity(0.5),
+                ),
               ),
             ),
+            obscureText: controller.hidePassword,
             validator: (value) =>
                 Provider.of<LoginController>(context, listen: false)
                     .passwordValidation(value),

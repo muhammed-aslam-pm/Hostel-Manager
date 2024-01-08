@@ -57,7 +57,7 @@ class LoginForm extends StatelessWidget {
             ),
             validator: (value) =>
                 Provider.of<LoginController>(context, listen: false)
-                    .emailValidation(value),
+                    .emailValidation(value!),
           ),
           SizedBox(
             height: 30,

@@ -24,7 +24,8 @@ class OwnerController with ChangeNotifier {
         'HostelName': hostelName,
         'MobileNumber': mobileNumber,
         'ProfilePictuer': profilePictuer,
-        'NoOfRooms': noOfRooms
+        'NoOfRooms': noOfRooms,
+        'AccountSetupcompleted': true
       });
     } catch (e) {
       print(e);

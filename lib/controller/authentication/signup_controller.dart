@@ -77,9 +77,11 @@ class SignupController with ChangeNotifier {
     }
   }
 
-  emailValidation(value) {
+  emailValidation(String value) {
     if (value == null || value.isEmpty) {
       return "Email is required.";
+    } else if (!RegExp(r"^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$").hasMatch(value)) {
+      return "Enter a valid email address.";
     } else {
       return null;
     }

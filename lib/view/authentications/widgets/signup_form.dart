@@ -55,7 +55,7 @@ class signupForm extends StatelessWidget {
           formField(
             controller: controller.emailController,
             hitText: "Email",
-            validator: (p0) => controller.emailValidation(p0),
+            validator: (p0) => controller.emailValidation(p0!),
           ),
           SizedBox(
             height: 10,

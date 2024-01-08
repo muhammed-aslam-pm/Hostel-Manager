@@ -6,6 +6,7 @@ import 'package:hostel_management_app/controller/authentication/signup_controlle
 import 'package:hostel_management_app/controller/onboarding/onboaring_controller.dart';
 import 'package:hostel_management_app/controller/bottomnavbar/bottomnavbar_controller.dart';
 import 'package:hostel_management_app/controller/residents_controller/residents_controller.dart';
+import 'package:hostel_management_app/controller/validators.dart';
 import 'package:hostel_management_app/view/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -50,6 +51,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => LoginController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => Validators(),
         )
       ],
       child: const MaterialApp(

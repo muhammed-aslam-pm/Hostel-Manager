@@ -182,6 +182,7 @@ class AccountSetupScreen extends StatelessWidget {
                                   counterStyle: TextStyle(
                                       color: ColorConstants.primaryBlackColor)),
                               cursorColor: ColorConstants.primaryBlackColor,
+                              keyboardType: TextInputType.number,
                             ),
                           ),
                         ],

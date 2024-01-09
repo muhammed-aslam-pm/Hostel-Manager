@@ -29,11 +29,17 @@ class LoginController with ChangeNotifier {
 
   Future<void> login(BuildContext context) async {
     try {
+      // start loading screen
+
       FullScreenLoader.openLoadinDialog(context);
+
       final credential = await _auth.signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
+
+      // store credentials in local storage
+
       if (rememberCredentials) {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('email', emailController.text.trim());
@@ -41,6 +47,8 @@ class LoginController with ChangeNotifier {
         print(prefs.getString('email'));
         print(prefs.getString('password'));
       }
+
+      //Navigate to home page
 
       if (credential.user?.uid != null) {
         final DocumentSnapshot userData = await _firestore
@@ -79,8 +87,14 @@ class LoginController with ChangeNotifier {
     }
   }
 
+//Login with google
+
   Future<void> loginWuthGoogle(context) async {
     try {
+      // start loading screen
+
+      FullScreenLoader.openLoadinDialog(context);
+
       final GoogleSignInAccount? userAccount = await GoogleSignIn().signIn();
       final GoogleSignInAuthentication? googleAuth =
           await userAccount?.authentication;
@@ -88,6 +102,8 @@ class LoginController with ChangeNotifier {
       final credential = GoogleAuthProvider.credential(
           accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
       final userCredential = await _auth.signInWithCredential(credential);
+
+      //checkinf if it is a new User
       if (userCredential.user?.uid != null) {
         final DocumentSnapshot userData = await _firestore
             .collection("Owners")

@@ -10,9 +10,7 @@ class AuthenticationRepository extends ChangeNotifier {
   late UserCredential userCredentialGoogle;
   final OwnerController owner = OwnerController();
 
-//Login
-
-// sign up
+// sign in w
   Future<String?> signInWithEmailAndPassword(
       {required String email,
       required String password,
@@ -49,6 +47,7 @@ class AuthenticationRepository extends ChangeNotifier {
     }
   }
 
+//signin with google
   Future<String?> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? userAccount = await GoogleSignIn().signIn();

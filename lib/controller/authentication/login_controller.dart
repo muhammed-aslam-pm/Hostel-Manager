@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hostel_management_app/controller/connection_checker/connection_checher.dart';
 import 'package:hostel_management_app/controller/loading/loading_controller.dart';
 import 'package:hostel_management_app/view/account_setup_screen/account_setup_screen.dart';
@@ -56,10 +57,11 @@ class LoginController with ChangeNotifier {
               ));
         } else {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const OwnerHomeScreen(),
-              ));
+            context,
+            MaterialPageRoute(
+              builder: (context) => const OwnerHomeScreen(),
+            ),
+          );
         }
       }
       print(credential);
@@ -75,6 +77,40 @@ class LoginController with ChangeNotifier {
         print('Wrong password provided for that user.');
       }
     }
+  }
+
+  Future<void> loginWuthGoogle(context) async {
+    try {
+      final GoogleSignInAccount? userAccount = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication? googleAuth =
+          await userAccount?.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
+      final userCredential = await _auth.signInWithCredential(credential);
+      if (userCredential.user?.uid != null) {
+        final DocumentSnapshot userData = await _firestore
+            .collection("Owners")
+            .doc(userCredential.user?.uid)
+            .get();
+        final bool isFirstTime = await userData['AccountSetupcompleted'];
+        print(' id first :$isFirstTime');
+        if (!isFirstTime) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AccountSetupScreen(),
+              ));
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const OwnerHomeScreen(),
+            ),
+          );
+        }
+      }
+    } catch (e) {}
   }
 
 //hive password

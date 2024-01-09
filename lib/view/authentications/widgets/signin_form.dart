@@ -126,7 +126,7 @@ class signupForm extends StatelessWidget {
               onTap: () {
                 if (controller.signupFormKey.currentState!.validate()) {
                   Provider.of<SignInController>(context, listen: false)
-                      .signup(context);
+                      .signin(context);
                 }
               },
             ),

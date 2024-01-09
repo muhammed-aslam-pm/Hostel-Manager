@@ -1,8 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hostel_management_app/controller/authentication/authentication_repository.dart';
 import 'package:hostel_management_app/controller/connection_checker/connection_checher.dart';
+import 'package:hostel_management_app/controller/loading/loading_controller.dart';
+import 'package:hostel_management_app/view/account_setup_screen/account_setup_screen.dart';
 import 'package:hostel_management_app/view/authentications/signup_successfull_page.dart';
+import 'package:hostel_management_app/view/owner_home_screen/owner_home_screen.dart';
 import 'package:provider/provider.dart';
 
 class SignInController with ChangeNotifier {
@@ -14,9 +18,13 @@ class SignInController with ChangeNotifier {
   GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
 
   final ConnectionChecker connection = ConnectionChecker();
+  final loadingController = FullScreenLoader();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  signup(context) async {
+  signin(context) async {
     try {
+      //loading animation
+      FullScreenLoader.openLoadinDialog(context);
       final isConnected = await connection.isConnected();
       final authProvider =
           Provider.of<AuthenticationRepository>(context, listen: false);
@@ -64,10 +72,81 @@ class SignInController with ChangeNotifier {
     }
   }
 
+//google signin
+
+  signInWithGoogle(context) async {
+    try {
+      //start loading animation
+      FullScreenLoader.openLoadinDialog(context);
+
+      //checking internet connection
+      final isConnected = await connection.isConnected();
+
+      final authProvider =
+          Provider.of<AuthenticationRepository>(context, listen: false);
+
+      if (!isConnected) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("Network error")));
+      }
+
+      //invoking signup function
+      String? errorMessage = await authProvider.signInWithGoogle();
+      if (errorMessage == null) {
+        // Successful sign-up
+        // Navigate to the next screen or perform other actions
+      } else {
+        // Show error message to the user
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(errorMessage),
+        ));
+      }
+
+      //navigating to desired pages
+      if (authProvider.userCredentialGoogle.user?.uid != null) {
+        final DocumentSnapshot userData = await _firestore
+            .collection("Owners")
+            .doc(authProvider.userCredentialGoogle.user?.uid)
+            .get();
+        final bool isFirstTime = await userData['AccountSetupcompleted'];
+        print(' id first :$isFirstTime');
+        if (!isFirstTime) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AccountSetupScreen(),
+              ));
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const OwnerHomeScreen(),
+            ),
+          );
+        }
+      }
+    } on PlatformException catch (e) {
+      if (e.code == 'weak-password') {
+        return ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('The password provided is too weak.')));
+      } else if (e.code == 'email-already-in-use') {
+        return ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('The account already exists for that email.')));
+      }
+    } catch (e) {
+      return ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('The  provided is too weak.')));
+      print(e);
+    }
+  }
+
+// hide password
   togglePassword() {
     hidePassword = !hidePassword;
     notifyListeners();
   }
+
+//name form valitator
 
   nameValidation(value) {
     if (value == null || value.isEmpty) {

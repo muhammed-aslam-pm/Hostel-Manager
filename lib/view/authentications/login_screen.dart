@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hostel_management_app/controller/authentication/login_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/authentications/signup_screen.dart';
+import 'package:provider/provider.dart';
 
 import 'widgets/login_form.dart';
 
@@ -73,22 +75,28 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                Container(
-                  height: 47,
-                  padding: EdgeInsets.symmetric(vertical: 14),
-                  color: ColorConstants.secondaryWhiteColor,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(ImageConstants.googleLogo),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        "Sign in with Google",
-                        style: TextStyleConstants.dashboardDate,
-                      )
-                    ],
+                InkWell(
+                  onTap: () {
+                    Provider.of<LoginController>(context, listen: false)
+                        .loginWuthGoogle(context);
+                  },
+                  child: Container(
+                    height: 47,
+                    padding: EdgeInsets.symmetric(vertical: 14),
+                    color: ColorConstants.secondaryWhiteColor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(ImageConstants.googleLogo),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          "Sign in with Google",
+                          style: TextStyleConstants.dashboardDate,
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(

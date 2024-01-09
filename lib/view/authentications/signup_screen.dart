@@ -3,7 +3,7 @@ import 'package:hostel_management_app/controller/authentication/signin_controlle
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
-import 'package:hostel_management_app/view/authentications/widgets/signup_form.dart';
+import 'package:hostel_management_app/view/authentications/widgets/signin_form.dart';
 import 'package:provider/provider.dart';
 
 class SignupScreen extends StatelessWidget {
@@ -82,22 +82,27 @@ class SignupScreen extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-                    Container(
-                      height: 47,
-                      padding: EdgeInsets.symmetric(vertical: 14),
-                      color: ColorConstants.secondaryWhiteColor,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(ImageConstants.googleLogo),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            "Sign in with Google",
-                            style: TextStyleConstants.dashboardDate,
-                          )
-                        ],
+                    InkWell(
+                      onTap: () =>
+                          Provider.of<SignInController>(context, listen: false)
+                              .signInWithGoogle(context),
+                      child: Container(
+                        height: 47,
+                        padding: EdgeInsets.symmetric(vertical: 14),
+                        color: ColorConstants.secondaryWhiteColor,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(ImageConstants.googleLogo),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              "Sign in with Google",
+                              style: TextStyleConstants.dashboardDate,
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ],

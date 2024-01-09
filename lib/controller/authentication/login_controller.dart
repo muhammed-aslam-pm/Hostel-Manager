@@ -17,6 +17,7 @@ class LoginController with ChangeNotifier {
   final ConnectionChecker connection = ConnectionChecker();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  bool isLoading = false;
 
   //remember credentials
   remember() {
@@ -26,6 +27,8 @@ class LoginController with ChangeNotifier {
 
   Future<void> login(BuildContext context) async {
     try {
+      isLoading = true;
+      notifyListeners();
       final credential = await _auth.signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
@@ -37,6 +40,8 @@ class LoginController with ChangeNotifier {
         print(prefs.getString('email'));
         print(prefs.getString('password'));
       }
+      isLoading = false;
+      notifyListeners();
       if (credential.user?.uid != null) {
         final DocumentSnapshot userData = await _firestore
             .collection("Owners")

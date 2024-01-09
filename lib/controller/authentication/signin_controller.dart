@@ -5,7 +5,7 @@ import 'package:hostel_management_app/controller/connection_checker/connection_c
 import 'package:hostel_management_app/view/authentications/signup_successfull_page.dart';
 import 'package:provider/provider.dart';
 
-class SignupController with ChangeNotifier {
+class SignInController with ChangeNotifier {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -25,7 +25,7 @@ class SignupController with ChangeNotifier {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text("Network error")));
       }
-      String? errorMessage = await authProvider.signUpWithEmailAndPassword(
+      String? errorMessage = await authProvider.signInWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim(),
           name: nameController.text);

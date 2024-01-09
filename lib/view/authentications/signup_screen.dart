@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hostel_management_app/controller/authentication/signup_controller.dart';
+import 'package:hostel_management_app/controller/authentication/signin_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
@@ -11,7 +11,7 @@ class SignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Provider.of<SignupController>(context);
+    final controller = Provider.of<SignInController>(context);
     return Scaffold(
       body: Container(
         height: double.infinity,

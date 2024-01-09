@@ -11,7 +11,7 @@ class AuthenticationRepository extends ChangeNotifier {
 //Login
 
 // sign up
-  Future<String?> signUpWithEmailAndPassword(
+  Future<String?> signInWithEmailAndPassword(
       {required String email,
       required String password,
       required String name}) async {
@@ -46,4 +46,39 @@ class AuthenticationRepository extends ChangeNotifier {
       return 'Error: ${e.toString()}'; // Return generic error message for other exceptions
     }
   }
+
+  // Future<UserCredential?> signInWithGoogle() async {
+  //   try {
+  //     final GoogleSignInAccount? userAccount = await GoogleSignIn().signIn();
+  //     final GoogleSignInAuthentication? googleAuth =
+  //         await userAccount?.authentication;
+
+  //     final credential = GoogleAuthProvider.credential(
+  //         accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
+  //     return await _auth.signInWithCredential(credential);
+  //     // final newOwner = OwnerModel(
+  //     //     id: userCredential.user!.uid,
+  //     //     hostelName: '',
+  //     //     emailAddress: email,
+  //     //     mobileNumber: '',
+  //     //     ownwerName: name,
+  //     //     profilePictuer: '',
+  //     //     noOfRooms: 0,
+  //     //     isAccountSetupCompleted: false);
+
+  //     // //saving owner data
+  //     // await owner.saveOwnerRecords(newOwner);
+  //     // // You might perform additional actions here upon successful sign-up
+  //     return null; // Return null for successful sign-up
+  //   } on FirebaseAuthException catch (e) {
+  //     if (e.code == 'weak-password') {
+  //       return 'The password provided is too weak.';
+  //     } else if (e.code == 'email-already-in-use') {
+  //       return 'The account already exists for that email.';
+  //     }
+  //     return e.message; // Return error message for other exceptions
+  //   } catch (e) {
+  //     return 'Error: ${e.toString()}'; // Return generic error message for other exceptions
+  //   }
+  // }
 }

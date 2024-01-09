@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/account_setup_screen_controller/account_setup_screen_controller.dart';
 import 'package:hostel_management_app/controller/authentication/authentication_repository.dart';
 import 'package:hostel_management_app/controller/authentication/login_controller.dart';
-import 'package:hostel_management_app/controller/authentication/signup_controller.dart';
+import 'package:hostel_management_app/controller/authentication/signin_controller.dart';
 import 'package:hostel_management_app/controller/onboarding/onboaring_controller.dart';
 import 'package:hostel_management_app/controller/bottomnavbar/bottomnavbar_controller.dart';
 import 'package:hostel_management_app/controller/residents_controller/residents_controller.dart';
@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           create: (context) => AccountSetUpScreenController(),
         ),
         ChangeNotifierProvider(
-          create: (context) => SignupController(),
+          create: (context) => SignInController(),
         ),
         ChangeNotifierProvider(
           create: (context) => AuthenticationRepository(),

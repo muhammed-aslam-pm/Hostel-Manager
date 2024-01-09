@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hostel_management_app/controller/authentication/signup_controller.dart';
+import 'package:hostel_management_app/controller/authentication/signin_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/global_widgets/form_field.dart';
@@ -12,7 +12,7 @@ class signupForm extends StatelessWidget {
     required this.controller,
   });
 
-  final SignupController controller;
+  final SignInController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +78,7 @@ class signupForm extends StatelessWidget {
             validator: (p0) => controller.passwordValidation(p0),
             suffixIcon: IconButton(
                 onPressed: () {
-                  Provider.of<SignupController>(context, listen: false)
+                  Provider.of<SignInController>(context, listen: false)
                       .togglePassword();
                 },
                 icon: Icon(
@@ -108,7 +108,7 @@ class signupForm extends StatelessWidget {
             validator: (p0) => controller.confirmPasswordValidaton(p0),
             suffixIcon: IconButton(
                 onPressed: () {
-                  Provider.of<SignupController>(context, listen: false)
+                  Provider.of<SignInController>(context, listen: false)
                       .togglePassword();
                 },
                 icon: Icon(
@@ -125,7 +125,7 @@ class signupForm extends StatelessWidget {
               buttonName: "Sign up",
               onTap: () {
                 if (controller.signupFormKey.currentState!.validate()) {
-                  Provider.of<SignupController>(context, listen: false)
+                  Provider.of<SignInController>(context, listen: false)
                       .signup(context);
                 }
               },

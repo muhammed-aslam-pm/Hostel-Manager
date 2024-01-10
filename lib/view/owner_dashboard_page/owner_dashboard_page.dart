@@ -73,8 +73,7 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
               tag: "profile",
               child: CircleAvatar(
                 radius: 20,
-                backgroundImage:
-                    AssetImage(ImageConstants.ownerHomeProfilePhoto),
+                backgroundImage: NetworkImage(controller.user!.profilePictuer),
               ),
             ),
           ),

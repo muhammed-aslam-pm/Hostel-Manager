@@ -223,6 +223,7 @@ class RoomsViewScreen extends StatelessWidget {
                   ),
                   ListView.separated(
                     shrinkWrap: true,
+                    physics: ScrollPhysics(),
                     itemBuilder: (context, index) => ResidentsNameCard(),
                     separatorBuilder: (context, index) => Divider(
                       height: 10,

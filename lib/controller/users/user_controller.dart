@@ -1,11 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/authentication/authentication_repository.dart';
 import 'package:hostel_management_app/controller/loading/loading_controller.dart';
 import 'package:hostel_management_app/controller/users/owner_repository.dart';
 import 'package:hostel_management_app/model/owner_model.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hostel_management_app/view/authentications/login_screen.dart';
+import 'package:image_picker/image_picker.dart';
 
 class UserController with ChangeNotifier {
   OwnerModel? user = OwnerModel.empty();
@@ -77,6 +76,25 @@ class UserController with ChangeNotifier {
             builder: (context) => LoginScreen(),
           ),
           (route) => false);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  uploadUserProfilePicture(context) async {
+    try {
+      final image = await ImagePicker().pickImage(
+          source: ImageSource.gallery,
+          imageQuality: 70,
+          maxHeight: 512,
+          maxWidth: 512);
+      if (image != null) {
+        final imageUrl =
+            await controller.uploadImage('Owners/Images/Profile', image);
+
+        Map<String, dynamic> json = {"ProfilePictuer": imageUrl};
+        controller.accountSetup(json);
+      }
     } catch (e) {
       print(e.toString());
     }

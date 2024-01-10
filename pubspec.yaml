@@ -46,6 +46,9 @@ dependencies:
   shared_preferences: ^2.2.2
   lottie: ^2.7.0
   google_sign_in: ^6.1.6
+  firebase_storage: ^11.6.0
+  image_picker: ^1.0.7
+  cached_network_image: ^3.3.1
 
 dev_dependencies:
   flutter_test:

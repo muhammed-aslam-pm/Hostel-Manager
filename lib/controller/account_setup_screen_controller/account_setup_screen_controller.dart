@@ -15,13 +15,17 @@ class AccountSetUpScreenController with ChangeNotifier {
 
   Future<void> updateOwnerRecords(BuildContext context) async {
     final currentUser = await FirebaseAuth.instance.currentUser;
-    controller.accountSetup(
-        id: currentUser!.uid,
-        mobileNumber: phoneNumberController.text,
-        hostelName: hostelNameController.text,
-        address: addressController.text ?? "",
-        profilePictuer: "",
-        noOfRooms: int.parse(roomNumberController.text));
+
+    final Map<String, dynamic> jason = {
+      'HostelName': hostelNameController.text,
+      'Address': addressController.text ?? "",
+      'MobileNumber': phoneNumberController.text,
+      'ProfilePictuer': "",
+      'NoOfRooms': int.parse(roomNumberController.text),
+      'AccountSetupcompleted': true
+    };
+
+    controller.accountSetup(jason);
 
     Navigator.push(
         context,

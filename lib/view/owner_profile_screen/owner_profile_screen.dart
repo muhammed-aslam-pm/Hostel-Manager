@@ -114,11 +114,23 @@ class OwnerProfileScreen extends StatelessWidget {
               Hero(
                 tag: "profile",
                 child: CircleAvatar(
+                  backgroundImage: controller.user!.profilePictuer.isNotEmpty
+                      ? NetworkImage(controller.user!.profilePictuer)
+                      : null,
                   radius: 55,
                   backgroundColor: ColorConstants.SecondaryColor4,
-                  child: const Icon(Icons.person),
                 ),
               ),
+              SizedBox(
+                height: 10,
+              ),
+              TextButton(
+                  onPressed: () {
+                    Provider.of<UserController>(context, listen: false)
+                        .uploadUserProfilePicture(context);
+                  },
+                  child: Text("Change Profile Pic")),
+              gap,
               ProfileDetailesCard(
                 title: "",
                 data: controller.user!.hostelName,

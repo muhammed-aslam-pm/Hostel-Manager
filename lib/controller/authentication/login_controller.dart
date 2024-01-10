@@ -126,7 +126,18 @@ class LoginController with ChangeNotifier {
           );
         }
       }
-    } catch (e) {}
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        // return 'The password provided is too weak.';
+      } else if (e.code == 'email-already-in-use') {
+        // return 'The account already exists for that email.';
+      }
+      // return e.message; // Return error message for other exceptions
+    } catch (e) {
+      ScaffoldMessenger(
+          child: SnackBar(content: Text('Error: ${e.toString()}')));
+      // Return generic error message for other exceptions
+    }
   }
 
 //hive password

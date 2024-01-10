@@ -86,4 +86,15 @@ class AuthenticationRepository extends ChangeNotifier {
       return 'Error: ${e.toString()}'; // Return generic error message for other exceptions
     }
   }
+
+  //reset password
+
+  Future<void> resetPassword({required String email}) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      print(
+          'Error: ${e.toString()}'); // Return generic error message for other exceptions
+    }
+  }
 }

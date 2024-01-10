@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class OwnerModel {
   OwnerModel(
       {required this.id,
@@ -28,4 +30,34 @@ class OwnerModel {
       'AccountSetupcompleted': isAccountSetupCompleted
     };
   }
+
+  // factory model to create owner model from firebase document snapshort
+
+  factory OwnerModel.fromSnapshot(
+      DocumentSnapshot<Map<String, dynamic>> document) {
+    if (document.data() != null) {
+      final data = document.data()!;
+      return OwnerModel(
+          id: document.id,
+          hostelName: data['HostelName'] ?? '',
+          emailAddress: data['EmailAddress'] ?? '',
+          mobileNumber: data['MobileNumber'] ?? '',
+          ownwerName: data['OwnerName'] ?? '',
+          profilePictuer: data['ProfilePictuer'] ?? '',
+          noOfRooms: data['NoOfRooms'] ?? 0,
+          isAccountSetupCompleted: data['AccountSetupcompleted'] ?? false);
+    } else {
+      return OwnerModel.empty();
+    }
+  }
+
+  static OwnerModel empty() => OwnerModel(
+      id: '',
+      hostelName: '',
+      emailAddress: '',
+      mobileNumber: '',
+      ownwerName: '',
+      profilePictuer: '',
+      noOfRooms: 0,
+      isAccountSetupCompleted: false);
 }

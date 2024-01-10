@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hostel_management_app/controller/authentication/owner_controller.dart';
+import 'package:hostel_management_app/controller/users/owner_repository.dart';
 import 'package:hostel_management_app/view/owner_home_screen/owner_home_screen.dart';
 
 class AccountSetUpScreenController with ChangeNotifier {
@@ -21,11 +21,11 @@ class AccountSetUpScreenController with ChangeNotifier {
   final roomNumberController = TextEditingController();
   GlobalKey<FormState> accountSetupFormKey = GlobalKey<FormState>();
 
-  final OwnerController controller = OwnerController();
+  final OwnerRepository controller = OwnerRepository();
 
   Future<void> updateOwnerRecords(BuildContext context) async {
     final currentUser = await FirebaseAuth.instance.currentUser;
-    controller.updateOwnerRecords(
+    controller.accountSetup(
         id: currentUser!.uid,
         mobileNumber: phoneNumberController.text,
         hostelName: hostelNameController.text,

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hostel_management_app/controller/dashboard_controller/dashboard_controller.dart';
+import 'package:hostel_management_app/controller/users/user_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
@@ -13,12 +15,27 @@ import 'package:hostel_management_app/view/owner_dashboard_page/widgets/rooms_va
 import 'package:hostel_management_app/view/owner_dashboard_page/widgets/upcoming_bookings_card.dart';
 import 'package:hostel_management_app/view/owner_profile_screen/owner_profile_screen.dart';
 import 'package:hostel_management_app/view/vacant_beds_screen/vacant_beds_screen.dart';
+import 'package:provider/provider.dart';
 
-class OwnerDashBoardPage extends StatelessWidget {
+class OwnerDashBoardPage extends StatefulWidget {
   const OwnerDashBoardPage({super.key});
 
   @override
+  State<OwnerDashBoardPage> createState() => _OwnerDashBoardPageState();
+}
+
+class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
+  final con = DashboardController();
+  @override
+  void initState() {
+    Provider.of<UserController>(context, listen: false).fetchData();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final controller = Provider.of<UserController>(context);
     return Scaffold(
       backgroundColor: ColorConstants.primaryWhiteColor,
       appBar: AppBar(
@@ -28,15 +45,17 @@ class OwnerDashBoardPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              "Welcom Back,",
-              style: TextStyleConstants.homeMainTitle1,
+            Consumer(
+              builder: (context, value, child) => Text(
+                "Welcom Back,",
+                style: TextStyleConstants.homeMainTitle1,
+              ),
             ),
             SizedBox(
               height: 5,
             ),
             Text(
-              "Asha",
+              controller.user!.ownwerName,
               style: TextStyleConstants.homeMainTitle2,
             )
           ],

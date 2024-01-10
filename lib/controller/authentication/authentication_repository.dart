@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:hostel_management_app/controller/authentication/owner_controller.dart';
+import 'package:hostel_management_app/controller/users/owner_repository.dart';
 import 'package:hostel_management_app/model/owner_model.dart';
 
 class AuthenticationRepository extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   late UserCredential userCredential;
   late UserCredential userCredentialGoogle;
-  final OwnerController owner = OwnerController();
+  final OwnerRepository owner = OwnerRepository();
 
 // sign in w
   Future<String?> signInWithEmailAndPassword(

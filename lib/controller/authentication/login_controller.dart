@@ -11,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class LoginController with ChangeNotifier {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  bool hidePassword = false;
+  bool hidePassword = true;
 
   bool rememberCredentials = false;
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
@@ -25,6 +25,13 @@ class LoginController with ChangeNotifier {
   remember() {
     rememberCredentials = !rememberCredentials;
     notifyListeners();
+  }
+
+  //fetch stored credential credential
+  fetchStordCredentials() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    emailController.text = prefs.getString('email') ?? "";
+    passwordController.text = prefs.getString('password') ?? "";
   }
 
   Future<void> login(BuildContext context) async {
@@ -49,6 +56,8 @@ class LoginController with ChangeNotifier {
       }
 
       //Navigate to home page
+      emailController.clear();
+      passwordController.clear();
 
       if (credential.user?.uid != null) {
         final DocumentSnapshot userData = await _firestore
@@ -58,18 +67,19 @@ class LoginController with ChangeNotifier {
         final bool isFirstTime = await userData['AccountSetupcompleted'];
         print(' id first :$isFirstTime');
         if (!isFirstTime) {
-          Navigator.push(
+          Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (context) => AccountSetupScreen(),
-              ));
+                builder: (context) => const AccountSetupScreen(),
+              ),
+              (route) => false);
         } else {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const OwnerHomeScreen(),
-            ),
-          );
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const OwnerHomeScreen(),
+              ),
+              (route) => false);
         }
       }
       print(credential);

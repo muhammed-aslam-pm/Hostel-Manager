@@ -101,4 +101,15 @@ class AuthenticationRepository extends ChangeNotifier {
           'Error: ${e.toString()}'); // Return generic error message for other exceptions
     }
   }
+
+  Future<void> deleteAccount() async {
+    try {
+      final curentUser = _auth.currentUser;
+      await owner.deleteOwnerRecords(curentUser!.uid);
+      await _auth.currentUser!.delete();
+    } catch (e) {
+      print(
+          'Error: ${e.toString()}'); // Return generic error message for other exceptions
+    }
+  }
 }

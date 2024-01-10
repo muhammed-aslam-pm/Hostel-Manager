@@ -1,7 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hostel_management_app/controller/authentication/authentication_repository.dart';
 import 'package:hostel_management_app/controller/loading/loading_controller.dart';
 import 'package:hostel_management_app/controller/users/owner_repository.dart';
 import 'package:hostel_management_app/model/owner_model.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hostel_management_app/view/authentications/login_screen.dart';
 
 class UserController with ChangeNotifier {
   OwnerModel? user = OwnerModel.empty();
@@ -57,6 +61,22 @@ class UserController with ChangeNotifier {
       Navigator.pop(context);
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text("Profile Updated Successfull")));
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  deleteUserAccount(context) async {
+    try {
+      final auth = AuthenticationRepository();
+      await auth.deleteAccount();
+
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LoginScreen(),
+          ),
+          (route) => false);
     } catch (e) {
       print(e.toString());
     }

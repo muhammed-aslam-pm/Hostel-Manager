@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/users/user_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/view/owner_profile_screen/profile_eding_screen.dart';
+import 'package:hostel_management_app/view/owner_profile_screen/widgets/confirm_delete_dialog.dart';
 import 'package:hostel_management_app/view/owner_profile_screen/widgets/confirm_logout_dialog.dart';
 import 'package:hostel_management_app/view/owner_profile_screen/widgets/profile_detailes_card.dart';
 import 'package:hostel_management_app/view/owner_profile_screen/widgets/room_no_card.dart';
@@ -69,6 +70,31 @@ class OwnerProfileScreen extends StatelessWidget {
                     showDialog(
                       context: context,
                       builder: (context) => const ConfirmLogoutDialog(),
+                    );
+                  },
+                ),
+
+                PopupMenuItem(
+                  child: Row(
+                    children: [
+                      Text(
+                        'Delete Account',
+                        style: TextStyle(color: ColorConstants.colorRed),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Icon(
+                        Icons.delete,
+                        size: 20,
+                        color: ColorConstants.colorRed,
+                      )
+                    ],
+                  ),
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => const ConfirmDeletDialog(),
                     );
                   },
                 ),

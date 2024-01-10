@@ -38,8 +38,6 @@ class LoginController with ChangeNotifier {
     try {
       // start loading screen
 
-      FullScreenLoader.openLoadinDialog(context);
-
       final credential = await _auth.signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
@@ -82,6 +80,7 @@ class LoginController with ChangeNotifier {
               (route) => false);
         }
       }
+
       print(credential);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -92,7 +91,9 @@ class LoginController with ChangeNotifier {
         const ScaffoldMessenger(
             child: SnackBar(
                 content: Text('Wrong password provided for that user.')));
-        print('Wrong password provided for that user.');
+      } else {
+        ScaffoldMessenger(
+            child: SnackBar(content: Text('OOps ${e.toString()}')));
       }
     }
   }

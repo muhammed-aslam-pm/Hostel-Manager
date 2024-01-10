@@ -148,16 +148,17 @@ class ResidentsAddingPage extends StatelessWidget {
               height: 50,
               child: TextFormField(
                 decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                          width: 1.5, color: ColorConstants.primaryColor),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                          width: 2, color: ColorConstants.primaryColor),
-                    )),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(
+                        width: 1.5, color: ColorConstants.primaryColor),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(
+                        width: 2, color: ColorConstants.primaryColor),
+                  ),
+                ),
               ),
             ),
             SizedBox(

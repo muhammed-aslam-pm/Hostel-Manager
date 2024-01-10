@@ -33,6 +33,7 @@ class OwnerRepository with ChangeNotifier {
       {required String id,
       required String mobileNumber,
       required String hostelName,
+      required String address,
       required String profilePictuer,
       required int noOfRooms}) async {
     try {
@@ -40,6 +41,7 @@ class OwnerRepository with ChangeNotifier {
         'HostelName': hostelName,
         'MobileNumber': mobileNumber,
         'ProfilePictuer': profilePictuer,
+        'Address': address,
         'NoOfRooms': noOfRooms,
         'AccountSetupcompleted': true
       });

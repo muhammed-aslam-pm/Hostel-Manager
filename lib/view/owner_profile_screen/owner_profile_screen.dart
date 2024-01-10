@@ -1,11 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hostel_management_app/controller/users/user_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
-import 'package:hostel_management_app/utils/image_constants.dart';
-import 'package:hostel_management_app/utils/text_style_constatnts.dart';
-import 'package:hostel_management_app/view/authentications/login_screen.dart';
+import 'package:hostel_management_app/view/owner_profile_screen/widgets/confirm_logout_dialog.dart';
+import 'package:hostel_management_app/view/owner_profile_screen/widgets/profile_detailes_card.dart';
+import 'package:hostel_management_app/view/owner_profile_screen/widgets/room_no_card.dart';
 import 'package:provider/provider.dart';
 
 class OwnerProfileScreen extends StatelessWidget {
@@ -14,6 +12,9 @@ class OwnerProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<UserController>(context);
+    final gap = const SizedBox(
+      height: 20,
+    );
     return Scaffold(
       backgroundColor: ColorConstants.primaryWhiteColor,
       appBar: AppBar(
@@ -23,7 +24,7 @@ class OwnerProfileScreen extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.chevron_left_outlined,
             size: 30,
           ),
@@ -45,7 +46,7 @@ class OwnerProfileScreen extends StatelessWidget {
                         'Log Out',
                         style: TextStyle(color: ColorConstants.colorRed),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
                       Icon(
@@ -58,65 +59,18 @@ class OwnerProfileScreen extends StatelessWidget {
                   onTap: () {
                     showDialog(
                       context: context,
-                      builder: (context) => AlertDialog(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        title: Text(
-                          'Confirm Logout',
-                          textAlign: TextAlign.center,
-                        ),
-                        content: Text('Are you sure you want to logout?'),
-                        actionsAlignment: MainAxisAlignment.center,
-                        actions: <Widget>[
-                          OutlinedButton(
-                            onPressed: () {
-                              Navigator.of(context).pop(
-                                  false); // Dismiss the dialog and return false
-                            },
-                            child: Text('Cancel'),
-                          ),
-                          ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStatePropertyAll(
-                                    ColorConstants.colorRed)),
-                            onPressed: () async {
-                              await GoogleSignIn().signOut();
-                              await FirebaseAuth.instance.signOut();
-                              Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => LoginScreen(),
-                                  ),
-                                  (route) => false);
-                            },
-                            child: Text('Logout'),
-                          ),
-                        ],
-                      ),
+                      builder: (context) => ConfirmLogoutDialog(),
                     );
                   },
                 ),
               ];
             },
           ),
-          // IconButton(
-          //     onPressed: () async {
-          //       await GoogleSignIn().signOut();
-          //       await FirebaseAuth.instance.signOut();
-          //       Navigator.pushAndRemoveUntil(
-          //           context,
-          //           MaterialPageRoute(
-          //             builder: (context) => LoginScreen(),
-          //           ),
-          //           (route) => false);
-          //     },
-          //     icon: Icon(Icons.more_vert_rounded))
         ],
         elevation: 0,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.only(right: 20, left: 20, bottom: 20),
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -130,154 +84,34 @@ class OwnerProfileScreen extends StatelessWidget {
                   child: Icon(Icons.person),
                 ),
               ),
-              SizedBox(
-                height: 20,
+              ProfileDetailesCard(
+                title: "",
+                data: controller.user!.hostelName,
               ),
-              Container(
-                padding: EdgeInsets.all(15),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: ColorConstants.SecondaryColor1,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Text(
-                  controller.user!.hostelName,
-                  style: TextStyleConstants.dashboardBookingName,
-                ),
+              gap,
+              ProfileDetailesCard(
+                title: "Address",
+                data: controller.user!.address,
               ),
-              SizedBox(
-                height: 20,
-              ),
-              Text("Address"),
-              SizedBox(
-                height: 5,
-              ),
-              Container(
-                padding: EdgeInsets.all(15),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: ColorConstants.SecondaryColor1,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Text(
-                  "somthing........ Somthing..............................",
-                  style: TextStyleConstants.dashboardBookingName,
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Text("Owner Name"),
-              SizedBox(
-                height: 5,
-              ),
-              Container(
-                padding: EdgeInsets.all(15),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: ColorConstants.SecondaryColor1,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Text(
-                  controller.user!.ownwerName,
-                  style: TextStyleConstants.dashboardBookingName,
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Text("Phone Number"),
-              SizedBox(
-                height: 5,
-              ),
-              Container(
-                padding: EdgeInsets.all(15),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: ColorConstants.SecondaryColor1,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Text(
-                  controller.user!.mobileNumber,
-                  style: TextStyleConstants.dashboardBookingName,
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Text("Email"),
-              SizedBox(
-                height: 5,
-              ),
-              Container(
-                padding: EdgeInsets.all(15),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: ColorConstants.SecondaryColor1,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Text(
-                  controller.user!.emailAddress,
-                  style: TextStyleConstants.dashboardBookingName,
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
+              gap,
+              ProfileDetailesCard(
+                  title: "Owner Name", data: controller.user!.ownwerName),
+              gap,
+              ProfileDetailesCard(
+                  title: "Phone Number", data: controller.user!.mobileNumber),
+              gap,
+              ProfileDetailesCard(
+                  title: "Email", data: controller.user!.emailAddress),
+              gap,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: ColorConstants.SecondaryColor4),
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Image.asset(
-                              ImageConstants.bedIcon2,
-                              color: ColorConstants.primaryBlackColor,
-                              height: 25,
-                              width: 25,
-                            ),
-                            Text(
-                              "No of Rooms",
-                              style: TextStyleConstants.bookingsRoomNumber,
-                            )
-                          ],
-                        ),
-                        Text(
-                          controller.user!.noOfRooms.toString(),
-                          style: TextStyleConstants.upComingVaccencyText2,
-                        )
-                      ],
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: ColorConstants.SecondaryColor4),
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Image.asset(
-                              ImageConstants.bedIcon2,
-                              color: ColorConstants.primaryBlackColor,
-                              height: 25,
-                              width: 25,
-                            ),
-                            Text(
-                              "No of Beds",
-                              style: TextStyleConstants.bookingsRoomNumber,
-                            )
-                          ],
-                        ),
-                        Text(
-                          "33",
-                          style: TextStyleConstants.upComingVaccencyText2,
-                        )
-                      ],
-                    ),
-                  ),
+                  NumberCard(
+                      title: "No of Rooms",
+                      number: controller.user!.noOfRooms.toString()),
+                  NumberCard(
+                      title: "No of Beds",
+                      number: controller.user!.noOfBeds.toString())
                 ],
               ),
             ],

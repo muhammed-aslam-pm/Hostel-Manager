@@ -24,11 +24,13 @@ class AuthenticationRepository extends ChangeNotifier {
       final newOwner = OwnerModel(
           id: userCredential.user!.uid,
           hostelName: '',
+          address: '',
           emailAddress: email,
           mobileNumber: '',
           ownwerName: name,
           profilePictuer: '',
           noOfRooms: 0,
+          noOfBeds: 0,
           isAccountSetupCompleted: false);
 
       //saving owner data
@@ -62,11 +64,13 @@ class AuthenticationRepository extends ChangeNotifier {
         final newOwner = OwnerModel(
             id: userCredentialGoogle.user!.uid,
             hostelName: '',
+            address: '',
             emailAddress: userCredentialGoogle.user!.email ?? "",
             mobileNumber: userCredentialGoogle.user!.phoneNumber ?? "",
             ownwerName: userCredentialGoogle.user!.displayName ?? "",
             profilePictuer: userCredentialGoogle.user!.photoURL ?? "",
             noOfRooms: 0,
+            noOfBeds: 0,
             isAccountSetupCompleted: false);
 
         // //saving owner data

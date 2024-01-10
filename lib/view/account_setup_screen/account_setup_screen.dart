@@ -120,6 +120,39 @@ class AccountSetupScreen extends StatelessWidget {
                         height: 20,
                       ),
                       Text(
+                        "Address",
+                        style: TextStyleConstants.dashboardBookingName,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        height: 100,
+                        child: TextFormField(
+                          controller: controller.addressController,
+                          maxLines: null,
+                          expands: true,
+                          decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(
+                                    width: 1,
+                                    color: ColorConstants.primaryColor),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(
+                                    width: 2,
+                                    color: ColorConstants.primaryColor),
+                              ),
+                              counterStyle: TextStyle(
+                                  color: ColorConstants.primaryBlackColor)),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
                         "Phone no",
                         style: TextStyleConstants.dashboardBookingName,
                       ),

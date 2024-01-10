@@ -27,7 +27,7 @@ class ConfirmLogoutDialog extends StatelessWidget {
             Navigator.of(context)
                 .pop(false); // Dismiss the dialog and return false
           },
-          child: Text('Cancel'),
+          child: const Text('Cancel'),
         ),
         ElevatedButton(
           style: ButtonStyle(

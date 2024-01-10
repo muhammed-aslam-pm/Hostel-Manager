@@ -18,11 +18,11 @@ class ProfileDetailesCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(title),
-        SizedBox(
+        const SizedBox(
           height: 5,
         ),
         Container(
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           width: double.infinity,
           decoration: BoxDecoration(
               color: ColorConstants.SecondaryColor1,

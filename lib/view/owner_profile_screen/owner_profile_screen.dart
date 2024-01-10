@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/users/user_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
+import 'package:hostel_management_app/view/owner_profile_screen/profile_eding_screen.dart';
 import 'package:hostel_management_app/view/owner_profile_screen/widgets/confirm_logout_dialog.dart';
 import 'package:hostel_management_app/view/owner_profile_screen/widgets/profile_detailes_card.dart';
 import 'package:hostel_management_app/view/owner_profile_screen/widgets/room_no_card.dart';
@@ -12,7 +13,7 @@ class OwnerProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<UserController>(context);
-    final gap = const SizedBox(
+    const gap = SizedBox(
       height: 20,
     );
     return Scaffold(
@@ -38,7 +39,15 @@ class OwnerProfileScreen extends StatelessWidget {
             itemBuilder: (context) {
               return [
                 // In this case, we need 5 popupmenuItems one for each option.
-                const PopupMenuItem(child: Text('Edit')),
+                PopupMenuItem(
+                    child: const Text('Edit'),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ProfileEdingScreen(),
+                          ));
+                    }),
                 PopupMenuItem(
                   child: Row(
                     children: [
@@ -59,7 +68,7 @@ class OwnerProfileScreen extends StatelessWidget {
                   onTap: () {
                     showDialog(
                       context: context,
-                      builder: (context) => ConfirmLogoutDialog(),
+                      builder: (context) => const ConfirmLogoutDialog(),
                     );
                   },
                 ),
@@ -81,7 +90,7 @@ class OwnerProfileScreen extends StatelessWidget {
                 child: CircleAvatar(
                   radius: 55,
                   backgroundColor: ColorConstants.SecondaryColor4,
-                  child: Icon(Icons.person),
+                  child: const Icon(Icons.person),
                 ),
               ),
               ProfileDetailesCard(

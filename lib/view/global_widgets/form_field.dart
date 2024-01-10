@@ -5,13 +5,15 @@ class formField extends StatelessWidget {
   formField(
       {super.key,
       required this.controller,
-      required this.hitText,
+      this.hitText,
       this.hideText = false,
       this.suffixIcon,
-      this.validator});
+      this.validator,
+      this.labelText});
 
   final TextEditingController controller;
-  final String hitText;
+  final String? hitText;
+  final String? labelText;
   final bool hideText;
   final Widget? suffixIcon;
   final String? Function(String?)? validator;
@@ -32,6 +34,7 @@ class formField extends StatelessWidget {
                 BorderSide(width: 2, color: ColorConstants.primaryColor),
           ),
           hintText: hitText,
+          label: Text(labelText ?? ""),
           hintStyle: TextStyle(
               fontSize: 15,
               color: ColorConstants.colorGrey,

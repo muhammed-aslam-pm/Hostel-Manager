@@ -28,7 +28,7 @@ class RoomsCard extends StatelessWidget {
                 height: 78,
                 width: 83,
                 padding: EdgeInsets.only(
-                  bottom: 2,
+                  bottom: 6,
                 ),
                 decoration: BoxDecoration(
                     color: ColorConstants.secondaryWhiteColor,

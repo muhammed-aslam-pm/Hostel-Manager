@@ -89,9 +89,7 @@ class OwnerRoomsPage extends StatelessWidget {
               GridView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.only(
-                  bottom: 10,
-                ),
+                padding: EdgeInsets.only(bottom: 10, left: 10),
                 itemCount: 20,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,

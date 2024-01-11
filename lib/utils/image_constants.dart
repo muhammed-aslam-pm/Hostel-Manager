@@ -43,4 +43,6 @@ class ImageConstants {
 
   static String hidePasswordIcon = "assets/images/invisibleIcon.png";
   static String PasswordIcon = "assets/images/visibleicon.png";
+
+  static String profileImage = "assets/images/profile_image.png";
 }

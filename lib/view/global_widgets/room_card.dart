@@ -25,8 +25,8 @@ class RoomsCard extends StatelessWidget {
               bottom: 0,
               left: 0,
               child: Container(
-                height: 80,
-                width: 85,
+                height: 78,
+                width: 83,
                 padding: EdgeInsets.only(
                   bottom: 2,
                 ),
@@ -71,7 +71,7 @@ class RoomsCard extends StatelessWidget {
                 )),
             Positioned(
               top: 0,
-              left: 75,
+              left: 70,
               child: CircleAvatar(
                 radius: 15,
                 backgroundColor: ColorConstants.primaryColor,

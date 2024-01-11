@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/dashboard_controller/dashboard_controller.dart';
 import 'package:hostel_management_app/controller/users/user_controller.dart';
@@ -71,9 +72,23 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
             },
             child: Hero(
               tag: "profile",
-              child: CircleAvatar(
-                radius: 20,
-                backgroundImage: NetworkImage(controller.user!.profilePictuer),
+              child: Container(
+                height: 40,
+                width: 40,
+                decoration: BoxDecoration(
+                  color: ColorConstants.primaryWhiteColor,
+                  shape: BoxShape.circle,
+                  image: controller.user!.profilePictuer.isNotEmpty
+                      ? DecorationImage(
+                          image: CachedNetworkImageProvider(
+                            controller.user!.profilePictuer,
+                          ),
+                          fit: BoxFit.cover,
+                        )
+                      : DecorationImage(
+                          image: AssetImage(ImageConstants.profileImage),
+                          fit: BoxFit.fitWidth),
+                ),
               ),
             ),
           ),
@@ -117,10 +132,11 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
                       image: ImageConstants.ownerRoomsIconeDisabled,
                       onTap: () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => PendingPaymentsScreen(),
-                            ));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PendingPaymentsScreen(),
+                          ),
+                        );
                       },
                     ),
                   ],

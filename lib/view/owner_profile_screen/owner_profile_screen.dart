@@ -1,7 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/users/user_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
-import 'package:hostel_management_app/view/owner_profile_screen/profile_eding_screen.dart';
+import 'package:hostel_management_app/utils/image_constants.dart';
+import 'package:hostel_management_app/view/global_widgets/shimmer_loader.dart';
+import 'package:hostel_management_app/view/owner_profile_screen/profile_editing_screen.dart';
 import 'package:hostel_management_app/view/owner_profile_screen/widgets/confirm_delete_dialog.dart';
 import 'package:hostel_management_app/view/owner_profile_screen/widgets/confirm_logout_dialog.dart';
 import 'package:hostel_management_app/view/owner_profile_screen/widgets/profile_detailes_card.dart';
@@ -113,16 +116,32 @@ class OwnerProfileScreen extends StatelessWidget {
             children: [
               Hero(
                 tag: "profile",
-                child: CircleAvatar(
-                  backgroundImage: controller.user!.profilePictuer.isNotEmpty
-                      ? NetworkImage(controller.user!.profilePictuer)
-                      : null,
-                  radius: 55,
-                  backgroundColor: ColorConstants.SecondaryColor4,
+                child: Consumer(
+                  builder: (context, value, child) {
+                    return Container(
+                      height: 110,
+                      width: 110,
+                      decoration: BoxDecoration(
+                        color: ColorConstants.primaryWhiteColor,
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: controller.user!.profilePictuer.isNotEmpty
+                            ? CachedNetworkImage(
+                                imageUrl: controller.user!.profilePictuer,
+                                fit: BoxFit.cover,
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                                progressIndicatorBuilder:
+                                    (context, url, progress) => ShimmerEffect(
+                                        height: 110, width: 110, radius: 100),
+                              )
+                            : Image.asset(ImageConstants.profileImage),
+                      ),
+                    );
+                  },
                 ),
-              ),
-              SizedBox(
-                height: 10,
               ),
               TextButton(
                   onPressed: () {
@@ -130,7 +149,6 @@ class OwnerProfileScreen extends StatelessWidget {
                         .uploadUserProfilePicture(context);
                   },
                   child: Text("Change Profile Pic")),
-              gap,
               ProfileDetailesCard(
                 title: "",
                 data: controller.user!.hostelName,

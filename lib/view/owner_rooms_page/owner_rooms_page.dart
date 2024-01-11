@@ -89,13 +89,15 @@ class OwnerRoomsPage extends StatelessWidget {
               GridView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.only(bottom: 10, left: 10),
+                padding: EdgeInsets.only(
+                  bottom: 10,
+                ),
                 itemCount: 20,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   crossAxisSpacing: 0,
-                  mainAxisSpacing: 20,
-                  mainAxisExtent: 90,
+                  mainAxisSpacing: 25,
+                  mainAxisExtent: 95,
                 ),
                 itemBuilder: (context, index) => RoomsCard(
                   roomNumber: index.toString(),

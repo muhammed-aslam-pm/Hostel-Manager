@@ -8,6 +8,7 @@ import 'package:hostel_management_app/controller/dashboard_controller/dashboard_
 import 'package:hostel_management_app/controller/onboarding/onboaring_controller.dart';
 import 'package:hostel_management_app/controller/bottomnavbar/bottomnavbar_controller.dart';
 import 'package:hostel_management_app/controller/residents_controller/residents_controller.dart';
+import 'package:hostel_management_app/controller/rooms/rooms_controller.dart';
 import 'package:hostel_management_app/controller/users/user_controller.dart';
 import 'package:hostel_management_app/view/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +17,7 @@ import 'package:firebase_core/firebase_core.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: FirebaseOptions(
+    options: const FirebaseOptions(
         apiKey: "AIzaSyBUW30KcgMfmfMr7z6irFLCz9G9Dcv9Amw",
         appId: "1:721358647180:android:8bba875f4f26ea2a8470a9",
         messagingSenderId: '',
@@ -62,7 +63,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => UserController(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (context) => RoomsController(),
+        ),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -94,10 +94,9 @@ class UserController with ChangeNotifier {
 
         Map<String, dynamic> json = {"ProfilePictuer": imageUrl};
         controller.accountSetup(json);
-
-        fetchData();
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text("Profile picture Changed Sussefully")));
+        fetchData();
       }
     } catch (e) {
       print(e.toString());

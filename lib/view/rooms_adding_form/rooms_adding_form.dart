@@ -50,6 +50,8 @@ class RoomsAddingForm extends StatelessWidget {
                             ),
                           ),
                           keyboardType: TextInputType.number,
+                          validator: (value) =>
+                              controller.fieldValidation(value),
                         ),
                       ),
                     ],
@@ -86,6 +88,8 @@ class RoomsAddingForm extends StatelessWidget {
                             ),
                           ),
                           keyboardType: TextInputType.number,
+                          validator: (value) =>
+                              controller.fieldValidation(value),
                         ),
                       ),
                     ],
@@ -120,6 +124,7 @@ class RoomsAddingForm extends StatelessWidget {
                   ),
                 ),
                 keyboardType: TextInputType.number,
+                validator: (value) => controller.fieldValidation(value),
               ),
             ),
             SizedBox(
@@ -171,7 +176,9 @@ class RoomsAddingForm extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    controller.cancel(context);
+                  },
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -192,7 +199,7 @@ class RoomsAddingForm extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     if (roomController.formKey.currentState!.validate()) {
-                      controller.addRoom();
+                      controller.addRoom(context);
                     }
                   },
                   child: Container(

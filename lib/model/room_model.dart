@@ -30,20 +30,23 @@ class RoomModel {
       capacity: 0,
       vacancy: 0,
       rent: 0,
-      facilities: [],
-      residents: []);
+      facilities: <int>[],
+      residents: <String>[]);
 
   factory RoomModel.fromSnapshot(
       DocumentSnapshot<Map<String, dynamic>> document) {
     if (document.data() != null) {
       final data = document.data()!;
       return RoomModel(
-          roomNo: data["RoomNo"] ?? 0,
-          capacity: data["Capacity"] ?? 0,
-          vacancy: data['Vacancy'] ?? 0,
-          rent: data['Rent'] ?? 0,
-          residents: data["Residents"] ?? [],
-          facilities: data["Facilities"] ?? []);
+        roomNo: data["RoomNo"] ?? 0,
+        capacity: data["Capacity"] ?? 0,
+        vacancy: data['Vacancy'] ?? 0,
+        rent: data['Rent'] ?? 0,
+        residents:
+            (data["Residents"] as List<dynamic>?)?.cast<String>() ?? <String>[],
+        facilities:
+            (data["Facilities"] as List<dynamic>?)?.cast<int>() ?? <int>[],
+      );
     } else {
       return RoomModel.empty();
     }

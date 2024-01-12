@@ -7,6 +7,33 @@ class RoomsRepository with ChangeNotifier {
   final _db = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  Future<List<RoomModel>> fetchData() async {
+    try {
+      print("Repository");
+      final userId = _auth.currentUser?.uid;
+
+      if (userId == null || userId.isEmpty) {
+        throw Exception("Unable to find user information, try again later");
+      }
+
+      final result =
+          await _db.collection("Owners").doc(userId).collection("Rooms").get();
+      print("Result: $result");
+
+      final roomModels = result.docs
+          .map((documentSnapshot) => RoomModel.fromSnapshot(documentSnapshot))
+          .toList();
+
+      print("Room Models: $roomModels");
+
+      return roomModels;
+    } catch (e) {
+      print("Error: $e");
+      // Handle the error appropriately, e.g., log, display a message, etc.
+      rethrow; // Re-throwing the exception for higher-level error handling
+    }
+  }
+
   addRoom(RoomModel room) async {
     try {
       final userId = await _auth.currentUser!.uid;

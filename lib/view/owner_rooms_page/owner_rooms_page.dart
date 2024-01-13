@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/rooms/rooms_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
@@ -13,6 +15,10 @@ class OwnerRoomsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CollectionReference roomsCollection = FirebaseFirestore.instance
+        .collection('Owners')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection('Rooms');
     final controller = Provider.of<RoomsController>(context, listen: false);
     return Scaffold(
       backgroundColor: ColorConstants.primaryWhiteColor,
@@ -87,23 +93,25 @@ class OwnerRoomsPage extends StatelessWidget {
               height: 30,
             ),
             Expanded(
-              child: FutureBuilder(
-                future: controller.fetchRoomsData(),
+              child: StreamBuilder(
+                stream: roomsCollection.snapshots(),
                 builder: (context, snapshot) {
-                  final rooms = snapshot.data;
                   if (snapshot.hasData) {
                     return GridView.builder(
-                      itemCount: rooms!.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        crossAxisSpacing: 0,
-                        mainAxisSpacing: 25,
-                        mainAxisExtent: 95,
-                      ),
-                      itemBuilder: (context, index) => RoomsCard(
-                          roomNumber: rooms[index].roomNo.toString(),
-                          vaccentBedNumber: rooms[index].vacancy.toString()),
-                    );
+                        itemCount: snapshot.data!.docs.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          crossAxisSpacing: 0,
+                          mainAxisSpacing: 25,
+                          mainAxisExtent: 95,
+                        ),
+                        itemBuilder: (context, index) {
+                          DocumentSnapshot rooms = snapshot.data!.docs[index];
+                          print(rooms);
+                          return RoomsCard(
+                              roomNumber: rooms["RoomNo"].toString(),
+                              vaccentBedNumber: rooms["Vacancy"].toString());
+                        });
                   } else {
                     return Center(
                       child: Text("No Rooms Data Available"),

@@ -1,4 +1,6 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hostel_management_app/controller/rooms/rooms_controller.dart';
 import 'package:hostel_management_app/controller/users/user_controller.dart';
 import 'package:hostel_management_app/model/room_model.dart';
@@ -118,13 +120,18 @@ class RoomsViewScreen extends StatelessWidget {
                       Hero(
                         tag: "room",
                         child: CircleAvatar(
-                          radius: 25,
-                          backgroundColor: ColorConstants.primaryWhiteColor,
-                          child: Image.asset(
-                            ImageConstants.roomsIcon2,
-                            color: ColorConstants.primaryBlackColor,
-                          ),
-                        ),
+                            radius: 25,
+                            backgroundColor: ColorConstants.primaryWhiteColor,
+                            child: Icon(
+                              FluentIcons.conference_room_48_regular,
+                              size: 37,
+                              color: ColorConstants.primaryBlackColor,
+                            )
+                            // Image.asset(
+                            //   ImageConstants.roomsIcon2,
+                            //   color: ColorConstants.primaryBlackColor,
+                            // ),
+                            ),
                       ),
                       Hero(
                         tag: "roomNo",
@@ -157,8 +164,8 @@ class RoomsViewScreen extends StatelessWidget {
                               radius: 20,
                               backgroundColor:
                                   ColorConstants.bedCircleAvtarColor,
-                              child: Image.asset(
-                                ImageConstants.moneyIcon,
+                              child: FaIcon(
+                                FontAwesomeIcons.indianRupeeSign,
                                 color: ColorConstants.primaryBlackColor,
                               ),
                             ),
@@ -189,8 +196,9 @@ class RoomsViewScreen extends StatelessWidget {
                               radius: 25,
                               backgroundColor:
                                   ColorConstants.bedCircleAvtarColor,
-                              child: Image.asset(
-                                ImageConstants.bedIcon2,
+                              child: Icon(
+                                FluentIcons.bed_20_regular,
+                                size: 29,
                                 color: ColorConstants.primaryBlackColor,
                               ),
                             ),
@@ -217,8 +225,9 @@ class RoomsViewScreen extends StatelessWidget {
                               radius: 25,
                               backgroundColor:
                                   ColorConstants.bedCircleAvtarColor,
-                              child: Image.asset(
-                                ImageConstants.bedIcon2,
+                              child: Icon(
+                                FluentIcons.bed_20_regular,
+                                size: 29,
                                 color: ColorConstants.primaryBlackColor,
                               ),
                             ),

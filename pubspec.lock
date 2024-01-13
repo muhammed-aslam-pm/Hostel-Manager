@@ -329,6 +329,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.6.17"
+  fluentui_system_icons:
+    dependency: "direct main"
+    description:
+      name: fluentui_system_icons
+      sha256: "077cc7bd15ced57d768024508aefefff45431a2e82ae11e95c66815fd4d2880d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.224"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -368,6 +376,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  font_awesome_flutter:
+    dependency: "direct main"
+    description:
+      name: font_awesome_flutter
+      sha256: "52671aea66da73b58d42ec6d0912b727a42248dd9a7c76d6c20f275783c48c08"
+      url: "https://pub.dev"
+    source: hosted
+    version: "10.6.0"
   glob:
     dependency: transitive
     description:

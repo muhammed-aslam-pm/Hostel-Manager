@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 
 class RoomsCard extends StatelessWidget {
   const RoomsCard({
@@ -62,13 +64,18 @@ class RoomsCard extends StatelessWidget {
                 top: 5,
                 left: 30,
                 child: CircleAvatar(
-                  radius: 15,
-                  backgroundColor: ColorConstants.SecondaryColor4,
-                  child: Image.asset(
-                    ImageConstants.ownerRoomsIconeDisabled,
-                    color: ColorConstants.primaryBlackColor,
-                  ),
-                )),
+                    radius: 15,
+                    backgroundColor: ColorConstants.SecondaryColor4,
+                    child: Icon(
+                      FluentIcons.conference_room_48_regular,
+                      color: ColorConstants.primaryBlackColor,
+                      size: 29,
+                    )
+                    // Image.asset(
+                    //   ImageConstants.ownerRoomsIconeDisabled,
+                    //   color: ColorConstants.primaryBlackColor,
+                    // ),
+                    )),
             Positioned(
               top: 0,
               left: 70,

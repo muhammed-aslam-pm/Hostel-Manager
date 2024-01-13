@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/connection_checker/connection_checher.dart';
 import 'package:hostel_management_app/controller/rooms/rooms_repository.dart';
@@ -25,6 +27,11 @@ class RoomsController with ChangeNotifier {
   bool WMselected = false;
   bool ABselected = false;
   bool WFselected = false;
+
+  CollectionReference roomsCollection = FirebaseFirestore.instance
+      .collection('Owners')
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .collection('Rooms');
 
   Future<List<RoomModel>> fetchRoomsData() async {
     try {

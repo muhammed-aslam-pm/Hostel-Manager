@@ -2,11 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/rooms/rooms_controller.dart';
+import 'package:hostel_management_app/model/room_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/global_widgets/date_sorting_button.dart';
 import 'package:hostel_management_app/view/global_widgets/room_card.dart';
-import 'package:hostel_management_app/view/room_detailes_screen/rooms_view_page.dart';
 import 'package:hostel_management_app/view/rooms_adding_form/rooms_adding_form.dart';
 import 'package:provider/provider.dart';
 
@@ -15,11 +15,9 @@ class OwnerRoomsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference roomsCollection = FirebaseFirestore.instance
-        .collection('Owners')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .collection('Rooms');
-    final controller = Provider.of<RoomsController>(context, listen: false);
+    final controller = Provider.of<RoomsController>(
+      context,
+    );
     return Scaffold(
       backgroundColor: ColorConstants.primaryWhiteColor,
       appBar: AppBar(
@@ -94,60 +92,52 @@ class OwnerRoomsPage extends StatelessWidget {
             ),
             Expanded(
               child: StreamBuilder(
-                stream: roomsCollection.snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return GridView.builder(
-                        itemCount: snapshot.data!.docs.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          crossAxisSpacing: 0,
-                          mainAxisSpacing: 25,
-                          mainAxisExtent: 95,
-                        ),
-                        itemBuilder: (context, index) {
-                          DocumentSnapshot rooms = snapshot.data!.docs[index];
-                          print(rooms);
-                          return RoomsCard(
-                              roomNumber: rooms["RoomNo"].toString(),
-                              vaccentBedNumber: rooms["Vacancy"].toString());
-                        });
-                  } else {
+                stream: controller.roomsCollection.snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasError) {
                     return Center(
+                      child: Text("Error: ${snapshot.error}"),
+                    );
+                  }
+
+                  if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                    return const Center(
                       child: Text("No Rooms Data Available"),
                     );
                   }
+
+                  List<RoomModel> roomsList = snapshot.data!.docs
+                      .map((document) {
+                        return RoomModel.fromSnapshot(
+                            document as DocumentSnapshot<Map<String, dynamic>>);
+                      })
+                      .toList()
+                      .cast<RoomModel>(); // Explicit casting here
+
+                  // Sort roomsList based on roomNo in ascending order
+                  roomsList.sort((a, b) => a.roomNo.compareTo(b.roomNo));
+
+                  return GridView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 25,
+                      mainAxisExtent: 95,
+                    ),
+                    itemBuilder: (context, index) {
+                      final room = roomsList[index];
+                      print(room);
+                      return RoomsCard(
+                        roomNumber: room.roomNo.toString(),
+                        vaccentBedNumber: room.vacancy.toString(),
+                      );
+                    },
+                  );
                 },
               ),
-            )
-
-            // GridView.builder(
-            //   shrinkWrap: true,
-            //   physics: NeverScrollableScrollPhysics(),
-            //   padding: EdgeInsets.only(bottom: 10, left: 10),
-            //   itemCount: 20,
-            //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            //     crossAxisCount: 3,
-            //     crossAxisSpacing: 0,
-            //     mainAxisSpacing: 25,
-            //     mainAxisExtent: 95,
-            //   ),
-            //   itemBuilder: (context, index) => RoomsCard(
-            //     roomNumber: index.toString(),
-            //     vaccentBedNumber: "3",
-            //     onTap: () {
-            //       showAdaptiveDialog(
-            //         barrierColor: Colors.transparent,
-            //         context: context,
-            //         builder: (context) => RoomsViewScreen(
-            //           roomNumber: index.toString(),
-            //           numberOfBeds: "6",
-            //           numberOfVaccentBeds: "2",
-            //         ),
-            //       );
-            //     },
-            //   ),
-            // )
+            ),
           ],
         ),
       ),

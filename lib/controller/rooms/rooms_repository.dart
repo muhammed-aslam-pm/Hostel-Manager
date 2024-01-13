@@ -47,6 +47,22 @@ class RoomsRepository with ChangeNotifier {
     }
   }
 
+  //Update room
+
+  Future<void> updadatRoom(RoomModel room) async {
+    final userId = await _auth.currentUser!.uid;
+    try {
+      await _db
+          .collection("Owners")
+          .doc(userId)
+          .collection("Rooms")
+          .doc(room.id)
+          .update(room.toJson());
+    } catch (e) {
+      print("Somthing went wrong");
+    }
+  }
+
   // Delete a room
 
   Future<void> deleteRoom(String roomId) async {

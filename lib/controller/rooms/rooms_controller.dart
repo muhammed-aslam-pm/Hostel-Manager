@@ -30,6 +30,11 @@ class RoomsController with ChangeNotifier {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  int? oldRoomCapacity;
+  int? oldHostelCapacity;
+  String? editingRoomId;
+
+  bool isEditing = false;
   List<RoomModel> rooms = [];
 
   bool ACselected = false;
@@ -67,6 +72,19 @@ class RoomsController with ChangeNotifier {
       int noOfBeds = currentCapacity + int.parse(capacityController.text);
 
       await userRepoController.accountSetup({"NoOfBeds": noOfBeds});
+
+      if (ACselected) {
+        facilities.add(0);
+      }
+      if (WFselected) {
+        facilities.add(1);
+      }
+      if (WMselected) {
+        facilities.add(2);
+      }
+      if (ABselected) {
+        facilities.add(3);
+      }
 
       final room = RoomModel(
           roomNo: int.parse(roomNoController.text.trim()),
@@ -121,6 +139,84 @@ class RoomsController with ChangeNotifier {
     }
   }
 
+  //Edit a room
+
+  editRoom(BuildContext context) async {
+    try {
+      if (ACselected) {
+        facilities.add(0);
+      }
+      if (WFselected) {
+        facilities.add(1);
+      }
+      if (WMselected) {
+        facilities.add(2);
+      }
+      if (ABselected) {
+        facilities.add(3);
+      }
+
+      int noOfBeds = oldHostelCapacity! -
+          oldRoomCapacity! +
+          int.parse(capacityController.text);
+
+      await userRepoController.accountSetup({"NoOfBeds": noOfBeds});
+
+      final room = RoomModel(
+          id: editingRoomId!,
+          roomNo: int.parse(roomNoController.text.trim()),
+          capacity: int.parse(capacityController.text.trim()),
+          vacancy: int.parse(capacityController.text.trim()),
+          rent: int.parse(rentController.text.trim()),
+          residents: <String>[],
+          facilities: facilities);
+
+      await controller.updadatRoom(room);
+
+      fetchRoomsData();
+      Navigator.pop(context);
+      facilities = [];
+      roomNoController.clear();
+      rentController.clear();
+      capacityController.clear();
+      ACselected = false;
+      WFselected = false;
+      WMselected = false;
+      ABselected = false;
+      isEditing = false;
+      notifyListeners();
+    } catch (e) {
+      print("Somthing went wrong");
+    }
+  }
+
+  //edit tap
+  onEditTap({required RoomModel room, required int currentCapacity}) {
+    isEditing = true;
+    roomNoController.text = room.roomNo.toString();
+    capacityController.text = room.capacity.toString();
+    rentController.text = room.rent.toString();
+
+    if (room.facilities.contains(0)) {
+      ACselected = true;
+    }
+    if (room.facilities.contains(1)) {
+      WFselected = true;
+    }
+    if (room.facilities.contains(2)) {
+      WMselected = true;
+    }
+    if (room.facilities.contains(3)) {
+      ABselected = true;
+    }
+    oldRoomCapacity = room.capacity;
+    editingRoomId = room.id;
+    oldHostelCapacity = currentCapacity;
+
+    notifyListeners();
+
+    print(isEditing);
+  }
 //cancel button
 
   cancel(BuildContext context) {
@@ -142,26 +238,12 @@ class RoomsController with ChangeNotifier {
         {
           ACselected = !ACselected;
           notifyListeners();
-          if (ACselected) {
-            facilities.add(0);
-            notifyListeners();
-          } else {
-            facilities.remove(0);
-            notifyListeners();
-          }
         }
         break;
       case 1:
         {
           WFselected = !WFselected;
           notifyListeners();
-          if (WFselected) {
-            facilities.add(1);
-            notifyListeners();
-          } else {
-            facilities.remove(2);
-            notifyListeners();
-          }
         }
         break;
 
@@ -169,13 +251,6 @@ class RoomsController with ChangeNotifier {
         {
           WMselected = !WMselected;
           notifyListeners();
-          if (WMselected) {
-            facilities.add(2);
-            notifyListeners();
-          } else {
-            facilities.remove(2);
-            notifyListeners();
-          }
         }
         break;
 
@@ -183,13 +258,6 @@ class RoomsController with ChangeNotifier {
         {
           ABselected = !ABselected;
           notifyListeners();
-          if (ABselected) {
-            facilities.add(3);
-            notifyListeners();
-          } else {
-            facilities.remove(3);
-            notifyListeners();
-          }
         }
         break;
     }

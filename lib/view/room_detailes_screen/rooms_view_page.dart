@@ -9,6 +9,7 @@ import 'package:hostel_management_app/view/room_detailes_screen/widgets/faciliti
 import 'dart:ui' as ui;
 
 import 'package:hostel_management_app/view/room_detailes_screen/widgets/residents_name_card.dart';
+import 'package:hostel_management_app/view/rooms_adding_form/rooms_adding_form.dart';
 import 'package:provider/provider.dart';
 
 class RoomsViewScreen extends StatelessWidget {
@@ -54,25 +55,54 @@ class RoomsViewScreen extends StatelessWidget {
                   itemBuilder: (context) {
                     return [
                       // In this case, we need 5 popupmenuItems one for each option.
-                      PopupMenuItem(child: const Text('Edit'), onTap: () {}),
                       PopupMenuItem(
-                          child: Text(
-                            'Delete',
-                            style: TextStyle(color: ColorConstants.colorRed),
-                          ),
-                          onTap: () async {
+                          child: const Text('Edit'),
+                          onTap: () {
+                            userController.fetchData();
                             final currentNoOfCapacity =
                                 userController.user!.noOfBeds;
-                            print(currentNoOfCapacity);
-                            print(roomDetailes.id);
-                            await Provider.of<RoomsController>(context,
-                                    listen: false)
-                                .deleteRoom(
-                                    id: roomDetailes.id!,
-                                    context: context,
-                                    currentCapacity: currentNoOfCapacity,
-                                    roomCapacity: roomDetailes.capacity);
+                            Provider.of<RoomsController>(context, listen: false)
+                                .onEditTap(
+                                    room: roomDetailes,
+                                    currentCapacity: currentNoOfCapacity);
+
+                            showModalBottomSheet(
+                              isScrollControlled: true,
+                              context: context,
+                              builder: (context) => Padding(
+                                padding: EdgeInsets.only(
+                                    bottom: MediaQuery.of(context)
+                                        .viewInsets
+                                        .bottom),
+                                child: const RoomsAddingForm(),
+                              ),
+                              elevation: 10,
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(15)),
+                              ),
+                              useSafeArea: true,
+                            );
                           }),
+                      PopupMenuItem(
+                        child: Text(
+                          'Delete',
+                          style: TextStyle(color: ColorConstants.colorRed),
+                        ),
+                        onTap: () async {
+                          final currentNoOfCapacity =
+                              userController.user!.noOfBeds;
+                          print(currentNoOfCapacity);
+                          print(roomDetailes.id);
+                          await Provider.of<RoomsController>(context,
+                                  listen: false)
+                              .deleteRoom(
+                                  id: roomDetailes.id!,
+                                  context: context,
+                                  currentCapacity: currentNoOfCapacity,
+                                  roomCapacity: roomDetailes.capacity);
+                        },
+                      ),
                     ];
                   },
                 ),

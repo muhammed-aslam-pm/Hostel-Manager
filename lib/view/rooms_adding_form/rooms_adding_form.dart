@@ -203,12 +203,17 @@ class RoomsAddingForm extends StatelessWidget {
                 InkWell(
                   onTap: () async {
                     if (roomController.formKey.currentState!.validate()) {
-                      await userController.fetchData();
-                      final currentNoOfCapacity = userController.user!.noOfBeds;
+                      if (controller.isEditing) {
+                        controller.editRoom(context);
+                      } else {
+                        await userController.fetchData();
+                        final currentNoOfCapacity =
+                            userController.user!.noOfBeds;
 
-                      controller.addRoom(
-                          context: context,
-                          currentCapacity: currentNoOfCapacity);
+                        controller.addRoom(
+                            context: context,
+                            currentCapacity: currentNoOfCapacity);
+                      }
                     }
                   },
                   child: Container(
@@ -220,7 +225,7 @@ class RoomsAddingForm extends StatelessWidget {
                         vertical: 10, horizontal: 15),
                     child: Center(
                       child: Text(
-                        "Add ",
+                        roomController.isEditing ? "Edit" : "Add ",
                         style: TextStyleConstants.buttonText,
                       ),
                     ),

@@ -3,7 +3,7 @@ import 'package:hostel_management_app/controller/account_setup_screen_controller
 import 'package:hostel_management_app/controller/authentication/authentication_repository.dart';
 import 'package:hostel_management_app/controller/authentication/forgotpassword_controller.dart';
 import 'package:hostel_management_app/controller/authentication/login_controller.dart';
-import 'package:hostel_management_app/controller/authentication/signin_controller.dart';
+import 'package:hostel_management_app/controller/authentication/register_controller.dart';
 import 'package:hostel_management_app/controller/dashboard_controller/dashboard_controller.dart';
 import 'package:hostel_management_app/controller/onboarding/onboaring_controller.dart';
 import 'package:hostel_management_app/controller/bottomnavbar/bottomnavbar_controller.dart';

@@ -43,7 +43,7 @@ class TextStyleConstants {
       fontWeight: FontWeight.w600);
 
   static TextStyle dashboardVacentRoom1 = TextStyle(
-      fontSize: 30,
+      fontSize: 25,
       color: ColorConstants.primaryColor,
       fontWeight: FontWeight.w900);
 

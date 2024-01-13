@@ -58,8 +58,8 @@ class UserController with ChangeNotifier {
       fetchData();
       FullScreenLoader.stopLoadin(context);
       Navigator.pop(context);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Profile Updated Successfull")));
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Profile Updated Successfull")));
     } catch (e) {
       print(e.toString());
     }
@@ -73,7 +73,7 @@ class UserController with ChangeNotifier {
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => LoginScreen(),
+            builder: (context) => const LoginScreen(),
           ),
           (route) => false);
     } catch (e) {
@@ -94,8 +94,8 @@ class UserController with ChangeNotifier {
 
         Map<String, dynamic> json = {"ProfilePictuer": imageUrl};
         controller.accountSetup(json);
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Profile picture Changed Sussefully")));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text("Profile picture Changed Sussefully")));
         fetchData();
       }
     } catch (e) {

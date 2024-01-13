@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hostel_management_app/controller/rooms/rooms_controller.dart';
+import 'package:hostel_management_app/model/room_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
@@ -6,20 +8,16 @@ import 'package:hostel_management_app/view/room_detailes_screen/widgets/faciliti
 import 'dart:ui' as ui;
 
 import 'package:hostel_management_app/view/room_detailes_screen/widgets/residents_name_card.dart';
+import 'package:provider/provider.dart';
 
 class RoomsViewScreen extends StatelessWidget {
-  const RoomsViewScreen(
-      {super.key,
-      required this.roomNumber,
-      required this.numberOfBeds,
-      required this.numberOfVaccentBeds});
+  const RoomsViewScreen({super.key, required this.roomDetailes});
 
-  final String roomNumber;
-  final String numberOfBeds;
-  final String numberOfVaccentBeds;
+  final RoomModel roomDetailes;
 
   @override
   Widget build(BuildContext context) {
+    final controller = Provider.of<RoomsController>(context);
     return BackdropFilter(
       filter: ui.ImageFilter.blur(
         sigmaX: 1.0,
@@ -31,7 +29,7 @@ class RoomsViewScreen extends StatelessWidget {
           decoration: BoxDecoration(
               color: ColorConstants.primaryColor.withOpacity(.7),
               borderRadius: BorderRadius.circular(40)),
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           child: Scaffold(
             backgroundColor: Colors.transparent,
             body: SingleChildScrollView(
@@ -73,12 +71,12 @@ class RoomsViewScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        roomNumber,
+                        roomDetailes.roomNo.toString(),
                         style: TextStyleConstants.OwnerRoomNumber3,
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
@@ -88,7 +86,7 @@ class RoomsViewScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: ColorConstants.primaryWhiteColor),
-                        padding: EdgeInsets.only(right: 15),
+                        padding: const EdgeInsets.only(right: 15),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -102,7 +100,7 @@ class RoomsViewScreen extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              "  5750",
+                              "  ${roomDetailes.rent}",
                               style: TextStyleConstants.dashboardBookingName,
                             )
                           ],
@@ -110,7 +108,7 @@ class RoomsViewScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
@@ -120,7 +118,7 @@ class RoomsViewScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: ColorConstants.primaryWhiteColor),
-                        padding: EdgeInsets.only(right: 15),
+                        padding: const EdgeInsets.only(right: 15),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -138,7 +136,7 @@ class RoomsViewScreen extends StatelessWidget {
                               style: TextStyleConstants.ownerRoomsText2,
                             ),
                             Text(
-                              numberOfBeds,
+                              roomDetailes.capacity.toString(),
                               style: TextStyleConstants.dashboardVacentRoom1,
                             )
                           ],
@@ -148,7 +146,7 @@ class RoomsViewScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: ColorConstants.primaryWhiteColor),
-                        padding: EdgeInsets.only(right: 15),
+                        padding: const EdgeInsets.only(right: 15),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -166,7 +164,7 @@ class RoomsViewScreen extends StatelessWidget {
                               style: TextStyleConstants.ownerRoomsText2,
                             ),
                             Text(
-                              numberOfVaccentBeds,
+                              roomDetailes.vacancy.toString(),
                               style: TextStyleConstants.dashboardVacentRoom1,
                             )
                           ],
@@ -174,7 +172,7 @@ class RoomsViewScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
@@ -186,27 +184,26 @@ class RoomsViewScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        FacilitiesCard(
-                          name: "Washing Machine",
-                          icon: ImageConstants.washingMachineIcon,
-                        ),
-                        FacilitiesCard(
-                            name: "A/c", icon: ImageConstants.ACIcon),
-                        FacilitiesCard(
-                            name: "Atteched Bathroom",
-                            icon: ImageConstants.bathroomIcon),
-                      ],
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: List.generate(roomDetailes.facilities.length,
+                          (index) {
+                        final facilityIndex = roomDetailes.facilities[index];
+                        return FacilitiesCard(
+                          name: controller.facilitiesList[facilityIndex]
+                              ["Facility"]!,
+                          icon: controller.facilitiesList[facilityIndex]
+                              ["Image"]!,
+                        );
+                      }),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
@@ -218,19 +215,18 @@ class RoomsViewScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   ListView.separated(
-                    shrinkWrap: true,
-                    physics: ScrollPhysics(),
-                    itemBuilder: (context, index) => ResidentsNameCard(),
-                    separatorBuilder: (context, index) => Divider(
-                      height: 10,
-                    ),
-                    itemCount: int.parse(numberOfBeds) -
-                        int.parse(numberOfVaccentBeds),
-                  )
+                      shrinkWrap: true,
+                      physics: const ScrollPhysics(),
+                      itemBuilder: (context, index) =>
+                          const ResidentsNameCard(),
+                      separatorBuilder: (context, index) => const Divider(
+                            height: 10,
+                          ),
+                      itemCount: roomDetailes.residents.length),
                 ],
               ),
             ),

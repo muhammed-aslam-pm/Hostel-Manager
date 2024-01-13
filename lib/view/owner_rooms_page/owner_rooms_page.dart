@@ -1,17 +1,27 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/rooms/rooms_controller.dart';
-import 'package:hostel_management_app/model/room_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/global_widgets/date_sorting_button.dart';
 import 'package:hostel_management_app/view/global_widgets/room_card.dart';
+import 'package:hostel_management_app/view/room_detailes_screen/rooms_view_page.dart';
 import 'package:hostel_management_app/view/rooms_adding_form/rooms_adding_form.dart';
 import 'package:provider/provider.dart';
 
-class OwnerRoomsPage extends StatelessWidget {
+class OwnerRoomsPage extends StatefulWidget {
   const OwnerRoomsPage({super.key});
+
+  @override
+  State<OwnerRoomsPage> createState() => _OwnerRoomsPageState();
+}
+
+class _OwnerRoomsPageState extends State<OwnerRoomsPage> {
+  @override
+  void initState() {
+    Provider.of<RoomsController>(context, listen: false).fetchRoomsData();
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +46,7 @@ class OwnerRoomsPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                DateSortingButton(
+                const DateSortingButton(
                   title: "Floor 1",
                 ),
                 Row(
@@ -47,21 +57,21 @@ class OwnerRoomsPage extends StatelessWidget {
                           'Total Beds',
                           style: TextStyleConstants.ownerRoomsText2,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         CircleAvatar(
                           radius: 15,
+                          backgroundColor:
+                              ColorConstants.roomsCircleAvatarColor,
                           child: Text(
                             "56",
                             style: TextStyleConstants.ownerRoomsCircleAvtarText,
                           ),
-                          backgroundColor:
-                              ColorConstants.roomsCircleAvatarColor,
                         )
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                     Column(
@@ -70,16 +80,16 @@ class OwnerRoomsPage extends StatelessWidget {
                           'Total Beds vaccent',
                           style: TextStyleConstants.ownerRoomsText2,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         CircleAvatar(
                           radius: 15,
+                          backgroundColor: ColorConstants.primaryColor,
                           child: Text(
                             "10",
                             style: TextStyleConstants.ownerRoomsCircleAvtarText,
                           ),
-                          backgroundColor: ColorConstants.primaryColor,
                         )
                       ],
                     ),
@@ -87,57 +97,92 @@ class OwnerRoomsPage extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
-            Expanded(
-              child: StreamBuilder(
-                stream: controller.roomsCollection.snapshots(),
-                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (snapshot.hasError) {
-                    return Center(
-                      child: Text("Error: ${snapshot.error}"),
-                    );
-                  }
 
-                  if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                    return const Center(
-                      child: Text("No Rooms Data Available"),
-                    );
-                  }
-
-                  List<RoomModel> roomsList = snapshot.data!.docs
-                      .map((document) {
-                        return RoomModel.fromSnapshot(
-                            document as DocumentSnapshot<Map<String, dynamic>>);
-                      })
-                      .toList()
-                      .cast<RoomModel>(); // Explicit casting here
-
-                  // Sort roomsList based on roomNo in ascending order
-                  roomsList.sort((a, b) => a.roomNo.compareTo(b.roomNo));
-
-                  return GridView.builder(
-                    itemCount: snapshot.data!.docs.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      crossAxisSpacing: 5,
-                      mainAxisSpacing: 25,
-                      mainAxisExtent: 95,
-                    ),
-                    itemBuilder: (context, index) {
-                      final room = roomsList[index];
-                      print(room);
-                      return RoomsCard(
-                        roomNumber: room.roomNo.toString(),
-                        vaccentBedNumber: room.vacancy.toString(),
-                      );
-                    },
-                  );
-                },
+            GridView.builder(
+              shrinkWrap: true,
+              physics: const ScrollPhysics(),
+              itemCount: controller.rooms.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 5,
+                mainAxisSpacing: 25,
+                mainAxisExtent: 95,
               ),
+              itemBuilder: (context, index) {
+                final room = controller.rooms[index];
+
+                return RoomsCard(
+                  roomNumber: room.roomNo.toString(),
+                  vaccentBedNumber: room.vacancy.toString(),
+                  onTap: () {
+                    showAdaptiveDialog(
+                        context: context,
+                        builder: (context) =>
+                            RoomsViewScreen(roomDetailes: room),
+                        barrierColor: Colors.transparent);
+                  },
+                );
+              },
             ),
+
+            // Expanded(
+            //   child: StreamBuilder(
+            //     stream: controller.roomsCollection.snapshots(),
+            //     builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            //       if (snapshot.hasError) {
+            //         return Center(
+            //           child: Text("Error: ${snapshot.error}"),
+            //         );
+            //       }
+
+            //       if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+            //         return const Center(
+            //           child: Text("No Rooms Data Available"),
+            //         );
+            //       }
+
+            //       List<RoomModel> roomsList = snapshot.data!.docs
+            //           .map((document) {
+            //             return RoomModel.fromSnapshot(
+            //                 document as DocumentSnapshot<Map<String, dynamic>>);
+            //           })
+            //           .toList()
+            //           .cast<RoomModel>(); // Explicit casting here
+
+            //       // Sort roomsList based on roomNo in ascending order
+            //       roomsList.sort((a, b) => a.roomNo.compareTo(b.roomNo));
+
+            //       return GridView.builder(
+            //         itemCount: roomsList.length,
+            //         gridDelegate:
+            //             const SliverGridDelegateWithFixedCrossAxisCount(
+            //           crossAxisCount: 3,
+            //           crossAxisSpacing: 5,
+            //           mainAxisSpacing: 25,
+            //           mainAxisExtent: 95,
+            //         ),
+            //         itemBuilder: (context, index) {
+            //           final room = roomsList[index];
+            //           print(room);
+            //           return RoomsCard(
+            //             roomNumber: room.roomNo.toString(),
+            //             vaccentBedNumber: room.vacancy.toString(),
+            //             onTap: () {
+            //               showAdaptiveDialog(
+            //                   context: context,
+            //                   builder: (context) =>
+            //                       RoomsViewScreen(roomDetailes: room),
+            //                   barrierColor: Colors.transparent);
+            //             },
+            //           );
+            //         },
+            //       );
+            //     },
+            //   ),
+            // ),
           ],
         ),
       ),
@@ -150,22 +195,22 @@ class OwnerRoomsPage extends StatelessWidget {
             builder: (context) => Padding(
               padding: EdgeInsets.only(
                   bottom: MediaQuery.of(context).viewInsets.bottom),
-              child: RoomsAddingForm(),
+              child: const RoomsAddingForm(),
             ),
             elevation: 10,
-            shape: RoundedRectangleBorder(
+            shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
             ),
             useSafeArea: true,
           );
         },
+        backgroundColor: ColorConstants.primaryWhiteColor,
+        elevation: 20,
         child: Icon(
           Icons.add,
           color: ColorConstants.primaryColor,
           size: 30,
         ),
-        backgroundColor: ColorConstants.primaryWhiteColor,
-        elevation: 20,
       ),
     );
   }

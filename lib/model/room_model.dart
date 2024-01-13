@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RoomModel {
   final int roomNo, capacity, vacancy, rent;
-
+  String? id;
   List<int> facilities;
   List<String> residents;
 
@@ -12,7 +12,8 @@ class RoomModel {
       required this.vacancy,
       required this.rent,
       required this.residents,
-      required this.facilities});
+      required this.facilities,
+      this.id});
 
   Map<String, dynamic> toJson() {
     return {
@@ -26,6 +27,7 @@ class RoomModel {
   }
 
   static RoomModel empty() => RoomModel(
+      id: "",
       roomNo: 0,
       capacity: 0,
       vacancy: 0,
@@ -38,6 +40,7 @@ class RoomModel {
     if (document.data() != null) {
       final data = document.data()!;
       return RoomModel(
+        id: document.id,
         roomNo: data["RoomNo"] ?? 0,
         capacity: data["Capacity"] ?? 0,
         vacancy: data['Vacancy'] ?? 0,

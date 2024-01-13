@@ -52,7 +52,7 @@ class OwnerModel {
           ownwerName: data['OwnerName'] ?? '',
           profilePictuer: data['ProfilePictuer'] ?? '',
           noOfRooms: data['NoOfRooms'] ?? 0,
-          noOfBeds: data['NoOfRooms'] ?? 0,
+          noOfBeds: data['NoOfBeds'] ?? 0,
           isAccountSetupCompleted: data['AccountSetupcompleted'] ?? false);
     } else {
       return OwnerModel.empty();

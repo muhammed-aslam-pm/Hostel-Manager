@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/rooms/rooms_controller.dart';
+import 'package:hostel_management_app/controller/users/user_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
+import 'package:hostel_management_app/view/rooms_adding_form/widgets/facilities_card.dart';
 import 'package:provider/provider.dart';
 
 class RoomsAddingForm extends StatelessWidget {
@@ -11,10 +13,11 @@ class RoomsAddingForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<RoomsController>(context, listen: false);
+    final userController = Provider.of<UserController>(context, listen: false);
     final roomController = Provider.of<RoomsController>(context);
     return SingleChildScrollView(
         child: Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       child: Form(
         key: roomController.formKey,
         child: Column(
@@ -29,7 +32,7 @@ class RoomsAddingForm extends StatelessWidget {
                         "Room No",
                         style: TextStyleConstants.dashboardBookingName,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       SizedBox(
@@ -57,7 +60,7 @@ class RoomsAddingForm extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 25,
                 ),
                 Expanded(
@@ -67,7 +70,7 @@ class RoomsAddingForm extends StatelessWidget {
                         "Capacity",
                         style: TextStyleConstants.dashboardBookingName,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       SizedBox(
@@ -97,14 +100,14 @@ class RoomsAddingForm extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(
               "Rent",
               style: TextStyleConstants.dashboardBookingName,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             SizedBox(
@@ -127,14 +130,14 @@ class RoomsAddingForm extends StatelessWidget {
                 validator: (value) => controller.fieldValidation(value),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(
               "Facilities : ",
               style: TextStyleConstants.dashboardBookingName,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
@@ -152,7 +155,7 @@ class RoomsAddingForm extends StatelessWidget {
                     image: ImageConstants.washingMachineIcon),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
@@ -169,7 +172,7 @@ class RoomsAddingForm extends StatelessWidget {
                     image: ImageConstants.wifiIcon),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
@@ -184,7 +187,8 @@ class RoomsAddingForm extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       color: ColorConstants.primaryColor,
                     ),
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 15),
                     child: Center(
                       child: Text(
                         " Cancel",
@@ -193,13 +197,18 @@ class RoomsAddingForm extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 InkWell(
-                  onTap: () {
+                  onTap: () async {
                     if (roomController.formKey.currentState!.validate()) {
-                      controller.addRoom(context);
+                      await userController.fetchData();
+                      final currentNoOfCapacity = userController.user!.noOfBeds;
+
+                      controller.addRoom(
+                          context: context,
+                          currentCapacity: currentNoOfCapacity);
                     }
                   },
                   child: Container(
@@ -207,7 +216,8 @@ class RoomsAddingForm extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       color: ColorConstants.primaryColor,
                     ),
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 15),
                     child: Center(
                       child: Text(
                         "Add ",
@@ -222,60 +232,5 @@ class RoomsAddingForm extends StatelessWidget {
         ),
       ),
     ));
-  }
-}
-
-class FacilityCard extends StatelessWidget {
-  const FacilityCard({
-    super.key,
-    required this.facility,
-    required this.image,
-    this.onTap,
-    required this.isSelected,
-  });
-  final String facility;
-  final String image;
-  final void Function()? onTap;
-  final bool isSelected;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 10),
-      child: InkWell(
-        onTap: onTap,
-        child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25),
-              color: ColorConstants.primaryWhiteColor,
-              border: Border.all(
-                  width: 2,
-                  color: isSelected
-                      ? ColorConstants.primaryBlackColor
-                      : ColorConstants.SecondaryColor1)),
-          padding: EdgeInsets.only(right: 15),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              CircleAvatar(
-                radius: 16,
-                backgroundColor: ColorConstants.SecondaryColor5,
-                child: SizedBox(
-                    height: 22,
-                    width: 22,
-                    child: Image.asset(
-                      image,
-                      color: ColorConstants.primaryWhiteColor,
-                    )),
-              ),
-              Text(
-                "  $facility",
-                style: TextStyleConstants.dashboardBookingName,
-              )
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }

@@ -9,7 +9,6 @@ class RoomsRepository with ChangeNotifier {
 
   Future<List<RoomModel>> fetchData() async {
     try {
-      print("Repository");
       final userId = _auth.currentUser?.uid;
 
       if (userId == null || userId.isEmpty) {
@@ -18,13 +17,10 @@ class RoomsRepository with ChangeNotifier {
 
       final result =
           await _db.collection("Owners").doc(userId).collection("Rooms").get();
-      print("Result: $result");
 
       final roomModels = result.docs
           .map((documentSnapshot) => RoomModel.fromSnapshot(documentSnapshot))
           .toList();
-
-      print("Room Models: $roomModels");
 
       return roomModels;
     } catch (e) {

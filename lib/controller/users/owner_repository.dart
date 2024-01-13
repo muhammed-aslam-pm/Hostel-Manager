@@ -34,6 +34,7 @@ class OwnerRepository with ChangeNotifier {
 
   Future<void> accountSetup(Map<String, dynamic> json) async {
     try {
+      print("ACC Setup");
       final currentUser = await _auth.currentUser;
       await _db.collection("Owners").doc(currentUser!.uid).update(json);
     } catch (e) {

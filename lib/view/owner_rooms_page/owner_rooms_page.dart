@@ -103,7 +103,6 @@ class _OwnerRoomsPageState extends State<OwnerRoomsPage> {
 
             GridView.builder(
               shrinkWrap: true,
-              physics: const ScrollPhysics(),
               itemCount: controller.rooms.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,

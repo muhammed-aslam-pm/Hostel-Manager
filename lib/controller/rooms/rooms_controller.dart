@@ -42,6 +42,7 @@ class RoomsController with ChangeNotifier {
       .doc(FirebaseAuth.instance.currentUser!.uid)
       .collection('Rooms');
 
+// fetch room data
   fetchRoomsData() async {
     try {
       rooms = await controller.fetchData();
@@ -54,6 +55,7 @@ class RoomsController with ChangeNotifier {
     }
   }
 
+// add new room
   addRoom({required BuildContext context, required int currentCapacity}) async {
     try {
       final isConnected = await connection.isConnected();
@@ -95,6 +97,31 @@ class RoomsController with ChangeNotifier {
       print(e.toString());
     }
   }
+
+// Delete a room
+
+  deleteRoom(
+      {required String id,
+      required BuildContext context,
+      required int currentCapacity,
+      required int roomCapacity}) async {
+    try {
+      int noOfBeds = currentCapacity - roomCapacity;
+      print("No of Beds :$noOfBeds");
+
+      await userRepoController.accountSetup({"NoOfBeds": noOfBeds});
+
+      await controller.deleteRoom(id);
+
+      Navigator.pop(context);
+      fetchRoomsData();
+    } catch (e) {
+      print(e.toString());
+      print("con");
+    }
+  }
+
+//cancel button
 
   cancel(BuildContext context) {
     roomNoController.clear();

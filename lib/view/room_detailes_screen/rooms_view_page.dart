@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/rooms/rooms_controller.dart';
+import 'package:hostel_management_app/controller/users/user_controller.dart';
 import 'package:hostel_management_app/model/room_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
@@ -18,6 +19,7 @@ class RoomsViewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<RoomsController>(context);
+    final userController = Provider.of<UserController>(context, listen: false);
     return BackdropFilter(
       filter: ui.ImageFilter.blur(
         sigmaX: 1.0,
@@ -32,6 +34,50 @@ class RoomsViewScreen extends StatelessWidget {
           padding: const EdgeInsets.all(15),
           child: Scaffold(
             backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              leading: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(
+                    Icons.arrow_back_ios_new,
+                    color: ColorConstants.primaryWhiteColor,
+                  )),
+              actions: [
+                PopupMenuButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  elevation: 10,
+                  itemBuilder: (context) {
+                    return [
+                      // In this case, we need 5 popupmenuItems one for each option.
+                      PopupMenuItem(child: const Text('Edit'), onTap: () {}),
+                      PopupMenuItem(
+                          child: Text(
+                            'Delete',
+                            style: TextStyle(color: ColorConstants.colorRed),
+                          ),
+                          onTap: () async {
+                            final currentNoOfCapacity =
+                                userController.user!.noOfBeds;
+                            print(currentNoOfCapacity);
+                            print(roomDetailes.id);
+                            await Provider.of<RoomsController>(context,
+                                    listen: false)
+                                .deleteRoom(
+                                    id: roomDetailes.id!,
+                                    context: context,
+                                    currentCapacity: currentNoOfCapacity,
+                                    roomCapacity: roomDetailes.capacity);
+                          }),
+                    ];
+                  },
+                ),
+              ],
+            ),
             body: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -39,19 +85,6 @@ class RoomsViewScreen extends StatelessWidget {
                 children: [
                   Column(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          IconButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              icon: Icon(
-                                Icons.arrow_back_ios_new,
-                                color: ColorConstants.primaryWhiteColor,
-                              )),
-                        ],
-                      ),
                       Hero(
                         tag: "room",
                         child: CircleAvatar(

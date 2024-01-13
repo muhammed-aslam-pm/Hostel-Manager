@@ -7,6 +7,8 @@ class RoomsRepository with ChangeNotifier {
   final _db = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+//fetch Rooms
+
   Future<List<RoomModel>> fetchData() async {
     try {
       final userId = _auth.currentUser?.uid;
@@ -30,6 +32,8 @@ class RoomsRepository with ChangeNotifier {
     }
   }
 
+//Add new Room
+
   addRoom(RoomModel room) async {
     try {
       final userId = await _auth.currentUser!.uid;
@@ -40,6 +44,24 @@ class RoomsRepository with ChangeNotifier {
           .add(room.toJson());
     } catch (e) {
       print(e.toString());
+    }
+  }
+
+  // Delete a room
+
+  Future<void> deleteRoom(String roomId) async {
+    try {
+      print("room repo");
+      final userId = _auth.currentUser!.uid;
+      await _db
+          .collection("Owners")
+          .doc(userId)
+          .collection("Rooms")
+          .doc(roomId)
+          .delete();
+      print("repo deleted");
+    } catch (e) {
+      print("somthing went wrong");
     }
   }
 }

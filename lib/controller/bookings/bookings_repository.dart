@@ -1,15 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hostel_management_app/model/room_model.dart';
+import 'package:hostel_management_app/model/booking_model.dart';
 
-class RoomsRepository with ChangeNotifier {
+class BookingRepository with ChangeNotifier {
   final _db = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-//fetch Rooms
+//fetch Bookings
 
-  Future<List<RoomModel>> fetchData() async {
+  Future<List<BookingsModel>> fetchData() async {
     try {
       final userId = _auth.currentUser?.uid;
 
@@ -17,11 +17,15 @@ class RoomsRepository with ChangeNotifier {
         throw Exception("Unable to find user information, try again later");
       }
 
-      final result =
-          await _db.collection("Owners").doc(userId).collection("Rooms").get();
+      final result = await _db
+          .collection("Owners")
+          .doc(userId)
+          .collection("Bookings")
+          .get();
 
       final roomModels = result.docs
-          .map((documentSnapshot) => RoomModel.fromSnapshot(documentSnapshot))
+          .map((documentSnapshot) =>
+              BookingsModel.fromDocumentSnapshot(documentSnapshot))
           .toList();
 
       return roomModels;
@@ -32,69 +36,50 @@ class RoomsRepository with ChangeNotifier {
     }
   }
 
-//Add new Room
+  //Add new Booking
 
-  addRoom(RoomModel room) async {
+  addBooking(BookingsModel booking) async {
     try {
       final userId = await _auth.currentUser!.uid;
       await _db
           .collection("Owners")
           .doc(userId)
-          .collection("Rooms")
-          .add(room.toJson());
+          .collection("Bookings")
+          .add(booking.toJson());
     } catch (e) {
       print(e.toString());
     }
   }
 
-  //Update room
+  //Update Booking
 
-  Future<void> updadatRoom(RoomModel room) async {
+  Future<void> updadatBooking(BookingsModel booking) async {
     final userId = await _auth.currentUser!.uid;
     try {
       await _db
           .collection("Owners")
           .doc(userId)
-          .collection("Rooms")
-          .doc(room.id)
-          .update(room.toJson());
+          .collection("Bookings")
+          .doc(booking.id)
+          .update(booking.toJson());
     } catch (e) {
       print("Somthing went wrong");
     }
   }
 
-  //update single field
-
-  Future<void> updateSingleField(
-      {required Map<String, dynamic> json, required String roomId}) async {
-    try {
-      final currentUser = await _auth.currentUser;
-      await _db
-          .collection("Owners")
-          .doc(currentUser!.uid)
-          .collection("Rooms")
-          .doc(roomId)
-          .update(json);
-    } catch (e) {
-      print("Somthis went wrong");
-      print(e);
-    }
-  }
-
   // Delete a room
 
-  Future<void> deleteRoom(String roomId) async {
+  Future<void> deleteBooking(String bookingId) async {
     try {
-      print("room repo");
       final userId = _auth.currentUser!.uid;
       await _db
           .collection("Owners")
           .doc(userId)
-          .collection("Rooms")
-          .doc(roomId)
+          .collection("Bookings")
+          .doc(bookingId)
           .delete();
-      print("repo deleted");
     } catch (e) {
+      print(e.toString());
       print("somthing went wrong");
     }
   }

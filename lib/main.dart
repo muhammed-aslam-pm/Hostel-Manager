@@ -4,6 +4,8 @@ import 'package:hostel_management_app/controller/authentication/authentication_r
 import 'package:hostel_management_app/controller/authentication/forgotpassword_controller.dart';
 import 'package:hostel_management_app/controller/authentication/login_controller.dart';
 import 'package:hostel_management_app/controller/authentication/register_controller.dart';
+import 'package:hostel_management_app/controller/bookings/bookings_controller.dart';
+import 'package:hostel_management_app/controller/bookings/bookings_repository.dart';
 import 'package:hostel_management_app/controller/dashboard_controller/dashboard_controller.dart';
 import 'package:hostel_management_app/controller/onboarding/onboaring_controller.dart';
 import 'package:hostel_management_app/controller/bottomnavbar/bottomnavbar_controller.dart';
@@ -67,6 +69,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => RoomsController(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => BookingRepository(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => BookingsController(),
+        )
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/connection_checker/connection_checher.dart';
@@ -16,16 +15,17 @@ class RoomsController with ChangeNotifier {
     {"Facility": "Attached Bathroom", "Image": ImageConstants.bathroomIcon},
   ];
 
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final roomNoController = TextEditingController();
   final capacityController = TextEditingController();
   final rentController = TextEditingController();
-  List<int> facilities = [];
+
   final RoomsRepository controller = RoomsRepository();
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   final ConnectionChecker connection = ConnectionChecker();
 
   final UserController userController = UserController();
+
   final OwnerRepository userRepoController = OwnerRepository();
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -33,19 +33,14 @@ class RoomsController with ChangeNotifier {
   int? oldRoomCapacity;
   int? oldHostelCapacity;
   String? editingRoomId;
-
   bool isEditing = false;
   List<RoomModel> rooms = [];
+  List<int> facilities = [];
 
   bool ACselected = false;
   bool WMselected = false;
   bool ABselected = false;
   bool WFselected = false;
-
-  CollectionReference roomsCollection = FirebaseFirestore.instance
-      .collection('Owners')
-      .doc(FirebaseAuth.instance.currentUser!.uid)
-      .collection('Rooms');
 
 // fetch room data
   fetchRoomsData() async {

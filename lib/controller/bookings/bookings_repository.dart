@@ -11,6 +11,7 @@ class BookingRepository with ChangeNotifier {
 
   Future<List<BookingsModel>> fetchData() async {
     try {
+      print("Repositor \n");
       final userId = _auth.currentUser?.uid;
 
       if (userId == null || userId.isEmpty) {
@@ -23,10 +24,13 @@ class BookingRepository with ChangeNotifier {
           .collection("Bookings")
           .get();
 
+      print("Result : $result");
+
       final roomModels = result.docs
           .map((documentSnapshot) =>
               BookingsModel.fromDocumentSnapshot(documentSnapshot))
           .toList();
+      print("romm models list");
 
       return roomModels;
     } catch (e) {

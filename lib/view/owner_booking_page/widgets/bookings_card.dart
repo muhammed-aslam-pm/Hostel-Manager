@@ -3,9 +3,19 @@ import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/booked_resident_detailes_screen/booked_resident_detailes_screen.dart';
+import 'package:intl/intl.dart';
 
 class BookingsCard extends StatelessWidget {
-  const BookingsCard({super.key});
+  const BookingsCard(
+      {super.key,
+      required this.name,
+      required this.date,
+      required this.advance,
+      required this.roomNo});
+  final String name;
+  final DateTime date;
+  final bool advance;
+  final int roomNo;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +54,7 @@ class BookingsCard extends StatelessWidget {
                       height: 5,
                     ),
                     Text(
-                      "Aslam",
+                      name,
                       style: TextStyleConstants.dashboardBookingName,
                     ),
                     SizedBox(height: 5),
@@ -58,7 +68,7 @@ class BookingsCard extends StatelessWidget {
                           width: 5,
                         ),
                         Text(
-                          "28 Sep joining",
+                          DateFormat('dd MMM yyyy').format(date),
                           style: TextStyleConstants.bookingsJoiningDate,
                         ),
                       ],
@@ -69,10 +79,14 @@ class BookingsCard extends StatelessWidget {
                     Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
-                          color: ColorConstants.colorGreen.withOpacity(0.6)),
+                          color: advance
+                              ? ColorConstants.colorGreen.withOpacity(0.6)
+                              : ColorConstants.colorRed.withOpacity(0.6)),
                       height: 25,
                       width: 115,
-                      child: Center(child: Text("Advance Paid")),
+                      child: Center(
+                          child: Text(
+                              advance ? "Advance Paid" : "Advance Not Paid")),
                     )
                   ],
                 )
@@ -80,8 +94,10 @@ class BookingsCard extends StatelessWidget {
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Container(
                       decoration: BoxDecoration(
@@ -97,30 +113,7 @@ class BookingsCard extends StatelessWidget {
                             width: 25,
                           ),
                           Text(
-                            "01",
-                            style: TextStyleConstants.bookingsRoomNumber,
-                          )
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: ColorConstants.SecondaryColor4),
-                      padding: EdgeInsets.symmetric(horizontal: 7, vertical: 4),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            ImageConstants.bedIcon2,
-                            color: ColorConstants.primaryBlackColor,
-                            height: 25,
-                            width: 25,
-                          ),
-                          Text(
-                            "01",
+                            roomNo.toString(),
                             style: TextStyleConstants.bookingsRoomNumber,
                           )
                         ],

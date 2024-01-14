@@ -21,7 +21,7 @@ class BookingsController with ChangeNotifier {
 
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  List<BookingsModel> bookins = [];
+  List<BookingsModel> bookings = [];
 
   List<RoomModel> vacantRooms = [];
 
@@ -49,8 +49,10 @@ class BookingsController with ChangeNotifier {
   // fetch Bookings data
   fetchBookingsData() async {
     try {
-      bookins = await bookingController.fetchData();
-      bookins.sort((a, b) => a.checkIn.compareTo(b.checkIn));
+      print("Fetching Bookings ");
+      bookings = await bookingController.fetchData();
+      bookings.sort((a, b) => a.checkIn.compareTo(b.checkIn));
+      print("fetching successfull");
       notifyListeners();
     } catch (e) {
       print(e.toString());
@@ -101,6 +103,7 @@ class BookingsController with ChangeNotifier {
       phoneNoController.clear();
       notifyListeners();
       Navigator.pop(context);
+
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Booking Added Successfull")));
     } catch (e) {

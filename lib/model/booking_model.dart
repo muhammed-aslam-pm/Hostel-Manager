@@ -34,7 +34,7 @@ class BookingsModel {
         id: document.id,
         roomNO: data['RoomNO'] ?? 0,
         name: data['Name'] ?? "",
-        checkIn: data['CheckIn'],
+        checkIn: (data['CheckIn'] as Timestamp).toDate(),
         phoneNo: data['phoneNo'] ?? "",
         advancePaid: data['AdvancePaid'] ?? false,
       );

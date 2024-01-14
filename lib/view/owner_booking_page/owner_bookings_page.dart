@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/bookings/bookings_controller.dart';
+import 'package:hostel_management_app/model/booking_model.dart';
 import 'package:hostel_management_app/model/room_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
@@ -45,21 +46,29 @@ class _OwnerBookingsPageState extends State<OwnerBookingsPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [DateSortingButton(title: "This Week")],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              Container(
+              SizedBox(
                 height: MediaQuery.sizeOf(context).height * 45 / 100,
                 child: ListView.builder(
-                  itemCount: 5,
-                  itemBuilder: (context, index) => BookingsCard(),
+                  itemCount: controller.bookings.length,
+                  itemBuilder: (context, index) {
+                    final BookingsModel booking = controller.bookings[index];
+                    return BookingsCard(
+                      name: booking.name,
+                      advance: booking.advancePaid,
+                      date: booking.checkIn,
+                      roomNo: booking.roomNO,
+                    );
+                  },
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
@@ -75,7 +84,7 @@ class _OwnerBookingsPageState extends State<OwnerBookingsPage> {
                         'Total Beds vaccent',
                         style: TextStyleConstants.ownerRoomsText2,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       CircleAvatar(
@@ -90,7 +99,7 @@ class _OwnerBookingsPageState extends State<OwnerBookingsPage> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               controller.vacantRooms.isNotEmpty

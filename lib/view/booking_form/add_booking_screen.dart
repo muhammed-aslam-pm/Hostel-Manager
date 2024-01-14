@@ -152,11 +152,6 @@ class AddBookingScreen extends StatelessWidget {
                             roomNo: roomNo,
                             currentVacancy: roomVacancy,
                             roomId: roomid);
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //       builder: (context) => BokkingsuccessfullScreen(),
-                        //     ));
                       },
                       child: Container(
                         height: 50,

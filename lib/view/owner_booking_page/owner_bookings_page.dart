@@ -9,6 +9,7 @@ import 'package:hostel_management_app/view/global_widgets/date_sorting_button.da
 import 'package:hostel_management_app/view/booking_form/add_booking_screen.dart';
 import 'package:hostel_management_app/view/owner_booking_page/widgets/bookings_card.dart';
 import 'package:hostel_management_app/view/global_widgets/room_card.dart';
+import 'package:hostel_management_app/view/owner_booking_page/widgets/confirm_delete_dialog.dart';
 import 'package:provider/provider.dart';
 
 class OwnerBookingsPage extends StatefulWidget {
@@ -76,11 +77,12 @@ class _OwnerBookingsPageState extends State<OwnerBookingsPage> {
                         );
                       },
                       onDelete: () {
-                        Provider.of<BookingsController>(context, listen: false)
-                            .deleteBooking(
-                                context: context,
-                                bookingId: booking.id.toString(),
-                                roomId: booking.roomId.toString());
+                        showDialog(
+                          context: context,
+                          builder: (context) => DeletDialog(
+                              bookingId: booking.id.toString(),
+                              roomId: booking.roomId),
+                        );
                       },
                     );
                   },

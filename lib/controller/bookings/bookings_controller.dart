@@ -138,6 +138,7 @@ class BookingsController with ChangeNotifier {
 
       fetchBookingsData();
       fetchVacantRooms();
+      Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Record Deleted Successfully")));
     } catch (e) {

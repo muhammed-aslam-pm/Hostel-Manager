@@ -68,7 +68,7 @@ class BookingRepository with ChangeNotifier {
     }
   }
 
-  // Delete a room
+  // Delete a booking
 
   Future<void> deleteBooking(String bookingId) async {
     try {

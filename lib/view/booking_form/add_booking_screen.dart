@@ -5,6 +5,7 @@ import 'package:hostel_management_app/utils/image_constants.dart';
 import 'dart:ui' as ui;
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/booking_form/booking_successfull_page.dart';
+import 'package:hostel_management_app/view/booking_form/widgets/booking_formfield.dart';
 import 'package:provider/provider.dart';
 
 class AddBookingScreen extends StatelessWidget {
@@ -174,50 +175,6 @@ class AddBookingScreen extends StatelessWidget {
           ),
         ),
       )),
-    );
-  }
-}
-
-class BookingTextField extends StatelessWidget {
-  const BookingTextField(
-      {super.key,
-      required this.controller,
-      this.suffix,
-      this.enablde = true,
-      required this.validator});
-
-  final TextEditingController controller;
-  final Widget? suffix;
-  final enablde;
-  final Function(String?) validator;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50,
-      child: TextFormField(
-        validator: (value) => validator(value),
-        enabled: enablde,
-        controller: controller,
-        decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide:
-                BorderSide(width: 1.5, color: ColorConstants.primaryWhiteColor),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide:
-                BorderSide(width: 2, color: ColorConstants.primaryWhiteColor),
-          ),
-          disabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide:
-                BorderSide(width: 2, color: ColorConstants.primaryWhiteColor),
-          ),
-          suffixIcon: suffix != null ? suffix : null,
-        ),
-      ),
     );
   }
 }

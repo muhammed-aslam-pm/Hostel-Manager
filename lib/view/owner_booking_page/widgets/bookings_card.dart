@@ -12,12 +12,14 @@ class BookingsCard extends StatelessWidget {
       required this.date,
       required this.advance,
       required this.roomNo,
-      this.onTap});
+      this.onTap,
+      required this.onDelete});
   final String name;
   final DateTime date;
   final bool advance;
   final int roomNo;
   final void Function()? onTap;
+  final void Function()? onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +132,9 @@ class BookingsCard extends StatelessWidget {
                     const SizedBox(
                       width: 20,
                     ),
-                    IconButton(onPressed: () {}, icon: const Icon(Icons.delete))
+                    IconButton(
+                        onPressed: () => onDelete?.call(),
+                        icon: const Icon(Icons.delete))
                   ],
                 )
               ],

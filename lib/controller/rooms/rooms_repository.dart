@@ -32,6 +32,33 @@ class RoomsRepository with ChangeNotifier {
     }
   }
 
+  //fetch single room
+
+  Future<RoomModel?> fetchSingleRoom({required String roomId}) async {
+    try {
+      final userId = _auth.currentUser?.uid;
+
+      if (userId == null || userId.isEmpty) {
+        throw Exception("Unable to find user information, try again later");
+      }
+
+      final result = await _db
+          .collection("Owners")
+          .doc(userId)
+          .collection("Rooms")
+          .doc(roomId)
+          .get();
+
+      if (result.exists) {
+        return RoomModel.fromSnapshot(result);
+      }
+    } catch (e) {
+      print("Error: $e");
+      // Handle the error appropriately, e.g., log, display a message, etc.
+      rethrow; // Re-throwing the exception for higher-level error handling
+    }
+  }
+
 //Add new Room
 
   addRoom(RoomModel room) async {

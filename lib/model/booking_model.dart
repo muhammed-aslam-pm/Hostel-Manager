@@ -6,10 +6,12 @@ class BookingsModel {
   final String phoneNo;
   final DateTime checkIn;
   final bool advancePaid;
+  final String roomId;
   String? id;
 
   BookingsModel(
       {required this.roomNO,
+      required this.roomId,
       required this.name,
       required this.phoneNo,
       required this.checkIn,
@@ -22,7 +24,8 @@ class BookingsModel {
       "Name": name,
       "phoneNo": phoneNo,
       "CheckIn": checkIn,
-      "AdvancePaid": advancePaid
+      "AdvancePaid": advancePaid,
+      "RoomId": roomId
     };
   }
 
@@ -31,13 +34,13 @@ class BookingsModel {
     if (document.data() != null) {
       final data = document.data()!;
       return BookingsModel(
-        id: document.id,
-        roomNO: data["RoomNo"] ?? 0,
-        name: data['Name'] ?? "",
-        checkIn: (data['CheckIn'] as Timestamp).toDate(),
-        phoneNo: data['phoneNo'] ?? "",
-        advancePaid: data['AdvancePaid'] ?? false,
-      );
+          id: document.id,
+          roomNO: data["RoomNo"] ?? 0,
+          name: data['Name'] ?? "",
+          checkIn: (data['CheckIn'] as Timestamp).toDate(),
+          phoneNo: data['phoneNo'] ?? "",
+          advancePaid: data['AdvancePaid'] ?? false,
+          roomId: data['RoomId'] ?? "");
     } else {
       return BookingsModel.empty();
     }
@@ -47,6 +50,7 @@ class BookingsModel {
       roomNO: 0,
       name: '',
       phoneNo: '',
+      roomId: '',
       checkIn: DateTime(2000),
       advancePaid: false);
 }

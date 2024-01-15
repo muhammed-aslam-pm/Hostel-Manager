@@ -67,7 +67,6 @@ class _OwnerBookingsPageState extends State<OwnerBookingsPage> {
                       date: booking.checkIn,
                       roomNo: booking.roomNO,
                       onTap: () {
-                        print("OnTap1");
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -75,7 +74,13 @@ class _OwnerBookingsPageState extends State<OwnerBookingsPage> {
                                 BookedResidentDetailesScreen(detailes: booking),
                           ),
                         );
-                        print("ontap2");
+                      },
+                      onDelete: () {
+                        Provider.of<BookingsController>(context, listen: false)
+                            .deleteBooking(
+                                context: context,
+                                bookingId: booking.id.toString(),
+                                roomId: booking.roomId.toString());
                       },
                     );
                   },

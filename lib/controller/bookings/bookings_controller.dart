@@ -80,16 +80,13 @@ class BookingsController with ChangeNotifier {
           name: nameController.text,
           phoneNo: phoneNoController.text,
           checkIn: checkInDate,
-          advancePaid: isAdvancePaid);
+          advancePaid: isAdvancePaid,
+          roomId: roomId);
 
       await bookingController.addBooking(booking);
 
-      print("current vacancy : $currentVacancy");
-      print("room Id : $roomId");
-
       final int vacancy = currentVacancy - 1;
       notifyListeners();
-      print("updated vacancy : $vacancy");
 
       final Map<String, dynamic> json = {"Vacancy": vacancy};
 
@@ -106,6 +103,43 @@ class BookingsController with ChangeNotifier {
 
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Booking Added Successfull")));
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  // delete booking
+
+  deleteBooking({
+    required BuildContext context,
+    required String bookingId,
+    required String roomId,
+  }) async {
+    try {
+      final isConnected = await connectionController.isConnected();
+      if (!isConnected) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("Network error")));
+      }
+
+      await bookingController.deleteBooking(bookingId);
+
+// fetching current vaccancy from roomdata to update vacancy
+      final RoomModel? room =
+          await roomController.fetchSingleRoom(roomId: roomId);
+      final currentVacancy = room!.vacancy;
+
+      final int vacancy = currentVacancy + 1;
+      notifyListeners();
+
+      final Map<String, dynamic> json = {"Vacancy": vacancy};
+
+      await roomController.updateSingleField(json: json, roomId: roomId);
+
+      fetchBookingsData();
+      fetchVacantRooms();
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Record Deleted Successfully")));
     } catch (e) {
       print(e.toString());
     }

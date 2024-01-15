@@ -1,3 +1,4 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
@@ -82,8 +83,9 @@ class MaintenanceRequestCard extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Image.asset(
-                            ImageConstants.complaintIcon,
+                          Icon(
+                            FluentIcons.phone_chat_24_regular,
+                            size: 19,
                           ),
                           Text(
                             complaint2,

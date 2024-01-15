@@ -1,3 +1,4 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/bottomnavbar/bottomnavbar_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
@@ -33,48 +34,38 @@ class OwnerHomeScreen extends StatelessWidget {
             fontWeight: FontWeight.w400,
             color: ColorConstants.primaryBlackColor),
         unselectedIconTheme:
-            IconThemeData(size: 30, color: ColorConstants.primaryBlackColor),
+            IconThemeData(size: 25, color: ColorConstants.primaryBlackColor),
         selectedIconTheme:
-            IconThemeData(size: 30, color: ColorConstants.primaryBlackColor),
+            IconThemeData(size: 25, color: ColorConstants.primaryBlackColor),
         items: [
           BottomNavigationBarItem(
-              icon: Image.asset(
+              icon: Icon(
                 navBarController.selectedIndex == 0
-                    ? ImageConstants.ownerDashboardIconeEnabled
-                    : ImageConstants.ownerDashboardIconeDisabled,
-                height: 30,
-                width: 30,
-                color: ColorConstants.primaryBlackColor,
+                    ? FluentIcons.home_12_filled
+                    : FluentIcons.home_12_regular,
               ),
-              label: 'Dashboard'),
+              label: 'Home'),
           BottomNavigationBarItem(
-              icon: Image.asset(
+              icon: Icon(
                 navBarController.selectedIndex == 1
-                    ? ImageConstants.ownerRoomsIconeEnabled
-                    : ImageConstants.ownerRoomsIconeDisabled,
-                height: 30,
-                width: 30,
-                color: ColorConstants.primaryBlackColor,
+                    ? FluentIcons.door_16_filled
+                    : FluentIcons.conference_room_24_regular,
               ),
               label: 'Rooms'),
           BottomNavigationBarItem(
-              icon: Image.asset(
+              icon: Icon(
                 navBarController.selectedIndex == 2
-                    ? ImageConstants.ownerBookingsIconeEnabled
-                    : ImageConstants.ownerBookingsIconeDisabled,
-                height: 30,
-                width: 30,
+                    ? FluentIcons.book_contacts_20_filled
+                    : FluentIcons.book_contacts_20_regular,
                 color: ColorConstants.primaryBlackColor,
+                size: 27,
               ),
               label: 'Bookings'),
           BottomNavigationBarItem(
-            icon: Image.asset(
+            icon: Icon(
               navBarController.selectedIndex == 3
-                  ? ImageConstants.ownerResidetsIconeEnabled
-                  : ImageConstants.ownerResidentsIconeDisabled,
-              height: 30,
-              width: 30,
-              color: ColorConstants.primaryBlackColor,
+                  ? FluentIcons.people_12_filled
+                  : FluentIcons.people_12_regular,
             ),
             label: 'Residents',
           ),

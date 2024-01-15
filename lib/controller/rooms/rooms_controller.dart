@@ -64,6 +64,30 @@ class RoomsController with ChangeNotifier {
             .showSnackBar(const SnackBar(content: Text("Network error")));
       }
 
+      final roomNo = int.parse(roomNoController.text.trim());
+
+      // Check if the room with the same number already exists
+      final existingRoom = await controller.getRoomByRoomNo(roomNo);
+
+      if (existingRoom != null) {
+        // Room with the same number already exists, handle accordingly
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              content: Text("Room with the same number already exists")),
+        );
+        roomNoController.clear();
+        capacityController.clear();
+        rentController.clear();
+        facilities = [];
+        ACselected = false;
+        WMselected = false;
+        ABselected = false;
+        WFselected = false;
+        notifyListeners();
+        return;
+      }
+
       int noOfBeds = currentCapacity + int.parse(capacityController.text);
 
       await userRepoController.accountSetup({"NoOfBeds": noOfBeds});

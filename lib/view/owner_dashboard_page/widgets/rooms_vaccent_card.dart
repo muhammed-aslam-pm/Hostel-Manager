@@ -8,13 +8,13 @@ class RoomVaccentCard extends StatelessWidget {
       required this.title,
       required this.number,
       required this.bgColor,
-      required this.image,
+      required this.icon,
       required this.onTap});
 
   final String title;
   final String number;
   final Color bgColor;
-  final String image;
+  final Icon icon;
   final void Function()? onTap;
 
   @override
@@ -33,7 +33,7 @@ class RoomVaccentCard extends StatelessWidget {
             CircleAvatar(
               radius: 17.5,
               backgroundColor: ColorConstants.primaryWhiteColor,
-              child: Image.asset(image),
+              child: icon,
             ),
             Text(
               number,

@@ -69,7 +69,7 @@ class RoomsCard extends StatelessWidget {
                     child: Icon(
                       FluentIcons.conference_room_48_regular,
                       color: ColorConstants.primaryBlackColor,
-                      size: 29,
+                      size: 27,
                     )
                     // Image.asset(
                     //   ImageConstants.ownerRoomsIconeDisabled,

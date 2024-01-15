@@ -1,3 +1,4 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
@@ -31,8 +32,8 @@ class GoingToVaccentCard extends StatelessWidget {
               CircleAvatar(
                 radius: 15,
                 backgroundColor: ColorConstants.primaryWhiteColor,
-                child: Image.asset(
-                  ImageConstants.ownerRoomsIconeDisabled,
+                child: Icon(
+                  FluentIcons.conference_room_16_regular,
                   color: ColorConstants.primaryBlackColor,
                 ),
               ),
@@ -52,19 +53,14 @@ class GoingToVaccentCard extends StatelessWidget {
               CircleAvatar(
                 radius: 15,
                 backgroundColor: ColorConstants.primaryWhiteColor,
-                child: Container(
-                  height: 23,
-                  width: 23,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(
-                            ImageConstants.beadIcon,
-                          ),
-                          fit: BoxFit.cover)),
+                child: Icon(
+                  FluentIcons.bed_24_regular,
+                  color: ColorConstants.primaryBlackColor,
+                  size: 22,
                 ),
               ),
               Text(
-                "Bead No",
+                "Vacancy",
                 style: TextStyleConstants.upComingVaccencyText1,
               ),
               Text(

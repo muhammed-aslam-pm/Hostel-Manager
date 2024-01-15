@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/dashboard_controller/dashboard_controller.dart';
 import 'package:hostel_management_app/controller/users/user_controller.dart';
@@ -118,7 +119,11 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
                       title: "Beds Vacantnt",
                       number: "24",
                       bgColor: ColorConstants.SecondaryColor2,
-                      image: ImageConstants.ownerRoomsIconeDisabled,
+                      icon: Icon(
+                        FluentIcons.bed_20_regular,
+                        color: ColorConstants.primaryBlackColor,
+                        size: 26,
+                      ),
                       onTap: () {
                         Navigator.push(
                             context,
@@ -131,7 +136,11 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
                       title: "Paymenys penting",
                       number: "12",
                       bgColor: ColorConstants.SecondaryColor3,
-                      image: ImageConstants.ownerRoomsIconeDisabled,
+                      icon: Icon(
+                        FluentIcons.conference_room_48_regular,
+                        color: ColorConstants.primaryBlackColor,
+                        size: 26,
+                      ),
                       onTap: () {
                         Navigator.push(
                           context,

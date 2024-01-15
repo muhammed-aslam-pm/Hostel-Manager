@@ -112,7 +112,7 @@ class BookingsCard extends StatelessWidget {
                           Icon(
                             FluentIcons.conference_room_48_regular,
                             color: ColorConstants.primaryBlackColor,
-                            size: 29,
+                            size: 26,
                           ),
                           Text(
                             roomNo.toString(),

@@ -59,6 +59,30 @@ class RoomsRepository with ChangeNotifier {
     }
   }
 
+  Future<RoomModel?> getRoomByRoomNo(int roomNo) async {
+    try {
+      final userId = await _auth.currentUser!.uid;
+      final querySnapshot = await _db
+          .collection("Owners")
+          .doc(userId)
+          .collection("Rooms")
+          .where("RoomNo", isEqualTo: roomNo)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        // Room with the same number exists
+        final roomData = querySnapshot.docs.first;
+        return RoomModel.fromSnapshot(roomData);
+      } else {
+        // Room with the given number does not exist
+        return null;
+      }
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
 //Add new Room
 
   addRoom(RoomModel room) async {

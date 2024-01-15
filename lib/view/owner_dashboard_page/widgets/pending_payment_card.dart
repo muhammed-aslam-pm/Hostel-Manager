@@ -1,4 +1,6 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
@@ -40,9 +42,10 @@ class PendingPaymentCard extends StatelessWidget {
                 CircleAvatar(
                   radius: 19,
                   backgroundColor: ColorConstants.SecondaryColor4,
-                  child: Image.asset(
-                    ImageConstants.ownerRoomsIconeDisabled,
+                  child: Icon(
+                    FluentIcons.door_28_regular,
                     color: ColorConstants.primaryBlackColor,
+                    size: 26,
                   ),
                 ),
                 SizedBox(
@@ -97,9 +100,10 @@ class PendingPaymentCard extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Image.asset(
-                      ImageConstants.moneyIcon,
+                    FaIcon(
+                      FontAwesomeIcons.indianRupeeSign,
                       color: ColorConstants.primaryBlackColor,
+                      size: 20,
                     ),
                     SizedBox(
                       width: 10,

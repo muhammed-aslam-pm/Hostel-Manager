@@ -1,3 +1,4 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/model/booking_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
@@ -58,9 +59,10 @@ class UpcomingBookings extends StatelessWidget {
                       CircleAvatar(
                         radius: 18,
                         backgroundColor: ColorConstants.SecondaryColor3,
-                        child: Image.asset(
-                          ImageConstants.ownerBookingsIconeDisabled,
+                        child: Icon(
+                          FluentIcons.book_contacts_32_regular,
                           color: ColorConstants.primaryWhiteColor,
+                          size: 26,
                         ),
                       ),
                       SizedBox(
@@ -83,9 +85,10 @@ class UpcomingBookings extends StatelessWidget {
                 children: [
                   Column(
                     children: [
-                      Image.asset(
-                        ImageConstants.ownerRoomsIconeDisabled,
+                      Icon(
+                        FluentIcons.conference_room_16_regular,
                         color: ColorConstants.primaryBlackColor,
+                        size: 26,
                       ),
                       Text(
                         roomNumber,
@@ -96,16 +99,10 @@ class UpcomingBookings extends StatelessWidget {
                   ),
                   Column(
                     children: [
-                      Container(
-                        height: 23,
-                        width: 23,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage(
-                                ImageConstants.beadIcon,
-                              ),
-                              fit: BoxFit.cover),
-                        ),
+                      Icon(
+                        FluentIcons.bed_24_regular,
+                        color: ColorConstants.primaryBlackColor,
+                        size: 26,
                       ),
                       Text(
                         beadNumber,
@@ -116,9 +113,10 @@ class UpcomingBookings extends StatelessWidget {
                   ),
                   Column(
                     children: [
-                      Image.asset(
-                        ImageConstants.ownerBookingsIconeDisabled,
+                      Icon(
+                        FluentIcons.phone_checkmark_20_regular,
                         color: ColorConstants.primaryBlackColor,
+                        size: 26,
                       ),
                       Text(
                         isAdvacePaid ? "Paid" : "Not Paid",

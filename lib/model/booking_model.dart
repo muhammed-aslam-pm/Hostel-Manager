@@ -32,7 +32,7 @@ class BookingsModel {
       final data = document.data()!;
       return BookingsModel(
         id: document.id,
-        roomNO: data['RoomNO'] ?? 0,
+        roomNO: data["RoomNo"] ?? 0,
         name: data['Name'] ?? "",
         checkIn: (data['CheckIn'] as Timestamp).toDate(),
         phoneNo: data['phoneNo'] ?? "",

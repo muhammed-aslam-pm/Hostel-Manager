@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hostel_management_app/model/booking_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
@@ -28,7 +29,8 @@ class UpcomingBookings extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => BookedResidentDetailesScreen(),
+                builder: (context) => BookedResidentDetailesScreen(
+                    detailes: BookingsModel.empty()),
               ));
         },
         child: Container(

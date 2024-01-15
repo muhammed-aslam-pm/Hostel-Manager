@@ -4,6 +4,7 @@ import 'package:hostel_management_app/model/booking_model.dart';
 import 'package:hostel_management_app/model/room_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
+import 'package:hostel_management_app/view/booked_resident_detailes_screen/booked_resident_detailes_screen.dart';
 import 'package:hostel_management_app/view/global_widgets/date_sorting_button.dart';
 import 'package:hostel_management_app/view/booking_form/add_booking_screen.dart';
 import 'package:hostel_management_app/view/owner_booking_page/widgets/bookings_card.dart';
@@ -59,11 +60,23 @@ class _OwnerBookingsPageState extends State<OwnerBookingsPage> {
                   itemCount: controller.bookings.length,
                   itemBuilder: (context, index) {
                     final BookingsModel booking = controller.bookings[index];
+
                     return BookingsCard(
                       name: booking.name,
                       advance: booking.advancePaid,
                       date: booking.checkIn,
                       roomNo: booking.roomNO,
+                      onTap: () {
+                        print("OnTap1");
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                BookedResidentDetailesScreen(detailes: booking),
+                          ),
+                        );
+                        print("ontap2");
+                      },
                     );
                   },
                 ),

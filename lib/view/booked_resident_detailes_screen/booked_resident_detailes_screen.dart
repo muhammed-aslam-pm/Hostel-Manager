@@ -1,11 +1,15 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:hostel_management_app/model/booking_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
-import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/residents_adding_form/residents_adding_form.dart';
+import 'package:intl/intl.dart';
 
 class BookedResidentDetailesScreen extends StatelessWidget {
-  const BookedResidentDetailesScreen({super.key});
+  const BookedResidentDetailesScreen({super.key, required this.detailes});
+
+  final BookingsModel detailes;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +22,7 @@ class BookedResidentDetailesScreen extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.chevron_left_outlined,
               size: 30,
             )),
@@ -35,10 +39,13 @@ class BookedResidentDetailesScreen extends StatelessWidget {
                 child: CircleAvatar(
                   radius: 55,
                   backgroundColor: ColorConstants.SecondaryColor4,
-                  child: Icon(Icons.person),
+                  child: const Icon(
+                    Icons.person,
+                    size: 50,
+                  ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
@@ -48,118 +55,105 @@ class BookedResidentDetailesScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
                         color: ColorConstants.SecondaryColor4),
-                    padding: EdgeInsets.symmetric(horizontal: 7, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
                     child: Row(
                       children: [
-                        Image.asset(
-                          ImageConstants.roomsIcon2,
+                        Icon(
+                          FluentIcons.conference_room_48_regular,
                           color: ColorConstants.primaryBlackColor,
-                          height: 25,
-                          width: 25,
+                          size: 29,
                         ),
                         Text(
-                          "07",
+                          detailes.roomNO.toString(),
                           style: TextStyleConstants.bookingsRoomNumber,
                         )
                       ],
                     ),
                   ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: ColorConstants.SecondaryColor4),
-                    padding: EdgeInsets.symmetric(horizontal: 7, vertical: 4),
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          ImageConstants.bedIcon2,
-                          color: ColorConstants.primaryBlackColor,
-                          height: 25,
-                          width: 25,
-                        ),
-                        Text(
-                          "01",
-                          style: TextStyleConstants.bookingsRoomNumber,
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        color: ColorConstants.colorRed),
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-                    child: Center(child: Text("Advance Not Paid")),
+                        color: detailes.advancePaid
+                            ? ColorConstants.colorGreen
+                            : ColorConstants.colorRed),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+                    child: Center(
+                        child: Text(
+                      detailes.advancePaid
+                          ? "Advance Paid"
+                          : "Advance Not Paid",
+                      style: TextStyleConstants.buttonText,
+                    )),
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              Text("Name"),
-              SizedBox(
+              const Text("Name"),
+              const SizedBox(
                 height: 5,
               ),
               Container(
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    color: ColorConstants.SecondaryColor1,
+                    color: ColorConstants.SecondaryColor4.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(10)),
                 child: Text(
-                  "Muhammed Aslam P M",
+                  detailes.name,
                   style: TextStyleConstants.dashboardBookingName,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              Text("Phone Number"),
-              SizedBox(
+              const Text("Phone Number"),
+              const SizedBox(
                 height: 5,
               ),
               Container(
-                padding: EdgeInsets.all(10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    color: ColorConstants.SecondaryColor1,
+                    color: ColorConstants.SecondaryColor4.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(10)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "+91-2224459685",
+                      detailes.phoneNo,
                       style: TextStyleConstants.dashboardBookingName,
                     ),
                     IconButton(onPressed: () {}, icon: Icon(Icons.call))
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              Text("Joining Date"),
-              SizedBox(
+              const Text("Joining Date"),
+              const SizedBox(
                 height: 5,
               ),
               Container(
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    color: ColorConstants.SecondaryColor1,
+                    color: ColorConstants.SecondaryColor4.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(10)),
                 child: Text(
-                  "12/12/2023",
+                  DateFormat('dd/MM/yyy').format(detailes.checkIn),
                   style: TextStyleConstants.dashboardBookingName,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(

@@ -1,8 +1,8 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
-import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
-import 'package:hostel_management_app/view/booked_resident_detailes_screen/booked_resident_detailes_screen.dart';
 import 'package:intl/intl.dart';
 
 class BookingsCard extends StatelessWidget {
@@ -11,23 +11,18 @@ class BookingsCard extends StatelessWidget {
       required this.name,
       required this.date,
       required this.advance,
-      required this.roomNo});
+      required this.roomNo,
+      this.onTap});
   final String name;
   final DateTime date;
   final bool advance;
   final int roomNo;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => BookedResidentDetailesScreen(),
-          ),
-        );
-      },
+      onTap: () => onTap?.call(),
       child: Container(
         padding: EdgeInsets.all(10),
         child: Row(
@@ -38,33 +33,33 @@ class BookingsCard extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 20,
+                  backgroundColor: ColorConstants.SecondaryColor4,
                   child: Icon(
                     Icons.person,
                     color: ColorConstants.primaryWhiteColor,
                   ),
-                  backgroundColor: ColorConstants.SecondaryColor4,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
                       name,
                       style: TextStyleConstants.dashboardBookingName,
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.calendar_month,
                           size: 17,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         Text(
@@ -73,20 +68,22 @@ class BookingsCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           color: advance
-                              ? ColorConstants.colorGreen.withOpacity(0.6)
-                              : ColorConstants.colorRed.withOpacity(0.6)),
-                      height: 25,
-                      width: 115,
+                              ? ColorConstants.colorGreen
+                              : ColorConstants.colorRed),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 4),
                       child: Center(
                           child: Text(
-                              advance ? "Advance Paid" : "Advance Not Paid")),
+                        advance ? "Advance Paid" : "Advance Not Paid",
+                        style: TextStyleConstants.buttonText,
+                      )),
                     )
                   ],
                 )
@@ -103,14 +100,14 @@ class BookingsCard extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                           color: ColorConstants.SecondaryColor4),
-                      padding: EdgeInsets.symmetric(horizontal: 7, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 7, vertical: 4),
                       child: Row(
                         children: [
-                          Image.asset(
-                            ImageConstants.roomsIcon2,
+                          Icon(
+                            FluentIcons.conference_room_48_regular,
                             color: ColorConstants.primaryBlackColor,
-                            height: 25,
-                            width: 25,
+                            size: 29,
                           ),
                           Text(
                             roomNo.toString(),
@@ -121,17 +118,19 @@ class BookingsCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
-                    SizedBox(
+                    IconButton(
+                        onPressed: () {},
+                        icon: const Icon(FontAwesomeIcons.edit)),
+                    const SizedBox(
                       width: 20,
                     ),
-                    IconButton(onPressed: () {}, icon: Icon(Icons.delete))
+                    IconButton(onPressed: () {}, icon: const Icon(Icons.delete))
                   ],
                 )
               ],

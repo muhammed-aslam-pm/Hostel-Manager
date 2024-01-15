@@ -37,6 +37,8 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<UserController>(context);
+    final dashboardController =
+        Provider.of<DashboardController>(context, listen: false);
     return Scaffold(
       backgroundColor: ColorConstants.primaryWhiteColor,
       appBar: AppBar(
@@ -160,7 +162,7 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
                     SizedBox(
                       width: 18.6,
                     ),
-                    DateCard(date: "12/12/2023")
+                    DateCard(date: dashboardController.date())
                   ],
                 ),
               ),

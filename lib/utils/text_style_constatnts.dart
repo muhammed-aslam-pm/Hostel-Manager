@@ -144,7 +144,7 @@ class TextStyleConstants {
       fontWeight: FontWeight.w500);
 
   static TextStyle bookingsRoomNumber = TextStyle(
-      fontSize: 16,
-      color: ColorConstants.colorGreen,
+      fontSize: 18,
+      color: ColorConstants.primaryWhiteColor,
       fontWeight: FontWeight.w500);
 }

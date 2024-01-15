@@ -1,10 +1,14 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:hostel_management_app/controller/bookings/bookings_controller.dart';
 import 'package:hostel_management_app/model/booking_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
+import 'package:hostel_management_app/view/booking_form/add_booking_screen.dart';
+import 'package:hostel_management_app/view/owner_booking_page/widgets/confirm_delete_dialog.dart';
 import 'package:hostel_management_app/view/residents_adding_form/residents_adding_form.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class BookedResidentDetailesScreen extends StatelessWidget {
   const BookedResidentDetailesScreen({super.key, required this.detailes});
@@ -26,6 +30,47 @@ class BookedResidentDetailesScreen extends StatelessWidget {
               Icons.chevron_left_outlined,
               size: 30,
             )),
+        actions: [
+          PopupMenuButton(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            elevation: 10,
+            itemBuilder: (context) {
+              return [
+                // In this case, we need 5 popupmenuItems one for each option.
+                PopupMenuItem(
+                    child: const Text('Edit'),
+                    onTap: () {
+                      Provider.of<BookingsController>(context, listen: false)
+                          .onEdit(booking: detailes);
+                      showAdaptiveDialog(
+                        barrierColor: Colors.transparent,
+                        context: context,
+                        builder: (context) => AddBookingScreen(
+                          roomNo: detailes.roomNO,
+                          roomid: detailes.roomId,
+                        ),
+                      );
+                    }),
+                PopupMenuItem(
+                  child: Text(
+                    'Delete',
+                    style: TextStyle(color: ColorConstants.colorRed),
+                  ),
+                  onTap: () async {
+                    showDialog(
+                      context: context,
+                      builder: (context) => DeletDialog(
+                          bookingId: detailes.id.toString(),
+                          roomId: detailes.roomId),
+                    );
+                  },
+                ),
+              ];
+            },
+          ),
+        ],
         elevation: 0,
       ),
       body: Padding(

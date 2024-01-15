@@ -5,6 +5,7 @@ import 'package:hostel_management_app/controller/connection_checker/connection_c
 import 'package:hostel_management_app/controller/rooms/rooms_repository.dart';
 import 'package:hostel_management_app/model/booking_model.dart';
 import 'package:hostel_management_app/model/room_model.dart';
+import 'package:intl/intl.dart';
 
 class BookingsController with ChangeNotifier {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -28,6 +29,10 @@ class BookingsController with ChangeNotifier {
   bool isAdvancePaid = true;
 
   DateTime checkInDate = DateTime.now();
+
+  bool isEditing = false;
+
+  String? updatingBookingId;
 
 // fetching vacant rooms
 
@@ -63,11 +68,11 @@ class BookingsController with ChangeNotifier {
 
   //add booking
 
-  addBooking(
-      {required BuildContext context,
-      required int roomNo,
-      required String roomId,
-      required int currentVacancy}) async {
+  addBooking({
+    required BuildContext context,
+    required int roomNo,
+    required String roomId,
+  }) async {
     try {
       final isConnected = await connectionController.isConnected();
       if (!isConnected) {
@@ -85,13 +90,17 @@ class BookingsController with ChangeNotifier {
 
       await bookingController.addBooking(booking);
 
+      // fetching current vaccancy from roomdata to update vacancy
+      final RoomModel? room =
+          await roomController.fetchSingleRoom(roomId: roomId);
+      final currentVacancy = room!.vacancy;
+
       final int vacancy = currentVacancy - 1;
       notifyListeners();
 
       final Map<String, dynamic> json = {"Vacancy": vacancy};
 
       await roomController.updateSingleField(json: json, roomId: roomId);
-
       fetchBookingsData();
       fetchVacantRooms();
       roomNoController.clear();
@@ -124,7 +133,8 @@ class BookingsController with ChangeNotifier {
 
       await bookingController.deleteBooking(bookingId);
 
-// fetching current vaccancy from roomdata to update vacancy
+      // fetching current vaccancy from roomdata to update vacancy
+
       final RoomModel? room =
           await roomController.fetchSingleRoom(roomId: roomId);
       final currentVacancy = room!.vacancy;
@@ -144,6 +154,54 @@ class BookingsController with ChangeNotifier {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  // Update Booking
+
+  updateBooking(BuildContext context) async {
+    try {
+      final Map<String, dynamic> json = {
+        "Name": nameController.text,
+        "phoneNo": phoneNoController.text.trim(),
+        "CheckIn": checkInDate,
+        "AdvancePaid": isAdvancePaid
+      };
+
+      await bookingController.updadatSingleField(
+          json: json, bookingId: updatingBookingId!);
+
+      fetchBookingsData();
+      fetchVacantRooms();
+      onCanacel();
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Record Edited Successfully")));
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+// on edit tap
+
+  onEdit({required BookingsModel booking}) {
+    isEditing = true;
+    nameController.text = booking.name;
+    phoneNoController.text = booking.phoneNo;
+    dateController.text = DateFormat("dd/MM/yyyy").format(booking.checkIn);
+    checkInDate = booking.checkIn;
+    updatingBookingId = booking.id;
+    isAdvancePaid = booking.advancePaid;
+    notifyListeners();
+  }
+
+  //on cancel
+  onCanacel() {
+    isEditing = false;
+    nameController.clear();
+    phoneNoController.clear();
+    dateController.clear();
+    isAdvancePaid = false;
+    notifyListeners();
   }
 
 // check In date assigning

@@ -1,4 +1,6 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hostel_management_app/controller/bookings/bookings_controller.dart';
 import 'package:hostel_management_app/model/booking_model.dart';
 import 'package:hostel_management_app/model/room_model.dart';
@@ -56,37 +58,63 @@ class _OwnerBookingsPageState extends State<OwnerBookingsPage> {
                 height: 20,
               ),
               SizedBox(
-                height: MediaQuery.sizeOf(context).height * 45 / 100,
-                child: ListView.builder(
-                  itemCount: controller.bookings.length,
-                  itemBuilder: (context, index) {
-                    final BookingsModel booking = controller.bookings[index];
+                height: controller.bookings.length < 3
+                    ? MediaQuery.sizeOf(context).height * 30 / 100
+                    : MediaQuery.sizeOf(context).height * 45 / 100,
+                child: controller.bookings.isEmpty
+                    ? const Center(
+                        child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('No available Bookings'),
+                          Icon(Icons.error_outline_outlined),
+                        ],
+                      ))
+                    : ListView.builder(
+                        itemCount: controller.bookings.length,
+                        itemBuilder: (context, index) {
+                          final BookingsModel booking =
+                              controller.bookings[index];
 
-                    return BookingsCard(
-                      name: booking.name,
-                      advance: booking.advancePaid,
-                      date: booking.checkIn,
-                      roomNo: booking.roomNO,
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                BookedResidentDetailesScreen(detailes: booking),
-                          ),
-                        );
-                      },
-                      onDelete: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => DeletDialog(
-                              bookingId: booking.id.toString(),
-                              roomId: booking.roomId),
-                        );
-                      },
-                    );
-                  },
-                ),
+                          return BookingsCard(
+                            name: booking.name,
+                            advance: booking.advancePaid,
+                            date: booking.checkIn,
+                            roomNo: booking.roomNO,
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      BookedResidentDetailesScreen(
+                                          detailes: booking),
+                                ),
+                              );
+                            },
+                            onDelete: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => DeletDialog(
+                                    bookingId: booking.id.toString(),
+                                    roomId: booking.roomId),
+                              );
+                            },
+                            onEdit: () {
+                              Provider.of<BookingsController>(context,
+                                      listen: false)
+                                  .onEdit(booking: booking);
+                              showAdaptiveDialog(
+                                barrierColor: Colors.transparent,
+                                context: context,
+                                builder: (context) => AddBookingScreen(
+                                  roomNo: booking.roomNO,
+                                  roomid: booking.roomId,
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      ),
               ),
               const SizedBox(
                 height: 20,
@@ -146,7 +174,6 @@ class _OwnerBookingsPageState extends State<OwnerBookingsPage> {
                               context: context,
                               builder: (context) => AddBookingScreen(
                                 roomNo: room.roomNo,
-                                roomVacancy: room.vacancy,
                                 roomid: room.id!,
                               ),
                             );

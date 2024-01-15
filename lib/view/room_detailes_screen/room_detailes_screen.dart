@@ -126,12 +126,7 @@ class RoomsViewScreen extends StatelessWidget {
                               FluentIcons.conference_room_48_regular,
                               size: 37,
                               color: ColorConstants.primaryBlackColor,
-                            )
-                            // Image.asset(
-                            //   ImageConstants.roomsIcon2,
-                            //   color: ColorConstants.primaryBlackColor,
-                            // ),
-                            ),
+                            )),
                       ),
                       Hero(
                         tag: "roomNo",

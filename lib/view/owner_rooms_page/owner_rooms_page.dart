@@ -4,7 +4,7 @@ import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/global_widgets/date_sorting_button.dart';
 import 'package:hostel_management_app/view/global_widgets/room_card.dart';
-import 'package:hostel_management_app/view/room_detailes_screen/rooms_view_page.dart';
+import 'package:hostel_management_app/view/room_detailes_screen/room_detailes_screen.dart';
 import 'package:hostel_management_app/view/rooms_adding_form/rooms_adding_form.dart';
 import 'package:provider/provider.dart';
 

@@ -68,6 +68,23 @@ class BookingRepository with ChangeNotifier {
     }
   }
 
+  //update single field
+
+  Future<void> updadatSingleField(
+      {required Map<String, dynamic> json, required String bookingId}) async {
+    final userId = await _auth.currentUser!.uid;
+    try {
+      await _db
+          .collection("Owners")
+          .doc(userId)
+          .collection("Bookings")
+          .doc(bookingId)
+          .update(json);
+    } catch (e) {
+      print("Somthing went wrong");
+    }
+  }
+
   // Delete a booking
 
   Future<void> deleteBooking(String bookingId) async {

@@ -6,20 +6,23 @@ import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:intl/intl.dart';
 
 class BookingsCard extends StatelessWidget {
-  const BookingsCard(
-      {super.key,
-      required this.name,
-      required this.date,
-      required this.advance,
-      required this.roomNo,
-      this.onTap,
-      required this.onDelete});
+  const BookingsCard({
+    super.key,
+    required this.name,
+    required this.date,
+    required this.advance,
+    required this.roomNo,
+    this.onTap,
+    required this.onDelete,
+    required this.onEdit,
+  });
   final String name;
   final DateTime date;
   final bool advance;
   final int roomNo;
   final void Function()? onTap;
   final void Function()? onDelete;
+  final void Function()? onEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +130,7 @@ class BookingsCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () => onEdit?.call(),
                         icon: const Icon(FontAwesomeIcons.edit)),
                     const SizedBox(
                       width: 20,

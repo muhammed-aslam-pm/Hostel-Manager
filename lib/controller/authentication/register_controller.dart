@@ -91,7 +91,7 @@ class SignInController with ChangeNotifier {
       }
 
       //invoking signup function
-      String? errorMessage = await authProvider.signInWithGoogle();
+      String? errorMessage = await authProvider.signInWithGoogle(context);
       if (errorMessage == null) {
         // Successful sign-up
         // Navigate to the next screen or perform other actions

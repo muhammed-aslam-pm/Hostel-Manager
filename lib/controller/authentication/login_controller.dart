@@ -98,59 +98,6 @@ class LoginController with ChangeNotifier {
     }
   }
 
-//Login with google
-
-  Future<void> loginWuthGoogle(context) async {
-    try {
-      // start loading screen
-
-      FullScreenLoader.openLoadinDialog(context);
-
-      final GoogleSignInAccount? userAccount = await GoogleSignIn().signIn();
-      final GoogleSignInAuthentication? googleAuth =
-          await userAccount?.authentication;
-
-      final credential = GoogleAuthProvider.credential(
-          accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
-      final userCredential = await _auth.signInWithCredential(credential);
-
-      //checkinf if it is a new User
-      if (userCredential.user?.uid != null) {
-        final DocumentSnapshot userData = await _firestore
-            .collection("Owners")
-            .doc(userCredential.user?.uid)
-            .get();
-        final bool isFirstTime = await userData['AccountSetupcompleted'];
-        print(' id first :$isFirstTime');
-        if (!isFirstTime) {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => AccountSetupScreen(),
-              ));
-        } else {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const OwnerHomeScreen(),
-            ),
-          );
-        }
-      }
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        // return 'The password provided is too weak.';
-      } else if (e.code == 'email-already-in-use') {
-        // return 'The account already exists for that email.';
-      }
-      // return e.message; // Return error message for other exceptions
-    } catch (e) {
-      ScaffoldMessenger(
-          child: SnackBar(content: Text('Error: ${e.toString()}')));
-      // Return generic error message for other exceptions
-    }
-  }
-
 //hive password
   togglePassword() {
     hidePassword = !hidePassword;

@@ -1,14 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hostel_management_app/controller/users/owner_repository.dart';
 import 'package:hostel_management_app/model/owner_model.dart';
+import 'package:hostel_management_app/view/account_setup_screen/account_setup_screen.dart';
+import 'package:hostel_management_app/view/owner_home_screen/owner_home_screen.dart';
 
 class AuthenticationRepository extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   late UserCredential userCredential;
   late UserCredential userCredentialGoogle;
   final OwnerRepository owner = OwnerRepository();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 // sign in w
   Future<String?> signInWithEmailAndPassword(
@@ -50,7 +54,7 @@ class AuthenticationRepository extends ChangeNotifier {
   }
 
 //signin with google
-  Future<String?> signInWithGoogle() async {
+  Future<String?> signInWithGoogle(BuildContext context) async {
     try {
       final GoogleSignInAccount? userAccount = await GoogleSignIn().signIn();
       final GoogleSignInAuthentication? googleAuth =
@@ -58,11 +62,17 @@ class AuthenticationRepository extends ChangeNotifier {
 
       final credential = GoogleAuthProvider.credential(
           accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
-      userCredentialGoogle = await _auth.signInWithCredential(credential);
+      final userCredentialGoogle = await _auth.signInWithCredential(credential);
 
       if (userCredentialGoogle != null) {
-        final newOwner = OwnerModel(
-            id: userCredentialGoogle.user!.uid,
+        final userId = userCredentialGoogle.user!.uid;
+        final DocumentSnapshot userData =
+            await _firestore.collection("Owners").doc(userId).get();
+
+        if (!userData.exists) {
+          // New user, save owner records
+          final newOwner = OwnerModel(
+            id: userId,
             hostelName: '',
             address: '',
             emailAddress: userCredentialGoogle.user!.email ?? "",
@@ -71,19 +81,42 @@ class AuthenticationRepository extends ChangeNotifier {
             profilePictuer: userCredentialGoogle.user!.photoURL ?? "",
             noOfRooms: 0,
             noOfBeds: 0,
-            isAccountSetupCompleted: false);
+            isAccountSetupCompleted: false,
+          );
 
-        // //saving owner data
-        await owner.saveOwnerRecords(newOwner);
+          // Save owner data
+          await owner.saveOwnerRecords(newOwner);
+        }
+
+        final bool isFirstTime = await userData['AccountSetupcompleted'];
+        print(' id first :$isFirstTime');
+        if (!isFirstTime) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AccountSetupScreen(),
+              ));
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const OwnerHomeScreen(),
+            ),
+          );
+        }
+
         // You might perform additional actions here upon successful sign-up
+
+        // Return null for successful sign-up
+        return null;
       }
 
-      return null; // Return null for successful sign-up
+      return null;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         return 'The password provided is too weak.';
       } else if (e.code == 'email-already-in-use') {
-        // return 'The account already exists for that email.';
+        // Return 'The account already exists for that email.'
       }
       return e.message; // Return error message for other exceptions
     } catch (e) {

@@ -9,7 +9,7 @@ import 'package:hostel_management_app/controller/bookings/bookings_repository.da
 import 'package:hostel_management_app/controller/dashboard_controller/dashboard_controller.dart';
 import 'package:hostel_management_app/controller/onboarding/onboaring_controller.dart';
 import 'package:hostel_management_app/controller/bottomnavbar/bottomnavbar_controller.dart';
-import 'package:hostel_management_app/controller/residents_controller/residents_controller.dart';
+import 'package:hostel_management_app/controller/residents/residents_controller.dart';
 import 'package:hostel_management_app/controller/rooms/rooms_controller.dart';
 import 'package:hostel_management_app/controller/users/user_controller.dart';
 import 'package:hostel_management_app/view/splash_screen/splash_screen.dart';

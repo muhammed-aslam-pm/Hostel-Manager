@@ -2,7 +2,6 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/model/booking_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
-import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/booked_resident_detailes_screen/booked_resident_detailes_screen.dart';
 
@@ -35,7 +34,6 @@ class UpcomingBookings extends StatelessWidget {
               ));
         },
         child: Container(
-          height: 130,
           width: 277,
           padding: EdgeInsets.symmetric(vertical: 14, horizontal: 20),
           decoration: BoxDecoration(

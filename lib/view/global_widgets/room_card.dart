@@ -30,7 +30,7 @@ class RoomsCard extends StatelessWidget {
                 height: 78,
                 width: 83,
                 padding: EdgeInsets.only(
-                  bottom: 6,
+                  bottom: 3,
                 ),
                 decoration: BoxDecoration(
                     color: ColorConstants.secondaryWhiteColor,
@@ -70,12 +70,7 @@ class RoomsCard extends StatelessWidget {
                       FluentIcons.conference_room_48_regular,
                       color: ColorConstants.primaryBlackColor,
                       size: 27,
-                    )
-                    // Image.asset(
-                    //   ImageConstants.ownerRoomsIconeDisabled,
-                    //   color: ColorConstants.primaryBlackColor,
-                    // ),
-                    )),
+                    ))),
             Positioned(
               top: 0,
               left: 70,

@@ -50,6 +50,7 @@ class RoomsViewScreen extends StatelessWidget {
                   )),
               actions: [
                 PopupMenuButton(
+                  iconColor: ColorConstants.primaryWhiteColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),

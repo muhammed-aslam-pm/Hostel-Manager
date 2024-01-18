@@ -35,17 +35,20 @@ class ResidentsRepository {
 
   // ---------------------------------------------Add Residents
 
-  Future<void> addResidents(ResidentModel resident) async {
+  Future<String> addResidents(ResidentModel resident) async {
     try {
       final userId = _auth.currentUser?.uid;
       if (userId == null || userId.isEmpty) {
         throw Exception("Unable to find user information, try again later");
       }
-      await _db
+      DocumentReference docRef = await _db
           .collection("Owners")
           .doc(userId)
           .collection("Residents")
           .add(resident.toJson());
+
+      // Return the document ID
+      return docRef.id;
     } catch (e) {
       print("Error : ${e.toString()}");
       rethrow;

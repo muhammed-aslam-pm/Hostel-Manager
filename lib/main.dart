@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
           create: (context) => OwnerNavBarController(),
         ),
         ChangeNotifierProvider(
-          create: (context) => residentsController(),
+          create: (context) => ResidentsController(),
         ),
         ChangeNotifierProvider(
           create: (context) => AccountSetUpScreenController(),

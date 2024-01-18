@@ -4,6 +4,7 @@ class ResidentModel {
   ResidentModel(
       {this.id,
       required this.name,
+      required this.profilePic,
       required this.roomNo,
       required this.roomId,
       required this.phone,
@@ -15,6 +16,7 @@ class ResidentModel {
       required this.checkOut,
       required this.isRentPaid});
   final String? id;
+  final String profilePic;
   final String name;
   final int roomNo;
   final String roomId;
@@ -31,6 +33,7 @@ class ResidentModel {
     return {
       "RoomNo": roomNo,
       "Name": name,
+      "ProfilePhoto": profilePic,
       "RoomId": roomId,
       "Phone": phone,
       "Email": email,
@@ -58,7 +61,8 @@ class ResidentModel {
           purposOfStay: data["Name"] ?? "",
           checkIn: data["CheckIn"],
           checkOut: data["CheckOut"],
-          isRentPaid: data["Rentpaid"] ?? false);
+          isRentPaid: data["Rentpaid"] ?? false,
+          profilePic: data["ProfilePhoto"] ?? '');
     } else {
       return ResidentModel.empty();
     }
@@ -68,6 +72,7 @@ class ResidentModel {
       name: '',
       roomNo: 0,
       roomId: '',
+      profilePic: '',
       phone: '',
       email: '',
       address: '',

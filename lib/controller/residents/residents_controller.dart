@@ -203,6 +203,39 @@ class ResidentsController with ChangeNotifier {
     }
   }
 
+//------------------------------------------------Delete Resident
+  Future<void> deleteResident(
+      {required BuildContext context, required ResidentModel resident}) async {
+    try {
+      final isConnected = await connectionController.isConnected();
+      if (!isConnected) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("Network error")));
+      }
+      await residentsRepository.deleteResident(resident.id!);
+
+      final RoomModel? room =
+          await roomController.fetchSingleRoom(roomId: resident.roomId);
+      final currentVacancy = room!.vacancy;
+      final int vacancy = currentVacancy + 1;
+      final currentResidents = room.residents;
+      currentResidents.remove(resident.id);
+      notifyListeners();
+
+      final Map<String, dynamic> json = {
+        "Vacancy": vacancy,
+        "Residents": currentResidents
+      };
+      await roomController.updateSingleField(
+          json: json, roomId: resident.roomId);
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Resident deleted Successfull")));
+      refreshpage(context);
+    } catch (e) {
+      print(e);
+    }
+  }
+
 //-------------------------------------------------On edit
   onEdit(ResidentModel resident, BuildContext context) async {
     await fetchVacantRooms();

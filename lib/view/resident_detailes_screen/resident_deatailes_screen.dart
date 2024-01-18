@@ -16,7 +16,6 @@ class ResidentDetailesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<ResidentsController>(context, listen: false);
-    ResidentModel resident = controller.residents[index];
     return Consumer<ResidentsController>(
       builder: (context, value, child) => Scaffold(
         backgroundColor: ColorConstants.primaryWhiteColor,
@@ -49,7 +48,10 @@ class ResidentDetailesScreen extends StatelessWidget {
                       'Delete',
                       style: TextStyle(color: ColorConstants.colorRed),
                     ),
-                    onTap: () async {},
+                    onTap: () async {
+                      controller.deleteResident(
+                          context: context, resident: value.residents[index]);
+                    },
                   ),
                 ];
               },

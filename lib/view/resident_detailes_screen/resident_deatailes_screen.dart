@@ -1,14 +1,22 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:hostel_management_app/controller/residents/residents_controller.dart';
+import 'package:hostel_management_app/model/resident_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
-import 'package:hostel_management_app/view/residents_adding_form/residents_adding_form.dart';
+import 'package:hostel_management_app/view/global_widgets/shimmer_loader.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class ResidentDetailesScreen extends StatelessWidget {
-  const ResidentDetailesScreen({super.key});
+  const ResidentDetailesScreen({super.key, required this.index});
 
+  final int index;
   @override
   Widget build(BuildContext context) {
+    final controller = Provider.of<ResidentsController>(context, listen: false);
+    ResidentModel resident = controller.residents[index];
     return Scaffold(
       backgroundColor: ColorConstants.primaryWhiteColor,
       appBar: AppBar(
@@ -18,10 +26,30 @@ class ResidentDetailesScreen extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.chevron_left_outlined,
               size: 30,
             )),
+        actions: [
+          PopupMenuButton(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            elevation: 10,
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem(child: const Text('Edit'), onTap: () {}),
+                PopupMenuItem(
+                  child: Text(
+                    'Delete',
+                    style: TextStyle(color: ColorConstants.colorRed),
+                  ),
+                  onTap: () async {},
+                ),
+              ];
+            },
+          ),
+        ],
         elevation: 0,
       ),
       body: Padding(
@@ -32,38 +60,43 @@ class ResidentDetailesScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.edit,
-                        color: Colors.white,
-                      )),
                   Hero(
-                    tag: CircleAvatar,
-                    child: CircleAvatar(
-                      radius: 55,
-                      backgroundColor: ColorConstants.SecondaryColor4,
-                      child: Icon(Icons.person),
-                    ),
-                  ),
-                  IconButton(
-                      onPressed: () {
-                        showModalBottomSheet(
-                          isScrollControlled: true,
-                          context: context,
-                          builder: (context) => ResidentsAddingPage(),
-                          elevation: 10,
-                          shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.vertical(top: Radius.circular(20)),
+                    tag: "profile",
+                    child: Consumer(
+                      builder: (context, value, child) {
+                        return Container(
+                          height: 110,
+                          width: 110,
+                          decoration: BoxDecoration(
+                            color: ColorConstants.primaryWhiteColor,
+                            borderRadius: BorderRadius.circular(100),
                           ),
-                          useSafeArea: true,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(100),
+                            child: resident.profilePic.isNotEmpty
+                                ? CachedNetworkImage(
+                                    imageUrl: resident.profilePic,
+                                    fit: BoxFit.cover,
+                                    errorWidget: (context, url, error) =>
+                                        Icon(Icons.error),
+                                    progressIndicatorBuilder:
+                                        (context, url, progress) =>
+                                            const ShimmerEffect(
+                                                height: 110,
+                                                width: 110,
+                                                radius: 100),
+                                  )
+                                : const Center(
+                                    child: Icon(Icons.person),
+                                  ),
+                          ),
                         );
                       },
-                      icon: Icon(Icons.edit))
+                    ),
+                  ),
                 ],
               ),
               SizedBox(
@@ -86,30 +119,7 @@ class ResidentDetailesScreen extends StatelessWidget {
                           width: 25,
                         ),
                         Text(
-                          "07",
-                          style: TextStyleConstants.bookingsRoomNumber,
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: ColorConstants.SecondaryColor4),
-                    padding: EdgeInsets.symmetric(horizontal: 7, vertical: 4),
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          ImageConstants.bedIcon2,
-                          color: ColorConstants.primaryBlackColor,
-                          height: 25,
-                          width: 25,
-                        ),
-                        Text(
-                          "01",
+                          resident.roomNo.toString(),
                           style: TextStyleConstants.bookingsRoomNumber,
                         )
                       ],
@@ -121,157 +131,144 @@ class ResidentDetailesScreen extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        color: ColorConstants.colorRed),
+                        color: resident.isRentPaid
+                            ? ColorConstants.colorGreen
+                            : ColorConstants.colorRed),
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-                    child: Center(child: Text("Fees Not Paid")),
+                    child: Center(
+                        child: Text(
+                      resident.isRentPaid ? "Fees Paid" : "Fees Not Paid",
+                      style: TextStyleConstants.buttonText,
+                    )),
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              Text("Name"),
-              SizedBox(
+              DetailesCard(
+                tiltle: 'Name',
+                data: resident.name,
+              ),
+              const Text("Phone Number"),
+              const SizedBox(
                 height: 5,
               ),
               Container(
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(10),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    color: ColorConstants.SecondaryColor1,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Text(
-                  "Muhammed Aslam P M",
-                  style: TextStyleConstants.dashboardBookingName,
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Text("Phone Number"),
-              SizedBox(
-                height: 5,
-              ),
-              Container(
-                padding: EdgeInsets.all(10),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: ColorConstants.SecondaryColor1,
+                    color: ColorConstants.SecondaryColor2.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(10)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "+91-2224459685",
+                      resident.phone,
                       style: TextStyleConstants.dashboardBookingName,
                     ),
-                    IconButton(onPressed: () {}, icon: Icon(Icons.call))
+                    const InkWell(
+                      child: Icon(
+                        Icons.call,
+                        size: 28,
+                      ),
+                    )
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              Text("Address"),
-              SizedBox(
+              DetailesCard(
+                tiltle: 'Email',
+                data: resident.email,
+              ),
+              DetailesCard(
+                tiltle: 'Address',
+                data: resident.address,
+              ),
+              DetailesCard(
+                tiltle: 'Purpose of Stay',
+                data: resident.purposOfStay,
+              ),
+              const Text("Eemergency Contact Number"),
+              const SizedBox(
                 height: 5,
               ),
               Container(
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(10),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    color: ColorConstants.SecondaryColor1,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Text(
-                  "somthing........ Somthing..............................",
-                  style: TextStyleConstants.dashboardBookingName,
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Text("Purpose of Stay"),
-              SizedBox(
-                height: 5,
-              ),
-              Container(
-                padding: EdgeInsets.all(15),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: ColorConstants.SecondaryColor1,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Text(
-                  "Student",
-                  style: TextStyleConstants.dashboardBookingName,
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Text("Eemergency Contact Number"),
-              SizedBox(
-                height: 5,
-              ),
-              Container(
-                padding: EdgeInsets.all(10),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: ColorConstants.SecondaryColor1,
+                    color: ColorConstants.SecondaryColor2.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(10)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "+91-2224459685",
+                      resident.emargencyContact,
                       style: TextStyleConstants.dashboardBookingName,
                     ),
-                    IconButton(onPressed: () {}, icon: Icon(Icons.call))
+                    const InkWell(
+                      child: Icon(
+                        Icons.call,
+                        size: 28,
+                      ),
+                    )
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              Text("Joining Date"),
-              SizedBox(
-                height: 5,
+              DetailesCard(
+                tiltle: 'CheckOut Date',
+                data: DateFormat('dd/MM/yyyy').format(resident.checkIn),
               ),
-              Container(
-                padding: EdgeInsets.all(15),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: ColorConstants.SecondaryColor1,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Text(
-                  "12/12/2023",
-                  style: TextStyleConstants.dashboardBookingName,
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Text("Vacting Date"),
-              SizedBox(
-                height: 5,
-              ),
-              Container(
-                padding: EdgeInsets.all(15),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: ColorConstants.SecondaryColor1,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Text(
-                  "Note given",
-                  style: TextStyleConstants.dashboardBookingName,
-                ),
-              ),
-              SizedBox(
-                height: 20,
+              DetailesCard(
+                tiltle: 'CheckOut Date',
+                data: DateFormat('dd/MM/yyyy').format(resident.checkOut),
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class DetailesCard extends StatelessWidget {
+  const DetailesCard({
+    super.key,
+    required this.tiltle,
+    required this.data,
+  });
+  final String tiltle;
+  final String data;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(tiltle),
+        const SizedBox(
+          height: 5,
+        ),
+        Container(
+          padding: const EdgeInsets.all(15),
+          width: double.infinity,
+          decoration: BoxDecoration(
+              color: ColorConstants.SecondaryColor2.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(10)),
+          child: Text(
+            data,
+            style: TextStyleConstants.dashboardBookingName,
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+      ],
     );
   }
 }

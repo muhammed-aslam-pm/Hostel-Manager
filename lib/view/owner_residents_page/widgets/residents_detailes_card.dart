@@ -1,8 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
-import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
-import 'package:hostel_management_app/view/resident_detailes_screen/resident_deatailes_screen.dart';
+import 'package:hostel_management_app/view/global_widgets/shimmer_loader.dart';
 
 class ResidentsDetailescard extends StatelessWidget {
   const ResidentsDetailescard(
@@ -10,25 +11,21 @@ class ResidentsDetailescard extends StatelessWidget {
       required this.name,
       required this.joiningDate,
       required this.roomNumber,
-      required this.bedNumber,
-      required this.isFeePaid});
+      required this.onTap,
+      required this.isFeePaid,
+      required this.image});
   final String name;
   final String joiningDate;
   final int roomNumber;
-  final int bedNumber;
+  final String image;
+
   final bool isFeePaid;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ResidentDetailesScreen(),
-          ),
-        );
-      },
+      onTap: onTap,
       child: Container(
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
@@ -47,13 +44,15 @@ class ResidentsDetailescard extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CircleAvatar(
-                  radius: 20,
-                  child: Icon(
-                    Icons.person,
-                    color: ColorConstants.primaryWhiteColor,
+                Hero(
+                  tag: "profile",
+                  child: CircleAvatar(
+                    radius: 20,
+                    backgroundColor: ColorConstants.SecondaryColor4,
+                    backgroundImage:
+                        image.isNotEmpty ? NetworkImage(image) : null,
+                    child: image.isEmpty ? Icon(Icons.person) : null,
                   ),
-                  backgroundColor: ColorConstants.SecondaryColor4,
                 ),
                 SizedBox(
                   width: 10,
@@ -97,8 +96,14 @@ class ResidentsDetailescard extends StatelessWidget {
                           EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       child: Center(
                           child: isFeePaid == true
-                              ? Text("Fees Paid")
-                              : Text("Fees Not Paid")),
+                              ? Text(
+                                  "Fees Paid",
+                                  style: TextStyleConstants.buttonText,
+                                )
+                              : Text(
+                                  "Fees Not Paid",
+                                  style: TextStyleConstants.buttonText,
+                                )),
                     )
                   ],
                 )
@@ -108,52 +113,27 @@ class ResidentsDetailescard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Row(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: ColorConstants.SecondaryColor4),
-                      padding: EdgeInsets.symmetric(horizontal: 7, vertical: 4),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            ImageConstants.roomsIcon2,
-                            color: ColorConstants.primaryBlackColor,
-                            height: 25,
-                            width: 25,
-                          ),
-                          Text(
-                            roomNumber.toString(),
-                            style: TextStyleConstants.bookingsRoomNumber,
-                          )
-                        ],
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: ColorConstants.SecondaryColor4),
+                  padding: EdgeInsets.symmetric(horizontal: 7, vertical: 4),
+                  child: Row(
+                    children: [
+                      Icon(
+                        FluentIcons.conference_room_48_regular,
+                        color: ColorConstants.primaryBlackColor,
+                        size: 27,
                       ),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: ColorConstants.SecondaryColor4),
-                      padding: EdgeInsets.symmetric(horizontal: 7, vertical: 4),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            ImageConstants.bedIcon2,
-                            color: ColorConstants.primaryBlackColor,
-                            height: 25,
-                            width: 25,
-                          ),
-                          Text(
-                            bedNumber.toString(),
-                            style: TextStyleConstants.bookingsRoomNumber,
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
+                      Text(
+                        roomNumber.toString(),
+                        style: TextStyleConstants.bookingsRoomNumber,
+                      )
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: 20,
                 ),
                 SizedBox(
                   height: 5,

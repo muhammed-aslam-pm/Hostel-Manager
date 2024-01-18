@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/residents/residents_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
@@ -43,13 +45,25 @@ class _ResidentsAddingPageState extends State<ResidentsAddingPage> {
                       Positioned(
                           child: Hero(
                         tag: Form,
-                        child: CircleAvatar(
-                          radius: 50,
-                          backgroundColor: ColorConstants.SecondaryColor4,
-                          child: Icon(
-                            Icons.person,
-                            color: ColorConstants.primaryBlackColor,
-                            size: 40,
+                        child: InkWell(
+                          onDoubleTap: () => controller.openImagePicker(),
+                          child: Consumer<ResidentsController>(
+                            builder: (context, value, child) => CircleAvatar(
+                              radius: 50,
+                              backgroundColor: ColorConstants.SecondaryColor4,
+                              backgroundImage: controller.selectedImage != null
+                                  ? FileImage(
+                                      File(controller.selectedImage!.path)
+                                          as File)
+                                  : null,
+                              child: controller.selectedImage == null
+                                  ? Icon(
+                                      Icons.person,
+                                      color: ColorConstants.primaryBlackColor,
+                                      size: 40,
+                                    )
+                                  : null,
+                            ),
                           ),
                         ),
                       )),

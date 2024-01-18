@@ -1,10 +1,15 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/connection_checker/connection_checher.dart';
 import 'package:hostel_management_app/controller/residents/residents_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hostel_management_app/controller/rooms/rooms_repository.dart';
+import 'package:hostel_management_app/controller/users/owner_repository.dart';
 import 'package:hostel_management_app/model/resident_model.dart';
 import 'package:hostel_management_app/model/room_model.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class ResidentsController with ChangeNotifier {
@@ -21,6 +26,7 @@ class ResidentsController with ChangeNotifier {
   final ResidentsRepository residentsRepository = ResidentsRepository();
   final ConnectionChecker connectionController = ConnectionChecker();
   final RoomsRepository roomController = RoomsRepository();
+  final OwnerRepository ownerRepository = OwnerRepository();
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   List<ResidentModel> residents = [];
@@ -30,14 +36,18 @@ class ResidentsController with ChangeNotifier {
   String selectedRoomId = "";
   DateTime? checkInDate;
   DateTime? checkOutDate;
+  File? selectedImage;
+  String? imageUrl;
 
   bool isEditing = false;
 
 // ------------------------------------------------Fetch Resident detailes
   fetchResidents() async {
     try {
+      print('fetchData');
       residents = await residentsRepository.fetchData();
       residents.sort((a, b) => a.roomNo.compareTo(b.roomNo));
+      print(residents);
       notifyListeners();
     } catch (e) {
       print(e.toString());
@@ -73,9 +83,18 @@ class ResidentsController with ChangeNotifier {
             .showSnackBar(const SnackBar(content: Text("Network error")));
       }
 
+      if (selectedImage != null) {
+        try {
+          imageUrl = await ownerRepository.uploadImage(
+              'Owners/Images/Residents', XFile(selectedImage!.path));
+        } catch (e) {
+          print("image : ${e.toString()}");
+        }
+      }
+
       final resident = ResidentModel(
           name: nameController.text,
-          profilePic: "",
+          profilePic: imageUrl ?? "",
           roomNo: int.parse(selectedRoom!),
           roomId: selectedRoomId,
           phone: phoneNoController.text,
@@ -131,6 +150,29 @@ class ResidentsController with ChangeNotifier {
       print(e);
     }
   }
+
+//------------------------------------------------select Image
+
+  Future<void> openImagePicker() async {
+    try {
+      final XFile? pickedImage = await ImagePicker().pickImage(
+          source: ImageSource.gallery,
+          imageQuality: 70,
+          maxHeight: 512,
+          maxWidth: 512);
+      if (pickedImage != null) {
+        selectedImage = File(pickedImage.path);
+        notifyListeners();
+      } else {
+        if (kDebugMode) {
+          print('Image not Selected');
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
 //------------------------------------------------refresh page
 
   refreshpage(BuildContext context) {

@@ -1,15 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:hostel_management_app/controller/residents/residents_controller.dart';
+import 'package:hostel_management_app/model/resident_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/global_widgets/date_sorting_button.dart';
+import 'package:hostel_management_app/view/resident_detailes_screen/resident_deatailes_screen.dart';
 import 'package:hostel_management_app/view/residents_adding_form/residents_adding_form.dart';
 import 'package:hostel_management_app/view/owner_residents_page/widgets/residents_detailes_card.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
-class OwnerResidentsPage extends StatelessWidget {
+class OwnerResidentsPage extends StatefulWidget {
   const OwnerResidentsPage({super.key});
 
   @override
+  State<OwnerResidentsPage> createState() => _OwnerResidentsPageState();
+}
+
+class _OwnerResidentsPageState extends State<OwnerResidentsPage> {
+  @override
+  void initState() {
+    Provider.of<ResidentsController>(context, listen: false).fetchResidents();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final controller = Provider.of<ResidentsController>(context, listen: false);
     return Scaffold(
       backgroundColor: ColorConstants.primaryWhiteColor,
       appBar: AppBar(
@@ -35,20 +53,36 @@ class OwnerResidentsPage extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) => ResidentsDetailescard(
-                      roomNumber: 1,
-                      bedNumber: 3,
-                      joiningDate: "14 sep",
-                      name: "Aslam",
-                      isFeePaid: index % 2 == 0 ? true : false),
-                  separatorBuilder: (context, index) => Divider(
-                        color: ColorConstants.secondaryWhiteColor,
-                        height: 10,
-                      ),
-                  itemCount: 5)
+              Consumer<ResidentsController>(
+                builder: (context, value, child) => ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      ResidentModel resident = controller.residents[index];
+                      return ResidentsDetailescard(
+                        roomNumber: resident.roomNo,
+                        joiningDate:
+                            DateFormat('dd MMM yyyy').format(resident.checkIn),
+                        name: resident.name,
+                        isFeePaid: resident.isRentPaid,
+                        image: resident.profilePic,
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ResidentDetailesScreen(
+                                  index: index,
+                                ),
+                              ));
+                        },
+                      );
+                    },
+                    separatorBuilder: (context, index) => Divider(
+                          color: ColorConstants.secondaryWhiteColor,
+                          height: 10,
+                        ),
+                    itemCount: controller.residents.length),
+              )
             ],
           ),
         ),

@@ -16,7 +16,9 @@ class PaymentNameCard extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ResidentDetailesScreen(),
+                builder: (context) => ResidentDetailesScreen(
+                  index: 0,
+                ),
               ));
         },
         child: Container(

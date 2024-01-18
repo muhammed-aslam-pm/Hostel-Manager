@@ -59,8 +59,8 @@ class ResidentModel {
           address: data["Address"] ?? "",
           emargencyContact: data["EmargencyContact"] ?? "",
           purposOfStay: data["Name"] ?? "",
-          checkIn: data["CheckIn"],
-          checkOut: data["CheckOut"],
+          checkIn: (data['CheckIn'] as Timestamp).toDate(),
+          checkOut: (data['CheckOut'] as Timestamp).toDate(),
           isRentPaid: data["Rentpaid"] ?? false,
           profilePic: data["ProfilePhoto"] ?? '');
     } else {

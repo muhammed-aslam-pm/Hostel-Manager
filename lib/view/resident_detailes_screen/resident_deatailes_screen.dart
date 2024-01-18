@@ -17,218 +17,225 @@ class ResidentDetailesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Provider.of<ResidentsController>(context, listen: false);
     ResidentModel resident = controller.residents[index];
-    return Scaffold(
-      backgroundColor: ColorConstants.primaryWhiteColor,
-      appBar: AppBar(
+    return Consumer<ResidentsController>(
+      builder: (context, value, child) => Scaffold(
         backgroundColor: ColorConstants.primaryWhiteColor,
-        iconTheme: IconThemeData(color: ColorConstants.primaryBlackColor),
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(
-              Icons.chevron_left_outlined,
-              size: 30,
-            )),
-        actions: [
-          PopupMenuButton(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
+        appBar: AppBar(
+          backgroundColor: ColorConstants.primaryWhiteColor,
+          iconTheme: IconThemeData(color: ColorConstants.primaryBlackColor),
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(
+                Icons.chevron_left_outlined,
+                size: 30,
+              )),
+          actions: [
+            PopupMenuButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              elevation: 10,
+              itemBuilder: (context) {
+                return [
+                  PopupMenuItem(
+                      child: const Text('Edit'),
+                      onTap: () {
+                        controller.onEdit(value.residents[index], context);
+                      }),
+                  PopupMenuItem(
+                    child: Text(
+                      'Delete',
+                      style: TextStyle(color: ColorConstants.colorRed),
+                    ),
+                    onTap: () async {},
+                  ),
+                ];
+              },
             ),
-            elevation: 10,
-            itemBuilder: (context) {
-              return [
-                PopupMenuItem(child: const Text('Edit'), onTap: () {}),
-                PopupMenuItem(
-                  child: Text(
-                    'Delete',
-                    style: TextStyle(color: ColorConstants.colorRed),
-                  ),
-                  onTap: () async {},
-                ),
-              ];
-            },
-          ),
-        ],
-        elevation: 0,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Hero(
-                    tag: "profile",
-                    child: Consumer(
-                      builder: (context, value, child) {
-                        return Container(
-                          height: 110,
-                          width: 110,
-                          decoration: BoxDecoration(
-                            color: ColorConstants.primaryWhiteColor,
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: resident.profilePic.isNotEmpty
-                                ? CachedNetworkImage(
-                                    imageUrl: resident.profilePic,
-                                    fit: BoxFit.cover,
-                                    errorWidget: (context, url, error) =>
-                                        Icon(Icons.error),
-                                    progressIndicatorBuilder:
-                                        (context, url, progress) =>
-                                            const ShimmerEffect(
-                                                height: 110,
-                                                width: 110,
-                                                radius: 100),
-                                  )
-                                : const Center(
-                                    child: Icon(Icons.person),
-                                  ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: ColorConstants.SecondaryColor4),
-                    padding: EdgeInsets.symmetric(horizontal: 7, vertical: 4),
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          ImageConstants.roomsIcon2,
-                          color: ColorConstants.primaryBlackColor,
-                          height: 25,
-                          width: 25,
+          ],
+          elevation: 0,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Hero(
+                      tag: "profile",
+                      child: Container(
+                        height: 110,
+                        width: 110,
+                        decoration: BoxDecoration(
+                          color: ColorConstants.primaryWhiteColor,
+                          borderRadius: BorderRadius.circular(100),
                         ),
-                        Text(
-                          resident.roomNo.toString(),
-                          style: TextStyleConstants.bookingsRoomNumber,
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: resident.isRentPaid
-                            ? ColorConstants.colorGreen
-                            : ColorConstants.colorRed),
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-                    child: Center(
-                        child: Text(
-                      resident.isRentPaid ? "Fees Paid" : "Fees Not Paid",
-                      style: TextStyleConstants.buttonText,
-                    )),
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              DetailesCard(
-                tiltle: 'Name',
-                data: resident.name,
-              ),
-              const Text("Phone Number"),
-              const SizedBox(
-                height: 5,
-              ),
-              Container(
-                padding: const EdgeInsets.all(10),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: ColorConstants.SecondaryColor2.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(10)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      resident.phone,
-                      style: TextStyleConstants.dashboardBookingName,
-                    ),
-                    const InkWell(
-                      child: Icon(
-                        Icons.call,
-                        size: 28,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(100),
+                          child: value.residents[index].profilePic.isNotEmpty
+                              ? CachedNetworkImage(
+                                  imageUrl: value.residents[index].profilePic,
+                                  fit: BoxFit.cover,
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error),
+                                  progressIndicatorBuilder:
+                                      (context, url, progress) =>
+                                          const ShimmerEffect(
+                                              height: 110,
+                                              width: 110,
+                                              radius: 100),
+                                )
+                              : const Center(
+                                  child: Icon(Icons.person),
+                                ),
+                        ),
                       ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: ColorConstants.SecondaryColor4),
+                      padding: EdgeInsets.symmetric(horizontal: 7, vertical: 4),
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            ImageConstants.roomsIcon2,
+                            color: ColorConstants.primaryBlackColor,
+                            height: 25,
+                            width: 25,
+                          ),
+                          Text(
+                            value.residents[index].roomNo.toString(),
+                            style: TextStyleConstants.bookingsRoomNumber,
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: value.residents[index].isRentPaid
+                              ? ColorConstants.colorGreen
+                              : ColorConstants.colorRed),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+                      child: Center(
+                          child: Text(
+                        value.residents[index].isRentPaid
+                            ? "Fees Paid"
+                            : "Fees Not Paid",
+                        style: TextStyleConstants.buttonText,
+                      )),
                     )
                   ],
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              DetailesCard(
-                tiltle: 'Email',
-                data: resident.email,
-              ),
-              DetailesCard(
-                tiltle: 'Address',
-                data: resident.address,
-              ),
-              DetailesCard(
-                tiltle: 'Purpose of Stay',
-                data: resident.purposOfStay,
-              ),
-              const Text("Eemergency Contact Number"),
-              const SizedBox(
-                height: 5,
-              ),
-              Container(
-                padding: const EdgeInsets.all(10),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: ColorConstants.SecondaryColor2.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(10)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      resident.emargencyContact,
-                      style: TextStyleConstants.dashboardBookingName,
-                    ),
-                    const InkWell(
-                      child: Icon(
-                        Icons.call,
-                        size: 28,
-                      ),
-                    )
-                  ],
+                const SizedBox(
+                  height: 20,
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              DetailesCard(
-                tiltle: 'CheckOut Date',
-                data: DateFormat('dd/MM/yyyy').format(resident.checkIn),
-              ),
-              DetailesCard(
-                tiltle: 'CheckOut Date',
-                data: DateFormat('dd/MM/yyyy').format(resident.checkOut),
-              ),
-            ],
+                DetailesCard(
+                  tiltle: 'Name',
+                  data: value.residents[index].name,
+                ),
+                const Text("Phone Number"),
+                const SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color: ColorConstants.SecondaryColor2.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        value.residents[index].phone,
+                        style: TextStyleConstants.dashboardBookingName,
+                      ),
+                      const InkWell(
+                        child: Icon(
+                          Icons.call,
+                          size: 28,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                DetailesCard(
+                  tiltle: 'Email',
+                  data: value.residents[index].email,
+                ),
+                DetailesCard(
+                  tiltle: 'Address',
+                  data: value.residents[index].address,
+                ),
+                DetailesCard(
+                  tiltle: 'Purpose of Stay',
+                  data: value.residents[index].purposOfStay,
+                ),
+                const Text("Eemergency Contact Number"),
+                const SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color: ColorConstants.SecondaryColor2.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        value.residents[index].emargencyContact,
+                        style: TextStyleConstants.dashboardBookingName,
+                      ),
+                      const InkWell(
+                        child: Icon(
+                          Icons.call,
+                          size: 28,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                DetailesCard(
+                  tiltle: 'CheckOut Date',
+                  data: DateFormat('dd/MM/yyyy')
+                      .format(value.residents[index].checkIn),
+                ),
+                DetailesCard(
+                  tiltle: 'CheckOut Date',
+                  data: DateFormat('dd/MM/yyyy')
+                      .format(value.residents[index].checkOut),
+                ),
+              ],
+            ),
           ),
         ),
       ),

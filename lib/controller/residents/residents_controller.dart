@@ -9,6 +9,7 @@ import 'package:hostel_management_app/controller/rooms/rooms_repository.dart';
 import 'package:hostel_management_app/controller/users/owner_repository.dart';
 import 'package:hostel_management_app/model/resident_model.dart';
 import 'package:hostel_management_app/model/room_model.dart';
+import 'package:hostel_management_app/view/residents_adding_form/residents_adding_form.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
@@ -37,8 +38,11 @@ class ResidentsController with ChangeNotifier {
   DateTime? checkInDate;
   DateTime? checkOutDate;
   File? selectedImage;
+  String? oldImage;
   String? imageUrl;
-
+  String? editingRoomId;
+  String? editingResidentId;
+  int? oldRoomNo;
   bool isEditing = false;
 
 // ------------------------------------------------Fetch Resident detailes
@@ -129,6 +133,114 @@ class ResidentsController with ChangeNotifier {
     }
   }
 
+//------------------------------------------------Edit Resident detaile
+
+  Future<void> editResident(BuildContext context) async {
+    try {
+      final isConnected = await connectionController.isConnected();
+      if (!isConnected) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("Network error")));
+      }
+
+      if (selectedImage != null) {
+        try {
+          imageUrl = await ownerRepository.uploadImage(
+              'Owners/Images/Residents', XFile(selectedImage!.path));
+        } catch (e) {
+          print("image : ${e.toString()}");
+        }
+      }
+
+      final resident = ResidentModel(
+          id: editingResidentId,
+          name: nameController.text,
+          profilePic: imageUrl ?? oldImage ?? "",
+          roomNo: int.parse(selectedRoom!),
+          roomId: selectedRoomId,
+          phone: phoneNoController.text,
+          email: emailController.text,
+          address: addressController.text,
+          emargencyContact: emargencyContactController.text,
+          purposOfStay: purposeController.text,
+          checkIn: checkInDate!,
+          checkOut: checkOutDate!,
+          isRentPaid: true);
+
+      if (oldRoomNo == int.parse(selectedRoom!)) {
+        await residentsRepository.updateResident(resident);
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Resident detailes Edited successfully")));
+        refreshpage(context);
+      } else {
+        try {
+          await residentsRepository.updateResident(resident);
+          updateRoom(newResidentId: editingResidentId!);
+          final RoomModel? room =
+              await roomController.fetchSingleRoom(roomId: editingRoomId!);
+          final currentVacancy = room!.vacancy;
+          final int vacancy = currentVacancy + 1;
+          final currentResidents = room.residents;
+          currentResidents.remove(editingResidentId);
+          notifyListeners();
+
+          final Map<String, dynamic> json = {
+            "Vacancy": vacancy,
+            "Residents": currentResidents
+          };
+          await roomController.updateSingleField(
+              json: json, roomId: selectedRoomId);
+
+          refreshpage(context);
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text("Resident detailes Edited successfully")));
+        } catch (e) {
+          print(e);
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+//-------------------------------------------------On edit
+  onEdit(ResidentModel resident, BuildContext context) async {
+    await fetchVacantRooms();
+    isEditing = true;
+    selectedRoom = resident.roomNo.toString();
+    selectedRoomId = resident.roomId;
+    selectedImage = null;
+    oldImage = resident.profilePic;
+    imageUrl = resident.profilePic;
+    checkInDate = resident.checkIn;
+    checkOutDate = resident.checkOut;
+    nameController.text = resident.name;
+    phoneNoController.text = resident.phone;
+    emailController.text = resident.email;
+    addressController.text = resident.address;
+    emargencyContactController.text = resident.emargencyContact;
+    purposeController.text = resident.purposOfStay;
+    checkInDateController.text =
+        DateFormat('dd/MM/yyyy').format(resident.checkIn);
+    checkOutDateController.text =
+        DateFormat('dd/MM/yyyy').format(resident.checkOut);
+    editingRoomId = resident.roomId;
+    oldRoomNo = resident.roomNo;
+    editingResidentId = resident.id;
+    notifyListeners();
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (context) => const ResidentsAddingPage(),
+      elevation: 10,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      useSafeArea: true,
+    );
+    notifyListeners();
+  }
+
 //------------------------------------------------update room data
   updateRoom({required String newResidentId}) async {
     try {
@@ -152,7 +264,6 @@ class ResidentsController with ChangeNotifier {
   }
 
 //------------------------------------------------select Image
-
   Future<void> openImagePicker() async {
     try {
       final XFile? pickedImage = await ImagePicker().pickImage(
@@ -174,11 +285,20 @@ class ResidentsController with ChangeNotifier {
   }
 
 //------------------------------------------------refresh page
-
   refreshpage(BuildContext context) {
     fetchResidents();
     fetchVacantRooms();
+    notifyListeners();
     Navigator.pop(context);
+    selectedImage = null;
+    imageUrl = null;
+    checkInDate = null;
+    checkOutDate = null;
+    selectedImage = null;
+    oldImage = null;
+    editingRoomId = null;
+    editingResidentId = null;
+    oldRoomNo = null;
     nameController.clear();
     phoneNoController.clear();
     emailController.clear();
@@ -187,6 +307,7 @@ class ResidentsController with ChangeNotifier {
     purposeController.clear();
     checkInDateController.clear();
     checkInDateController.clear();
+    isEditing = false;
     notifyListeners();
   }
 

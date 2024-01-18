@@ -41,7 +41,8 @@ class ResidentModel {
       "EmargencyContact": emargencyContact,
       "CheckIn": checkIn,
       "CheckOut": checkOut,
-      "Rentpaid": isRentPaid
+      "Rentpaid": isRentPaid,
+      "Purpose": purposOfStay
     };
   }
 
@@ -58,7 +59,7 @@ class ResidentModel {
           email: data["Email"] ?? "",
           address: data["Address"] ?? "",
           emargencyContact: data["EmargencyContact"] ?? "",
-          purposOfStay: data["Name"] ?? "",
+          purposOfStay: data["Purpose"] ?? "",
           checkIn: (data['CheckIn'] as Timestamp).toDate(),
           checkOut: (data['CheckOut'] as Timestamp).toDate(),
           isRentPaid: data["Rentpaid"] ?? false,

@@ -90,6 +90,8 @@ class _OwnerResidentsPageState extends State<OwnerResidentsPage> {
       floatingActionButton: FloatingActionButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         onPressed: () {
+          Provider.of<ResidentsController>(context, listen: false)
+              .fetchVacantRooms();
           showModalBottomSheet(
             isScrollControlled: true,
             context: context,

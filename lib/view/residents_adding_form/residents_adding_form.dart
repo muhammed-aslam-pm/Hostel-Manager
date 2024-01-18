@@ -5,22 +5,11 @@ import 'package:hostel_management_app/controller/residents/residents_controller.
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/global_widgets/custom_dropdown_button.dart';
+import 'package:hostel_management_app/view/residents_adding_form/widgets/custom_formfield.dart';
 import 'package:provider/provider.dart';
 
-class ResidentsAddingPage extends StatefulWidget {
+class ResidentsAddingPage extends StatelessWidget {
   const ResidentsAddingPage({super.key});
-
-  @override
-  State<ResidentsAddingPage> createState() => _ResidentsAddingPageState();
-}
-
-class _ResidentsAddingPageState extends State<ResidentsAddingPage> {
-  @override
-  void initState() {
-    Provider.of<ResidentsController>(context, listen: false).fetchVacantRooms();
-    // TODO: implement initState
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -188,7 +177,11 @@ class _ResidentsAddingPageState extends State<ResidentsAddingPage> {
                 child: InkWell(
                   onTap: () {
                     if (controller.formKey.currentState!.validate()) {
-                      controller.addResident(context);
+                      if (controller.isEditing) {
+                        controller.editResident(context);
+                      } else {
+                        controller.addResident(context);
+                      }
                     }
                   },
                   child: Container(
@@ -199,7 +192,7 @@ class _ResidentsAddingPageState extends State<ResidentsAddingPage> {
                         color: ColorConstants.primaryColor),
                     child: Center(
                       child: Text(
-                        "Add",
+                        controller.isEditing ? "Edit" : "Add",
                         style: TextStyleConstants.buttonText,
                       ),
                     ),
@@ -209,47 +202,6 @@ class _ResidentsAddingPageState extends State<ResidentsAddingPage> {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class CustomFormField extends StatelessWidget {
-  const CustomFormField({
-    super.key,
-    required this.controller,
-    this.suffixWidget,
-    this.isExpanded = false,
-    this.validator,
-  });
-  final TextEditingController controller;
-  final Widget? suffixWidget;
-  final bool isExpanded;
-  final String? Function(String?)? validator;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: isExpanded ? 100 : 50,
-      child: TextFormField(
-        expands: isExpanded,
-        validator: validator ?? null,
-        maxLines: isExpanded ? null : 1,
-        controller: controller,
-        textAlign: TextAlign.start,
-        textAlignVertical: TextAlignVertical.top,
-        decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide:
-                  BorderSide(width: 1.5, color: ColorConstants.primaryColor),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide:
-                  BorderSide(width: 2, color: ColorConstants.primaryColor),
-            ),
-            suffixIcon: suffixWidget ?? null),
       ),
     );
   }

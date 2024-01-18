@@ -44,15 +44,12 @@ class ResidentsDetailescard extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Hero(
-                  tag: "profile",
-                  child: CircleAvatar(
-                    radius: 20,
-                    backgroundColor: ColorConstants.SecondaryColor4,
-                    backgroundImage:
-                        image.isNotEmpty ? NetworkImage(image) : null,
-                    child: image.isEmpty ? Icon(Icons.person) : null,
-                  ),
+                CircleAvatar(
+                  radius: 20,
+                  backgroundColor: ColorConstants.SecondaryColor4,
+                  backgroundImage:
+                      image.isNotEmpty ? NetworkImage(image) : null,
+                  child: image.isEmpty ? Icon(Icons.person) : null,
                 ),
                 SizedBox(
                   width: 10,

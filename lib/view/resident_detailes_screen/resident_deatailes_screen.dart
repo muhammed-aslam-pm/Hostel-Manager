@@ -1,11 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/residents/residents_controller.dart';
-import 'package:hostel_management_app/model/resident_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/global_widgets/shimmer_loader.dart';
+import 'package:hostel_management_app/view/resident_detailes_screen/widgets/confirm_delete_dialog.dart';
+import 'package:hostel_management_app/view/resident_detailes_screen/widgets/resident_detailes_card.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -49,8 +50,16 @@ class ResidentDetailesScreen extends StatelessWidget {
                       style: TextStyle(color: ColorConstants.colorRed),
                     ),
                     onTap: () async {
-                      controller.deleteResident(
-                          context: context, resident: value.residents[index]);
+                      await showDialog(
+                        context: context,
+                        builder: (context1) => ConfirmDeletDialog(
+                            onPressed: () => controller.deleteResident(
+                                context: context1,
+                                resident: value.residents[index])),
+                      );
+                      Navigator.pop(context);
+                      // controller.deleteResident(
+                      //     context: context, resident: value.residents[index]);
                     },
                   ),
                 ];
@@ -86,7 +95,7 @@ class ResidentDetailesScreen extends StatelessWidget {
                                   imageUrl: value.residents[index].profilePic,
                                   fit: BoxFit.cover,
                                   errorWidget: (context, url, error) =>
-                                      Icon(Icons.error),
+                                      const Icon(Icons.error),
                                   progressIndicatorBuilder:
                                       (context, url, progress) =>
                                           const ShimmerEffect(
@@ -102,7 +111,7 @@ class ResidentDetailesScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Row(
@@ -112,7 +121,8 @@ class ResidentDetailesScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                           color: ColorConstants.SecondaryColor4),
-                      padding: EdgeInsets.symmetric(horizontal: 7, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 7, vertical: 4),
                       child: Row(
                         children: [
                           Image.asset(
@@ -128,7 +138,7 @@ class ResidentDetailesScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                     Container(
@@ -137,8 +147,8 @@ class ResidentDetailesScreen extends StatelessWidget {
                           color: value.residents[index].isRentPaid
                               ? ColorConstants.colorGreen
                               : ColorConstants.colorRed),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 7),
                       child: Center(
                           child: Text(
                         value.residents[index].isRentPaid
@@ -241,43 +251,6 @@ class ResidentDetailesScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class DetailesCard extends StatelessWidget {
-  const DetailesCard({
-    super.key,
-    required this.tiltle,
-    required this.data,
-  });
-  final String tiltle;
-  final String data;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(tiltle),
-        const SizedBox(
-          height: 5,
-        ),
-        Container(
-          padding: const EdgeInsets.all(15),
-          width: double.infinity,
-          decoration: BoxDecoration(
-              color: ColorConstants.SecondaryColor2.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(10)),
-          child: Text(
-            data,
-            style: TextStyleConstants.dashboardBookingName,
-          ),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-      ],
     );
   }
 }

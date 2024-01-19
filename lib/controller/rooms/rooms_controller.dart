@@ -55,6 +55,15 @@ class RoomsController with ChangeNotifier {
     }
   }
 
+// fetch single room
+  Future<RoomModel?> fetchRoom(int roomNo) async {
+    try {
+     return await controller.getRoomByRoomNo(roomNo);
+    } catch (e) {
+      print(e);
+    }
+  }
+
 // add new room
   addRoom({required BuildContext context, required int currentCapacity}) async {
     try {

@@ -30,7 +30,8 @@ class UpcomingBookings extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => BookedResidentDetailesScreen(
-                    detailes: BookingsModel.empty()),
+                  index: 0,
+                ),
               ));
         },
         child: Container(

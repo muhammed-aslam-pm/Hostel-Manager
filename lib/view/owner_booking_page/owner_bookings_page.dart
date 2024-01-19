@@ -87,7 +87,8 @@ class _OwnerBookingsPageState extends State<OwnerBookingsPage> {
                                 MaterialPageRoute(
                                   builder: (context) =>
                                       BookedResidentDetailesScreen(
-                                          detailes: booking),
+                                    index: index,
+                                  ),
                                 ),
                               );
                             },

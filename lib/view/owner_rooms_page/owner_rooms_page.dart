@@ -119,8 +119,9 @@ class _OwnerRoomsPageState extends State<OwnerRoomsPage> {
                   onTap: () {
                     showAdaptiveDialog(
                         context: context,
-                        builder: (context) =>
-                            RoomsViewScreen(roomDetailes: room),
+                        builder: (context) => RoomsViewScreen(
+                              index: index,
+                            ),
                         barrierColor: Colors.transparent);
                   },
                 );

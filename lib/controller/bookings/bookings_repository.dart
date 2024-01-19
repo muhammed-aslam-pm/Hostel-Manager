@@ -67,6 +67,34 @@ class BookingRepository with ChangeNotifier {
       print("Somthing went wrong");
     }
   }
+  //update only room no
+
+  Future<void> updateBookingsRoomNo(int oldRoomNo, int newRoomNo) async {
+    final userId = await _auth.currentUser!.uid;
+
+    try {
+      // Query the collection to find all bookings with the oldRoomNo
+      QuerySnapshot bookingsSnapshot = await _db
+          .collection("Owners")
+          .doc(userId)
+          .collection("Bookings")
+          .where("RoomNo", isEqualTo: oldRoomNo)
+          .get();
+
+      // Update the roomNo field for each matching booking
+      for (QueryDocumentSnapshot bookingDoc in bookingsSnapshot.docs) {
+        await _db
+            .collection("Owners")
+            .doc(userId)
+            .collection("Bookings")
+            .doc(bookingDoc.id)
+            .update({"RoomNo": newRoomNo});
+      }
+    } catch (e) {
+      print("Something went wrong: $e");
+      rethrow;
+    }
+  }
 
   //update single field
 
@@ -99,6 +127,35 @@ class BookingRepository with ChangeNotifier {
     } catch (e) {
       print(e.toString());
       print("somthing went wrong");
+    }
+  }
+
+  //delete bookiing with room number
+
+  Future<void> deleteBookingsByRoomNo(int roomNo) async {
+    try {
+      final userId = _auth.currentUser!.uid;
+
+      // Query the collection to find all documents with the specified roomNo
+      QuerySnapshot bookingSnapshot = await _db
+          .collection("Owners")
+          .doc(userId)
+          .collection("Bookings")
+          .where("RoomNo", isEqualTo: roomNo)
+          .get();
+
+      // Delete all matching documents
+      for (QueryDocumentSnapshot bookingDoc in bookingSnapshot.docs) {
+        await _db
+            .collection("Owners")
+            .doc(userId)
+            .collection("Bookings")
+            .doc(bookingDoc.id)
+            .delete();
+      }
+    } catch (e) {
+      print(e.toString());
+      print("Something went wrong");
     }
   }
 }

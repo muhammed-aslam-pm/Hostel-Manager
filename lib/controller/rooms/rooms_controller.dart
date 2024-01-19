@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hostel_management_app/controller/bookings/bookings_repository.dart';
 import 'package:hostel_management_app/controller/connection_checker/connection_checher.dart';
+import 'package:hostel_management_app/controller/residents/residents_repository.dart';
 import 'package:hostel_management_app/controller/rooms/rooms_repository.dart';
 import 'package:hostel_management_app/controller/users/owner_repository.dart';
 import 'package:hostel_management_app/controller/users/user_controller.dart';
@@ -28,10 +30,15 @@ class RoomsController with ChangeNotifier {
 
   final OwnerRepository userRepoController = OwnerRepository();
 
+  final ResidentsRepository residentsRepository = ResidentsRepository();
+
+  final BookingRepository bookingRepository = BookingRepository();
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   int? oldRoomCapacity;
   int? oldHostelCapacity;
+  int? oldRoomNo;
   String? editingRoomId;
   bool isEditing = false;
   List<RoomModel> rooms = [];
@@ -58,7 +65,7 @@ class RoomsController with ChangeNotifier {
 // fetch single room
   Future<RoomModel?> fetchRoom(int roomNo) async {
     try {
-     return await controller.getRoomByRoomNo(roomNo);
+      return await controller.getRoomByRoomNo(roomNo);
     } catch (e) {
       print(e);
     }
@@ -147,17 +154,22 @@ class RoomsController with ChangeNotifier {
 // Delete a room
 
   deleteRoom(
-      {required String id,
-      required BuildContext context,
+      {required BuildContext context,
       required int currentCapacity,
-      required int roomCapacity}) async {
+      required RoomModel room}) async {
     try {
-      int noOfBeds = currentCapacity - roomCapacity;
+      int noOfBeds = currentCapacity - room.capacity;
       print("No of Beds :$noOfBeds");
-
       await userRepoController.accountSetup({"NoOfBeds": noOfBeds});
 
-      await controller.deleteRoom(id);
+      if (room.residents.isEmpty) {
+        await residentsRepository.deleteListOfResidents(room.residents);
+      }
+
+      await bookingRepository.deleteBookingsByRoomNo(room.roomNo);
+      await residentsRepository.deleteResidentsByRoomNo(room.roomNo);
+
+      await controller.deleteRoom(room.id!);
 
       Navigator.pop(context);
       fetchRoomsData();
@@ -189,6 +201,13 @@ class RoomsController with ChangeNotifier {
           int.parse(capacityController.text);
 
       await userRepoController.accountSetup({"NoOfBeds": noOfBeds});
+
+      if (oldRoomNo != int.parse(roomNoController.text)) {
+        await residentsRepository.updateResidentsRoomNo(
+            oldRoomNo!, int.parse(roomNoController.text));
+        await bookingRepository.updateBookingsRoomNo(
+            oldRoomNo!, int.parse(roomNoController.text));
+      }
 
       final room = RoomModel(
           id: editingRoomId!,
@@ -224,6 +243,7 @@ class RoomsController with ChangeNotifier {
     roomNoController.text = room.roomNo.toString();
     capacityController.text = room.capacity.toString();
     rentController.text = room.rent.toString();
+    oldRoomNo = room.roomNo;
 
     if (room.facilities.contains(0)) {
       ACselected = true;

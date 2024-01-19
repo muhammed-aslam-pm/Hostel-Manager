@@ -336,10 +336,10 @@ class ResidentsController with ChangeNotifier {
     phoneNoController.clear();
     emailController.clear();
     addressController.clear();
-    emailController.clear();
+    emargencyContactController.clear();
     purposeController.clear();
     checkInDateController.clear();
-    checkInDateController.clear();
+    checkOutDateController.clear();
     isEditing = false;
     notifyListeners();
   }

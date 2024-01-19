@@ -71,6 +71,53 @@ class ResidentsRepository {
     }
   }
 
+//----------------------------------------------------delete list of documents
+  Future<void> deleteListOfResidents(List<String> residentIds) async {
+    try {
+      final userId = _auth.currentUser!.uid;
+
+      for (String residentId in residentIds) {
+        await _db
+            .collection("Owners")
+            .doc(userId)
+            .collection("Residents")
+            .doc(residentId)
+            .delete();
+      }
+    } catch (e) {
+      print("Something went wrong $e");
+      rethrow;
+    }
+  }
+
+// -------------------------------------------------delete with room no
+  Future<void> deleteResidentsByRoomNo(int roomNo) async {
+    try {
+      final userId = _auth.currentUser!.uid;
+
+      // Query the collection to find all residents with the specified roomNo
+      QuerySnapshot residentsSnapshot = await _db
+          .collection("Owners")
+          .doc(userId)
+          .collection("Residents")
+          .where("RoomNo", isEqualTo: roomNo)
+          .get();
+
+      // Delete all matching documents
+      for (QueryDocumentSnapshot residentDoc in residentsSnapshot.docs) {
+        await _db
+            .collection("Owners")
+            .doc(userId)
+            .collection("Residents")
+            .doc(residentDoc.id)
+            .delete();
+      }
+    } catch (e) {
+      print("Something went wrong: $e");
+      rethrow;
+    }
+  }
+
   //------------------------------------------------update resident Detailes
 
   Future<void> updateResident(ResidentModel resident) async {
@@ -84,6 +131,35 @@ class ResidentsRepository {
           .update(resident.toJson());
     } catch (e) {
       print("Somthing went wrong : $e");
+      rethrow;
+    }
+  }
+
+//------------------------------------------------update romm no only
+
+  Future<void> updateResidentsRoomNo(int oldRoomNo, int newRoomNo) async {
+    final userId = _auth.currentUser!.uid;
+
+    try {
+      // Query the collection to find all residents with the oldRoomNo
+      QuerySnapshot residentsSnapshot = await _db
+          .collection("Owners")
+          .doc(userId)
+          .collection("Residents")
+          .where("RoomNo", isEqualTo: oldRoomNo)
+          .get();
+
+      // Update the roomNo field for each matching resident
+      for (QueryDocumentSnapshot residentDoc in residentsSnapshot.docs) {
+        await _db
+            .collection("Owners")
+            .doc(userId)
+            .collection("Residents")
+            .doc(residentDoc.id)
+            .update({"RoomNo": newRoomNo});
+      }
+    } catch (e) {
+      print("Something went wrong: $e");
       rethrow;
     }
   }

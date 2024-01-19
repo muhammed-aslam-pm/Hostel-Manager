@@ -102,10 +102,11 @@ class RoomsViewScreen extends StatelessWidget {
                             await Provider.of<RoomsController>(context,
                                     listen: false)
                                 .deleteRoom(
-                                    id: roomDetailes.id!,
+                                   
                                     context: context,
                                     currentCapacity: currentNoOfCapacity,
-                                    roomCapacity: roomDetailes.capacity);
+                                   
+                                    room: roomDetailes);
                           },
                         ),
                       ];

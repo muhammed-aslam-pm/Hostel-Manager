@@ -33,6 +33,41 @@ class ResidentsRepository {
     }
   }
 
+  //---------------------------------------------------fetchResident detailes with id
+
+  Future<List<ResidentModel>> fetchResidentsByIds(
+      List<String> residentIds) async {
+    try {
+      final userId = _auth.currentUser?.uid;
+      if (userId == null || userId.isEmpty) {
+        throw Exception("Unable to find user information, try again later");
+      }
+
+      final List<ResidentModel> residentModels = [];
+
+      for (String residentId in residentIds) {
+        final result = await _db
+            .collection("Owners")
+            .doc(userId)
+            .collection("Residents")
+            .doc(residentId)
+            .get();
+
+        if (result.exists) {
+          final residentModel = ResidentModel.fromDocumentSnapshot(result);
+          residentModels.add(residentModel);
+        } else {
+          print("Document not found for residentId: $residentId");
+        }
+      }
+
+      return residentModels;
+    } catch (e) {
+      print("Error: $e");
+      rethrow;
+    }
+  }
+
   // ---------------------------------------------Add Residents
 
   Future<String> addResidents(ResidentModel resident) async {

@@ -3,7 +3,8 @@ import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 
 class ResidentsNameCard extends StatelessWidget {
-  const ResidentsNameCard({super.key});
+  const ResidentsNameCard({super.key, required this.name});
+  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class ResidentsNameCard extends StatelessWidget {
                 width: 15,
               ),
               Text(
-                "Aslam",
+                name,
                 style: TextStyleConstants.dashboardBookingName,
               ),
             ],

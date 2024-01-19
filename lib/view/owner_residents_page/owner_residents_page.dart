@@ -68,12 +68,13 @@ class _OwnerResidentsPageState extends State<OwnerResidentsPage> {
                         image: resident.profilePic,
                         onTap: () {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ResidentDetailesScreen(
-                                  index: index,
-                                ),
-                              ));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ResidentDetailesScreen(
+                                resident: resident,
+                              ),
+                            ),
+                          );
                         },
                       );
                     },

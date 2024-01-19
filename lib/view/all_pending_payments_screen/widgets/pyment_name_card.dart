@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hostel_management_app/model/resident_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
@@ -17,7 +18,7 @@ class PaymentNameCard extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => ResidentDetailesScreen(
-                  index: 0,
+                  resident: ResidentModel.empty(),
                 ),
               ));
         },

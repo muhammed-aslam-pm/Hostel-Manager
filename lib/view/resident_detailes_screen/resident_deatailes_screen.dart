@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/residents/residents_controller.dart';
+import 'package:hostel_management_app/model/resident_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
@@ -11,9 +12,9 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class ResidentDetailesScreen extends StatelessWidget {
-  const ResidentDetailesScreen({super.key, required this.index});
+  const ResidentDetailesScreen({super.key, required this.resident});
 
-  final int index;
+  final ResidentModel resident;
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<ResidentsController>(context, listen: false);
@@ -41,8 +42,8 @@ class ResidentDetailesScreen extends StatelessWidget {
                 return [
                   PopupMenuItem(
                       child: const Text('Edit'),
-                      onTap: () {
-                        controller.onEdit(value.residents[index], context);
+                      onTap: () async {
+                        controller.onEdit(resident, context);
                       }),
                   PopupMenuItem(
                     child: Text(
@@ -53,9 +54,9 @@ class ResidentDetailesScreen extends StatelessWidget {
                       await showDialog(
                         context: context,
                         builder: (context1) => ConfirmDeletDialog(
-                            onPressed: () => controller.deleteResident(
-                                context: context1,
-                                resident: value.residents[index])),
+                          onPressed: () => controller.deleteResident(
+                              context: context1, resident: resident),
+                        ),
                       );
                       Navigator.pop(context);
                       // controller.deleteResident(
@@ -90,9 +91,9 @@ class ResidentDetailesScreen extends StatelessWidget {
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(100),
-                          child: value.residents[index].profilePic.isNotEmpty
+                          child: resident.profilePic.isNotEmpty
                               ? CachedNetworkImage(
-                                  imageUrl: value.residents[index].profilePic,
+                                  imageUrl: resident.profilePic,
                                   fit: BoxFit.cover,
                                   errorWidget: (context, url, error) =>
                                       const Icon(Icons.error),
@@ -132,7 +133,7 @@ class ResidentDetailesScreen extends StatelessWidget {
                             width: 25,
                           ),
                           Text(
-                            value.residents[index].roomNo.toString(),
+                            resident.roomNo.toString(),
                             style: TextStyleConstants.bookingsRoomNumber,
                           )
                         ],
@@ -144,16 +145,14 @@ class ResidentDetailesScreen extends StatelessWidget {
                     Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
-                          color: value.residents[index].isRentPaid
+                          color: resident.isRentPaid
                               ? ColorConstants.colorGreen
                               : ColorConstants.colorRed),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 7),
                       child: Center(
                           child: Text(
-                        value.residents[index].isRentPaid
-                            ? "Fees Paid"
-                            : "Fees Not Paid",
+                        resident.isRentPaid ? "Fees Paid" : "Fees Not Paid",
                         style: TextStyleConstants.buttonText,
                       )),
                     )
@@ -164,7 +163,7 @@ class ResidentDetailesScreen extends StatelessWidget {
                 ),
                 DetailesCard(
                   tiltle: 'Name',
-                  data: value.residents[index].name,
+                  data: resident.name,
                 ),
                 const Text("Phone Number"),
                 const SizedBox(
@@ -180,7 +179,7 @@ class ResidentDetailesScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        value.residents[index].phone,
+                        resident.phone,
                         style: TextStyleConstants.dashboardBookingName,
                       ),
                       const InkWell(
@@ -197,15 +196,15 @@ class ResidentDetailesScreen extends StatelessWidget {
                 ),
                 DetailesCard(
                   tiltle: 'Email',
-                  data: value.residents[index].email,
+                  data: resident.email,
                 ),
                 DetailesCard(
                   tiltle: 'Address',
-                  data: value.residents[index].address,
+                  data: resident.address,
                 ),
                 DetailesCard(
                   tiltle: 'Purpose of Stay',
-                  data: value.residents[index].purposOfStay,
+                  data: resident.purposOfStay,
                 ),
                 const Text("Eemergency Contact Number"),
                 const SizedBox(
@@ -221,7 +220,7 @@ class ResidentDetailesScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        value.residents[index].emargencyContact,
+                        resident.emargencyContact,
                         style: TextStyleConstants.dashboardBookingName,
                       ),
                       const InkWell(
@@ -238,13 +237,11 @@ class ResidentDetailesScreen extends StatelessWidget {
                 ),
                 DetailesCard(
                   tiltle: 'CheckOut Date',
-                  data: DateFormat('dd/MM/yyyy')
-                      .format(value.residents[index].checkIn),
+                  data: DateFormat('dd/MM/yyyy').format(resident.checkIn),
                 ),
                 DetailesCard(
                   tiltle: 'CheckOut Date',
-                  data: DateFormat('dd/MM/yyyy')
-                      .format(value.residents[index].checkOut),
+                  data: DateFormat('dd/MM/yyyy').format(resident.checkOut),
                 ),
               ],
             ),

@@ -120,7 +120,7 @@ class _OwnerRoomsPageState extends State<OwnerRoomsPage> {
                     showAdaptiveDialog(
                         context: context,
                         builder: (context) => RoomsViewScreen(
-                              index: index,
+                              roomDetailes: room,
                             ),
                         barrierColor: Colors.transparent);
                   },

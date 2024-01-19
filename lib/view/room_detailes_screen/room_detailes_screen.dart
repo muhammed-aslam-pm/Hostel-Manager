@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hostel_management_app/controller/rooms/rooms_controller.dart';
 import 'package:hostel_management_app/controller/users/user_controller.dart';
+import 'package:hostel_management_app/model/resident_model.dart';
 import 'package:hostel_management_app/model/room_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
@@ -13,10 +14,26 @@ import 'package:hostel_management_app/view/room_detailes_screen/widgets/resident
 import 'package:hostel_management_app/view/rooms_adding_form/rooms_adding_form.dart';
 import 'package:provider/provider.dart';
 
-class RoomsViewScreen extends StatelessWidget {
-  const RoomsViewScreen({super.key, required this.index});
+class RoomsViewScreen extends StatefulWidget {
+  const RoomsViewScreen({super.key, required this.roomDetailes});
 
-  final int index;
+  final RoomModel roomDetailes;
+
+  @override
+  State<RoomsViewScreen> createState() => _RoomsViewScreenState();
+}
+
+class _RoomsViewScreenState extends State<RoomsViewScreen> {
+  @override
+  void initState() {
+    if (widget.roomDetailes.residents.isNotEmpty) {
+      Provider.of<RoomsController>(context, listen: false)
+          .fetchResidents(widget.roomDetailes.residents);
+    }
+
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +52,6 @@ class RoomsViewScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(40)),
           padding: const EdgeInsets.all(15),
           child: Consumer<RoomsController>(builder: (context, value, child) {
-            RoomModel roomDetailes = value.rooms[index];
             return Scaffold(
               backgroundColor: Colors.transparent,
               appBar: AppBar(
@@ -68,7 +84,7 @@ class RoomsViewScreen extends StatelessWidget {
                               Provider.of<RoomsController>(context,
                                       listen: false)
                                   .onEditTap(
-                                      room: roomDetailes,
+                                      room: widget.roomDetailes,
                                       currentCapacity: currentNoOfCapacity);
 
                               showModalBottomSheet(
@@ -98,15 +114,13 @@ class RoomsViewScreen extends StatelessWidget {
                             final currentNoOfCapacity =
                                 userController.user!.noOfBeds;
                             print(currentNoOfCapacity);
-                            print(roomDetailes.id);
+                            print(widget.roomDetailes.id);
                             await Provider.of<RoomsController>(context,
                                     listen: false)
                                 .deleteRoom(
-                                   
                                     context: context,
                                     currentCapacity: currentNoOfCapacity,
-                                   
-                                    room: roomDetailes);
+                                    room: widget.roomDetailes);
                           },
                         ),
                       ];
@@ -140,7 +154,7 @@ class RoomsViewScreen extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          roomDetailes.roomNo.toString(),
+                          widget.roomDetailes.roomNo.toString(),
                           style: TextStyleConstants.OwnerRoomNumber3,
                         ),
                       ],
@@ -169,7 +183,7 @@ class RoomsViewScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                "  ${roomDetailes.rent}",
+                                "  ${widget.roomDetailes.rent}",
                                 style: TextStyleConstants.dashboardBookingName,
                               )
                             ],
@@ -206,7 +220,7 @@ class RoomsViewScreen extends StatelessWidget {
                                 style: TextStyleConstants.ownerRoomsText2,
                               ),
                               Text(
-                                roomDetailes.capacity.toString(),
+                                widget.roomDetailes.capacity.toString(),
                                 style: TextStyleConstants.dashboardVacentRoom1,
                               )
                             ],
@@ -235,7 +249,7 @@ class RoomsViewScreen extends StatelessWidget {
                                 style: TextStyleConstants.ownerRoomsText2,
                               ),
                               Text(
-                                roomDetailes.vacancy.toString(),
+                                widget.roomDetailes.vacancy.toString(),
                                 style: TextStyleConstants.dashboardVacentRoom1,
                               )
                             ],
@@ -262,9 +276,10 @@ class RoomsViewScreen extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: List.generate(roomDetailes.facilities.length,
-                            (index) {
-                          final facilityIndex = roomDetailes.facilities[index];
+                        children: List.generate(
+                            widget.roomDetailes.facilities.length, (index) {
+                          final facilityIndex =
+                              widget.roomDetailes.facilities[index];
                           return FacilitiesCard(
                             name: controller.facilitiesList[facilityIndex]
                                 ["Facility"]!,
@@ -292,12 +307,17 @@ class RoomsViewScreen extends StatelessWidget {
                     ListView.separated(
                         shrinkWrap: true,
                         physics: const ScrollPhysics(),
-                        itemBuilder: (context, index) =>
-                            const ResidentsNameCard(),
+                        itemBuilder: (context, index1) {
+                          return ResidentsNameCard(
+                            name: Provider.of<RoomsController>(context)
+                                .residents![index1]
+                                .name,
+                          );
+                        },
                         separatorBuilder: (context, index) => const Divider(
                               height: 10,
                             ),
-                        itemCount: roomDetailes.residents.length),
+                        itemCount: widget.roomDetailes.residents.length),
                   ],
                 ),
               ),

@@ -6,6 +6,7 @@ import 'package:hostel_management_app/controller/residents/residents_repository.
 import 'package:hostel_management_app/controller/rooms/rooms_repository.dart';
 import 'package:hostel_management_app/controller/users/owner_repository.dart';
 import 'package:hostel_management_app/controller/users/user_controller.dart';
+import 'package:hostel_management_app/model/resident_model.dart';
 import 'package:hostel_management_app/model/room_model.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 
@@ -43,6 +44,7 @@ class RoomsController with ChangeNotifier {
   bool isEditing = false;
   List<RoomModel> rooms = [];
   List<int> facilities = [];
+  List<ResidentModel>? residents;
 
   bool ACselected = false;
   bool WMselected = false;
@@ -69,6 +71,12 @@ class RoomsController with ChangeNotifier {
     } catch (e) {
       print(e);
     }
+  }
+
+// fetchResidents
+  fetchResidents(List<String> residentIds) async {
+    residents = await residentsRepository.fetchResidentsByIds(residentIds);
+    notifyListeners();
   }
 
 // add new room

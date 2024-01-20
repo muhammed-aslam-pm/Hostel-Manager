@@ -2,8 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/bookings/bookings_repository.dart';
 import 'package:hostel_management_app/controller/connection_checker/connection_checher.dart';
+import 'package:hostel_management_app/controller/residents/residents_repository.dart';
 import 'package:hostel_management_app/controller/rooms/rooms_repository.dart';
+import 'package:hostel_management_app/controller/users/owner_repository.dart';
 import 'package:hostel_management_app/model/booking_model.dart';
+import 'package:hostel_management_app/model/owner_model.dart';
+import 'package:hostel_management_app/model/resident_model.dart';
 import 'package:hostel_management_app/model/room_model.dart';
 import 'package:intl/intl.dart';
 
@@ -19,6 +23,8 @@ class BookingsController with ChangeNotifier {
   final ConnectionChecker connectionController = ConnectionChecker();
 
   final RoomsRepository roomController = RoomsRepository();
+
+  final OwnerRepository ownerRepository = OwnerRepository();
 
   final FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -93,14 +99,18 @@ class BookingsController with ChangeNotifier {
       // fetching current vaccancy from roomdata to update vacancy
       final RoomModel? room =
           await roomController.fetchSingleRoom(roomId: roomId);
-      final currentVacancy = room!.vacancy;
-
-      final int vacancy = currentVacancy - 1;
+      final currentRoomVacancy = room!.vacancy;
+      final int roomVacancy = currentRoomVacancy - 1;
       notifyListeners();
-
-      final Map<String, dynamic> json = {"Vacancy": vacancy};
-
+      final Map<String, dynamic> json = {"Vacancy": roomVacancy};
       await roomController.updateSingleField(json: json, roomId: roomId);
+      final OwnerModel? owner = await ownerRepository.fetchOwnerRecords();
+      final currentHostelVacancy = owner!.noOfVacancy;
+      final int hostelVacancy = currentHostelVacancy - 1;
+      notifyListeners();
+      final Map<String, dynamic> data = {'NoOfVacancy': hostelVacancy};
+      await ownerRepository.accountSetup(data);
+
       fetchBookingsData();
       fetchVacantRooms();
       roomNoController.clear();
@@ -138,13 +148,17 @@ class BookingsController with ChangeNotifier {
       final RoomModel? room =
           await roomController.fetchSingleRoom(roomId: roomId);
       final currentVacancy = room!.vacancy;
-
       final int vacancy = currentVacancy + 1;
       notifyListeners();
-
       final Map<String, dynamic> json = {"Vacancy": vacancy};
-
       await roomController.updateSingleField(json: json, roomId: roomId);
+
+      final OwnerModel? owner = await ownerRepository.fetchOwnerRecords();
+      final currentHostelVacancy = owner!.noOfVacancy;
+      final int hostelVacancy = currentHostelVacancy + 1;
+      notifyListeners();
+      final Map<String, dynamic> data = {'NoOfVacancy': hostelVacancy};
+      await ownerRepository.accountSetup(data);
 
       fetchBookingsData();
       fetchVacantRooms();

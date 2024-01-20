@@ -6,8 +6,10 @@ import 'package:hostel_management_app/controller/residents/residents_repository.
 import 'package:hostel_management_app/controller/rooms/rooms_repository.dart';
 import 'package:hostel_management_app/controller/users/owner_repository.dart';
 import 'package:hostel_management_app/controller/users/user_controller.dart';
+import 'package:hostel_management_app/model/owner_model.dart';
 import 'package:hostel_management_app/model/resident_model.dart';
 import 'package:hostel_management_app/model/room_model.dart';
+import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 
 class RoomsController with ChangeNotifier {
@@ -38,7 +40,8 @@ class RoomsController with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   int? oldRoomCapacity;
-  int? oldHostelCapacity;
+  int? oldRoomVacancy;
+  int? currentNoOfResidents;
   int? oldRoomNo;
   String? editingRoomId;
   bool isEditing = false;
@@ -80,8 +83,12 @@ class RoomsController with ChangeNotifier {
   }
 
 // add new room
-  addRoom({required BuildContext context, required int currentCapacity}) async {
+  addRoom(
+      {required BuildContext context,
+      required int currentCapacity,
+      required int currentVacancy}) async {
     try {
+      print("Vacancy : $currentVacancy");
       final isConnected = await connection.isConnected();
       if (!isConnected) {
         ScaffoldMessenger.of(context)
@@ -113,8 +120,11 @@ class RoomsController with ChangeNotifier {
       }
 
       int noOfBeds = currentCapacity + int.parse(capacityController.text);
+      int noOfVacancy = currentVacancy + int.parse(capacityController.text);
+      print(noOfVacancy);
 
-      await userRepoController.accountSetup({"NoOfBeds": noOfBeds});
+      await userRepoController
+          .accountSetup({"NoOfBeds": noOfBeds, "NoOfVacancy": noOfVacancy});
 
       if (ACselected) {
         facilities.add(0);
@@ -151,6 +161,7 @@ class RoomsController with ChangeNotifier {
       WFselected = false;
       notifyListeners();
       fetchRoomsData();
+      userController.fetchData();
       Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Room Added Successfull")));
@@ -164,11 +175,20 @@ class RoomsController with ChangeNotifier {
   deleteRoom(
       {required BuildContext context,
       required int currentCapacity,
+      required int currentVacancy,
       required RoomModel room}) async {
     try {
+      print("Vacancy=$currentVacancy");
+      final isConnected = await connection.isConnected();
+      if (!isConnected) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("Network error")));
+      }
       int noOfBeds = currentCapacity - room.capacity;
+      int vacacy = currentVacancy - room.vacancy;
       print("No of Beds :$noOfBeds");
-      await userRepoController.accountSetup({"NoOfBeds": noOfBeds});
+      await userRepoController
+          .accountSetup({"NoOfBeds": noOfBeds, "NoOfVacancy": vacacy});
 
       if (room.residents.isEmpty) {
         await residentsRepository.deleteListOfResidents(room.residents);
@@ -181,6 +201,7 @@ class RoomsController with ChangeNotifier {
 
       Navigator.pop(context);
       fetchRoomsData();
+      userController.fetchData();
     } catch (e) {
       print(e.toString());
       print("con");
@@ -191,6 +212,31 @@ class RoomsController with ChangeNotifier {
 
   editRoom(BuildContext context) async {
     try {
+      if (currentNoOfResidents! > int.parse(capacityController.text.trim())) {
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                  title: Text(
+                    "Can't Edit the Room",
+                    style: TextStyle(color: ColorConstants.colorRed),
+                  ),
+                  content: Text(
+                      "This room has more occupents than the given capacity.change the capacity and try again!"),
+                  actions: [
+                    OutlinedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text("Try Again"))
+                  ],
+                ));
+        return;
+      }
+      final isConnected = await connection.isConnected();
+      if (!isConnected) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("Network error")));
+      }
       if (ACselected) {
         facilities.add(0);
       }
@@ -203,12 +249,20 @@ class RoomsController with ChangeNotifier {
       if (ABselected) {
         facilities.add(3);
       }
+      final roomVacancy =
+          int.parse(capacityController.text.trim()) - currentNoOfResidents!;
+      final OwnerModel? owner = await userRepoController.fetchOwnerRecords();
+      final currentHostelVacancy = owner!.noOfVacancy;
+      final currentHostelbeds = owner.noOfBeds;
+      final int hostelVacancy =
+          currentHostelVacancy - oldRoomVacancy! + roomVacancy;
 
-      int noOfBeds = oldHostelCapacity! -
+      final int noOfBeds = currentHostelbeds -
           oldRoomCapacity! +
           int.parse(capacityController.text);
 
-      await userRepoController.accountSetup({"NoOfBeds": noOfBeds});
+      await userRepoController
+          .accountSetup({"NoOfBeds": noOfBeds, "NoOfVacancy": hostelVacancy});
 
       if (oldRoomNo != int.parse(roomNoController.text)) {
         await residentsRepository.updateResidentsRoomNo(
@@ -221,7 +275,7 @@ class RoomsController with ChangeNotifier {
           id: editingRoomId!,
           roomNo: int.parse(roomNoController.text.trim()),
           capacity: int.parse(capacityController.text.trim()),
-          vacancy: int.parse(capacityController.text.trim()),
+          vacancy: roomVacancy,
           rent: int.parse(rentController.text.trim()),
           residents: <String>[],
           facilities: facilities);
@@ -229,7 +283,10 @@ class RoomsController with ChangeNotifier {
       await controller.updadatRoom(room);
 
       fetchRoomsData();
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Room Edited Successfully")));
       Navigator.pop(context);
+
       facilities = [];
       roomNoController.clear();
       rentController.clear();
@@ -240,18 +297,26 @@ class RoomsController with ChangeNotifier {
       ABselected = false;
       isEditing = false;
       notifyListeners();
+      userController.fetchData();
     } catch (e) {
-      print("Somthing went wrong");
+      print("Somthing went wrong : $e");
     }
   }
 
   //edit tap
-  onEditTap({required RoomModel room, required int currentCapacity}) {
+  onEditTap({
+    required RoomModel room,
+  }) {
     isEditing = true;
     roomNoController.text = room.roomNo.toString();
     capacityController.text = room.capacity.toString();
     rentController.text = room.rent.toString();
     oldRoomNo = room.roomNo;
+    oldRoomCapacity = room.capacity;
+    oldRoomVacancy = room.vacancy;
+    editingRoomId = room.id;
+    currentNoOfResidents = room.residents.length;
+    notifyListeners();
 
     if (room.facilities.contains(0)) {
       ACselected = true;
@@ -265,9 +330,6 @@ class RoomsController with ChangeNotifier {
     if (room.facilities.contains(3)) {
       ABselected = true;
     }
-    oldRoomCapacity = room.capacity;
-    editingRoomId = room.id;
-    oldHostelCapacity = currentCapacity;
 
     notifyListeners();
 

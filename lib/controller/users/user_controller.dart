@@ -52,6 +52,7 @@ class UserController with ChangeNotifier {
         profilePictuer: user!.profilePictuer,
         noOfRooms: int.parse(roonNoController.text),
         noOfBeds: user!.noOfBeds,
+        noOfVacancy: user!.noOfVacancy,
         isAccountSetupCompleted: true,
       );
       await controller.updateOwnerRecords(updatedUser);

@@ -204,15 +204,19 @@ class RoomsAddingForm extends StatelessWidget {
                   onTap: () async {
                     if (roomController.formKey.currentState!.validate()) {
                       if (controller.isEditing) {
-                        controller.editRoom(context);
+                        await controller.editRoom(context);
+                        Navigator.pop(context);
                       } else {
                         await userController.fetchData();
                         final currentNoOfCapacity =
                             userController.user!.noOfBeds;
+                        final currentNoOfVacany =
+                            userController.user!.noOfVacancy;
 
                         controller.addRoom(
                             context: context,
-                            currentCapacity: currentNoOfCapacity);
+                            currentCapacity: currentNoOfCapacity,
+                            currentVacancy: currentNoOfVacany);
                       }
                     }
                   },

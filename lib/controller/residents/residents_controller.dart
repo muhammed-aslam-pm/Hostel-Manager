@@ -7,6 +7,7 @@ import 'package:hostel_management_app/controller/residents/residents_repository.
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hostel_management_app/controller/rooms/rooms_repository.dart';
 import 'package:hostel_management_app/controller/users/owner_repository.dart';
+import 'package:hostel_management_app/model/owner_model.dart';
 import 'package:hostel_management_app/model/resident_model.dart';
 import 'package:hostel_management_app/model/room_model.dart';
 import 'package:hostel_management_app/view/residents_adding_form/residents_adding_form.dart';
@@ -42,6 +43,7 @@ class ResidentsController with ChangeNotifier {
   String? imageUrl;
   String? editingRoomId;
   String? editingResidentId;
+  ResidentModel? editingResidnt;
   int? oldRoomNo;
   bool isEditing = false;
 
@@ -125,8 +127,15 @@ class ResidentsController with ChangeNotifier {
 
       // Upadte room deatile
       updateRoom(newResidentId: documentId);
+      // hostel vacancy
+      final OwnerModel? owner = await ownerRepository.fetchOwnerRecords();
+      final currentHostelVacancy = owner!.noOfVacancy;
+      final int hostelVacancy = currentHostelVacancy - 1;
+      notifyListeners();
+      final Map<String, dynamic> data = {'NoOfVacancy': hostelVacancy};
+      await ownerRepository.accountSetup(data);
       //refresh the page
-      // ignore: use_build_context_synchronously
+
       refreshpage(context);
     } catch (e) {
       print(e.toString());
@@ -167,7 +176,7 @@ class ResidentsController with ChangeNotifier {
           checkOut: checkOutDate!,
           isRentPaid: true);
 
-      if (oldRoomNo == int.parse(selectedRoom!)) {
+      if (editingResidnt!.roomNo == int.parse(selectedRoom!)) {
         await residentsRepository.updateResident(resident);
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text("Resident detailes Edited successfully")));
@@ -175,13 +184,13 @@ class ResidentsController with ChangeNotifier {
       } else {
         try {
           await residentsRepository.updateResident(resident);
-          updateRoom(newResidentId: editingResidentId!);
-          final RoomModel? room =
-              await roomController.fetchSingleRoom(roomId: editingRoomId!);
+          updateRoom(newResidentId: editingResidnt!.id.toString());
+          final RoomModel? room = await roomController.fetchSingleRoom(
+              roomId: editingResidnt!.roomId);
           final currentVacancy = room!.vacancy;
           final int vacancy = currentVacancy + 1;
           final currentResidents = room.residents;
-          currentResidents.remove(editingResidentId);
+          currentResidents.remove(editingResidnt!.id.toString());
           notifyListeners();
 
           final Map<String, dynamic> json = {
@@ -228,6 +237,13 @@ class ResidentsController with ChangeNotifier {
       };
       await roomController.updateSingleField(
           json: json, roomId: resident.roomId);
+      final OwnerModel? owner = await ownerRepository.fetchOwnerRecords();
+      final currentHostelVacancy = owner!.noOfVacancy;
+      final int hostelVacancy = currentHostelVacancy + 1;
+      notifyListeners();
+      final Map<String, dynamic> data = {'NoOfVacancy': hostelVacancy};
+      await ownerRepository.accountSetup(data);
+
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Resident deleted Successfull")));
       refreshpage(context);
@@ -260,6 +276,7 @@ class ResidentsController with ChangeNotifier {
     editingRoomId = resident.roomId;
     oldRoomNo = resident.roomNo;
     editingResidentId = resident.id;
+    editingResidnt = resident;
     notifyListeners();
     showModalBottomSheet(
       isScrollControlled: true,

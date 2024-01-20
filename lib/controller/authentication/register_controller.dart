@@ -24,7 +24,8 @@ class SignInController with ChangeNotifier {
   signin(context) async {
     try {
       //loading animation
-      FullScreenLoader.openLoadinDialog(context);
+      print("Sign in started");
+      // FullScreenLoader.openLoadinDialog(context);
       final isConnected = await connection.isConnected();
       final authProvider =
           Provider.of<AuthenticationRepository>(context, listen: false);
@@ -37,7 +38,18 @@ class SignInController with ChangeNotifier {
           email: emailController.text.trim(),
           password: passwordController.text.trim(),
           name: nameController.text);
+      print("Error : $errorMessage");
+      // FullScreenLoader.stopLoadin(context);
       if (errorMessage == null) {
+        print("uid ${authProvider.userCredential.user?.uid}");
+        if (authProvider.userCredential.user?.uid != null) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SignUpSuccessfullScree(),
+            ),
+          );
+        }
         // Successful sign-up
         // Navigate to the next screen or perform other actions
       } else {
@@ -50,15 +62,6 @@ class SignInController with ChangeNotifier {
       emailController.clear();
       passwordController.clear();
       confirmPasswordController.clear();
-
-      if (authProvider.userCredential.user?.uid != null) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => SignUpSuccessfullScree(),
-          ),
-        );
-      }
     } on PlatformException catch (e) {
       if (e.code == 'weak-password') {
         return ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -68,7 +71,9 @@ class SignInController with ChangeNotifier {
             content: Text('The account already exists for that email.')));
       }
     } catch (e) {
-      print(e);
+      print("error $e");
+    } finally {
+      // FullScreenLoader.stopLoadin(context);
     }
   }
 

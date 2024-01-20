@@ -35,6 +35,7 @@ class AuthenticationRepository extends ChangeNotifier {
           profilePictuer: '',
           noOfRooms: 0,
           noOfBeds: 0,
+          noOfVacancy: 0,
           isAccountSetupCompleted: false);
 
       //saving owner data
@@ -81,6 +82,7 @@ class AuthenticationRepository extends ChangeNotifier {
             profilePictuer: userCredentialGoogle.user!.photoURL ?? "",
             noOfRooms: 0,
             noOfBeds: 0,
+            noOfVacancy: 0,
             isAccountSetupCompleted: false,
           );
 

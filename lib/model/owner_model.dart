@@ -11,6 +11,7 @@ class OwnerModel {
       required this.profilePictuer,
       required this.noOfRooms,
       required this.noOfBeds,
+      required this.noOfVacancy,
       required this.isAccountSetupCompleted});
   final String id;
   String ownwerName;
@@ -21,6 +22,7 @@ class OwnerModel {
   String profilePictuer;
   final int noOfRooms;
   final int noOfBeds;
+  final int noOfVacancy;
   final bool isAccountSetupCompleted;
 
   Map<String, dynamic> toJson() {
@@ -33,6 +35,7 @@ class OwnerModel {
       'ProfilePictuer': profilePictuer,
       'NoOfRooms': noOfRooms,
       'NoOfBeds': noOfBeds,
+      'NoOfVacancy': noOfVacancy,
       'AccountSetupcompleted': isAccountSetupCompleted
     };
   }
@@ -53,6 +56,7 @@ class OwnerModel {
           profilePictuer: data['ProfilePictuer'] ?? '',
           noOfRooms: data['NoOfRooms'] ?? 0,
           noOfBeds: data['NoOfBeds'] ?? 0,
+          noOfVacancy: data['NoOfVacancy'] ?? 0,
           isAccountSetupCompleted: data['AccountSetupcompleted'] ?? false);
     } else {
       return OwnerModel.empty();
@@ -69,5 +73,6 @@ class OwnerModel {
       profilePictuer: '',
       noOfRooms: 0,
       noOfBeds: 0,
+      noOfVacancy: 0,
       isAccountSetupCompleted: false);
 }

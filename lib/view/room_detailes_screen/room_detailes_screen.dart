@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hostel_management_app/controller/rooms/rooms_controller.dart';
 import 'package:hostel_management_app/controller/users/user_controller.dart';
-import 'package:hostel_management_app/model/resident_model.dart';
 import 'package:hostel_management_app/model/room_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
+import 'package:hostel_management_app/view/resident_detailes_screen/resident_deatailes_screen.dart';
 import 'package:hostel_management_app/view/room_detailes_screen/widgets/facilities_card.dart';
 import 'dart:ui' as ui;
 
@@ -74,18 +74,14 @@ class _RoomsViewScreenState extends State<RoomsViewScreen> {
                     elevation: 10,
                     itemBuilder: (context) {
                       return [
-                        // In this case, we need 5 popupmenuItems one for each option.
                         PopupMenuItem(
                             child: const Text('Edit'),
                             onTap: () {
-                              userController.fetchData();
-                              final currentNoOfCapacity =
-                                  userController.user!.noOfBeds;
                               Provider.of<RoomsController>(context,
                                       listen: false)
                                   .onEditTap(
-                                      room: widget.roomDetailes,
-                                      currentCapacity: currentNoOfCapacity);
+                                room: widget.roomDetailes,
+                              );
 
                               showModalBottomSheet(
                                 isScrollControlled: true,
@@ -113,6 +109,8 @@ class _RoomsViewScreenState extends State<RoomsViewScreen> {
                           onTap: () async {
                             final currentNoOfCapacity =
                                 userController.user!.noOfBeds;
+                            final currentNoOfVacancy =
+                                userController.user!.noOfVacancy;
                             print(currentNoOfCapacity);
                             print(widget.roomDetailes.id);
                             await Provider.of<RoomsController>(context,
@@ -120,6 +118,7 @@ class _RoomsViewScreenState extends State<RoomsViewScreen> {
                                 .deleteRoom(
                                     context: context,
                                     currentCapacity: currentNoOfCapacity,
+                                    currentVacancy: currentNoOfVacancy,
                                     room: widget.roomDetailes);
                           },
                         ),
@@ -304,20 +303,37 @@ class _RoomsViewScreenState extends State<RoomsViewScreen> {
                     const SizedBox(
                       height: 20,
                     ),
-                    ListView.separated(
-                        shrinkWrap: true,
-                        physics: const ScrollPhysics(),
-                        itemBuilder: (context, index1) {
-                          return ResidentsNameCard(
-                            name: Provider.of<RoomsController>(context)
-                                .residents![index1]
-                                .name,
-                          );
-                        },
-                        separatorBuilder: (context, index) => const Divider(
-                              height: 10,
-                            ),
-                        itemCount: widget.roomDetailes.residents.length),
+                    widget.roomDetailes.residents.isNotEmpty
+                        ? ListView.separated(
+                            shrinkWrap: true,
+                            physics: const ScrollPhysics(),
+                            itemBuilder: (context, index1) {
+                              return ResidentsNameCard(
+                                name: Provider.of<RoomsController>(context)
+                                    .residents![index1]
+                                    .name,
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            ResidentDetailesScreen(
+                                                resident: Provider.of<
+                                                            RoomsController>(
+                                                        context)
+                                                    .residents![index1]),
+                                      ));
+                                },
+                              );
+                            },
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                            itemCount: widget.roomDetailes.residents.length)
+                        : Center(
+                            child: Text("No Resdients on this room"),
+                          ),
                   ],
                 ),
               ),

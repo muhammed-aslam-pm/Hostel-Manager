@@ -184,18 +184,19 @@ class ResidentsController with ChangeNotifier {
       } else {
         try {
           await residentsRepository.updateResident(resident);
-          updateRoom(newResidentId: editingResidnt!.id.toString());
+          await updateRoom(newResidentId: editingResidnt!.id.toString());
           final RoomModel? room = await roomController.fetchSingleRoom(
               roomId: editingResidnt!.roomId);
           final currentVacancy = room!.vacancy;
           final int vacancy = currentVacancy + 1;
           final currentResidents = room.residents;
-          currentResidents.remove(editingResidnt!.id.toString());
+          final updatedResidents =
+              currentResidents.remove(editingResidnt!.id.toString());
           notifyListeners();
 
           final Map<String, dynamic> json = {
             "Vacancy": vacancy,
-            "Residents": currentResidents
+            "Residents": updatedResidents
           };
           await roomController.updateSingleField(
               json: json, roomId: selectedRoomId);
@@ -292,7 +293,7 @@ class ResidentsController with ChangeNotifier {
   }
 
 //------------------------------------------------update room data
-  updateRoom({required String newResidentId}) async {
+  Future<void> updateRoom({required String newResidentId}) async {
     try {
       final RoomModel? room =
           await roomController.fetchSingleRoom(roomId: selectedRoomId);

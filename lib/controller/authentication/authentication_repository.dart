@@ -93,18 +93,19 @@ class AuthenticationRepository extends ChangeNotifier {
         final bool isFirstTime = await userData['AccountSetupcompleted'];
         print(' id first :$isFirstTime');
         if (!isFirstTime) {
-          Navigator.push(
+          Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (context) => AccountSetupScreen(),
-              ));
+                builder: (context) => const AccountSetupScreen(),
+              ),
+              (route) => false);
         } else {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const OwnerHomeScreen(),
-            ),
-          );
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const OwnerHomeScreen(),
+              ),
+              (route) => false);
         }
 
         // You might perform additional actions here upon successful sign-up

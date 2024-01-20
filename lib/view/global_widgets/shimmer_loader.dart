@@ -22,7 +22,7 @@ class ShimmerEffect extends StatelessWidget {
               color: colorr ?? ColorConstants.primaryWhiteColor,
               borderRadius: BorderRadius.circular(radius)),
         ),
-        baseColor: Colors.grey[300]!,
-        highlightColor: Colors.grey[100]!);
+        baseColor: Colors.grey[500]!,
+        highlightColor: Colors.grey[200]!);
   }
 }

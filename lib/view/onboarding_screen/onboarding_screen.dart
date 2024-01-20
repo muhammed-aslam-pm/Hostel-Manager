@@ -35,7 +35,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           children: [
             Positioned(
               top: 0,
-              child: Container(
+              child: SizedBox(
                 width: MediaQuery.sizeOf(context).width,
                 height: MediaQuery.sizeOf(context).height * 2 / 3,
                 child: PageView(
@@ -60,13 +60,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               child: ClipPath(
                 clipper: MyCustomClipper(),
                 child: Container(
-                  padding: EdgeInsets.all(30),
+                  padding: const EdgeInsets.all(30),
                   width: MediaQuery.sizeOf(context).width,
                   height: MediaQuery.sizeOf(context).height * 50 / 100,
                   color: ColorConstants.primaryWhiteColor,
                   child: Column(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 55,
                       ),
                       SmoothPageIndicator(
@@ -83,20 +83,18 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           dotWidth: 10.5,
                         ),
                       ),
-                      SizedBox(
-                        height: 30,
+                      const SizedBox(
+                        height: 25,
                       ),
-                      Container(
+                      SizedBox(
                         width: MediaQuery.sizeOf(context).width * 80 / 100,
-                        height: 150,
                         child: Column(
                           children: [
                             SizedBox(
                               width:
                                   MediaQuery.sizeOf(context).width * 65 / 100,
-                              height: MediaQuery.sizeOf(context).height *
-                                  9.04 /
-                                  100,
+                              height:
+                                  MediaQuery.sizeOf(context).height * 10 / 100,
                               child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
@@ -113,7 +111,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             SizedBox(

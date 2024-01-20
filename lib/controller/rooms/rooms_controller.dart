@@ -45,6 +45,7 @@ class RoomsController with ChangeNotifier {
   int? oldRoomNo;
   String? editingRoomId;
   bool isEditing = false;
+  bool isResidentLoading = false;
   List<RoomModel> rooms = [];
   List<int> facilities = [];
   List<ResidentModel>? residents;
@@ -78,8 +79,18 @@ class RoomsController with ChangeNotifier {
 
 // fetchResidents
   fetchResidents(List<String> residentIds) async {
-    residents = await residentsRepository.fetchResidentsByIds(residentIds);
-    notifyListeners();
+    try {
+      isEditing = true;
+      notifyListeners();
+      residents = await residentsRepository.fetchResidentsByIds(residentIds);
+      isEditing = false;
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    } finally {
+      isEditing = false;
+      notifyListeners();
+    }
   }
 
 // add new room

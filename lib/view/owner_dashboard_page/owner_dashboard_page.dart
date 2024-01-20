@@ -43,6 +43,7 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
     return Scaffold(
       backgroundColor: ColorConstants.primaryWhiteColor,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: ColorConstants.primaryWhiteColor,
         elevation: 0,
         title: Column(

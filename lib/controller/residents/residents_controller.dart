@@ -184,26 +184,57 @@ class ResidentsController with ChangeNotifier {
       } else {
         try {
           await residentsRepository.updateResident(resident);
-          await updateRoom(newResidentId: editingResidnt!.id.toString());
-          final RoomModel? room = await roomController.fetchSingleRoom(
-              roomId: editingResidnt!.roomId);
-          final currentVacancy = room!.vacancy;
-          final int vacancy = currentVacancy + 1;
-          final currentResidents = room.residents;
-          final updatedResidents =
-              currentResidents.remove(editingResidnt!.id.toString());
-          notifyListeners();
+          // await updateRoom(newResidentId: editingResidnt!.id.toString());
 
-          final Map<String, dynamic> json = {
-            "Vacancy": vacancy,
-            "Residents": updatedResidents
+          // Fetch information about the old room
+          final RoomModel? oldRoom = await roomController.fetchSingleRoom(
+            roomId: editingResidnt!.roomId,
+          );
+
+          // Update the old room's data
+          final int currentVacancy = oldRoom!.vacancy;
+          final int updatedVacancy = currentVacancy + 1;
+          final List<String> currentResidents = oldRoom.residents;
+          final List<String> updatedResidents = List.from(currentResidents)
+            ..remove(editingResidnt!.id.toString());
+
+          // Update the old room document with new vacancy and residents list
+          final Map<String, dynamic> oldRoomData = {
+            "Vacancy": updatedVacancy,
+            "Residents": updatedResidents,
           };
           await roomController.updateSingleField(
-              json: json, roomId: selectedRoomId);
+            json: oldRoomData,
+            roomId: editingResidnt!.roomId,
+          );
+
+          // Fetch information about the new room
+          final RoomModel? newRoom = await roomController.fetchSingleRoom(
+            roomId: selectedRoomId,
+          );
+
+          // Update the new room's data
+          final int currentNewVacancy = newRoom!.vacancy;
+          final int updatedNewVacancy = currentNewVacancy - 1;
+          final List<String> currentNewResidents = newRoom.residents;
+          final List<String> updatedNewResidents =
+              List.from(currentNewResidents)
+                ..add(editingResidnt!.id.toString());
+
+          // Update the new room document with new vacancy and residents list
+          final Map<String, dynamic> newRoomData = {
+            "Vacancy": updatedNewVacancy,
+            "Residents": updatedNewResidents,
+          };
+          await roomController.updateSingleField(
+            json: newRoomData,
+            roomId: selectedRoomId,
+          );
 
           refreshpage(context);
           ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("Resident detailes Edited successfully")));
+            SnackBar(content: Text("Resident details edited successfully")),
+          );
         } catch (e) {
           print(e);
         }

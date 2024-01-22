@@ -2,6 +2,7 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hostel_management_app/controller/bookings/bookings_controller.dart';
+import 'package:hostel_management_app/controller/users/user_controller.dart';
 import 'package:hostel_management_app/model/booking_model.dart';
 import 'package:hostel_management_app/model/room_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
@@ -26,6 +27,7 @@ class _OwnerBookingsPageState extends State<OwnerBookingsPage> {
   void initState() {
     Provider.of<BookingsController>(context, listen: false).fetchVacantRooms();
     Provider.of<BookingsController>(context, listen: false).fetchBookingsData();
+    Provider.of<UserController>(context, listen: false).fetchData();
 
     // TODO: implement initState
     super.initState();
@@ -34,6 +36,7 @@ class _OwnerBookingsPageState extends State<OwnerBookingsPage> {
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<BookingsController>(context);
+    final userController = Provider.of<UserController>(context);
     return Scaffold(
       backgroundColor: ColorConstants.primaryWhiteColor,
       appBar: AppBar(
@@ -139,7 +142,7 @@ class _OwnerBookingsPageState extends State<OwnerBookingsPage> {
                       CircleAvatar(
                         radius: 15,
                         child: Text(
-                          "10",
+                          userController.user?.noOfVacancy.toString() ?? "",
                           style: TextStyleConstants.ownerRoomsCircleAvtarText,
                         ),
                         backgroundColor: ColorConstants.primaryColor,

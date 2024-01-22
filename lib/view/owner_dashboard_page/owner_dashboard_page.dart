@@ -118,7 +118,7 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
                   children: [
                     RoomVaccentCard(
                       title: "Beds Vacantnt",
-                      number: "24",
+                      number: controller.user?.noOfVacancy.toString() ?? "",
                       bgColor: ColorConstants.SecondaryColor2,
                       icon: Icon(
                         FluentIcons.bed_20_regular,

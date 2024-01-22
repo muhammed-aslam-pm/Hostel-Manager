@@ -1,13 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:hostel_management_app/controller/bookings/bookings_controller.dart';
+import 'package:hostel_management_app/controller/users/user_controller.dart';
+import 'package:hostel_management_app/model/room_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/global_widgets/room_card.dart';
+import 'package:hostel_management_app/view/room_detailes_screen/room_detailes_screen.dart';
+import 'package:provider/provider.dart';
 
-class VacantBedsScreen extends StatelessWidget {
+class VacantBedsScreen extends StatefulWidget {
   const VacantBedsScreen({super.key});
 
   @override
+  State<VacantBedsScreen> createState() => _VacantBedsScreenState();
+}
+
+class _VacantBedsScreenState extends State<VacantBedsScreen> {
+  @override
+  void initState() {
+    Provider.of<BookingsController>(context, listen: false).fetchBookingsData();
+    Provider.of<UserController>(context, listen: false).fetchData();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final controller = Provider.of<BookingsController>(context);
+    final userController = Provider.of<UserController>(context);
     return Scaffold(
       backgroundColor: ColorConstants.primaryWhiteColor,
       appBar: AppBar(
@@ -46,7 +66,7 @@ class VacantBedsScreen extends StatelessWidget {
                       CircleAvatar(
                         radius: 15,
                         child: Text(
-                          "56",
+                          userController.user?.noOfBeds.toString() ?? "",
                           style: TextStyleConstants.ownerRoomsCircleAvtarText,
                         ),
                         backgroundColor: ColorConstants.roomsCircleAvatarColor,
@@ -68,7 +88,7 @@ class VacantBedsScreen extends StatelessWidget {
                       CircleAvatar(
                         radius: 15,
                         child: Text(
-                          "10",
+                          userController.user?.noOfVacancy.toString() ?? "",
                           style: TextStyleConstants.ownerRoomsCircleAvtarText,
                         ),
                         backgroundColor: ColorConstants.primaryColor,
@@ -80,23 +100,38 @@ class VacantBedsScreen extends StatelessWidget {
               SizedBox(
                 height: 30,
               ),
-              GridView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.only(bottom: 10, left: 10),
-                itemCount: 10,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 0,
-                  mainAxisSpacing: 20,
-                  mainAxisExtent: 90,
-                ),
-                itemBuilder: (context, index) => RoomsCard(
-                  roomNumber: index.toString(),
-                  vaccentBedNumber: "3",
-                  onTap: () {},
-                ),
-              )
+              controller.vacantRooms.isNotEmpty
+                  ? GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: const EdgeInsets.only(bottom: 10, left: 10),
+                      itemCount: controller.vacantRooms.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 0,
+                        mainAxisSpacing: 20,
+                        mainAxisExtent: 90,
+                      ),
+                      itemBuilder: (context, index) {
+                        final RoomModel room = controller.vacantRooms[index];
+                        return RoomsCard(
+                          roomNumber: room.roomNo.toString(),
+                          vaccentBedNumber: room.vacancy.toString(),
+                          onTap: () {
+                            showAdaptiveDialog(
+                                context: context,
+                                builder: (context) => RoomsViewScreen(
+                                      roomDetailes: room,
+                                    ),
+                                barrierColor: Colors.transparent);
+                          },
+                        );
+                      },
+                    )
+                  : const Center(
+                      child: Text("No Available Vacancies"),
+                    )
             ],
           ),
         ),

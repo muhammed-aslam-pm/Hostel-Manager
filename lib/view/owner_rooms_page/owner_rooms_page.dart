@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/rooms/rooms_controller.dart';
+import 'package:hostel_management_app/controller/users/user_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/global_widgets/date_sorting_button.dart';
@@ -19,6 +20,7 @@ class _OwnerRoomsPageState extends State<OwnerRoomsPage> {
   @override
   void initState() {
     Provider.of<RoomsController>(context, listen: false).fetchRoomsData();
+    Provider.of<UserController>(context, listen: false).fetchData();
 
     super.initState();
   }
@@ -28,6 +30,7 @@ class _OwnerRoomsPageState extends State<OwnerRoomsPage> {
     final controller = Provider.of<RoomsController>(
       context,
     );
+    final userController = Provider.of<UserController>(context);
     return Scaffold(
       backgroundColor: ColorConstants.primaryWhiteColor,
       appBar: AppBar(
@@ -65,7 +68,7 @@ class _OwnerRoomsPageState extends State<OwnerRoomsPage> {
                           backgroundColor:
                               ColorConstants.roomsCircleAvatarColor,
                           child: Text(
-                            "56",
+                            userController.user?.noOfBeds.toString() ?? "0",
                             style: TextStyleConstants.ownerRoomsCircleAvtarText,
                           ),
                         )
@@ -87,7 +90,7 @@ class _OwnerRoomsPageState extends State<OwnerRoomsPage> {
                           radius: 15,
                           backgroundColor: ColorConstants.primaryColor,
                           child: Text(
-                            "10",
+                            userController.user?.noOfVacancy.toString() ?? "0",
                             style: TextStyleConstants.ownerRoomsCircleAvtarText,
                           ),
                         )

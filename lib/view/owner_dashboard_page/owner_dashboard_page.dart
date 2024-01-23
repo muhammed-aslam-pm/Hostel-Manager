@@ -11,10 +11,9 @@ import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/all_pending_payments_screen/pending_payments_screen.dart';
 import 'package:hostel_management_app/view/announcement_adding_form/announcement_bottom_sheet.dart';
 import 'package:hostel_management_app/view/booked_resident_detailes_screen/booked_resident_detailes_screen.dart';
+import 'package:hostel_management_app/view/global_widgets/custom_dropdown_button.dart';
 import 'package:hostel_management_app/view/owner_dashboard_page/widgets/date_card.dart';
-import 'package:hostel_management_app/view/global_widgets/date_sorting_button.dart';
 import 'package:hostel_management_app/view/owner_dashboard_page/widgets/going_to_vaccent_card.dart';
-import 'package:hostel_management_app/view/owner_dashboard_page/widgets/maintenance_request_card.dart';
 import 'package:hostel_management_app/view/owner_dashboard_page/widgets/pending_payment_card.dart';
 import 'package:hostel_management_app/view/owner_dashboard_page/widgets/rooms_vaccent_card.dart';
 import 'package:hostel_management_app/view/owner_dashboard_page/widgets/upcoming_bookings_card.dart';
@@ -127,7 +126,7 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
                     RoomVaccentCard(
                       title: "Beds Vacantnt",
                       number: controller.user?.noOfVacancy.toString() ?? "",
-                      bgColor: ColorConstants.SecondaryColor2,
+                      bgColor: ColorConstants.primaryColor,
                       icon: Icon(
                         FluentIcons.bed_20_regular,
                         color: ColorConstants.primaryBlackColor,
@@ -143,7 +142,8 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
                     ),
                     RoomVaccentCard(
                       title: "Paymenys penting",
-                      number: "12",
+                      number: dashboardController.rentPendingResidents.length
+                          .toString(),
                       bgColor: ColorConstants.SecondaryColor3,
                       icon: Icon(
                         FluentIcons.conference_room_48_regular,
@@ -176,7 +176,14 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
                 padding: const EdgeInsets.only(top: 17, left: 20),
                 child: Row(
                   children: [
-                    DateSortingButton(title: "This month"),
+                    Consumer<DashboardController>(
+                      builder: (context, value, child) => CustomDropdownButton1(
+                          selectedValue: value.selectedValue,
+                          items: value.sortingItems,
+                          onChanged: (p0) => value.selectFilter(p0),
+                          height: 40,
+                          width: 150),
+                    ),
                     SizedBox(
                       width: 18.6,
                     ),
@@ -187,23 +194,41 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
               SizedBox(
                 height: 8,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  physics: ScrollPhysics(),
-                  itemCount: 4,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 5,
-                    crossAxisSpacing: 10,
-                    mainAxisExtent: 80,
-                  ),
-                  itemBuilder: (context, index) => GoingToVaccentCard(
-                      roomNumber: "13",
-                      beadNumber: "2",
-                      backgroungColor: ColorConstants.SecondaryColor4),
-                ),
+              Consumer<DashboardController>(
+                builder: (context, value, child) {
+                  if (value.roomsGoingtoVacant.isNotEmpty) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: GridView.builder(
+                        shrinkWrap: true,
+                        physics: ScrollPhysics(),
+                        itemCount: value.roomsGoingtoVacant.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 5,
+                          crossAxisSpacing: 10,
+                          mainAxisExtent: 80,
+                        ),
+                        itemBuilder: (context, index) => GoingToVaccentCard(
+                            roomNumber: value.roomsGoingtoVacant[index]
+                                    ["RoomNo"]
+                                .toString(),
+                            beadNumber: value.roomsGoingtoVacant[index]
+                                    ["Vacancy"]
+                                .toString(),
+                            backgroungColor: ColorConstants.SecondaryColor4),
+                      ),
+                    );
+                  } else {
+                    return SizedBox(
+                      height: 100,
+                      child: Center(
+                        child: Text(
+                            "No Rooms going to Vacant this ${value.selectedValue}"),
+                      ),
+                    );
+                  }
+                },
               ),
               SizedBox(
                 height: 20,
@@ -321,35 +346,35 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Hero(
-                  tag: "Maintenance request",
-                  child: Text(
-                    "Maintenance Request",
-                    style: TextStyleConstants.dashboardSubtitle1,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 13,
-              ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: List.generate(
-                    10,
-                    (index) => MaintenanceRequestCard(
-                        roomNumber: "26",
-                        complaint1: 'complaint1',
-                        complaint2: 'complaint2',
-                        day: '5'),
-                  ),
-                ),
-              )
+              // SizedBox(
+              //   height: 20,
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 20),
+              //   child: Hero(
+              //     tag: "Maintenance request",
+              //     child: Text(
+              //       "Maintenance Request",
+              //       style: TextStyleConstants.dashboardSubtitle1,
+              //     ),
+              //   ),
+              // ),
+              // SizedBox(
+              //   height: 13,
+              // ),
+              // SingleChildScrollView(
+              //   scrollDirection: Axis.horizontal,
+              //   child: Row(
+              //     children: List.generate(
+              //       10,
+              //       (index) => MaintenanceRequestCard(
+              //           roomNumber: "26",
+              //           complaint1: 'complaint1',
+              //           complaint2: 'complaint2',
+              //           day: '5'),
+              //     ),
+              //   ),
+              // )
             ],
           ),
         ),

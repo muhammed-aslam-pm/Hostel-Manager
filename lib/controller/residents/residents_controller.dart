@@ -49,7 +49,7 @@ class ResidentsController with ChangeNotifier {
   bool isResidentsLoading = false;
 
 // ------------------------------------------------Fetch Resident detailes
-  fetchResidents() async {
+  Future<void> fetchResidents() async {
     try {
       isResidentsLoading = true;
       notifyListeners();
@@ -57,8 +57,6 @@ class ResidentsController with ChangeNotifier {
       residents = await residentsRepository.fetchData();
       residents.sort((a, b) => a.roomNo.compareTo(b.roomNo));
       print(residents);
-      isResidentsLoading = false;
-      notifyListeners();
     } catch (e) {
       print(e.toString());
       rethrow;

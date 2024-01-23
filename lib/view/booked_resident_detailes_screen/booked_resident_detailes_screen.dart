@@ -11,14 +11,18 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class BookedResidentDetailesScreen extends StatelessWidget {
-  const BookedResidentDetailesScreen({super.key, required this.index});
+  const BookedResidentDetailesScreen(
+      {super.key, required this.index, this.isSorted = false});
 
   final int index;
+  final bool? isSorted;
 
   @override
   Widget build(BuildContext context) {
     return Consumer<BookingsController>(builder: (context, value, child) {
-      final BookingsModel detailes = value.bookings[index];
+      final BookingsModel detailes = isSorted!
+          ? value.bookingsWithinThisWeek[index]
+          : value.bookings[index];
       return Scaffold(
         backgroundColor: ColorConstants.primaryWhiteColor,
         appBar: AppBar(

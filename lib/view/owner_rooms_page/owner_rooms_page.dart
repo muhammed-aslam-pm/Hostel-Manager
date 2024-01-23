@@ -130,62 +130,6 @@ class _OwnerRoomsPageState extends State<OwnerRoomsPage> {
                 );
               },
             ),
-
-            // Expanded(
-            //   child: StreamBuilder(
-            //     stream: controller.roomsCollection.snapshots(),
-            //     builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            //       if (snapshot.hasError) {
-            //         return Center(
-            //           child: Text("Error: ${snapshot.error}"),
-            //         );
-            //       }
-
-            //       if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            //         return const Center(
-            //           child: Text("No Rooms Data Available"),
-            //         );
-            //       }
-
-            //       List<RoomModel> roomsList = snapshot.data!.docs
-            //           .map((document) {
-            //             return RoomModel.fromSnapshot(
-            //                 document as DocumentSnapshot<Map<String, dynamic>>);
-            //           })
-            //           .toList()
-            //           .cast<RoomModel>(); // Explicit casting here
-
-            //       // Sort roomsList based on roomNo in ascending order
-            //       roomsList.sort((a, b) => a.roomNo.compareTo(b.roomNo));
-
-            //       return GridView.builder(
-            //         itemCount: roomsList.length,
-            //         gridDelegate:
-            //             const SliverGridDelegateWithFixedCrossAxisCount(
-            //           crossAxisCount: 3,
-            //           crossAxisSpacing: 5,
-            //           mainAxisSpacing: 25,
-            //           mainAxisExtent: 95,
-            //         ),
-            //         itemBuilder: (context, index) {
-            //           final room = roomsList[index];
-            //           print(room);
-            //           return RoomsCard(
-            //             roomNumber: room.roomNo.toString(),
-            //             vaccentBedNumber: room.vacancy.toString(),
-            //             onTap: () {
-            //               showAdaptiveDialog(
-            //                   context: context,
-            //                   builder: (context) =>
-            //                       RoomsViewScreen(roomDetailes: room),
-            //                   barrierColor: Colors.transparent);
-            //             },
-            //           );
-            //         },
-            //       );
-            //     },
-            //   ),
-            // ),
           ],
         ),
       ),

@@ -1,9 +1,7 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:hostel_management_app/model/booking_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
-import 'package:hostel_management_app/view/booked_resident_detailes_screen/booked_resident_detailes_screen.dart';
 
 class UpcomingBookings extends StatelessWidget {
   const UpcomingBookings(
@@ -12,31 +10,25 @@ class UpcomingBookings extends StatelessWidget {
       required this.date,
       required this.roomNumber,
       required this.beadNumber,
-      required this.isAdvacePaid});
+      required this.isAdvacePaid,
+      this.onTap});
 
   final String name;
   final String date;
   final String roomNumber;
   final String beadNumber;
   final bool isAdvacePaid;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(right: 20, bottom: 10, left: 10),
       child: InkWell(
-        onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => BookedResidentDetailesScreen(
-                  index: 0,
-                ),
-              ));
-        },
+        onTap: onTap,
         child: Container(
           width: 277,
-          padding: EdgeInsets.symmetric(vertical: 14, horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
           decoration: BoxDecoration(
               color: ColorConstants.primaryWhiteColor,
               borderRadius: BorderRadius.circular(10),
@@ -44,7 +36,7 @@ class UpcomingBookings extends StatelessWidget {
                 BoxShadow(
                   color: ColorConstants.primaryBlackColor.withOpacity(0.3),
                   blurRadius: 1,
-                  offset: Offset(0, 2), // Offset for the bottom shadow
+                  offset: const Offset(0, 2), // Offset for the bottom shadow
                 ),
               ]),
           child: Column(
@@ -64,7 +56,7 @@ class UpcomingBookings extends StatelessWidget {
                           size: 26,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 15,
                       ),
                       Text(
@@ -93,7 +85,7 @@ class UpcomingBookings extends StatelessWidget {
                         roomNumber,
                         style: TextStyleConstants.dashboardBookinRoomNo,
                       ),
-                      Text("Room")
+                      const Text("Room")
                     ],
                   ),
                   Column(
@@ -113,7 +105,9 @@ class UpcomingBookings extends StatelessWidget {
                   Column(
                     children: [
                       Icon(
-                        FluentIcons.phone_checkmark_20_regular,
+                        isAdvacePaid
+                            ? FluentIcons.phone_checkmark_20_regular
+                            : FluentIcons.phone_dismiss_20_regular,
                         color: ColorConstants.primaryBlackColor,
                         size: 26,
                       ),
@@ -121,7 +115,7 @@ class UpcomingBookings extends StatelessWidget {
                         isAdvacePaid ? "Paid" : "Not Paid",
                         style: TextStyleConstants.dashboardBookinRoomNo,
                       ),
-                      Text("Advance")
+                      const Text("Advance")
                     ],
                   )
                 ],

@@ -2,12 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/bookings/bookings_repository.dart';
 import 'package:hostel_management_app/controller/connection_checker/connection_checher.dart';
-import 'package:hostel_management_app/controller/residents/residents_repository.dart';
 import 'package:hostel_management_app/controller/rooms/rooms_repository.dart';
 import 'package:hostel_management_app/controller/users/owner_repository.dart';
 import 'package:hostel_management_app/model/booking_model.dart';
 import 'package:hostel_management_app/model/owner_model.dart';
-import 'package:hostel_management_app/model/resident_model.dart';
 import 'package:hostel_management_app/model/room_model.dart';
 import 'package:intl/intl.dart';
 
@@ -29,6 +27,7 @@ class BookingsController with ChangeNotifier {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   List<BookingsModel> bookings = [];
+  List<BookingsModel> bookingsWithinThisWeek = [];
 
   List<RoomModel> vacantRooms = [];
 
@@ -49,11 +48,14 @@ class BookingsController with ChangeNotifier {
       // Filter out vacant rooms (Vacancy > 0)
       vacantRooms = allRooms.where((room) => room.vacancy > 0).toList();
       vacantRooms.sort((a, b) => a.roomNo.compareTo(b.roomNo));
+
       notifyListeners();
     } catch (e) {
       print(e.toString());
       // Handle the error appropriately, e.g., log, display a message, etc.
       rethrow; // or return an empty list or handle the error appropriately
+    } finally {
+      return;
     }
   }
 
@@ -63,13 +65,33 @@ class BookingsController with ChangeNotifier {
       print("Fetching Bookings ");
       bookings = await bookingController.fetchData();
       bookings.sort((a, b) => a.checkIn.compareTo(b.checkIn));
+      filterBooking();
       print("fetching successfull");
       notifyListeners();
     } catch (e) {
       print(e.toString());
       // Add a return statement or rethrow the exception
+
       rethrow; // or return an empty list or handle the error appropriately
     }
+  }
+
+  //-------------------------------------------------------------------Filtering bookings
+  filterBooking() async {
+    // Clear the list before adding new data
+    bookingsWithinThisWeek.clear();
+
+    // Get the current date and time
+    final currentDate = DateTime.now();
+
+    // Filter bookings with check-in date within this week
+    final thisWeekBookings = bookings.where((booking) {
+      final daysDifference = booking.checkIn.difference(currentDate).inDays;
+      return daysDifference >= 0 && daysDifference < 7;
+    }).toList();
+
+    // Move the filtered bookings to another list
+    bookingsWithinThisWeek.addAll(thisWeekBookings);
   }
 
   //------------------------------------------------------------------------add booking

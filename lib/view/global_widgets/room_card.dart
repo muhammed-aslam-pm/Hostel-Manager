@@ -71,15 +71,18 @@ class RoomsCard extends StatelessWidget {
                       color: ColorConstants.primaryBlackColor,
                       size: 27,
                     ))),
-            Positioned(
-              top: 0,
-              left: 70,
-              child: CircleAvatar(
-                radius: 15,
-                backgroundColor: ColorConstants.primaryColor,
-                child: Text(
-                  vaccentBedNumber,
-                  style: TextStyleConstants.ownerRoomsCircleAvtarText,
+            Visibility(
+              visible: vaccentBedNumber == "0" ? false : true,
+              child: Positioned(
+                top: 0,
+                left: 70,
+                child: CircleAvatar(
+                  radius: 15,
+                  backgroundColor: ColorConstants.primaryColor,
+                  child: Text(
+                    vaccentBedNumber,
+                    style: TextStyleConstants.ownerRoomsCircleAvtarText,
+                  ),
                 ),
               ),
             ),

@@ -189,7 +189,6 @@ class RoomsController with ChangeNotifier {
       required int currentVacancy,
       required RoomModel room}) async {
     try {
-      print("Vacancy=$currentVacancy");
       final isConnected = await connection.isConnected();
       if (!isConnected) {
         ScaffoldMessenger.of(context)
@@ -197,7 +196,7 @@ class RoomsController with ChangeNotifier {
       }
       int noOfBeds = currentCapacity - room.capacity;
       int vacacy = currentVacancy - room.vacancy;
-      print("No of Beds :$noOfBeds");
+
       await userRepoController
           .accountSetup({"NoOfBeds": noOfBeds, "NoOfVacancy": vacacy});
 
@@ -215,7 +214,6 @@ class RoomsController with ChangeNotifier {
       userController.fetchData();
     } catch (e) {
       print(e.toString());
-      print("con");
     }
   }
 

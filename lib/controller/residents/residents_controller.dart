@@ -46,18 +46,25 @@ class ResidentsController with ChangeNotifier {
   ResidentModel? editingResidnt;
   int? oldRoomNo;
   bool isEditing = false;
+  bool isResidentsLoading = false;
 
 // ------------------------------------------------Fetch Resident detailes
   fetchResidents() async {
     try {
+      isResidentsLoading = true;
+      notifyListeners();
       print('fetchData');
       residents = await residentsRepository.fetchData();
       residents.sort((a, b) => a.roomNo.compareTo(b.roomNo));
       print(residents);
+      isResidentsLoading = false;
       notifyListeners();
     } catch (e) {
       print(e.toString());
       rethrow;
+    } finally {
+      isResidentsLoading = false;
+      notifyListeners();
     }
   }
 

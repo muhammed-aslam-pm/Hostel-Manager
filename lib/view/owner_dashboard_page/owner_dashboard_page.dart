@@ -1,13 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:hostel_management_app/controller/bookings/bookings_controller.dart';
 import 'package:hostel_management_app/controller/dashboard_controller/dashboard_controller.dart';
 import 'package:hostel_management_app/controller/users/user_controller.dart';
+import 'package:hostel_management_app/model/booking_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/all_pending_payments_screen/pending_payments_screen.dart';
 import 'package:hostel_management_app/view/announcement_adding_form/announcement_bottom_sheet.dart';
+import 'package:hostel_management_app/view/booked_resident_detailes_screen/booked_resident_detailes_screen.dart';
 import 'package:hostel_management_app/view/owner_dashboard_page/widgets/date_card.dart';
 import 'package:hostel_management_app/view/global_widgets/date_sorting_button.dart';
 import 'package:hostel_management_app/view/owner_dashboard_page/widgets/going_to_vaccent_card.dart';
@@ -17,6 +20,7 @@ import 'package:hostel_management_app/view/owner_dashboard_page/widgets/rooms_va
 import 'package:hostel_management_app/view/owner_dashboard_page/widgets/upcoming_bookings_card.dart';
 import 'package:hostel_management_app/view/owner_profile_screen/owner_profile_screen.dart';
 import 'package:hostel_management_app/view/vacant_beds_screen/vacant_beds_screen.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class OwnerDashBoardPage extends StatefulWidget {
@@ -31,6 +35,9 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
   @override
   void initState() {
     Provider.of<UserController>(context, listen: false).fetchData();
+    Provider.of<BookingsController>(context, listen: false).fetchBookingsData();
+    Provider.of<DashboardController>(context, listen: false).fetchData();
+
     // TODO: implement initState
     super.initState();
   }
@@ -38,6 +45,7 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<UserController>(context);
+    final bookingsController = Provider.of<BookingsController>(context);
     final dashboardController =
         Provider.of<DashboardController>(context, listen: false);
     return Scaffold(
@@ -225,14 +233,30 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: List.generate(
-                      4,
-                      (index) => UpcomingBookings(
-                          name: "Aslam",
-                          date: "02/01/2024",
-                          roomNumber: "26",
-                          beadNumber: "5",
-                          isAdvacePaid: true),
-                    ),
+                        bookingsController.bookingsWithinThisWeek.length,
+                        (index) {
+                      BookingsModel booking =
+                          bookingsController.bookingsWithinThisWeek[index];
+                      return UpcomingBookings(
+                        name: booking.name,
+                        date: DateFormat('dd/MM/yyyy').format(booking.checkIn),
+                        roomNumber: booking.roomNO.toString(),
+                        beadNumber: "5",
+                        isAdvacePaid: booking.advancePaid,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  BookedResidentDetailesScreen(
+                                index: index,
+                                isSorted: true,
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    }),
                   ),
                 ),
               ),

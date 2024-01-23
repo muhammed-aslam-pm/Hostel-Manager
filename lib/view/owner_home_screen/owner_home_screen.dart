@@ -17,6 +17,8 @@ class OwnerHomeScreen extends StatelessWidget {
       body: Provider.of<OwnerNavBarController>(context).ownerPages[
           Provider.of<OwnerNavBarController>(context).selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+        elevation: 0,
+        backgroundColor: ColorConstants.primaryWhiteColor,
         type: BottomNavigationBarType.fixed,
         currentIndex: navBarController.selectedIndex,
         onTap: (value) {

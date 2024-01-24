@@ -6,11 +6,11 @@ import 'package:hostel_management_app/controller/users/user_controller.dart';
 import 'package:hostel_management_app/model/room_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
-import 'package:hostel_management_app/view/global_widgets/shimmer_loader.dart';
 import 'package:hostel_management_app/view/resident_detailes_screen/resident_deatailes_screen.dart';
 import 'package:hostel_management_app/view/room_detailes_screen/widgets/facilities_card.dart';
 import 'dart:ui' as ui;
 import 'package:hostel_management_app/view/room_detailes_screen/widgets/residents_name_card.dart';
+import 'package:hostel_management_app/view/room_detailes_screen/widgets/residents_name_loading.dart';
 import 'package:hostel_management_app/view/rooms_adding_form/rooms_adding_form.dart';
 import 'package:provider/provider.dart';
 
@@ -25,10 +25,14 @@ class _RoomsViewScreenState extends State<RoomsViewScreen> {
   @override
   void initState() {
     if (widget.roomDetailes.residents.isNotEmpty) {
-      Provider.of<RoomsController>(context, listen: false)
-          .fetchResidents(widget.roomDetailes.residents);
+      fetchResidents();
     }
     super.initState();
+  }
+
+  fetchResidents() async {
+    await Provider.of<RoomsController>(context, listen: false)
+        .fetchResidents(widget.roomDetailes.residents);
   }
 
   @override
@@ -55,8 +59,11 @@ class _RoomsViewScreenState extends State<RoomsViewScreen> {
                   backgroundColor: Colors.transparent,
                   elevation: 0,
                   leading: IconButton(
-                      onPressed: () {
+                      onPressed: () async {
                         Navigator.pop(context);
+                        await Provider.of<RoomsController>(context,
+                                listen: false)
+                            .clearResidents();
                       },
                       icon: Icon(
                         Icons.arrow_back_ios_new,
@@ -108,8 +115,7 @@ class _RoomsViewScreenState extends State<RoomsViewScreen> {
                                   userController.user!.noOfBeds;
                               final currentNoOfVacancy =
                                   userController.user!.noOfVacancy;
-                              print(currentNoOfCapacity);
-                              print(widget.roomDetailes.id);
+
                               await Provider.of<RoomsController>(context,
                                       listen: false)
                                   .deleteRoom(
@@ -304,44 +310,52 @@ class _RoomsViewScreenState extends State<RoomsViewScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      widget.roomDetailes.residents.isNotEmpty
-                          ? Provider.of<RoomsController>(context)
-                                  .isResidentLoading
-                              ? const ShimmerEffect(
-                                  height: 60, width: 200, radius: 100)
-                              : ListView.separated(
-                                  shrinkWrap: true,
-                                  physics: const ScrollPhysics(),
-                                  itemBuilder: (context, index1) {
-                                    return ResidentsNameCard(
-                                      name:
-                                          Provider.of<RoomsController>(context)
-                                              .residents![index1]
-                                              .name,
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                ResidentDetailesScreen(
-                                                    resident: Provider.of<
-                                                                RoomsController>(
-                                                            context)
-                                                        .residents![index1]),
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  },
-                                  separatorBuilder: (context, index) =>
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                  itemCount:
-                                      widget.roomDetailes.residents.length)
-                          : const Center(
-                              child: Text("No Resdients on this room"),
-                            ),
+                      Consumer<RoomsController>(
+                        builder: (context, value, child) => widget
+                                .roomDetailes.residents.isNotEmpty
+                            ? value.isResidentLoading
+                                ? ListView.separated(
+                                    shrinkWrap: true,
+                                    physics: const ScrollPhysics(),
+                                    itemBuilder: (context, index1) {
+                                      return const ResidentsNameLoading();
+                                    },
+                                    separatorBuilder: (context, index) =>
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                    itemCount: widget.roomDetailes.capacity)
+                                : ListView.separated(
+                                    shrinkWrap: true,
+                                    physics: const ScrollPhysics(),
+                                    itemBuilder: (context, index1) {
+                                      return ResidentsNameCard(
+                                        name: value.residents![index1].name,
+                                        image:
+                                            value.residents![index1].profilePic,
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ResidentDetailesScreen(
+                                                      resident: value
+                                                          .residents![index1]),
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
+                                    separatorBuilder: (context, index) =>
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                    itemCount:
+                                        widget.roomDetailes.residents.length)
+                            : const Center(
+                                child: Text("No Resdients on this room"),
+                              ),
+                      )
                     ],
                   ),
                 ),

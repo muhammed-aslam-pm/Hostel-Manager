@@ -81,12 +81,12 @@ class ResidentDetailesScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Hero(
-                      tag: "profile",
+                      tag: "resident",
                       child: Container(
                         height: 110,
                         width: 110,
                         decoration: BoxDecoration(
-                          color: ColorConstants.primaryWhiteColor,
+                          color: ColorConstants.SecondaryColor3,
                           borderRadius: BorderRadius.circular(100),
                         ),
                         child: ClipRRect(

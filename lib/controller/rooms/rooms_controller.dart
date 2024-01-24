@@ -93,6 +93,11 @@ class RoomsController with ChangeNotifier {
     }
   }
 
+//clear residents
+  clearResidents() {
+    residents!.clear();
+  }
+
 // add new room
   addRoom(
       {required BuildContext context,

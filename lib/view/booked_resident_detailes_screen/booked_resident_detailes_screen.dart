@@ -1,6 +1,7 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/bookings/bookings_controller.dart';
+import 'package:hostel_management_app/controller/residents/residents_controller.dart';
 import 'package:hostel_management_app/model/booking_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
@@ -19,6 +20,7 @@ class BookedResidentDetailesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Provider.of<ResidentsController>(context, listen: false);
     return Consumer<BookingsController>(
       builder: (context, value, child) {
         final BookingsModel detailes = isSorted!
@@ -220,18 +222,7 @@ class BookedResidentDetailesScreen extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          showModalBottomSheet(
-                            isScrollControlled: true,
-                            context: context,
-                            builder: (context1) => const ResidentsAddingPage(),
-                            elevation: 10,
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(20),
-                              ),
-                            ),
-                            useSafeArea: true,
-                          );
+                          controller.addBookingToResident(detailes, context);
                         },
                         child: Container(
                           decoration: BoxDecoration(

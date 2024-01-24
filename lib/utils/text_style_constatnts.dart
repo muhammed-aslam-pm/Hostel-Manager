@@ -44,7 +44,7 @@ class TextStyleConstants {
 
   static TextStyle dashboardVacentRoom1 = TextStyle(
       fontSize: 25,
-      color: ColorConstants.primaryWhiteColor,
+      color: ColorConstants.primaryColor,
       fontWeight: FontWeight.w900);
 
   static TextStyle dashboardVacentRoom2 = TextStyle(

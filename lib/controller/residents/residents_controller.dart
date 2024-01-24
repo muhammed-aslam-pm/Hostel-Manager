@@ -2,11 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:hostel_management_app/controller/bookings/bookings_controller.dart';
 import 'package:hostel_management_app/controller/connection_checker/connection_checher.dart';
 import 'package:hostel_management_app/controller/residents/residents_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hostel_management_app/controller/rooms/rooms_repository.dart';
 import 'package:hostel_management_app/controller/users/owner_repository.dart';
+import 'package:hostel_management_app/model/booking_model.dart';
 import 'package:hostel_management_app/model/owner_model.dart';
 import 'package:hostel_management_app/model/resident_model.dart';
 import 'package:hostel_management_app/model/room_model.dart';
@@ -27,6 +29,7 @@ class ResidentsController with ChangeNotifier {
 
   final ResidentsRepository residentsRepository = ResidentsRepository();
   final ConnectionChecker connectionController = ConnectionChecker();
+  final BookingsController bookingsController = BookingsController();
   final RoomsRepository roomController = RoomsRepository();
   final OwnerRepository ownerRepository = OwnerRepository();
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -44,6 +47,8 @@ class ResidentsController with ChangeNotifier {
   String? editingRoomId;
   String? editingResidentId;
   ResidentModel? editingResidnt;
+  BookingsModel? addingBooking;
+  bool isAddingaBookedResident = false;
   int? oldRoomNo;
   bool isEditing = false;
   bool isResidentsLoading = false;
@@ -129,6 +134,15 @@ class ResidentsController with ChangeNotifier {
           content: Text("Somthing went wrong"),
         ));
       }
+      if (isAddingaBookedResident) {
+        await bookingsController.deleteBooking(
+            context: context,
+            bookingId: addingBooking!.id!,
+            roomId: addingBooking!.roomId);
+        isAddingaBookedResident = false;
+        bookingsController.fetchBookingsData();
+        notifyListeners();
+      }
 
       // Upadte room deatile
       updateRoom(newResidentId: documentId);
@@ -144,6 +158,10 @@ class ResidentsController with ChangeNotifier {
       refreshpage(context);
     } catch (e) {
       print(e.toString());
+    } finally {
+      isAddingaBookedResident = false;
+      isEditing = false;
+      notifyListeners();
     }
   }
 
@@ -247,6 +265,30 @@ class ResidentsController with ChangeNotifier {
     } catch (e) {
       print(e);
     }
+  }
+
+//------------------------------------------------Add bookings to resident
+  addBookingToResident(BookingsModel booking, BuildContext context) {
+    nameController.text = booking.name;
+    phoneNoController.text = booking.phoneNo;
+    checkInDateController.text =
+        DateFormat('dd/MM/yyyy').format(booking.checkIn);
+    checkInDate = booking.checkIn;
+    selectedRoom = booking.roomNO.toString();
+    selectedRoomId = booking.roomId;
+    isAddingaBookedResident = true;
+    addingBooking = booking;
+    notifyListeners();
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (context) => const ResidentsAddingPage(),
+      elevation: 10,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      useSafeArea: true,
+    );
   }
 
 //------------------------------------------------Delete Resident

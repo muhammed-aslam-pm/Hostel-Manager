@@ -37,7 +37,7 @@ class RoomVaccentCard extends StatelessWidget {
             ),
             Text(
               number,
-              style: TextStyleConstants.dashboardVacentRoom1,
+              style: TextStyleConstants.OwnerRoomNumber3,
             ),
             Hero(
                 tag: title,

@@ -44,7 +44,6 @@ class DashboardController with ChangeNotifier {
 
       roomsGoingtoVacant = await getVacancyCount(thisWeekVaccating);
       notifyListeners();
-      print(roomsGoingtoVacant);
     } catch (e) {
       print(e);
     }

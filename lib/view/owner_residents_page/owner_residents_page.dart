@@ -4,6 +4,7 @@ import 'package:hostel_management_app/model/resident_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/global_widgets/date_sorting_button.dart';
+import 'package:hostel_management_app/view/owner_residents_page/widgets/resident_loading_card.dart';
 import 'package:hostel_management_app/view/resident_detailes_screen/resident_deatailes_screen.dart';
 import 'package:hostel_management_app/view/residents_adding_form/residents_adding_form.dart';
 import 'package:hostel_management_app/view/owner_residents_page/widgets/residents_detailes_card.dart';
@@ -54,35 +55,47 @@ class _OwnerResidentsPageState extends State<OwnerResidentsPage> {
                 height: 20,
               ),
               Consumer<ResidentsController>(
-                builder: (context, value, child) => ListView.separated(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      ResidentModel resident = controller.residents[index];
-                      return ResidentsDetailescard(
-                        roomNumber: resident.roomNo,
-                        joiningDate:
-                            DateFormat('dd MMM yyyy').format(resident.checkIn),
-                        name: resident.name,
-                        isFeePaid: resident.isRentPaid,
-                        image: resident.profilePic,
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ResidentDetailesScreen(
-                                resident: resident,
-                              ),
+                builder: (context, value, child) => value.isResidentsLoading
+                    ? ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return const ResidentsLoadingCard();
+                        },
+                        separatorBuilder: (context, index) => Divider(
+                              color: ColorConstants.secondaryWhiteColor,
+                              height: 10,
                             ),
+                        itemCount: 10)
+                    : ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          ResidentModel resident = controller.residents[index];
+                          return ResidentsDetailescard(
+                            roomNumber: resident.roomNo,
+                            joiningDate: DateFormat('dd MMM yyyy')
+                                .format(resident.checkIn),
+                            name: resident.name,
+                            isFeePaid: resident.isRentPaid,
+                            image: resident.profilePic,
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ResidentDetailesScreen(
+                                    resident: resident,
+                                  ),
+                                ),
+                              );
+                            },
                           );
                         },
-                      );
-                    },
-                    separatorBuilder: (context, index) => Divider(
-                          color: ColorConstants.secondaryWhiteColor,
-                          height: 10,
-                        ),
-                    itemCount: controller.residents.length),
+                        separatorBuilder: (context, index) => Divider(
+                              color: ColorConstants.secondaryWhiteColor,
+                              height: 10,
+                            ),
+                        itemCount: controller.residents.length),
               )
             ],
           ),

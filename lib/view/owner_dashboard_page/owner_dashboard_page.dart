@@ -9,7 +9,6 @@ import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/all_pending_payments_screen/pending_payments_screen.dart';
-import 'package:hostel_management_app/view/announcement_adding_form/announcement_bottom_sheet.dart';
 import 'package:hostel_management_app/view/booked_resident_detailes_screen/booked_resident_detailes_screen.dart';
 import 'package:hostel_management_app/view/global_widgets/custom_dropdown_button.dart';
 import 'package:hostel_management_app/view/owner_dashboard_page/widgets/date_card.dart';
@@ -63,7 +62,7 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
                 style: TextStyleConstants.homeMainTitle1,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Text(
@@ -78,7 +77,7 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => OwnerProfileScreen(),
+                    builder: (context) => const OwnerProfileScreen(),
                   ));
             },
             child: Hero(
@@ -103,7 +102,7 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 30,
           ),
         ],
@@ -114,7 +113,7 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Padding(
@@ -136,7 +135,7 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => VacantBedsScreen(),
+                              builder: (context) => const VacantBedsScreen(),
                             ));
                       },
                     ),
@@ -154,7 +153,7 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => PendingPaymentsScreen(),
+                            builder: (context) => const PendingPaymentsScreen(),
                           ),
                         );
                       },
@@ -162,7 +161,7 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Padding(
@@ -184,14 +183,14 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
                           height: 40,
                           width: 150),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 18.6,
                     ),
                     DateCard(date: dashboardController.date())
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               Consumer<DashboardController>(
@@ -201,9 +200,10 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: GridView.builder(
                         shrinkWrap: true,
-                        physics: ScrollPhysics(),
+                        physics: const ScrollPhysics(),
                         itemCount: value.roomsGoingtoVacant.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           mainAxisSpacing: 5,
                           crossAxisSpacing: 10,
@@ -230,7 +230,7 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
                   }
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Padding(
@@ -249,11 +249,11 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Padding(
-                padding: EdgeInsets.only(left: 20),
+                padding: const EdgeInsets.only(left: 20),
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
@@ -285,7 +285,7 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 33,
               ),
               Padding(
@@ -325,7 +325,7 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => PendingPaymentsScreen(),
+                          builder: (context) => const PendingPaymentsScreen(),
                         ),
                       );
                     },
@@ -379,31 +379,31 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        onPressed: () {
-          showModalBottomSheet(
-            isScrollControlled: true,
-            context: context,
-            builder: (context) => Padding(
-              padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom),
-              child: AnnouncementAddingPage(),
-            ),
-            elevation: 10,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            useSafeArea: true,
-          );
-        },
-        child: Image.asset(
-          ImageConstants.announcementIcon,
-          color: ColorConstants.primaryBlackColor,
-        ),
-        backgroundColor: ColorConstants.primaryWhiteColor,
-        elevation: 20,
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      //   onPressed: () {
+      //     showModalBottomSheet(
+      //       isScrollControlled: true,
+      //       context: context,
+      //       builder: (context) => Padding(
+      //         padding: EdgeInsets.only(
+      //             bottom: MediaQuery.of(context).viewInsets.bottom),
+      //         child: AnnouncementAddingPage(),
+      //       ),
+      //       elevation: 10,
+      //       shape: RoundedRectangleBorder(
+      //         borderRadius: BorderRadius.circular(15),
+      //       ),
+      //       useSafeArea: true,
+      //     );
+      //   },
+      //   child: Image.asset(
+      //     ImageConstants.announcementIcon,
+      //     color: ColorConstants.primaryBlackColor,
+      //   ),
+      //   backgroundColor: ColorConstants.primaryWhiteColor,
+      //   elevation: 20,
+      // ),
     );
   }
 }

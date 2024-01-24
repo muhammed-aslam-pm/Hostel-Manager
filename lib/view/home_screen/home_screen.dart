@@ -2,11 +2,10 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/bottomnavbar/bottomnavbar_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
-import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:provider/provider.dart';
 
-class OwnerHomeScreen extends StatelessWidget {
-  const OwnerHomeScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

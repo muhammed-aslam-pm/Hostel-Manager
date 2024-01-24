@@ -1,9 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
-import 'package:hostel_management_app/view/global_widgets/shimmer_loader.dart';
 
 class ResidentsDetailescard extends StatelessWidget {
   const ResidentsDetailescard(
@@ -18,7 +16,6 @@ class ResidentsDetailescard extends StatelessWidget {
   final String joiningDate;
   final int roomNumber;
   final String image;
-
   final bool isFeePaid;
   final void Function()? onTap;
 
@@ -27,17 +24,18 @@ class ResidentsDetailescard extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-            color: ColorConstants.secondaryWhiteColor,
-            borderRadius: BorderRadius.circular(8),
-            boxShadow: [
-              BoxShadow(
-                color: ColorConstants.primaryBlackColor.withOpacity(0.2),
-                blurRadius: 2,
-                offset: Offset(0, 4),
-              )
-            ]),
+          color: ColorConstants.secondaryWhiteColor,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: ColorConstants.primaryBlackColor.withOpacity(0.2),
+              blurRadius: 2,
+              offset: const Offset(0, 4),
+            )
+          ],
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -49,29 +47,29 @@ class ResidentsDetailescard extends StatelessWidget {
                   backgroundColor: ColorConstants.SecondaryColor4,
                   backgroundImage:
                       image.isNotEmpty ? NetworkImage(image) : null,
-                  child: image.isEmpty ? Icon(Icons.person) : null,
+                  child: image.isEmpty ? const Icon(Icons.person) : null,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
                       name,
                       style: TextStyleConstants.dashboardBookingName,
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.calendar_month,
                           size: 17,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         Text(
@@ -80,7 +78,7 @@ class ResidentsDetailescard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Container(
@@ -89,18 +87,19 @@ class ResidentsDetailescard extends StatelessWidget {
                           color: isFeePaid == true
                               ? ColorConstants.colorGreen.withOpacity(0.6)
                               : ColorConstants.colorRed),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
                       child: Center(
-                          child: isFeePaid == true
-                              ? Text(
-                                  "Fees Paid",
-                                  style: TextStyleConstants.buttonText,
-                                )
-                              : Text(
-                                  "Fees Not Paid",
-                                  style: TextStyleConstants.buttonText,
-                                )),
+                        child: isFeePaid == true
+                            ? Text(
+                                "Fees Paid",
+                                style: TextStyleConstants.buttonText,
+                              )
+                            : Text(
+                                "Fees Not Paid",
+                                style: TextStyleConstants.buttonText,
+                              ),
+                      ),
                     )
                   ],
                 )
@@ -114,7 +113,8 @@ class ResidentsDetailescard extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       color: ColorConstants.SecondaryColor4),
-                  padding: EdgeInsets.symmetric(horizontal: 7, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
                   child: Row(
                     children: [
                       Icon(
@@ -129,10 +129,10 @@ class ResidentsDetailescard extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 IconButton(

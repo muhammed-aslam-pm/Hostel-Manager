@@ -13,8 +13,7 @@ class BokkingsuccessfullScreen extends StatefulWidget {
 class _BokkingsuccessfullScreenState extends State<BokkingsuccessfullScreen> {
   @override
   void initState() {
-    // TODO: implement initState
-    Future.delayed(Duration(seconds: 1)).then(
+    Future.delayed(const Duration(seconds: 1)).then(
       (value) {
         Navigator.pop(context);
         Navigator.pop(context);
@@ -42,7 +41,7 @@ class _BokkingsuccessfullScreenState extends State<BokkingsuccessfullScreen> {
                   color: ColorConstants.primaryWhiteColor,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 70,
               ),
               Text(
@@ -50,7 +49,7 @@ class _BokkingsuccessfullScreenState extends State<BokkingsuccessfullScreen> {
                 style: TextStyleConstants.loginTiltle,
                 textAlign: TextAlign.center,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
             ],

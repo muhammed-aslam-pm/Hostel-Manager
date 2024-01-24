@@ -22,7 +22,7 @@ class OTPVerivicationScreen extends StatelessWidget {
                 "OTP Verification",
                 style: TextStyleConstants.loginTiltle,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(
@@ -30,7 +30,7 @@ class OTPVerivicationScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyleConstants.loginSubtitle1,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 70,
               ),
               Padding(
@@ -125,20 +125,21 @@ class OTPVerivicationScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               LoginButton(
                 buttonName: "Verify",
                 onTap: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CreateNewPasswordScreen(),
-                      ));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CreateNewPasswordScreen(),
+                    ),
+                  );
                 },
               )
             ],

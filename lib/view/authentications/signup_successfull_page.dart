@@ -13,14 +13,14 @@ class SignUpSuccessfullScree extends StatefulWidget {
 class _SignUpSuccessfullScreeState extends State<SignUpSuccessfullScree> {
   @override
   void initState() {
-    // TODO: implement initState
-    Future.delayed(Duration(seconds: 1)).then(
+    Future.delayed(const Duration(seconds: 1)).then(
       (value) {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => LoginScreen(),
-            ));
+          context,
+          MaterialPageRoute(
+            builder: (context) => const LoginScreen(),
+          ),
+        );
       },
     );
     super.initState();
@@ -46,7 +46,7 @@ class _SignUpSuccessfullScreeState extends State<SignUpSuccessfullScree> {
                   color: ColorConstants.primaryWhiteColor,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 70,
               ),
               Text(
@@ -54,7 +54,7 @@ class _SignUpSuccessfullScreeState extends State<SignUpSuccessfullScree> {
                 style: TextStyleConstants.loginTiltle,
                 textAlign: TextAlign.center,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
             ],

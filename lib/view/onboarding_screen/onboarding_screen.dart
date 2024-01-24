@@ -16,7 +16,6 @@ class OnBoardingScreen extends StatefulWidget {
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     Provider.of<OnBoardingController>(context, listen: false).autoScroll();
     super.initState();
   }

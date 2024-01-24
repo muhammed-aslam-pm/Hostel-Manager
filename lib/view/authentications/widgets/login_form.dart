@@ -27,7 +27,7 @@ class LoginForm extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           TextFormField(
@@ -59,7 +59,7 @@ class LoginForm extends StatelessWidget {
                 Provider.of<LoginController>(context, listen: false)
                     .emailValidation(value!),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Row(
@@ -71,7 +71,7 @@ class LoginForm extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           TextFormField(
@@ -108,7 +108,7 @@ class LoginForm extends StatelessWidget {
                 Provider.of<LoginController>(context, listen: false)
                     .passwordValidation(value),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Row(
@@ -125,7 +125,7 @@ class LoginForm extends StatelessWidget {
                           .remember();
                     },
                   ),
-                  Text("Remember")
+                  const Text("Remember")
                 ],
               ),
               InkWell(
@@ -133,24 +133,25 @@ class LoginForm extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ForgotPasswordScreen(),
+                        builder: (context) => const ForgotPasswordScreen(),
                       ),
                     );
                   },
-                  child: Text("Forgot Password?"))
+                  child: const Text("Forgot Password?"))
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           LoginButton(
-              buttonName: "Login",
-              onTap: () {
-                if (controller.loginFormKey.currentState!.validate()) {
-                  Provider.of<LoginController>(context, listen: false)
-                      .login(context);
-                }
-              }),
+            buttonName: "Login",
+            onTap: () {
+              if (controller.loginFormKey.currentState!.validate()) {
+                Provider.of<LoginController>(context, listen: false)
+                    .login(context);
+              }
+            },
+          ),
         ],
       ),
     );

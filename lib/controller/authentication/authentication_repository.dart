@@ -5,7 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hostel_management_app/controller/users/owner_repository.dart';
 import 'package:hostel_management_app/model/owner_model.dart';
 import 'package:hostel_management_app/view/account_setup_screen/account_setup_screen.dart';
-import 'package:hostel_management_app/view/owner_home_screen/owner_home_screen.dart';
+import 'package:hostel_management_app/view/home_screen/home_screen.dart';
 
 class AuthenticationRepository extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -103,7 +103,7 @@ class AuthenticationRepository extends ChangeNotifier {
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (context) => const OwnerHomeScreen(),
+                builder: (context) => const HomeScreen(),
               ),
               (route) => false);
         }

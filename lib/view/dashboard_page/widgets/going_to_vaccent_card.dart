@@ -1,7 +1,6 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
-import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 
 class GoingToVaccentCard extends StatelessWidget {
@@ -22,7 +21,7 @@ class GoingToVaccentCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
         color: backgroungColor,
       ),
-      padding: EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

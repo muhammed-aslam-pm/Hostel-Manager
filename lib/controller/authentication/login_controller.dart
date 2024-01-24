@@ -5,7 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hostel_management_app/controller/connection_checker/connection_checher.dart';
 import 'package:hostel_management_app/controller/loading/loading_controller.dart';
 import 'package:hostel_management_app/view/account_setup_screen/account_setup_screen.dart';
-import 'package:hostel_management_app/view/owner_home_screen/owner_home_screen.dart';
+import 'package:hostel_management_app/view/home_screen/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController with ChangeNotifier {
@@ -75,7 +75,7 @@ class LoginController with ChangeNotifier {
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (context) => const OwnerHomeScreen(),
+                builder: (context) => const HomeScreen(),
               ),
               (route) => false);
         }

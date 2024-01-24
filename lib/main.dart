@@ -26,7 +26,7 @@ Future<void> main() async {
         projectId: "hostel-management-app-4ae0f",
         storageBucket: "hostel-management-app-4ae0f.appspot.com"),
   );
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

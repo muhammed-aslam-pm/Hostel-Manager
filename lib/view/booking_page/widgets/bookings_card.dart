@@ -29,7 +29,7 @@ class BookingsCard extends StatelessWidget {
     return InkWell(
       onTap: () => onTap?.call(),
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -131,7 +131,7 @@ class BookingsCard extends StatelessWidget {
                   children: [
                     IconButton(
                         onPressed: () => onEdit?.call(),
-                        icon: const Icon(FontAwesomeIcons.edit)),
+                        icon: const Icon(FontAwesomeIcons.penToSquare)),
                     const SizedBox(
                       width: 20,
                     ),

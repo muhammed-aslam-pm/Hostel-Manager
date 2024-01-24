@@ -6,7 +6,7 @@ import 'package:hostel_management_app/controller/connection_checker/connection_c
 import 'package:hostel_management_app/controller/loading/loading_controller.dart';
 import 'package:hostel_management_app/view/account_setup_screen/account_setup_screen.dart';
 import 'package:hostel_management_app/view/authentications/signup_successfull_page.dart';
-import 'package:hostel_management_app/view/owner_home_screen/owner_home_screen.dart';
+import 'package:hostel_management_app/view/home_screen/home_screen.dart';
 import 'package:provider/provider.dart';
 
 class SignInController with ChangeNotifier {
@@ -125,7 +125,7 @@ class SignInController with ChangeNotifier {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const OwnerHomeScreen(),
+              builder: (context) => const HomeScreen(),
             ),
           );
         }

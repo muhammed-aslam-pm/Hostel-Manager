@@ -28,7 +28,7 @@ class MaintenanceRequestCard extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => MaintenanceRequestDetailesScreen(),
+                builder: (context) => const MaintenanceRequestDetailesScreen(),
               ));
         },
         child: Container(
@@ -41,10 +41,10 @@ class MaintenanceRequestCard extends StatelessWidget {
                 BoxShadow(
                   color: ColorConstants.primaryBlackColor.withOpacity(0.3),
                   blurRadius: 1,
-                  offset: Offset(0, 2), // Offset for the bottom shadow
+                  offset: const Offset(0, 2), // Offset for the bottom shadow
                 ),
               ]),
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -60,7 +60,7 @@ class MaintenanceRequestCard extends StatelessWidget {
                       color: ColorConstants.primaryBlackColor,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Column(
@@ -83,7 +83,7 @@ class MaintenanceRequestCard extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Icon(
+                          const Icon(
                             FluentIcons.phone_chat_24_regular,
                             size: 19,
                           ),

@@ -20,7 +20,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     LoginController().fetchStordCredentials();
-    // TODO: implement initState
     super.initState();
   }
 
@@ -40,30 +39,30 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: TextStyleConstants.loginTiltle,
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                LoginForm(),
-                SizedBox(
+                const LoginForm(),
+                const SizedBox(
                   height: 15,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Don't have an account? "),
+                    const Text("Don't have an account? "),
                     TextButton(
                         onPressed: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => SignupScreen(),
+                              builder: (context) => const SignupScreen(),
                             ),
                           );
                         },
-                        child: Text("Signup Now"))
+                        child: const Text("Signup Now"))
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Row(
@@ -85,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 InkWell(
@@ -95,13 +94,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   child: Container(
                     height: 47,
-                    padding: EdgeInsets.symmetric(vertical: 14),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
                     color: ColorConstants.secondaryWhiteColor,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(ImageConstants.googleLogo),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Text(
@@ -112,18 +111,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Container(
                   height: 47,
-                  padding: EdgeInsets.symmetric(vertical: 14),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
                   color: ColorConstants.secondaryWhiteColor,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(ImageConstants.appleLogo),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Text(
@@ -133,10 +132,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
               ],

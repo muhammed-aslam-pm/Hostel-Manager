@@ -8,7 +8,7 @@ class DateSortingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 12.5, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 12.5, vertical: 10),
       decoration: BoxDecoration(
           color: ColorConstants.SecondaryColor3,
           borderRadius: BorderRadius.circular(10)),
@@ -17,7 +17,7 @@ class DateSortingButton extends StatelessWidget {
         children: [
           Text(title),
           DropdownButton(
-            items: [],
+            items: const [],
             onChanged: (value) {},
             dropdownColor: ColorConstants.primaryBlackColor,
             iconDisabledColor: ColorConstants.primaryBlackColor,

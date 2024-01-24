@@ -26,7 +26,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                   "Forgot Password?",
                   style: TextStyleConstants.loginTiltle,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Text(
@@ -34,7 +34,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyleConstants.loginSubtitle1,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 70,
                 ),
                 Row(
@@ -46,7 +46,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 TextFormField(
@@ -77,9 +77,11 @@ class ForgotPasswordScreen extends StatelessWidget {
                   validator: (value) => Provider.of<ForgotPasswordController>(
                           context,
                           listen: false)
-                      .emailValidation(value.toString()),
+                      .emailValidation(
+                    value.toString(),
+                  ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 LoginButton(

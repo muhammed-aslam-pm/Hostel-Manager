@@ -45,7 +45,7 @@ class MaintenanceRequestDetailesScreen extends StatelessWidget {
                       color: ColorConstants.primaryBlackColor,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Column(
@@ -71,15 +71,15 @@ class MaintenanceRequestDetailesScreen extends StatelessWidget {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
-              Text(" Complaints"),
-              SizedBox(
+              const Text(" Complaints"),
+              const SizedBox(
                 height: 10,
               ),
               Container(
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 width: double.infinity,
                 decoration: BoxDecoration(
                     color: ColorConstants.SecondaryColor1,
@@ -92,7 +92,7 @@ class MaintenanceRequestDetailesScreen extends StatelessWidget {
                       "Request 1",
                       style: TextStyleConstants.dashboardBookingName,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Text(
@@ -102,11 +102,11 @@ class MaintenanceRequestDetailesScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Container(
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 width: double.infinity,
                 decoration: BoxDecoration(
                     color: ColorConstants.SecondaryColor1,
@@ -119,7 +119,7 @@ class MaintenanceRequestDetailesScreen extends StatelessWidget {
                       "Request 2",
                       style: TextStyleConstants.dashboardBookingName,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Text(
@@ -129,11 +129,11 @@ class MaintenanceRequestDetailesScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Container(
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 width: double.infinity,
                 decoration: BoxDecoration(
                     color: ColorConstants.SecondaryColor1,
@@ -146,7 +146,7 @@ class MaintenanceRequestDetailesScreen extends StatelessWidget {
                       "Request 3",
                       style: TextStyleConstants.dashboardBookingName,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Text(
@@ -156,7 +156,7 @@ class MaintenanceRequestDetailesScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Visibility(
@@ -184,7 +184,7 @@ class MaintenanceRequestDetailesScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Row(
@@ -197,7 +197,7 @@ class MaintenanceRequestDetailesScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10),
                                 color: Colors.blue,
                               ),
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   vertical: 10, horizontal: 15),
                               child: Center(
                                 child: Row(
@@ -222,7 +222,7 @@ class MaintenanceRequestDetailesScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Row(
@@ -235,8 +235,8 @@ class MaintenanceRequestDetailesScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.blue,
                       ),
-                      padding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 15),
                       child: Center(
                         child: Row(
                           children: [
@@ -254,7 +254,7 @@ class MaintenanceRequestDetailesScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   InkWell(
@@ -264,8 +264,8 @@ class MaintenanceRequestDetailesScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                         color: ColorConstants.colorGreen.withGreen(100),
                       ),
-                      padding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 15),
                       child: Center(
                         child: Text(
                           "Mark as Done ",

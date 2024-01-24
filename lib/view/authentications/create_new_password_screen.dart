@@ -22,7 +22,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
                 "Create new password",
                 style: TextStyleConstants.loginTiltle,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(
@@ -30,7 +30,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyleConstants.loginSubtitle1,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 70,
               ),
               Row(
@@ -42,7 +42,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               TextFormField(
@@ -70,7 +70,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
@@ -82,7 +82,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               TextFormField(
@@ -110,7 +110,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               LoginButton(
@@ -119,7 +119,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => PasswordChangedScreen(),
+                      builder: (context) => const PasswordChangedScreen(),
                     ),
                   );
                 },

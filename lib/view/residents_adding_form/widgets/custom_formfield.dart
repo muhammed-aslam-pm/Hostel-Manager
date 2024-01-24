@@ -20,7 +20,7 @@ class CustomFormField extends StatelessWidget {
       height: isExpanded ? 100 : 50,
       child: TextFormField(
         expands: isExpanded,
-        validator: validator ?? null,
+        validator: validator,
         maxLines: isExpanded ? null : 1,
         controller: controller,
         textAlign: TextAlign.start,
@@ -36,7 +36,7 @@ class CustomFormField extends StatelessWidget {
               borderSide:
                   BorderSide(width: 2, color: ColorConstants.primaryColor),
             ),
-            suffixIcon: suffixWidget ?? null),
+            suffixIcon: suffixWidget),
       ),
     );
   }

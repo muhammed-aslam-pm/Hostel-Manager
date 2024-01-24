@@ -27,14 +27,14 @@ class PasswordChangedScreen extends StatelessWidget {
                   color: ColorConstants.primaryWhiteColor,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 70,
               ),
               Text(
                 "Password Changed !",
                 style: TextStyleConstants.loginTiltle,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(
@@ -42,7 +42,7 @@ class PasswordChangedScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyleConstants.loginSubtitle1,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 70,
               ),
               LoginButton(
@@ -51,7 +51,7 @@ class PasswordChangedScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => LoginScreen(),
+                      builder: (context) => const LoginScreen(),
                     ),
                   );
                 },

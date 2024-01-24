@@ -4,25 +4,24 @@ import 'package:hostel_management_app/model/resident_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/global_widgets/date_sorting_button.dart';
-import 'package:hostel_management_app/view/owner_residents_page/widgets/resident_loading_card.dart';
+import 'package:hostel_management_app/view/residents_page/widgets/resident_loading_card.dart';
 import 'package:hostel_management_app/view/resident_detailes_screen/resident_deatailes_screen.dart';
 import 'package:hostel_management_app/view/residents_adding_form/residents_adding_form.dart';
-import 'package:hostel_management_app/view/owner_residents_page/widgets/residents_detailes_card.dart';
+import 'package:hostel_management_app/view/residents_page/widgets/residents_detailes_card.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-class OwnerResidentsPage extends StatefulWidget {
-  const OwnerResidentsPage({super.key});
+class ResidentsPage extends StatefulWidget {
+  const ResidentsPage({super.key});
 
   @override
-  State<OwnerResidentsPage> createState() => _OwnerResidentsPageState();
+  State<ResidentsPage> createState() => _ResidentsPageState();
 }
 
-class _OwnerResidentsPageState extends State<OwnerResidentsPage> {
+class _ResidentsPageState extends State<ResidentsPage> {
   @override
   void initState() {
     Provider.of<ResidentsController>(context, listen: false).fetchResidents();
-    // TODO: implement initState
     super.initState();
   }
 
@@ -66,7 +65,7 @@ class _OwnerResidentsPageState extends State<OwnerResidentsPage> {
                               color: ColorConstants.secondaryWhiteColor,
                               height: 10,
                             ),
-                        itemCount: 10)
+                        itemCount: controller.residents.length)
                     : ListView.separated(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),

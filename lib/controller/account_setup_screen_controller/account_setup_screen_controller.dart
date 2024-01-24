@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/users/owner_repository.dart';
-import 'package:hostel_management_app/view/owner_home_screen/owner_home_screen.dart';
+import 'package:hostel_management_app/view/home_screen/home_screen.dart';
 
 class AccountSetUpScreenController with ChangeNotifier {
   List<int> noOfRooms = [];
@@ -30,7 +30,7 @@ class AccountSetUpScreenController with ChangeNotifier {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const OwnerHomeScreen(),
+          builder: (context) => const HomeScreen(),
         ));
   }
 }

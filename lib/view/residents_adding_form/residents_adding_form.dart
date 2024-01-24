@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/residents/residents_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
@@ -18,7 +17,7 @@ class ResidentsAddingPage extends StatelessWidget {
       height: 10,
     );
     return Container(
-      padding: EdgeInsets.all(25),
+      padding: const EdgeInsets.all(25),
       child: SingleChildScrollView(
         child: Form(
           key: controller.formKey,
@@ -26,7 +25,7 @@ class ResidentsAddingPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
-                child: Container(
+                child: SizedBox(
                   height: 100,
                   width: 100,
                   child: Stack(
@@ -42,8 +41,7 @@ class ResidentsAddingPage extends StatelessWidget {
                               backgroundColor: ColorConstants.SecondaryColor4,
                               backgroundImage: controller.selectedImage != null
                                   ? FileImage(
-                                      File(controller.selectedImage!.path)
-                                          as File)
+                                      File(controller.selectedImage!.path))
                                   : null,
                               child: controller.selectedImage == null
                                   ? Icon(
@@ -62,7 +60,7 @@ class ResidentsAddingPage extends StatelessWidget {
                         child: CircleAvatar(
                           radius: 13,
                           backgroundColor: ColorConstants.SecondaryColor5,
-                          child: Icon(Icons.add),
+                          child: const Icon(Icons.add),
                         ),
                       )
                     ],

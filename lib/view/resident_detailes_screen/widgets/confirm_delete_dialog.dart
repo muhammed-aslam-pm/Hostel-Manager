@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hostel_management_app/controller/bookings/bookings_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
-import 'package:provider/provider.dart';
 
 class ConfirmDeletDialog extends StatelessWidget {
   const ConfirmDeletDialog({
@@ -25,8 +23,7 @@ class ConfirmDeletDialog extends StatelessWidget {
       actions: <Widget>[
         OutlinedButton(
           onPressed: () {
-            Navigator.of(context)
-                .pop(false); // Dismiss the dialog and return false
+            Navigator.of(context).pop(false);
           },
           child: const Text('Cancel'),
         ),

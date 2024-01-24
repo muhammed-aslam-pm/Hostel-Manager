@@ -59,8 +59,8 @@ class ResidentDetailesScreen extends StatelessWidget {
                         ),
                       );
                       Navigator.pop(context);
-                      // controller.deleteResident(
-                      //     context: context, resident: value.residents[index]);
+                      controller.deleteResident(
+                          context: context, resident: resident);
                     },
                   ),
                 ];

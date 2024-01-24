@@ -35,7 +35,7 @@ class SignupScreen extends StatelessWidget {
                 color: ColorConstants.primaryWhiteColor,
                 borderRadius: BorderRadius.circular(30),
               ),
-              padding: EdgeInsets.only(left: 20, right: 20, bottom: 15),
+              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 15),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -43,7 +43,7 @@ class SignupScreen extends StatelessWidget {
                         height: 80,
                         width: 80,
                         child: Image.asset(ImageConstants.appLogo)),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Text(
@@ -53,11 +53,11 @@ class SignupScreen extends StatelessWidget {
                           fontSize: 25,
                           fontWeight: FontWeight.w700),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    signupForm(controller: controller),
-                    SizedBox(
+                    SignupForm(controller: controller),
+                    const SizedBox(
                       height: 20,
                     ),
                     Row(
@@ -79,7 +79,7 @@ class SignupScreen extends StatelessWidget {
                         )
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     InkWell(
@@ -88,13 +88,13 @@ class SignupScreen extends StatelessWidget {
                               .signInWithGoogle(context),
                       child: Container(
                         height: 47,
-                        padding: EdgeInsets.symmetric(vertical: 14),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
                         color: ColorConstants.secondaryWhiteColor,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Image.asset(ImageConstants.googleLogo),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             Text(

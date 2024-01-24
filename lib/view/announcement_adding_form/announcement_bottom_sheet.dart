@@ -9,7 +9,7 @@ class AnnouncementAddingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -18,14 +18,14 @@ class AnnouncementAddingPage extends StatelessWidget {
               "Make Announcement !",
               style: TextStyleConstants.homeMainTitle2,
             )),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Text(
               "Title",
               style: TextStyleConstants.dashboardBookingName,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             SizedBox(
@@ -44,14 +44,14 @@ class AnnouncementAddingPage extends StatelessWidget {
                     )),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(
               "Description",
               style: TextStyleConstants.dashboardBookingName,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             SizedBox(
@@ -73,7 +73,7 @@ class AnnouncementAddingPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
@@ -86,7 +86,8 @@ class AnnouncementAddingPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.blue,
                     ),
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 15),
                     child: Center(
                       child: Text(
                         " Cancel",
@@ -95,7 +96,7 @@ class AnnouncementAddingPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 InkWell(
@@ -105,7 +106,8 @@ class AnnouncementAddingPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       color: ColorConstants.colorGreen.withGreen(100),
                     ),
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 15),
                     child: Center(
                       child: Text(
                         "Add ",

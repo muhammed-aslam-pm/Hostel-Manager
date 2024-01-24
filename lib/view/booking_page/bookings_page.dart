@@ -1,6 +1,4 @@
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hostel_management_app/controller/bookings/bookings_controller.dart';
 import 'package:hostel_management_app/controller/users/user_controller.dart';
 import 'package:hostel_management_app/model/booking_model.dart';
@@ -10,26 +8,24 @@ import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/booked_resident_detailes_screen/booked_resident_detailes_screen.dart';
 import 'package:hostel_management_app/view/global_widgets/date_sorting_button.dart';
 import 'package:hostel_management_app/view/booking_form/add_booking_screen.dart';
-import 'package:hostel_management_app/view/owner_booking_page/widgets/bookings_card.dart';
+import 'package:hostel_management_app/view/booking_page/widgets/bookings_card.dart';
 import 'package:hostel_management_app/view/global_widgets/room_card.dart';
-import 'package:hostel_management_app/view/owner_booking_page/widgets/confirm_delete_dialog.dart';
+import 'package:hostel_management_app/view/booking_page/widgets/confirm_delete_dialog.dart';
 import 'package:provider/provider.dart';
 
-class OwnerBookingsPage extends StatefulWidget {
-  const OwnerBookingsPage({super.key});
+class BookingsPage extends StatefulWidget {
+  const BookingsPage({super.key});
 
   @override
-  State<OwnerBookingsPage> createState() => _OwnerBookingsPageState();
+  State<BookingsPage> createState() => _BookingsPageState();
 }
 
-class _OwnerBookingsPageState extends State<OwnerBookingsPage> {
+class _BookingsPageState extends State<BookingsPage> {
   @override
   void initState() {
     Provider.of<BookingsController>(context, listen: false).fetchVacantRooms();
     Provider.of<BookingsController>(context, listen: false).fetchBookingsData();
     Provider.of<UserController>(context, listen: false).fetchData();
-
-    // TODO: implement initState
     super.initState();
   }
 
@@ -141,11 +137,11 @@ class _OwnerBookingsPageState extends State<OwnerBookingsPage> {
                       ),
                       CircleAvatar(
                         radius: 15,
+                        backgroundColor: ColorConstants.primaryColor,
                         child: Text(
                           userController.user?.noOfVacancy.toString() ?? "",
                           style: TextStyleConstants.ownerRoomsCircleAvtarText,
                         ),
-                        backgroundColor: ColorConstants.primaryColor,
                       )
                     ],
                   ),

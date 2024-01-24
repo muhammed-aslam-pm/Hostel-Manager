@@ -79,7 +79,7 @@ class AddBookingScreen extends StatelessWidget {
                               roomNo.toString(),
                               style: TextStyleConstants.OwnerRoomNumber3,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                           ],
@@ -105,11 +105,11 @@ class AddBookingScreen extends StatelessWidget {
                     InkWell(
                       onTap: () async {
                         final date = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime.now(),
-                            lastDate: DateTime(2025));
-
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime.now(),
+                          lastDate: DateTime(2025),
+                        );
                         controller.setDate(date!);
                       },
                       child: BookingTextField(
@@ -135,7 +135,7 @@ class AddBookingScreen extends StatelessWidget {
                             child: const Text("Paid"),
                           ),
                           RadioMenuButton(
-                              style: ButtonStyle(),
+                              style: const ButtonStyle(),
                               value: false,
                               groupValue: controller.isAdvancePaid,
                               onChanged: (value) => controller.advance(value!),
@@ -162,8 +162,9 @@ class AddBookingScreen extends StatelessWidget {
                           height: 50,
                           width: 150,
                           decoration: BoxDecoration(
-                              color: ColorConstants.primaryColor,
-                              borderRadius: BorderRadius.circular(15)),
+                            color: ColorConstants.primaryColor,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
                           child: Center(
                             child: Text(
                               controller.isEditing ? "Edit" : "Add",

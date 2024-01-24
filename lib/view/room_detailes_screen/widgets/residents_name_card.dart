@@ -14,7 +14,7 @@ class ResidentsNameCard extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
             color: ColorConstants.primaryWhiteColor),
-        padding: EdgeInsets.only(right: 10),
+        padding: const EdgeInsets.only(right: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -27,7 +27,7 @@ class ResidentsNameCard extends StatelessWidget {
                       Icons.person,
                       color: ColorConstants.primaryBlackColor,
                     )),
-                SizedBox(
+                const SizedBox(
                   width: 15,
                 ),
                 Text(

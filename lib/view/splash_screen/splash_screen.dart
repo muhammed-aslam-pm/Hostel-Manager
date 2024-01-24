@@ -13,14 +13,13 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 5))
+    Future.delayed(const Duration(seconds: 3))
         .then((value) => Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
               builder: (context) => ScreenReDirector.redirectScreen(),
             ),
             (route) => false));
-    // TODO: implement initState
     super.initState();
   }
 

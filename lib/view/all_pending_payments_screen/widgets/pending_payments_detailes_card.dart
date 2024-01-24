@@ -12,7 +12,7 @@ class PendingPaymentDetailesCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       width: double.infinity,
       decoration: BoxDecoration(
           color: ColorConstants.SecondaryColor3,
@@ -25,7 +25,7 @@ class PendingPaymentDetailesCard extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 color: ColorConstants.SecondaryColor1),
-            padding: EdgeInsets.symmetric(horizontal: 7, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -49,7 +49,7 @@ class PendingPaymentDetailesCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 10, left: 10),
             child: Column(
-              children: List.generate(4, (index) => PaymentNameCard()),
+              children: List.generate(4, (index) => const PaymentNameCard()),
             ),
           )
         ],

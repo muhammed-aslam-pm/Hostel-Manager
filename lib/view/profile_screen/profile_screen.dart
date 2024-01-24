@@ -4,15 +4,15 @@ import 'package:hostel_management_app/controller/users/user_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/view/global_widgets/shimmer_loader.dart';
-import 'package:hostel_management_app/view/owner_profile_screen/profile_editing_screen.dart';
-import 'package:hostel_management_app/view/owner_profile_screen/widgets/confirm_delete_dialog.dart';
-import 'package:hostel_management_app/view/owner_profile_screen/widgets/confirm_logout_dialog.dart';
-import 'package:hostel_management_app/view/owner_profile_screen/widgets/profile_detailes_card.dart';
-import 'package:hostel_management_app/view/owner_profile_screen/widgets/room_no_card.dart';
+import 'package:hostel_management_app/view/profile_screen/profile_editing_screen.dart';
+import 'package:hostel_management_app/view/profile_screen/widgets/confirm_delete_dialog.dart';
+import 'package:hostel_management_app/view/profile_screen/widgets/confirm_logout_dialog.dart';
+import 'package:hostel_management_app/view/profile_screen/widgets/profile_detailes_card.dart';
+import 'package:hostel_management_app/view/profile_screen/widgets/room_no_card.dart';
 import 'package:provider/provider.dart';
 
-class OwnerProfileScreen extends StatelessWidget {
-  const OwnerProfileScreen({super.key});
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,6 @@ class OwnerProfileScreen extends StatelessWidget {
             elevation: 10,
             itemBuilder: (context) {
               return [
-                // In this case, we need 5 popupmenuItems one for each option.
                 PopupMenuItem(
                     child: const Text('Edit'),
                     onTap: () {
@@ -76,7 +75,6 @@ class OwnerProfileScreen extends StatelessWidget {
                     );
                   },
                 ),
-
                 PopupMenuItem(
                   child: Row(
                     children: [
@@ -132,10 +130,13 @@ class OwnerProfileScreen extends StatelessWidget {
                                 imageUrl: controller.user!.profilePictuer,
                                 fit: BoxFit.cover,
                                 errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
+                                    const Icon(Icons.error),
                                 progressIndicatorBuilder:
-                                    (context, url, progress) => ShimmerEffect(
-                                        height: 110, width: 110, radius: 100),
+                                    (context, url, progress) =>
+                                        const ShimmerEffect(
+                                            height: 110,
+                                            width: 110,
+                                            radius: 100),
                               )
                             : Image.asset(ImageConstants.profileImage),
                       ),
@@ -148,7 +149,7 @@ class OwnerProfileScreen extends StatelessWidget {
                     Provider.of<UserController>(context, listen: false)
                         .uploadUserProfilePicture(context);
                   },
-                  child: Text("Change Profile Pic")),
+                  child: const Text("Change Profile Pic")),
               ProfileDetailesCard(
                 title: "",
                 data: controller.user!.hostelName,

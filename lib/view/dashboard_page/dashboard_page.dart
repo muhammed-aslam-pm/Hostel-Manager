@@ -11,32 +11,30 @@ import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/all_pending_payments_screen/pending_payments_screen.dart';
 import 'package:hostel_management_app/view/booked_resident_detailes_screen/booked_resident_detailes_screen.dart';
 import 'package:hostel_management_app/view/global_widgets/custom_dropdown_button.dart';
-import 'package:hostel_management_app/view/owner_dashboard_page/widgets/date_card.dart';
-import 'package:hostel_management_app/view/owner_dashboard_page/widgets/going_to_vaccent_card.dart';
-import 'package:hostel_management_app/view/owner_dashboard_page/widgets/pending_payment_card.dart';
-import 'package:hostel_management_app/view/owner_dashboard_page/widgets/rooms_vaccent_card.dart';
-import 'package:hostel_management_app/view/owner_dashboard_page/widgets/upcoming_bookings_card.dart';
-import 'package:hostel_management_app/view/owner_profile_screen/owner_profile_screen.dart';
+import 'package:hostel_management_app/view/dashboard_page/widgets/date_card.dart';
+import 'package:hostel_management_app/view/dashboard_page/widgets/going_to_vaccent_card.dart';
+import 'package:hostel_management_app/view/dashboard_page/widgets/pending_payment_card.dart';
+import 'package:hostel_management_app/view/dashboard_page/widgets/rooms_vaccent_card.dart';
+import 'package:hostel_management_app/view/dashboard_page/widgets/upcoming_bookings_card.dart';
+import 'package:hostel_management_app/view/profile_screen/profile_screen.dart';
 import 'package:hostel_management_app/view/vacant_beds_screen/vacant_beds_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-class OwnerDashBoardPage extends StatefulWidget {
-  const OwnerDashBoardPage({super.key});
+class DashBoardPage extends StatefulWidget {
+  const DashBoardPage({super.key});
 
   @override
-  State<OwnerDashBoardPage> createState() => _OwnerDashBoardPageState();
+  State<DashBoardPage> createState() => _DashBoardPageState();
 }
 
-class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
+class _DashBoardPageState extends State<DashBoardPage> {
   final con = DashboardController();
   @override
   void initState() {
     Provider.of<UserController>(context, listen: false).fetchData();
     Provider.of<BookingsController>(context, listen: false).fetchBookingsData();
     Provider.of<DashboardController>(context, listen: false).fetchData();
-
-    // TODO: implement initState
     super.initState();
   }
 
@@ -75,10 +73,11 @@ class _OwnerDashBoardPageState extends State<OwnerDashBoardPage> {
           InkWell(
             onTap: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const OwnerProfileScreen(),
-                  ));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ProfileScreen(),
+                ),
+              );
             },
             child: Hero(
               tag: "profile",

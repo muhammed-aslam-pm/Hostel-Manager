@@ -27,10 +27,10 @@ class PendingPaymentCard extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => PendingPaymentsScreen(),
+              builder: (context) => const PendingPaymentsScreen(),
             ));
       },
-      child: Container(
+      child: SizedBox(
         height: 106,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -48,7 +48,7 @@ class PendingPaymentCard extends StatelessWidget {
                     size: 26,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Column(
@@ -69,7 +69,7 @@ class PendingPaymentCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Container(
+                    SizedBox(
                       height: 24,
                       width: 60,
                       child: Stack(
@@ -86,7 +86,8 @@ class PendingPaymentCard extends StatelessWidget {
                                 radius: 12,
                                 backgroundImage: AssetImage(profilePhot2),
                               )),
-                          Positioned(right: 0, bottom: 4, child: Text("+2"))
+                          const Positioned(
+                              right: 0, bottom: 4, child: Text("+2"))
                         ],
                       ),
                     )
@@ -105,7 +106,7 @@ class PendingPaymentCard extends StatelessWidget {
                       color: ColorConstants.primaryBlackColor,
                       size: 20,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Text(

@@ -20,7 +20,7 @@ class _VacantBedsScreenState extends State<VacantBedsScreen> {
   void initState() {
     Provider.of<BookingsController>(context, listen: false).fetchBookingsData();
     Provider.of<UserController>(context, listen: false).fetchData();
-    // TODO: implement initState
+
     super.initState();
   }
 
@@ -60,20 +60,20 @@ class _VacantBedsScreenState extends State<VacantBedsScreen> {
                         'Total Beds',
                         style: TextStyleConstants.ownerRoomsText2,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       CircleAvatar(
                         radius: 15,
+                        backgroundColor: ColorConstants.roomsCircleAvatarColor,
                         child: Text(
                           userController.user?.noOfBeds.toString() ?? "",
                           style: TextStyleConstants.ownerRoomsCircleAvtarText,
                         ),
-                        backgroundColor: ColorConstants.roomsCircleAvatarColor,
                       )
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Column(
@@ -82,22 +82,22 @@ class _VacantBedsScreenState extends State<VacantBedsScreen> {
                         ' Beds vaccent',
                         style: TextStyleConstants.ownerRoomsText2,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       CircleAvatar(
                         radius: 15,
+                        backgroundColor: ColorConstants.primaryColor,
                         child: Text(
                           userController.user?.noOfVacancy.toString() ?? "",
                           style: TextStyleConstants.ownerRoomsCircleAvtarText,
                         ),
-                        backgroundColor: ColorConstants.primaryColor,
                       )
                     ],
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               controller.vacantRooms.isNotEmpty

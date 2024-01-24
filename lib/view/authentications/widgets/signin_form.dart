@@ -6,8 +6,8 @@ import 'package:hostel_management_app/view/global_widgets/form_field.dart';
 import 'package:hostel_management_app/view/global_widgets/login_button.dart';
 import 'package:provider/provider.dart';
 
-class signupForm extends StatelessWidget {
-  const signupForm({
+class SignupForm extends StatelessWidget {
+  const SignupForm({
     super.key,
     required this.controller,
   });
@@ -29,7 +29,7 @@ class signupForm extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           formField(
@@ -37,7 +37,7 @@ class signupForm extends StatelessWidget {
             hitText: "Name",
             validator: (p0) => controller.nameValidation(p0),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Row(
@@ -49,7 +49,7 @@ class signupForm extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           formField(
@@ -57,7 +57,7 @@ class signupForm extends StatelessWidget {
             hitText: "Email",
             validator: (p0) => controller.emailValidation(p0!),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Row(
@@ -69,7 +69,7 @@ class signupForm extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           formField(
@@ -87,7 +87,7 @@ class signupForm extends StatelessWidget {
                 )),
             hideText: controller.hidePassword,
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Row(
@@ -99,7 +99,7 @@ class signupForm extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           formField(
@@ -117,7 +117,7 @@ class signupForm extends StatelessWidget {
                 )),
             hideText: controller.hidePassword,
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Center(

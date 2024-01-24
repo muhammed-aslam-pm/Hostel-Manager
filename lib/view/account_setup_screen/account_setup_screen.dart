@@ -25,7 +25,7 @@ class AccountSetupScreen extends StatelessWidget {
                   BoxShadow(
                     color: ColorConstants.primaryBlackColor.withOpacity(0.3),
                     blurRadius: 1,
-                    offset: Offset(0, 2), // Offset for the bottom shadow
+                    offset: const Offset(0, 2), // Offset for the bottom shadow
                   ),
                 ]),
             child: Padding(
@@ -46,11 +46,11 @@ class AccountSetupScreen extends StatelessWidget {
                               fontWeight: FontWeight.w700),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Center(
-                        child: Container(
+                        child: SizedBox(
                           height: 100,
                           width: 100,
                           child: Stack(
@@ -77,21 +77,21 @@ class AccountSetupScreen extends StatelessWidget {
                                   radius: 13,
                                   backgroundColor:
                                       ColorConstants.SecondaryColor5,
-                                  child: Icon(Icons.add),
+                                  child: const Icon(Icons.add),
                                 ),
                               )
                             ],
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Text(
                         "Your Hostel Name",
                         style: TextStyleConstants.dashboardBookingName,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       SizedBox(
@@ -116,14 +116,14 @@ class AccountSetupScreen extends StatelessWidget {
                           cursorColor: ColorConstants.primaryBlackColor,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Text(
                         "Address",
                         style: TextStyleConstants.dashboardBookingName,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       SizedBox(
@@ -149,14 +149,14 @@ class AccountSetupScreen extends StatelessWidget {
                                   color: ColorConstants.primaryBlackColor)),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Text(
                         "Phone no",
                         style: TextStyleConstants.dashboardBookingName,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       SizedBox(
@@ -181,7 +181,7 @@ class AccountSetupScreen extends StatelessWidget {
                           cursorColor: ColorConstants.primaryBlackColor,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Row(
@@ -217,10 +217,10 @@ class AccountSetupScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       LoginButton(

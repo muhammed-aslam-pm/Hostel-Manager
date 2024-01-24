@@ -37,17 +37,18 @@ class PendingPaymentsScreen extends StatelessWidget {
             children: [
               ListView.separated(
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) => PendingPaymentDetailesCard(),
-                  separatorBuilder: (context, index) => Divider(
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) =>
+                      const PendingPaymentDetailesCard(),
+                  separatorBuilder: (context, index) => const Divider(
                         height: 10,
                       ),
                   itemCount: 4),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Container(
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 width: double.infinity,
                 decoration: BoxDecoration(
                     color: ColorConstants.SecondaryColor3,
@@ -68,7 +69,7 @@ class PendingPaymentsScreen extends StatelessWidget {
                               ImageConstants.moneyIcon,
                               color: ColorConstants.primaryBlackColor,
                             )),
-                        SizedBox(
+                        const SizedBox(
                           width: 4,
                         ),
                         Text(

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:hostel_management_app/view/owner_booking_page/owner_bookings_page.dart';
-import 'package:hostel_management_app/view/owner_dashboard_page/owner_dashboard_page.dart';
-import 'package:hostel_management_app/view/owner_residents_page/owner_residents_page.dart';
-import 'package:hostel_management_app/view/owner_rooms_page/owner_rooms_page.dart';
+import 'package:hostel_management_app/view/booking_page/bookings_page.dart';
+import 'package:hostel_management_app/view/dashboard_page/dashboard_page.dart';
+import 'package:hostel_management_app/view/residents_page/residents_page.dart';
+import 'package:hostel_management_app/view/rooms_page/owner_rooms_page.dart';
 
 class OwnerNavBarController with ChangeNotifier {
   int selectedIndex = 0;
   List<Widget> ownerPages = [
-    OwnerDashBoardPage(),
-    OwnerRoomsPage(),
-    OwnerBookingsPage(),
-    OwnerResidentsPage(),
+    const DashBoardPage(),
+    const OwnerRoomsPage(),
+    const BookingsPage(),
+    const ResidentsPage(),
   ];
 
   void onNavTap(index) {

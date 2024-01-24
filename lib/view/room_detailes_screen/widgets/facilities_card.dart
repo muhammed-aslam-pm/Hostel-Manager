@@ -15,7 +15,7 @@ class FacilitiesCard extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
             color: ColorConstants.primaryWhiteColor),
-        padding: EdgeInsets.only(right: 15),
+        padding: const EdgeInsets.only(right: 15),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [

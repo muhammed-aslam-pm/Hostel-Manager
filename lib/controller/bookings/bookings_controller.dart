@@ -33,6 +33,8 @@ class BookingsController with ChangeNotifier {
 
   bool isAdvancePaid = true;
 
+  bool isBookingsLoading = false;
+
   DateTime checkInDate = DateTime.now();
 
   bool isEditing = false;
@@ -62,17 +64,20 @@ class BookingsController with ChangeNotifier {
   //------------------------------------------------------------------- fetch Bookings data
   fetchBookingsData() async {
     try {
+      isBookingsLoading = true;
       print("Fetching Bookings ");
       bookings = await bookingController.fetchData();
       bookings.sort((a, b) => a.checkIn.compareTo(b.checkIn));
-      filterBooking();
-      print("fetching successfull");
+      await filterBooking();
+
+      isBookingsLoading = false;
       notifyListeners();
     } catch (e) {
       print(e.toString());
-      // Add a return statement or rethrow the exception
-
       rethrow; // or return an empty list or handle the error appropriately
+    } finally {
+      isBookingsLoading = false;
+      notifyListeners();
     }
   }
 

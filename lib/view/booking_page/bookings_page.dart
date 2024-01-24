@@ -11,6 +11,7 @@ import 'package:hostel_management_app/view/booking_form/add_booking_screen.dart'
 import 'package:hostel_management_app/view/booking_page/widgets/bookings_card.dart';
 import 'package:hostel_management_app/view/global_widgets/room_card.dart';
 import 'package:hostel_management_app/view/booking_page/widgets/confirm_delete_dialog.dart';
+import 'package:hostel_management_app/view/residents_page/widgets/resident_loading_card.dart';
 import 'package:provider/provider.dart';
 
 class BookingsPage extends StatefulWidget {
@@ -60,61 +61,75 @@ class _BookingsPageState extends State<BookingsPage> {
                 height: controller.bookings.length < 3
                     ? MediaQuery.sizeOf(context).height * 30 / 100
                     : MediaQuery.sizeOf(context).height * 45 / 100,
-                child: controller.bookings.isEmpty
-                    ? const Center(
-                        child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('No available Bookings'),
-                          Icon(Icons.error_outline_outlined),
-                        ],
-                      ))
-                    : ListView.builder(
-                        itemCount: controller.bookings.length,
-                        itemBuilder: (context, index) {
-                          final BookingsModel booking =
-                              controller.bookings[index];
-
-                          return BookingsCard(
-                            name: booking.name,
-                            advance: booking.advancePaid,
-                            date: booking.checkIn,
-                            roomNo: booking.roomNO,
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      BookedResidentDetailesScreen(
-                                    index: index,
+                child: Consumer<BookingsController>(
+                  builder: (context, value, child) => value.bookings.isEmpty
+                      ? const Center(
+                          child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('No available Bookings'),
+                            Icon(Icons.error_outline_outlined),
+                          ],
+                        ))
+                      : value.isBookingsLoading
+                          ? ListView.separated(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return const ResidentsLoadingCard();
+                              },
+                              separatorBuilder: (context, index) => Divider(
+                                    color: ColorConstants.secondaryWhiteColor,
+                                    height: 10,
                                   ),
-                                ),
-                              );
-                            },
-                            onDelete: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) => DeletDialog(
-                                    bookingId: booking.id.toString(),
-                                    roomId: booking.roomId),
-                              );
-                            },
-                            onEdit: () {
-                              Provider.of<BookingsController>(context,
-                                      listen: false)
-                                  .onEdit(booking: booking);
-                              showAdaptiveDialog(
-                                barrierColor: Colors.transparent,
-                                context: context,
-                                builder: (context) => AddBookingScreen(
+                              itemCount: value.bookings.length)
+                          : ListView.builder(
+                              itemCount: value.bookings.length,
+                              itemBuilder: (context, index) {
+                                final BookingsModel booking =
+                                    value.bookings[index];
+
+                                return BookingsCard(
+                                  name: booking.name,
+                                  advance: booking.advancePaid,
+                                  date: booking.checkIn,
                                   roomNo: booking.roomNO,
-                                  roomid: booking.roomId,
-                                ),
-                              );
-                            },
-                          );
-                        },
-                      ),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            BookedResidentDetailesScreen(
+                                          index: index,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  onDelete: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => DeletDialog(
+                                          bookingId: booking.id.toString(),
+                                          roomId: booking.roomId),
+                                    );
+                                  },
+                                  onEdit: () {
+                                    Provider.of<BookingsController>(context,
+                                            listen: false)
+                                        .onEdit(booking: booking);
+                                    showAdaptiveDialog(
+                                      barrierColor: Colors.transparent,
+                                      context: context,
+                                      builder: (context) => AddBookingScreen(
+                                        roomNo: booking.roomNO,
+                                        roomid: booking.roomId,
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                ),
               ),
               const SizedBox(
                 height: 20,

@@ -37,4 +37,21 @@ Configure Firebase for the backend. Update the necessary Firebase configurations
 ## Run the application: 
 flutter run Access the application on your Android device or emulator. 
 ## Usage
-Log in with your administrator credentials. Navigate through the app using the tabs and screens for managing rooms, residents, bookings, and payments. Enjoy the simplicity and efficiency of managing your hostel with the Hostel Management Application! ![Screenshot_1705997705](https://github.com/muhammed-aslam-pm/Hostel-App-Flutter/assets/124497102/08538fe5-df73-4065-9c18-ffdfe6de40d4) ![Screenshot_1705997716](https://github.com/muhammed-aslam-pm/Hostel-App-Flutter/assets/124497102/b618db8![Screenshot_1705997735](https://github.com/muhammed-aslam-pm/Hostel-App-Flutter/assets/12!![Screenshot_1705997747](https://github.com/muhammed-aslam-pm/Hostel-App-Flutter/assets/124497102/e9dfa15d-d22b-41a7-99f2-653b91b776c1) [Screenshot_1705997744](https://github.com/muhammed-aslam-pm/Hostel-App-Flutter/assets/124497102/3a6dccc1-cd3f-4a47-b804-f7e4c7846cae) 4497102/70f04362-a7e1![Screenshot_1705997737](https://github.com/muhammed-aslam-pm/Hostel-App-Flutter/assets/124497102/bc287ec1-9b7c-4df3-8312-9dec21c28895) -41f0-b492-de10ca5889b0) 0-11dc-4b4b-a3f0-01cfbc5942c3)![Screenshot_1705997728](https://github.com/muhammed-aslam-pm/Hostel-App-Flutter/assets/124497102/264dc9b5-be30-4814-bbf7-bbbfbb38eebe) ![Screenshot_1705997721](https://github.com/muhammed-aslam-pm/Hostel-App-Flutter/assets/124497102/621c0b35-6f55-4160-954f-89b79cd00c79)
+Log in with your administrator credentials. Navigate through the app using the tabs and screens for managing rooms, residents, bookings, and payments. Enjoy the simplicity and efficiency of managing your hostel with the Hostel Management Application!
+## Screen shorts
+![Home Page](https://github.com/muhammed-aslam-pm/Hostel-App-Flutter/assets/124497102/7a5692e5-211c-49be-91de-e481f60d2320)
+![Rooms Page](https://github.com/muhammed-aslam-pm/Hostel-App-Flutter/assets/124497102/e9e52935-2e03-4608-98ae-eeeef0beb33d)
+![Room Detailes Page](https://github.com/muhammed-aslam-pm/Hostel-App-Flutter/assets/124497102/b13d0392-dcba-446f-93a9-8b9b8d4b1360)
+![Pending Payments Screen](https://github.com/muhammed-aslam-pm/Hostel-App-Flutter/assets/124497102/2f087d4b-884a-4052-b636-6fd031c0d006)
+![Bookings Page](https://github.com/muhammed-aslam-pm/Hostel-App-Flutter/assets/124497102/e13c9b1e-0568-410e-8d00-24995f7e10dc)
+![Residents Page](https://github.com/muhammed-aslam-pm/Hostel-App-Flutter/assets/124497102/f88c7659-b5d6-44dd-9a47-5b7cf267005d)
+![Resident Profile page](https://github.com/muhammed-aslam-pm/Hostel-App-Flutter/assets/124497102/7854b76e-913d-4bd0-9e83-a12208796027)
+![Resident Adding form](https://github.com/muhammed-aslam-pm/Hostel-App-Flutter/assets/124497102/4da98029-b1b3-41aa-b9c3-b577599d6e2f)
+
+
+
+
+
+
+
+

@@ -24,12 +24,16 @@ Keep track of pending rent payments. Send reminders to residents for overdue pay
 ## Installation
 Ensure you have Flutter installed. If not, follow the instructions on the official Flutter website. 
 ### Clone the repository:
-git clone https://github.com/muhammed-aslam-pm/Hostel-App-Flutter.git 
+```bash
+git clone https://github.com/muhammed-aslam-pm/Hostel-App-Flutter.git
+```
 ### Navigate to the project directory:
- cd hostel-management-flutter 
+```bash
+ cd hostel-management-flutter
+```
 ### Install dependencies: 
-flutter pub get Configure 
-Firebase for the backend. Update the necessary Firebase configurations in the project. 
+```bash flutter pub get ```
+Configure Firebase for the backend. Update the necessary Firebase configurations in the project. 
 ## Run the application: 
 flutter run Access the application on your Android device or emulator. 
 ## Usage

@@ -9,18 +9,12 @@ Welcome to the Hostel Management Application, a Flutter project designed to stre
 ## Introduction 
 Hostel Management Application is a mobile app built with Flutter, providing hostel owners with a powerful tool to manage various aspects of their hostel. The application is backed by Firebase for a scalable and reliable backend, while state management is handled efficiently with the Provider package. 
 ## Features 
-#### Room Management: 
-Create and manage hostel rooms. Assign room numbers, capacities, and availability. 
-#### Rent Management: 
-Set and update rent prices for different room categories. Easily track and manage rent payments. 
-#### Extra Facilities: 
-Manage additional facilities such as WiFi, AC, and more. Associate extra facilities with specific rooms. 
-#### Resident Management: 
-Keep detailed profiles of residents. Assign residents to specific rooms. Update resident information as needed. 
-#### Booking Management: 
-Efficiently handle room bookings. View and manage upcoming reservations. 
-#### Pending Payments:
-Keep track of pending rent payments. Send reminders to residents for overdue payments. User-Friendly Interface: Intuitive dashboard for easy navigation. Responsive design for seamless user experience. 
+- Room Management: Create and manage hostel rooms. Assign room numbers, capacities, and availability. 
+- Rent Management: Set and update rent prices for different room categories. Easily track and manage rent payments. 
+- Extra Facilities: Manage additional facilities such as WiFi, AC, and more. Associate extra facilities with specific rooms. 
+- Resident Management: Keep detailed profiles of residents. Assign residents to specific rooms. Update resident information as needed. 
+- Booking Management: Efficiently handle room bookings. View and manage upcoming reservations. 
+- Pending Payments: Keep track of pending rent payments. Send reminders to residents for overdue payments. User-Friendly Interface: Intuitive dashboard for easy navigation. Responsive design for seamless user experience. 
 ## Installation
 Ensure you have Flutter installed. If not, follow the instructions on the official Flutter website. 
 ### Clone the repository:

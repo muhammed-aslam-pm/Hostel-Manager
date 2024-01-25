@@ -26,7 +26,9 @@ git clone https://github.com/muhammed-aslam-pm/Hostel-App-Flutter.git
  cd hostel-management-flutter
 ```
 ### Install dependencies: 
-```bash flutter pub get ```
+```bash
+flutter pub get
+```
 Configure Firebase for the backend. Update the necessary Firebase configurations in the project. 
 ## Run the application: 
 flutter run Access the application on your Android device or emulator. 

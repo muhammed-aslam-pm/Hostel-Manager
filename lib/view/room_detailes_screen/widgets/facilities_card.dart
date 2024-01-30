@@ -21,7 +21,7 @@ class FacilitiesCard extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 20,
-              backgroundColor: ColorConstants.SecondaryColor5,
+              backgroundColor: ColorConstants.secondaryColor5,
               child: SizedBox(
                   height: 22,
                   width: 22,

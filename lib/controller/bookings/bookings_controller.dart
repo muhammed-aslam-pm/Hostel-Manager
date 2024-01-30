@@ -248,10 +248,8 @@ class BookingsController with ChangeNotifier {
 //------------------------------------------------------------------------- check In date assigning
 
   void setDate(DateTime date) {
-    if (date != null) {
-      checkInDate = date;
-      dateController.text = "${checkInDate.toLocal()}".split(' ')[0];
-    }
+    checkInDate = date;
+    dateController.text = "${checkInDate.toLocal()}".split(' ')[0];
 
     notifyListeners();
   }

@@ -32,7 +32,7 @@ class SignupForm extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          formField(
+          CustomFormField(
             controller: controller.nameController,
             hitText: "Name",
             validator: (p0) => controller.nameValidation(p0),
@@ -52,7 +52,7 @@ class SignupForm extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          formField(
+          CustomFormField(
             controller: controller.emailController,
             hitText: "Email",
             validator: (p0) => controller.emailValidation(p0!),
@@ -72,7 +72,7 @@ class SignupForm extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          formField(
+          CustomFormField(
             controller: controller.passwordController,
             hitText: "password",
             validator: (p0) => controller.passwordValidation(p0),
@@ -102,7 +102,7 @@ class SignupForm extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          formField(
+          CustomFormField(
             controller: controller.confirmPasswordController,
             hitText: "password",
             validator: (p0) => controller.confirmPasswordValidaton(p0),

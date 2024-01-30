@@ -54,7 +54,7 @@ class MaintenanceRequestCard extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 19,
-                    backgroundColor: ColorConstants.SecondaryColor4,
+                    backgroundColor: ColorConstants.secondaryColor4,
                     child: Image.asset(
                       ImageConstants.ownerRoomsIconeDisabled,
                       color: ColorConstants.primaryBlackColor,

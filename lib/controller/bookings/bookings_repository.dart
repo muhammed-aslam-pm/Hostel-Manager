@@ -70,7 +70,7 @@ class BookingRepository with ChangeNotifier {
   //update only room no
 
   Future<void> updateBookingsRoomNo(int oldRoomNo, int newRoomNo) async {
-    final userId = await _auth.currentUser!.uid;
+    final userId = _auth.currentUser!.uid;
 
     try {
       // Query the collection to find all bookings with the oldRoomNo
@@ -100,7 +100,7 @@ class BookingRepository with ChangeNotifier {
 
   Future<void> updadatSingleField(
       {required Map<String, dynamic> json, required String bookingId}) async {
-    final userId = await _auth.currentUser!.uid;
+    final userId = _auth.currentUser!.uid;
     try {
       await _db
           .collection("Owners")

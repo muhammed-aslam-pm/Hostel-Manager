@@ -18,7 +18,7 @@ class NumberCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: ColorConstants.SecondaryColor4),
+          color: ColorConstants.secondaryColor4),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Column(
         children: [

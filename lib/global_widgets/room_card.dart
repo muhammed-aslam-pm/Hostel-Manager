@@ -50,7 +50,7 @@ class RoomsCard extends StatelessWidget {
                     ),
                     Text(
                       roomNumber,
-                      style: TextStyleConstants.OwnerRoomNumber,
+                      style: TextStyleConstants.ownerRoomNumber,
                     )
                   ],
                 ),
@@ -64,7 +64,7 @@ class RoomsCard extends StatelessWidget {
               tag: roomNumber,
               child: CircleAvatar(
                 radius: 15,
-                backgroundColor: ColorConstants.SecondaryColor4,
+                backgroundColor: ColorConstants.secondaryColor4,
                 child: Icon(
                   FluentIcons.conference_room_48_regular,
                   color: ColorConstants.primaryBlackColor,

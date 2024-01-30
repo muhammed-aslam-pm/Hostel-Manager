@@ -15,7 +15,7 @@ class PendingPaymentDetailesCard extends StatelessWidget {
       padding: const EdgeInsets.all(15),
       width: double.infinity,
       decoration: BoxDecoration(
-          color: ColorConstants.SecondaryColor3,
+          color: ColorConstants.secondaryColor3,
           borderRadius: BorderRadius.circular(15)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -24,7 +24,7 @@ class PendingPaymentDetailesCard extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: ColorConstants.SecondaryColor1),
+                color: ColorConstants.secondaryColor1),
             padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
             child: Row(
               mainAxisSize: MainAxisSize.min,

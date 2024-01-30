@@ -39,7 +39,7 @@ class MaintenanceRequestDetailesScreen extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 23,
-                    backgroundColor: ColorConstants.SecondaryColor4,
+                    backgroundColor: ColorConstants.secondaryColor4,
                     child: Image.asset(
                       ImageConstants.ownerRoomsIconeDisabled,
                       color: ColorConstants.primaryBlackColor,
@@ -54,7 +54,7 @@ class MaintenanceRequestDetailesScreen extends StatelessWidget {
                     children: [
                       Text(
                         "Room No 17",
-                        style: TextStyleConstants.OwnerRoomNumber,
+                        style: TextStyleConstants.ownerRoomNumber,
                       ),
                       Row(
                         children: [
@@ -82,7 +82,7 @@ class MaintenanceRequestDetailesScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(15),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    color: ColorConstants.SecondaryColor1,
+                    color: ColorConstants.secondaryColor1,
                     borderRadius: BorderRadius.circular(10)),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -109,7 +109,7 @@ class MaintenanceRequestDetailesScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(15),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    color: ColorConstants.SecondaryColor1,
+                    color: ColorConstants.secondaryColor1,
                     borderRadius: BorderRadius.circular(10)),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -136,7 +136,7 @@ class MaintenanceRequestDetailesScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(15),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    color: ColorConstants.SecondaryColor1,
+                    color: ColorConstants.secondaryColor1,
                     borderRadius: BorderRadius.circular(10)),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,

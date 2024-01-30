@@ -42,7 +42,7 @@ class DashboardController with ChangeNotifier {
         return daysDifference >= 0 && daysDifference < selectedDays;
       }).toList();
 
-      roomsGoingtoVacant = await getVacancyCount(thisWeekVaccating);
+      roomsGoingtoVacant = getVacancyCount(thisWeekVaccating);
       notifyListeners();
     } catch (e) {
       print(e);

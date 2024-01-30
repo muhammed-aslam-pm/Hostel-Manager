@@ -41,7 +41,7 @@ class PendingPaymentCard extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 19,
-                  backgroundColor: ColorConstants.SecondaryColor4,
+                  backgroundColor: ColorConstants.secondaryColor4,
                   child: Icon(
                     FluentIcons.door_28_regular,
                     color: ColorConstants.primaryBlackColor,

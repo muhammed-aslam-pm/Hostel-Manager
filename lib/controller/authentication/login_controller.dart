@@ -1,7 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hostel_management_app/controller/connection_checker/connection_checher.dart';
 import 'package:hostel_management_app/controller/loading/loading_controller.dart';
 import 'package:hostel_management_app/view/account_setup_screen/account_setup_screen.dart';
@@ -49,8 +50,6 @@ class LoginController with ChangeNotifier {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('email', emailController.text.trim());
         prefs.setString('password', passwordController.text.trim());
-        print(prefs.getString('email'));
-        print(prefs.getString('password'));
       }
 
       //Navigate to home page
@@ -63,7 +62,7 @@ class LoginController with ChangeNotifier {
             .doc(credential.user?.uid)
             .get();
         final bool isFirstTime = await userData['AccountSetupcompleted'];
-        print(' id first :$isFirstTime');
+
         if (!isFirstTime) {
           Navigator.pushAndRemoveUntil(
               context,
@@ -80,8 +79,6 @@ class LoginController with ChangeNotifier {
               (route) => false);
         }
       }
-
-      print(credential);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         const ScaffoldMessenger(
@@ -107,7 +104,7 @@ class LoginController with ChangeNotifier {
 //email and password validation
 
   emailValidation(String value) {
-    if (value == null || value.isEmpty) {
+    if (value.isEmpty) {
       return "Email is required.";
     } else if (!RegExp(r"^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$").hasMatch(value)) {
       return "Enter a valid email address.";

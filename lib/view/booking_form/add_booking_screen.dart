@@ -34,7 +34,7 @@ class AddBookingScreen extends StatelessWidget {
           height: double.infinity,
           width: double.infinity,
           decoration: BoxDecoration(
-              color: ColorConstants.SecondaryColor5.withOpacity(0.5),
+              color: ColorConstants.secondaryColor5.withOpacity(0.5),
               borderRadius: BorderRadius.circular(40)),
           padding: const EdgeInsets.all(25),
           child: Scaffold(
@@ -73,11 +73,11 @@ class AddBookingScreen extends StatelessWidget {
                             ),
                             Text(
                               "Room No",
-                              style: TextStyleConstants.OwnerRoomNumber2,
+                              style: TextStyleConstants.ownerRoomNumber2,
                             ),
                             Text(
                               roomNo.toString(),
-                              style: TextStyleConstants.OwnerRoomNumber3,
+                              style: TextStyleConstants.ownerRoomNumber3,
                             ),
                             const SizedBox(
                               height: 20,

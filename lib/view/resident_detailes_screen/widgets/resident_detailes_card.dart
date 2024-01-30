@@ -24,7 +24,7 @@ class DetailesCard extends StatelessWidget {
           padding: const EdgeInsets.all(15),
           width: double.infinity,
           decoration: BoxDecoration(
-              color: ColorConstants.SecondaryColor2.withOpacity(0.1),
+              color: ColorConstants.secondaryColor2.withOpacity(0.1),
               borderRadius: BorderRadius.circular(10)),
           child: Text(
             data,

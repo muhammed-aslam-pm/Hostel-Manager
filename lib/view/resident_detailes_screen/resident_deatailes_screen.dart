@@ -86,7 +86,7 @@ class ResidentDetailesScreen extends StatelessWidget {
                         height: 110,
                         width: 110,
                         decoration: BoxDecoration(
-                          color: ColorConstants.SecondaryColor3,
+                          color: ColorConstants.secondaryColor3,
                           borderRadius: BorderRadius.circular(100),
                         ),
                         child: ClipRRect(
@@ -121,7 +121,7 @@ class ResidentDetailesScreen extends StatelessWidget {
                     Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
-                          color: ColorConstants.SecondaryColor4),
+                          color: ColorConstants.secondaryColor4),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 7, vertical: 4),
                       child: Row(
@@ -173,7 +173,7 @@ class ResidentDetailesScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(10),
                   width: double.infinity,
                   decoration: BoxDecoration(
-                      color: ColorConstants.SecondaryColor2.withOpacity(0.1),
+                      color: ColorConstants.secondaryColor2.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(10)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -214,7 +214,7 @@ class ResidentDetailesScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(10),
                   width: double.infinity,
                   decoration: BoxDecoration(
-                      color: ColorConstants.SecondaryColor2.withOpacity(0.1),
+                      color: ColorConstants.secondaryColor2.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(10)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

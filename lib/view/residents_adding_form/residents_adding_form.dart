@@ -38,7 +38,7 @@ class ResidentsAddingPage extends StatelessWidget {
                           child: Consumer<ResidentsController>(
                             builder: (context, value, child) => CircleAvatar(
                               radius: 50,
-                              backgroundColor: ColorConstants.SecondaryColor4,
+                              backgroundColor: ColorConstants.secondaryColor4,
                               backgroundImage: controller.selectedImage != null
                                   ? FileImage(
                                       File(controller.selectedImage!.path))
@@ -59,7 +59,7 @@ class ResidentsAddingPage extends StatelessWidget {
                         right: 3,
                         child: CircleAvatar(
                           radius: 13,
-                          backgroundColor: ColorConstants.SecondaryColor5,
+                          backgroundColor: ColorConstants.secondaryColor5,
                           child: const Icon(Icons.add),
                         ),
                       )

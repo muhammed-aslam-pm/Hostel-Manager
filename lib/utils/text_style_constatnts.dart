@@ -123,17 +123,17 @@ class TextStyleConstants {
       color: ColorConstants.primaryBlackColor,
       fontWeight: FontWeight.w500);
 
-  static TextStyle OwnerRoomNumber = TextStyle(
+  static TextStyle ownerRoomNumber = TextStyle(
       fontSize: 30,
       color: ColorConstants.primaryBlackColor,
       fontWeight: FontWeight.w800);
 
-  static TextStyle OwnerRoomNumber2 = TextStyle(
+  static TextStyle ownerRoomNumber2 = TextStyle(
       fontSize: 20,
       color: ColorConstants.primaryWhiteColor,
       fontWeight: FontWeight.w600);
 
-  static TextStyle OwnerRoomNumber3 = TextStyle(
+  static TextStyle ownerRoomNumber3 = TextStyle(
       fontSize: 35,
       color: ColorConstants.primaryWhiteColor,
       fontWeight: FontWeight.w800);

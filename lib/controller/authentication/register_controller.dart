@@ -23,8 +23,6 @@ class SignInController with ChangeNotifier {
 
   signin(context) async {
     try {
-      //loading animation
-      print("Sign in started");
       // FullScreenLoader.openLoadinDialog(context);
       final isConnected = await connection.isConnected();
       final authProvider =
@@ -41,12 +39,11 @@ class SignInController with ChangeNotifier {
       print("Error : $errorMessage");
       // FullScreenLoader.stopLoadin(context);
       if (errorMessage == null) {
-        print("uid ${authProvider.userCredential.user?.uid}");
         if (authProvider.userCredential.user?.uid != null) {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => SignUpSuccessfullScree(),
+              builder: (context) => const SignUpSuccessfullScree(),
             ),
           );
         }
@@ -114,12 +111,12 @@ class SignInController with ChangeNotifier {
             .doc(authProvider.userCredentialGoogle.user?.uid)
             .get();
         final bool isFirstTime = await userData['AccountSetupcompleted'];
-        print(' id first :$isFirstTime');
+
         if (!isFirstTime) {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => AccountSetupScreen(),
+                builder: (context) => const AccountSetupScreen(),
               ));
         } else {
           Navigator.push(
@@ -141,7 +138,6 @@ class SignInController with ChangeNotifier {
     } catch (e) {
       return ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('The  provided is too weak.')));
-      print(e);
     }
   }
 
@@ -162,7 +158,7 @@ class SignInController with ChangeNotifier {
   }
 
   emailValidation(String value) {
-    if (value == null || value.isEmpty) {
+    if (value.isEmpty) {
       return "Email is required.";
     } else if (!RegExp(r"^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$").hasMatch(value)) {
       return "Enter a valid email address.";

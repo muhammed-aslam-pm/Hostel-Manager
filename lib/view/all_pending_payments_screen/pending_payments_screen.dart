@@ -51,7 +51,7 @@ class PendingPaymentsScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(15),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    color: ColorConstants.SecondaryColor3,
+                    color: ColorConstants.secondaryColor3,
                     borderRadius: BorderRadius.circular(15)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

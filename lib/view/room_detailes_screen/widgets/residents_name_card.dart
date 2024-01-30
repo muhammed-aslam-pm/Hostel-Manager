@@ -30,7 +30,7 @@ class ResidentsNameCard extends StatelessWidget {
                     height: 60,
                     width: 60,
                     decoration: BoxDecoration(
-                      color: ColorConstants.SecondaryColor3,
+                      color: ColorConstants.secondaryColor3,
                       borderRadius: BorderRadius.circular(100),
                     ),
                     child: ClipRRect(

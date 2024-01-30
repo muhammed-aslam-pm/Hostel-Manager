@@ -142,7 +142,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
                       title: "Paymenys penting",
                       number: dashboardController.rentPendingResidents.length
                           .toString(),
-                      bgColor: ColorConstants.SecondaryColor3,
+                      bgColor: ColorConstants.secondaryColor3,
                       icon: Icon(
                         FluentIcons.conference_room_48_regular,
                         color: ColorConstants.primaryBlackColor,
@@ -215,7 +215,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
                             beadNumber: value.roomsGoingtoVacant[index]
                                     ["Vacancy"]
                                 .toString(),
-                            backgroungColor: ColorConstants.SecondaryColor4),
+                            backgroungColor: ColorConstants.secondaryColor4),
                       ),
                     );
                   } else {
@@ -299,7 +299,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
               ),
               Padding(
                 padding: const EdgeInsets.all(25),
-                child: Container(
+                child: SizedBox(
                   height: 339,
                   child: ListView.separated(
                     itemCount: 10,

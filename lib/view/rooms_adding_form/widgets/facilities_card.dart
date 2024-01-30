@@ -29,14 +29,14 @@ class FacilityCard extends StatelessWidget {
                   width: 2,
                   color: isSelected
                       ? ColorConstants.primaryBlackColor
-                      : ColorConstants.SecondaryColor1)),
+                      : ColorConstants.secondaryColor1)),
           padding: const EdgeInsets.only(right: 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CircleAvatar(
                 radius: 16,
-                backgroundColor: ColorConstants.SecondaryColor5,
+                backgroundColor: ColorConstants.secondaryColor5,
                 child: SizedBox(
                     height: 22,
                     width: 22,

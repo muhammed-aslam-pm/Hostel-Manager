@@ -92,7 +92,7 @@ class BookedResidentDetailesScreen extends StatelessWidget {
                   Center(
                     child: CircleAvatar(
                       radius: 55,
-                      backgroundColor: ColorConstants.SecondaryColor4,
+                      backgroundColor: ColorConstants.secondaryColor4,
                       child: const Icon(
                         Icons.person,
                         size: 50,
@@ -108,7 +108,7 @@ class BookedResidentDetailesScreen extends StatelessWidget {
                       Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
-                            color: ColorConstants.SecondaryColor4),
+                            color: ColorConstants.secondaryColor4),
                         padding: const EdgeInsets.symmetric(
                             horizontal: 7, vertical: 4),
                         child: Row(
@@ -158,7 +158,7 @@ class BookedResidentDetailesScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(15),
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: ColorConstants.SecondaryColor4.withOpacity(0.1),
+                      color: ColorConstants.secondaryColor4.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Text(
@@ -178,7 +178,7 @@ class BookedResidentDetailesScreen extends StatelessWidget {
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: ColorConstants.SecondaryColor4.withOpacity(0.1),
+                      color: ColorConstants.secondaryColor4.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Row(
@@ -206,7 +206,7 @@ class BookedResidentDetailesScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(15),
                     width: double.infinity,
                     decoration: BoxDecoration(
-                        color: ColorConstants.SecondaryColor4.withOpacity(0.1),
+                        color: ColorConstants.secondaryColor4.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(10)),
                     child: Text(
                       DateFormat('dd/MM/yyy').format(detailes.checkIn),

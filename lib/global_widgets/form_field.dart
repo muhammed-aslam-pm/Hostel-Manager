@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 
-class formField extends StatelessWidget {
-  const formField(
+class CustomFormField extends StatelessWidget {
+  const CustomFormField(
       {super.key,
       required this.controller,
       this.hitText,

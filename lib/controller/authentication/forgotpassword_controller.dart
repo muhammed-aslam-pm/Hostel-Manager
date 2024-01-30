@@ -28,7 +28,7 @@ class ForgotPasswordController with ChangeNotifier {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PasswordChangedScreen(),
+            builder: (context) => const PasswordChangedScreen(),
           ));
 
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -40,12 +40,8 @@ class ForgotPasswordController with ChangeNotifier {
     }
   }
 
-  reSendPasswordResetEmail(String email) async {
-    try {} catch (e) {}
-  }
-
   emailValidation(String value) {
-    if (value == null || value.isEmpty) {
+    if (value.isEmpty) {
       return "Email is required.";
     } else if (!RegExp(r"^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$").hasMatch(value)) {
       return "Enter a valid email address.";

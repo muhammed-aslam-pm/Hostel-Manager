@@ -10,7 +10,7 @@ class DateSortingButton extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12.5, vertical: 10),
       decoration: BoxDecoration(
-          color: ColorConstants.SecondaryColor3,
+          color: ColorConstants.secondaryColor3,
           borderRadius: BorderRadius.circular(10)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

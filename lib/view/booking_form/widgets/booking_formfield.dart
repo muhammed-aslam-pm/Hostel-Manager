@@ -11,7 +11,7 @@ class BookingTextField extends StatelessWidget {
 
   final TextEditingController controller;
   final Widget? suffix;
-  final enablde;
+  final bool enablde;
   final Function(String?) validator;
 
   @override

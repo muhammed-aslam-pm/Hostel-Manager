@@ -51,13 +51,13 @@ class OnBoardingController with ChangeNotifier {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => LoginScreen(),
+        builder: (context) => const LoginScreen(),
       ),
     );
   }
 
   autoScroll() async {
-    await Future.delayed(Duration(seconds: 3)).then((value) {
+    await Future.delayed(const Duration(seconds: 3)).then((value) {
       var currntPage = pageController.page;
       pageController.jumpTo(currntPage! + 1);
       notifyListeners();

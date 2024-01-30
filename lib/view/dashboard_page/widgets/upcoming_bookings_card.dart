@@ -49,7 +49,7 @@ class UpcomingBookings extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 18,
-                        backgroundColor: ColorConstants.SecondaryColor3,
+                        backgroundColor: ColorConstants.secondaryColor3,
                         child: Icon(
                           FluentIcons.book_contacts_32_regular,
                           color: ColorConstants.primaryWhiteColor,
@@ -99,7 +99,7 @@ class UpcomingBookings extends StatelessWidget {
                         beadNumber,
                         style: TextStyleConstants.dashboardBookinRoomNo,
                       ),
-                      Text("Bead")
+                      const Text("Bead")
                     ],
                   ),
                   Column(

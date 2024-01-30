@@ -61,7 +61,7 @@ class AccountSetupScreen extends StatelessWidget {
                                   child: CircleAvatar(
                                     radius: 50,
                                     backgroundColor:
-                                        ColorConstants.SecondaryColor4,
+                                        ColorConstants.secondaryColor4,
                                     child: Icon(
                                       Icons.person,
                                       color: ColorConstants.primaryBlackColor,
@@ -76,7 +76,7 @@ class AccountSetupScreen extends StatelessWidget {
                                 child: CircleAvatar(
                                   radius: 13,
                                   backgroundColor:
-                                      ColorConstants.SecondaryColor5,
+                                      ColorConstants.secondaryColor5,
                                   child: const Icon(Icons.add),
                                 ),
                               )

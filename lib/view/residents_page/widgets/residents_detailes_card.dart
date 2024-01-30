@@ -44,7 +44,7 @@ class ResidentsDetailescard extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 20,
-                  backgroundColor: ColorConstants.SecondaryColor4,
+                  backgroundColor: ColorConstants.secondaryColor4,
                   backgroundImage:
                       image.isNotEmpty ? NetworkImage(image) : null,
                   child: image.isEmpty ? const Icon(Icons.person) : null,
@@ -112,7 +112,7 @@ class ResidentsDetailescard extends StatelessWidget {
                 Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: ColorConstants.SecondaryColor4),
+                      color: ColorConstants.secondaryColor4),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
                   child: Row(

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -58,10 +60,9 @@ class ResidentsController with ChangeNotifier {
     try {
       isResidentsLoading = true;
       notifyListeners();
-      print('fetchData');
+
       residents = await residentsRepository.fetchData();
       residents.sort((a, b) => a.roomNo.compareTo(b.roomNo));
-      print(residents);
     } catch (e) {
       print(e.toString());
       rethrow;
@@ -201,8 +202,8 @@ class ResidentsController with ChangeNotifier {
 
       if (editingResidnt!.roomNo == int.parse(selectedRoom!)) {
         await residentsRepository.updateResident(resident);
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Resident detailes Edited successfully")));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text("Resident detailes Edited successfully")));
         refreshpage(context);
       } else {
         try {
@@ -256,7 +257,8 @@ class ResidentsController with ChangeNotifier {
 
           refreshpage(context);
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Resident details edited successfully")),
+            const SnackBar(
+                content: Text("Resident details edited successfully")),
           );
         } catch (e) {
           print(e);
@@ -324,7 +326,7 @@ class ResidentsController with ChangeNotifier {
       await ownerRepository.accountSetup(data);
 
       ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Resident deleted Successfull")));
+          const SnackBar(content: Text("Resident deleted Successfull")));
       refreshpage(context);
     } catch (e) {
       print(e);

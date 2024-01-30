@@ -153,12 +153,12 @@ class _RoomsViewScreenState extends State<RoomsViewScreen> {
                             tag: "roomNo",
                             child: Text(
                               "Room No",
-                              style: TextStyleConstants.OwnerRoomNumber2,
+                              style: TextStyleConstants.ownerRoomNumber2,
                             ),
                           ),
                           Text(
                             widget.roomDetailes.roomNo.toString(),
-                            style: TextStyleConstants.OwnerRoomNumber3,
+                            style: TextStyleConstants.ownerRoomNumber3,
                           ),
                         ],
                       ),
@@ -271,7 +271,7 @@ class _RoomsViewScreenState extends State<RoomsViewScreen> {
                         children: [
                           Text(
                             "Facilities :",
-                            style: TextStyleConstants.OwnerRoomNumber2,
+                            style: TextStyleConstants.ownerRoomNumber2,
                           ),
                         ],
                       ),
@@ -303,7 +303,7 @@ class _RoomsViewScreenState extends State<RoomsViewScreen> {
                         children: [
                           Text(
                             "Residents :",
-                            style: TextStyleConstants.OwnerRoomNumber2,
+                            style: TextStyleConstants.ownerRoomNumber2,
                           ),
                         ],
                       ),

@@ -77,7 +77,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                 .onDotClicked(index),
                         effect: ExpandingDotsEffect(
                           activeDotColor: ColorConstants.primaryColor,
-                          dotColor: ColorConstants.SecondaryColor1,
+                          dotColor: ColorConstants.secondaryColor1,
                           dotHeight: 5,
                           dotWidth: 10.5,
                         ),

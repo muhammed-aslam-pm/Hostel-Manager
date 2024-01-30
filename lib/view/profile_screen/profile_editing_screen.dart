@@ -50,7 +50,7 @@ class _ProfileEdingScreenState extends State<ProfileEdingScreen> {
                 key: controller.profileUpdateFormKey,
                 child: Column(
                   children: [
-                    formField(
+                    CustomFormField(
                       controller: controller.nameController,
                       labelText: 'Name',
                       validator: (p0) {
@@ -59,7 +59,7 @@ class _ProfileEdingScreenState extends State<ProfileEdingScreen> {
                       },
                     ),
                     gap,
-                    formField(
+                    CustomFormField(
                       controller: controller.hostelNameController,
                       labelText: 'Hostel Name',
                       validator: (p0) {
@@ -68,7 +68,7 @@ class _ProfileEdingScreenState extends State<ProfileEdingScreen> {
                       },
                     ),
                     gap,
-                    formField(
+                    CustomFormField(
                       controller: controller.emailController,
                       labelText: 'Email',
                       validator: (p0) {
@@ -77,7 +77,7 @@ class _ProfileEdingScreenState extends State<ProfileEdingScreen> {
                       },
                     ),
                     gap,
-                    formField(
+                    CustomFormField(
                       controller: controller.phoneNoController,
                       labelText: 'Phone No',
                       validator: (p0) {
@@ -105,7 +105,7 @@ class _ProfileEdingScreenState extends State<ProfileEdingScreen> {
                             borderSide: BorderSide(
                                 width: 2, color: ColorConstants.primaryColor),
                           ),
-                          label: Text("Address"),
+                          label: const Text("Address"),
                           hintStyle: TextStyle(
                               fontSize: 15,
                               color: ColorConstants.colorGrey,
@@ -114,7 +114,7 @@ class _ProfileEdingScreenState extends State<ProfileEdingScreen> {
                       ),
                     ),
                     gap,
-                    formField(
+                    CustomFormField(
                       controller: controller.roonNoController,
                       labelText: 'No of Rooms',
                       validator: (p0) {
@@ -134,7 +134,7 @@ class _ProfileEdingScreenState extends State<ProfileEdingScreen> {
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: ColorConstants.SecondaryColor2,
+                              color: ColorConstants.secondaryColor2,
                             ),
                             height: 50,
                             width: 150,

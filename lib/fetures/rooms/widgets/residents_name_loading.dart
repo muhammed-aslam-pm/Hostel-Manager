@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/commens/widgets/shimmer_loader.dart';
 
 class ResidentsNameLoading extends StatelessWidget {
@@ -9,8 +8,8 @@ class ResidentsNameLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          color: ColorConstants.primaryWhiteColor),
+        borderRadius: BorderRadius.circular(30),
+      ),
       padding: const EdgeInsets.only(right: 10),
       child: const Row(
         children: [
@@ -18,7 +17,7 @@ class ResidentsNameLoading extends StatelessWidget {
           SizedBox(
             width: 15,
           ),
-          ShimmerEffect(height: 30, width: 150, radius: 10)
+          ShimmerEffect(height: 30, width: 200, radius: 10)
         ],
       ),
     );

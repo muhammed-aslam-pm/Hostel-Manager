@@ -19,6 +19,12 @@ class RoomsController with ChangeNotifier {
     {"Facility": "Washingmachine", "Image": ImageConstants.washingMachineIcon},
     {"Facility": "Attached Bathroom", "Image": ImageConstants.bathroomIcon},
   ];
+  List<String> filters = [
+    "All Rooms",
+    "Vacant Rooms",
+    "Filled Rooms",
+  ];
+  String selctedFilter = "All Rooms";
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final roomNoController = TextEditingController();
@@ -39,9 +45,10 @@ class RoomsController with ChangeNotifier {
   String? editingRoomId;
   bool isEditing = false;
   bool isResidentLoading = false;
+  List<RoomModel> allRooms = [];
   List<RoomModel> rooms = [];
   List<int> facilities = [];
-  List<ResidentModel>? residents;
+  List<ResidentModel>? residents = [];
   bool isRoomsLoading = false;
 
   bool acSelected = false;
@@ -49,13 +56,14 @@ class RoomsController with ChangeNotifier {
   bool abSelected = false;
   bool wfSelected = false;
 
-// fetch room data
+//-------------------------------------------------------------------------------fetch room data
   fetchRoomsData() async {
     try {
       isRoomsLoading = true;
       notifyListeners();
-      rooms = await controller.fetchData();
-      rooms.sort((a, b) => a.roomNo.compareTo(b.roomNo));
+      allRooms = await controller.fetchData();
+      allRooms.sort((a, b) => a.roomNo.compareTo(b.roomNo));
+      rooms = allRooms;
       isRoomsLoading = false;
       notifyListeners();
     } catch (e) {
@@ -68,7 +76,7 @@ class RoomsController with ChangeNotifier {
     }
   }
 
-// fetch single room
+//------------------------------------------------------------------------------fetch single room
   Future<RoomModel?> fetchRoom(int roomNo) async {
     try {
       return await controller.getRoomByRoomNo(roomNo);
@@ -77,28 +85,26 @@ class RoomsController with ChangeNotifier {
     }
   }
 
-// fetchResidents
+//------------------------------------------------------------------------------fetchResidents
   fetchResidents(List<String> residentIds) async {
     try {
-      isEditing = true;
-      notifyListeners();
+      isResidentLoading = true;
+
       residents = await residentsRepository.fetchResidentsByIds(residentIds);
-      isEditing = false;
-      notifyListeners();
     } catch (e) {
       print(e);
     } finally {
-      isEditing = false;
+      isResidentLoading = false;
       notifyListeners();
     }
   }
 
-//clear residents
+//------------------------------------------------------------------------------clear residents
   clearResidents() {
     residents!.clear();
   }
 
-// add new room
+//----------------------------------------------------------------------------- add new room
   addRoom(
       {required BuildContext context,
       required int currentCapacity,
@@ -186,7 +192,7 @@ class RoomsController with ChangeNotifier {
     }
   }
 
-// Delete a room
+//----------------------------------------------------------------------------- Delete a room
 
   deleteRoom(
       {required BuildContext context,
@@ -222,7 +228,7 @@ class RoomsController with ChangeNotifier {
     }
   }
 
-  //Edit a room
+  //----------------------------------------------------------------------------Edit a room
 
   editRoom(BuildContext context) async {
     try {
@@ -317,7 +323,7 @@ class RoomsController with ChangeNotifier {
     }
   }
 
-  //edit tap
+  //----------------------------------------------------------------------------edit tap
   onEditTap({
     required RoomModel room,
   }) {
@@ -349,7 +355,7 @@ class RoomsController with ChangeNotifier {
 
     print(isEditing);
   }
-//cancel button
+//------------------------------------------------------------------------------cancel button
 
   cancel(BuildContext context) {
     roomNoController.clear();
@@ -401,5 +407,21 @@ class RoomsController with ChangeNotifier {
     } else {
       return null;
     }
+  }
+
+  //----------------------------------------------------------------------------filter Rooms
+
+  selectFilter(filter) async {
+    isResidentLoading = true;
+    selctedFilter = filter;
+    if (selctedFilter == "All Rooms") {
+      rooms = allRooms;
+    } else if (selctedFilter == "Vacant Rooms") {
+      rooms = allRooms.where((room) => room.vacancy > 0).toList();
+    } else if (selctedFilter == "Filled Rooms") {
+      rooms = allRooms.where((room) => room.vacancy == 0).toList();
+    }
+    isResidentLoading = false;
+    notifyListeners();
   }
 }

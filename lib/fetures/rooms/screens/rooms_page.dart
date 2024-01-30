@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hostel_management_app/commens/widgets/custom_dropdown_button.dart';
 import 'package:hostel_management_app/fetures/rooms/controllers/rooms_controller.dart';
 import 'package:hostel_management_app/fetures/profile/controllers/user_controller.dart';
 import 'package:hostel_management_app/fetures/rooms/widgets/rooms_loading_card.dart';
@@ -51,8 +52,13 @@ class _OwnerRoomsPageState extends State<OwnerRoomsPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const DateSortingButton(
-                    title: "Floor 1",
+                  Consumer<RoomsController>(
+                    builder: (context, value, child) => CustomDropdownButton(
+                        selectedValue: value.selctedFilter,
+                        items: value.filters,
+                        onChanged: (p0) => value.selectFilter(p0),
+                        height: 50,
+                        width: 140),
                   ),
                   Row(
                     children: [

@@ -74,7 +74,7 @@ class ResidentsAddingPage extends StatelessWidget {
                 children: [
                   const Text("Room no :"),
                   Consumer<ResidentsController>(
-                    builder: (context, value, child) => CustomDropdownButton1(
+                    builder: (context, value, child) => CustomDropdownButton(
                         selectedValue: controller.selectedRoom!,
                         items: controller.vacantRoomNoList,
                         onChanged: (p0) => controller.selectRoom(p0),

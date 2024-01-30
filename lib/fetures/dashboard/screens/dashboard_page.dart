@@ -175,7 +175,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
                 child: Row(
                   children: [
                     Consumer<DashboardController>(
-                      builder: (context, value, child) => CustomDropdownButton1(
+                      builder: (context, value, child) => CustomDropdownButton(
                           selectedValue: value.selectedValue,
                           items: value.sortingItems,
                           onChanged: (p0) => value.selectFilter(p0),

@@ -2,8 +2,8 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 
-class CustomDropdownButton1 extends StatelessWidget {
-  const CustomDropdownButton1({
+class CustomDropdownButton extends StatelessWidget {
+  const CustomDropdownButton({
     super.key,
     required this.selectedValue,
     required this.items,
@@ -61,7 +61,7 @@ class CustomDropdownButton1 extends StatelessWidget {
           padding: const EdgeInsets.only(left: 14, right: 14),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: ColorConstants.primaryColor,
+            color: ColorConstants.secondaryColor2,
           ),
         ),
         iconStyleData: IconStyleData(
@@ -79,7 +79,7 @@ class CustomDropdownButton1 extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius:
                   const BorderRadius.vertical(bottom: Radius.circular(10)),
-              color: ColorConstants.primaryColor,
+              color: ColorConstants.secondaryColor2,
             ),
             scrollbarTheme: ScrollbarThemeData(
               radius: const Radius.circular(40),

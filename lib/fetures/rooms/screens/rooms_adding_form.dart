@@ -146,12 +146,12 @@ class RoomsAddingForm extends StatelessWidget {
                   facility: "AC",
                   onTap: () => controller.onSelect(0),
                   image: ImageConstants.ACIcon,
-                  isSelected: roomController.ACselected,
+                  isSelected: roomController.acSelected,
                 ),
                 FacilityCard(
                     facility: "Washing Machine",
                     onTap: () => controller.onSelect(2),
-                    isSelected: roomController.WMselected,
+                    isSelected: roomController.wmSelected,
                     image: ImageConstants.washingMachineIcon),
               ],
             ),
@@ -161,12 +161,12 @@ class RoomsAddingForm extends StatelessWidget {
             Row(
               children: [
                 FacilityCard(
-                    isSelected: roomController.ABselected,
+                    isSelected: roomController.abSelected,
                     facility: "Attached Bathroom",
                     onTap: () => controller.onSelect(3),
                     image: ImageConstants.bathroomIcon),
                 FacilityCard(
-                    isSelected: roomController.WFselected,
+                    isSelected: roomController.wfSelected,
                     facility: "WiFi",
                     onTap: () => controller.onSelect(1),
                     image: ImageConstants.wifiIcon),

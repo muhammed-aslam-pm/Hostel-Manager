@@ -26,18 +26,11 @@ class RoomsController with ChangeNotifier {
   final rentController = TextEditingController();
 
   final RoomsRepository controller = RoomsRepository();
-
   final ConnectionChecker connection = ConnectionChecker();
-
   final UserController userController = UserController();
-
   final OwnerRepository userRepoController = OwnerRepository();
-
   final ResidentsRepository residentsRepository = ResidentsRepository();
-
   final BookingRepository bookingRepository = BookingRepository();
-
-  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   int? oldRoomCapacity;
   int? oldRoomVacancy;
@@ -49,22 +42,29 @@ class RoomsController with ChangeNotifier {
   List<RoomModel> rooms = [];
   List<int> facilities = [];
   List<ResidentModel>? residents;
+  bool isRoomsLoading = false;
 
-  bool ACselected = false;
-  bool WMselected = false;
-  bool ABselected = false;
-  bool WFselected = false;
+  bool acSelected = false;
+  bool wmSelected = false;
+  bool abSelected = false;
+  bool wfSelected = false;
 
 // fetch room data
   fetchRoomsData() async {
     try {
+      isRoomsLoading = true;
+      notifyListeners();
       rooms = await controller.fetchData();
       rooms.sort((a, b) => a.roomNo.compareTo(b.roomNo));
+      isRoomsLoading = false;
       notifyListeners();
     } catch (e) {
       print(e.toString());
       // Add a return statement or rethrow the exception
       rethrow; // or return an empty list or handle the error appropriately
+    } finally {
+      isRoomsLoading = false;
+      notifyListeners();
     }
   }
 
@@ -127,10 +127,10 @@ class RoomsController with ChangeNotifier {
         capacityController.clear();
         rentController.clear();
         facilities = [];
-        ACselected = false;
-        WMselected = false;
-        ABselected = false;
-        WFselected = false;
+        acSelected = false;
+        wmSelected = false;
+        abSelected = false;
+        wfSelected = false;
         notifyListeners();
         return;
       }
@@ -142,16 +142,16 @@ class RoomsController with ChangeNotifier {
       await userRepoController
           .accountSetup({"NoOfBeds": noOfBeds, "NoOfVacancy": noOfVacancy});
 
-      if (ACselected) {
+      if (acSelected) {
         facilities.add(0);
       }
-      if (WFselected) {
+      if (wfSelected) {
         facilities.add(1);
       }
-      if (WMselected) {
+      if (wmSelected) {
         facilities.add(2);
       }
-      if (ABselected) {
+      if (abSelected) {
         facilities.add(3);
       }
 
@@ -171,10 +171,10 @@ class RoomsController with ChangeNotifier {
       capacityController.clear();
       rentController.clear();
       facilities = [];
-      ACselected = false;
-      WMselected = false;
-      ABselected = false;
-      WFselected = false;
+      acSelected = false;
+      wmSelected = false;
+      abSelected = false;
+      wfSelected = false;
       notifyListeners();
       fetchRoomsData();
       userController.fetchData();
@@ -251,16 +251,16 @@ class RoomsController with ChangeNotifier {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text("Network error")));
       }
-      if (ACselected) {
+      if (acSelected) {
         facilities.add(0);
       }
-      if (WFselected) {
+      if (wfSelected) {
         facilities.add(1);
       }
-      if (WMselected) {
+      if (wmSelected) {
         facilities.add(2);
       }
-      if (ABselected) {
+      if (abSelected) {
         facilities.add(3);
       }
       final roomVacancy =
@@ -305,10 +305,10 @@ class RoomsController with ChangeNotifier {
       roomNoController.clear();
       rentController.clear();
       capacityController.clear();
-      ACselected = false;
-      WFselected = false;
-      WMselected = false;
-      ABselected = false;
+      acSelected = false;
+      wfSelected = false;
+      wmSelected = false;
+      abSelected = false;
       isEditing = false;
       notifyListeners();
       userController.fetchData();
@@ -333,16 +333,16 @@ class RoomsController with ChangeNotifier {
     notifyListeners();
 
     if (room.facilities.contains(0)) {
-      ACselected = true;
+      acSelected = true;
     }
     if (room.facilities.contains(1)) {
-      WFselected = true;
+      wfSelected = true;
     }
     if (room.facilities.contains(2)) {
-      WMselected = true;
+      wmSelected = true;
     }
     if (room.facilities.contains(3)) {
-      ABselected = true;
+      abSelected = true;
     }
 
     notifyListeners();
@@ -356,10 +356,10 @@ class RoomsController with ChangeNotifier {
     capacityController.clear();
     rentController.clear();
     facilities = [];
-    ACselected = false;
-    WMselected = false;
-    ABselected = false;
-    WFselected = false;
+    acSelected = false;
+    wmSelected = false;
+    abSelected = false;
+    wfSelected = false;
     notifyListeners();
     Navigator.pop(context);
   }
@@ -368,27 +368,27 @@ class RoomsController with ChangeNotifier {
     switch (num) {
       case 0:
         {
-          ACselected = !ACselected;
+          acSelected = !acSelected;
           notifyListeners();
         }
         break;
       case 1:
         {
-          WFselected = !WFselected;
+          wfSelected = !wfSelected;
           notifyListeners();
         }
         break;
 
       case 2:
         {
-          WMselected = !WMselected;
+          wmSelected = !wmSelected;
           notifyListeners();
         }
         break;
 
       case 3:
         {
-          ABselected = !ABselected;
+          abSelected = !abSelected;
           notifyListeners();
         }
         break;

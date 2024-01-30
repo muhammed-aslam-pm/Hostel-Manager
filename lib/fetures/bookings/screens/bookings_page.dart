@@ -82,7 +82,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                     color: ColorConstants.secondaryWhiteColor,
                                     height: 10,
                                   ),
-                              itemCount: value.bookings.length)
+                              itemCount: 3)
                           : ListView.builder(
                               itemCount: value.bookings.length,
                               itemBuilder: (context, index) {

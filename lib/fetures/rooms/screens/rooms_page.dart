@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/fetures/rooms/controllers/rooms_controller.dart';
 import 'package:hostel_management_app/fetures/profile/controllers/user_controller.dart';
+import 'package:hostel_management_app/fetures/rooms/widgets/rooms_loading_card.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/commens/widgets/date_sorting_button.dart';
@@ -108,31 +109,47 @@ class _OwnerRoomsPageState extends State<OwnerRoomsPage> {
             const SizedBox(
               height: 30,
             ),
-            Expanded(
-              child: GridView.builder(
-                itemCount: controller.rooms.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 5,
-                  mainAxisSpacing: 25,
-                  mainAxisExtent: 95,
-                ),
-                itemBuilder: (context, index) {
-                  final room = controller.rooms[index];
+            Consumer<RoomsController>(
+              builder: (context, value, child) => Expanded(
+                child: controller.isRoomsLoading
+                    ? GridView.builder(
+                        itemCount: 15,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          crossAxisSpacing: 5,
+                          mainAxisSpacing: 25,
+                          mainAxisExtent: 95,
+                        ),
+                        itemBuilder: (context, index) =>
+                            const RoomsLoadingCard(),
+                      )
+                    : GridView.builder(
+                        itemCount: controller.rooms.length,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          crossAxisSpacing: 5,
+                          mainAxisSpacing: 25,
+                          mainAxisExtent: 95,
+                        ),
+                        itemBuilder: (context, index) {
+                          final room = controller.rooms[index];
 
-                  return RoomsCard(
-                    roomNumber: room.roomNo.toString(),
-                    vaccentBedNumber: room.vacancy.toString(),
-                    onTap: () {
-                      showAdaptiveDialog(
-                          context: context,
-                          builder: (context) => RoomsViewScreen(
-                                roomDetailes: room,
-                              ),
-                          barrierColor: Colors.transparent);
-                    },
-                  );
-                },
+                          return RoomsCard(
+                            roomNumber: room.roomNo.toString(),
+                            vaccentBedNumber: room.vacancy.toString(),
+                            onTap: () {
+                              showAdaptiveDialog(
+                                  context: context,
+                                  builder: (context) => RoomsViewScreen(
+                                        roomDetailes: room,
+                                      ),
+                                  barrierColor: Colors.transparent);
+                            },
+                          );
+                        },
+                      ),
               ),
             ),
           ],

@@ -41,8 +41,8 @@ class RoomsCard extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    height: 18,
+                  const SizedBox(
+                    height: 17,
                   ),
                   Text(
                     "Room No",

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/account_setup_screen_controller/account_setup_screen_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
-import 'package:hostel_management_app/view/global_widgets/login_button.dart';
+import 'package:hostel_management_app/global_widgets/login_button.dart';
 import 'package:provider/provider.dart';
 
 class AccountSetupScreen extends StatelessWidget {

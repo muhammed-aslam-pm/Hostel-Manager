@@ -3,7 +3,7 @@ import 'package:hostel_management_app/controller/residents/residents_controller.
 import 'package:hostel_management_app/model/resident_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
-import 'package:hostel_management_app/view/global_widgets/date_sorting_button.dart';
+import 'package:hostel_management_app/global_widgets/date_sorting_button.dart';
 import 'package:hostel_management_app/view/residents_page/widgets/resident_loading_card.dart';
 import 'package:hostel_management_app/view/resident_detailes_screen/resident_deatailes_screen.dart';
 import 'package:hostel_management_app/view/residents_adding_form/residents_adding_form.dart';

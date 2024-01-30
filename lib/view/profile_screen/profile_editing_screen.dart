@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/users/user_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
-import 'package:hostel_management_app/view/global_widgets/form_field.dart';
+import 'package:hostel_management_app/global_widgets/form_field.dart';
 import 'package:provider/provider.dart';
 
 class ProfileEdingScreen extends StatefulWidget {

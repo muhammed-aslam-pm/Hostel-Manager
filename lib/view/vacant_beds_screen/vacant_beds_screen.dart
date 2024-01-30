@@ -4,7 +4,7 @@ import 'package:hostel_management_app/controller/users/user_controller.dart';
 import 'package:hostel_management_app/model/room_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
-import 'package:hostel_management_app/view/global_widgets/room_card.dart';
+import 'package:hostel_management_app/global_widgets/room_card.dart';
 import 'package:hostel_management_app/view/room_detailes_screen/room_detailes_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +18,7 @@ class VacantBedsScreen extends StatefulWidget {
 class _VacantBedsScreenState extends State<VacantBedsScreen> {
   @override
   void initState() {
-    Provider.of<BookingsController>(context, listen: false).fetchBookingsData();
+    Provider.of<BookingsController>(context, listen: false).fetchVacantRooms();
     Provider.of<UserController>(context, listen: false).fetchData();
 
     super.initState();

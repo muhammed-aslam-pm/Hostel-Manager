@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
-import 'package:hostel_management_app/view/global_widgets/shimmer_loader.dart';
+import 'package:hostel_management_app/global_widgets/shimmer_loader.dart';
 
 class ResidentsNameCard extends StatelessWidget {
   const ResidentsNameCard(

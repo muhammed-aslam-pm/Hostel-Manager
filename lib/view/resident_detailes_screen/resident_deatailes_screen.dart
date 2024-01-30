@@ -5,7 +5,7 @@ import 'package:hostel_management_app/model/resident_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
-import 'package:hostel_management_app/view/global_widgets/shimmer_loader.dart';
+import 'package:hostel_management_app/global_widgets/shimmer_loader.dart';
 import 'package:hostel_management_app/view/resident_detailes_screen/widgets/confirm_delete_dialog.dart';
 import 'package:hostel_management_app/view/resident_detailes_screen/widgets/resident_detailes_card.dart';
 import 'package:intl/intl.dart';

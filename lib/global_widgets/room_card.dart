@@ -60,13 +60,16 @@ class RoomsCard extends StatelessWidget {
           Positioned(
             top: 5,
             left: 30,
-            child: CircleAvatar(
-              radius: 15,
-              backgroundColor: ColorConstants.SecondaryColor4,
-              child: Icon(
-                FluentIcons.conference_room_48_regular,
-                color: ColorConstants.primaryBlackColor,
-                size: 27,
+            child: Hero(
+              tag: roomNumber,
+              child: CircleAvatar(
+                radius: 15,
+                backgroundColor: ColorConstants.SecondaryColor4,
+                child: Icon(
+                  FluentIcons.conference_room_48_regular,
+                  color: ColorConstants.primaryBlackColor,
+                  size: 27,
+                ),
               ),
             ),
           ),

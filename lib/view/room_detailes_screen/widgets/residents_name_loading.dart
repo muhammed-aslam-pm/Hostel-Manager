@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
-import 'package:hostel_management_app/view/global_widgets/shimmer_loader.dart';
+import 'package:hostel_management_app/global_widgets/shimmer_loader.dart';
 
 class ResidentsNameLoading extends StatelessWidget {
   const ResidentsNameLoading({super.key});

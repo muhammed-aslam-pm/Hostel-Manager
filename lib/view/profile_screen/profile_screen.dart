@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/users/user_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
-import 'package:hostel_management_app/view/global_widgets/shimmer_loader.dart';
+import 'package:hostel_management_app/global_widgets/shimmer_loader.dart';
 import 'package:hostel_management_app/view/profile_screen/profile_editing_screen.dart';
 import 'package:hostel_management_app/view/profile_screen/widgets/confirm_delete_dialog.dart';
 import 'package:hostel_management_app/view/profile_screen/widgets/confirm_logout_dialog.dart';

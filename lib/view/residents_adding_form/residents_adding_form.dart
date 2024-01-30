@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hostel_management_app/controller/residents/residents_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
-import 'package:hostel_management_app/view/global_widgets/custom_dropdown_button.dart';
+import 'package:hostel_management_app/global_widgets/custom_dropdown_button.dart';
 import 'package:hostel_management_app/view/residents_adding_form/widgets/custom_formfield.dart';
 import 'package:provider/provider.dart';
 

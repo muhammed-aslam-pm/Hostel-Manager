@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -65,6 +67,7 @@ class AuthenticationRepository extends ChangeNotifier {
           accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
       final userCredentialGoogle = await _auth.signInWithCredential(credential);
 
+      // ignore: unnecessary_null_comparison
       if (userCredentialGoogle != null) {
         final userId = userCredentialGoogle.user!.uid;
         final DocumentSnapshot userData =

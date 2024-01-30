@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
-import 'package:hostel_management_app/view/global_widgets/login_button.dart';
+import 'package:hostel_management_app/global_widgets/login_button.dart';
 import 'package:hostel_management_app/view/authentications/create_new_password_screen.dart';
 
 class OTPVerivicationScreen extends StatelessWidget {

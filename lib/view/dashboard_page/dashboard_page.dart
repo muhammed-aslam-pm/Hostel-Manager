@@ -10,7 +10,7 @@ import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/all_pending_payments_screen/pending_payments_screen.dart';
 import 'package:hostel_management_app/view/booked_resident_detailes_screen/booked_resident_detailes_screen.dart';
-import 'package:hostel_management_app/view/global_widgets/custom_dropdown_button.dart';
+import 'package:hostel_management_app/global_widgets/custom_dropdown_button.dart';
 import 'package:hostel_management_app/view/dashboard_page/widgets/date_card.dart';
 import 'package:hostel_management_app/view/dashboard_page/widgets/going_to_vaccent_card.dart';
 import 'package:hostel_management_app/view/dashboard_page/widgets/pending_payment_card.dart';

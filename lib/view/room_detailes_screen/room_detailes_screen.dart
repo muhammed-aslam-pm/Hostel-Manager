@@ -138,7 +138,7 @@ class _RoomsViewScreenState extends State<RoomsViewScreen> {
                       Column(
                         children: [
                           Hero(
-                            tag: "room",
+                            tag: widget.roomDetailes.roomNo.toString(),
                             child: CircleAvatar(
                                 radius: 25,
                                 backgroundColor:

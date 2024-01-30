@@ -3,7 +3,7 @@ import 'package:hostel_management_app/controller/authentication/login_controller
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/view/authentications/fogot_password_screen.dart';
-import 'package:hostel_management_app/view/global_widgets/login_button.dart';
+import 'package:hostel_management_app/global_widgets/login_button.dart';
 import 'package:provider/provider.dart';
 
 class LoginForm extends StatelessWidget {

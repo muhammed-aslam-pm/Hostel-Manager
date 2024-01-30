@@ -36,12 +36,15 @@ class BookingsCard extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CircleAvatar(
-                  radius: 20,
-                  backgroundColor: ColorConstants.secondaryColor4,
-                  child: Icon(
-                    Icons.person,
-                    color: ColorConstants.primaryWhiteColor,
+                Hero(
+                  tag: name,
+                  child: CircleAvatar(
+                    radius: 20,
+                    backgroundColor: ColorConstants.secondaryColor4,
+                    child: Icon(
+                      Icons.person,
+                      color: ColorConstants.primaryWhiteColor,
+                    ),
                   ),
                 ),
                 const SizedBox(

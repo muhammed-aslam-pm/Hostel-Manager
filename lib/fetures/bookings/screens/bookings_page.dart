@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hostel_management_app/commens/widgets/custom_dropdown_button.dart';
 import 'package:hostel_management_app/fetures/bookings/controllers/bookings_controller.dart';
 import 'package:hostel_management_app/fetures/profile/controllers/user_controller.dart';
 import 'package:hostel_management_app/fetures/bookings/models/booking_model.dart';
 import 'package:hostel_management_app/fetures/rooms/models/room_model.dart';
+import 'package:hostel_management_app/fetures/rooms/widgets/rooms_loading_card.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/fetures/bookings/screens/booked_resident_detailes_screen.dart';
@@ -50,9 +52,17 @@ class _BookingsPageState extends State<BookingsPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.end,
-                children: [DateSortingButton(title: "This Week")],
+                children: [
+                  Consumer<BookingsController>(
+                      builder: (context, value, child) => CustomDropdownButton(
+                          selectedValue: value.selectedFilter,
+                          items: value.filters,
+                          onChanged: (p0) => value.selectFilter(p0),
+                          height: 50,
+                          width: 150))
+                ],
               ),
               const SizedBox(
                 height: 20,
@@ -165,40 +175,60 @@ class _BookingsPageState extends State<BookingsPage> {
               const SizedBox(
                 height: 20,
               ),
-              controller.vacantRooms.isNotEmpty
-                  ? GridView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: const EdgeInsets.only(bottom: 10, left: 10),
-                      itemCount: controller.vacantRooms.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        crossAxisSpacing: 0,
-                        mainAxisSpacing: 20,
-                        mainAxisExtent: 90,
+              Consumer<BookingsController>(
+                builder: (context, value, child) => value.vacantRooms.isNotEmpty
+                    ? value.isRoomsLoading
+                        ? GridView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            padding:
+                                const EdgeInsets.only(bottom: 10, left: 10),
+                            itemCount: controller.vacantRooms.length,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              crossAxisSpacing: 0,
+                              mainAxisSpacing: 20,
+                              mainAxisExtent: 90,
+                            ),
+                            itemBuilder: (context, index) =>
+                                const RoomsLoadingCard())
+                        : GridView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            padding:
+                                const EdgeInsets.only(bottom: 10, left: 10),
+                            itemCount: controller.vacantRooms.length,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              crossAxisSpacing: 0,
+                              mainAxisSpacing: 20,
+                              mainAxisExtent: 90,
+                            ),
+                            itemBuilder: (context, index) {
+                              final RoomModel room =
+                                  controller.vacantRooms[index];
+                              return RoomsCard(
+                                roomNumber: room.roomNo.toString(),
+                                vaccentBedNumber: room.vacancy.toString(),
+                                onTap: () {
+                                  showAdaptiveDialog(
+                                    barrierColor: Colors.transparent,
+                                    context: context,
+                                    builder: (context) => AddBookingScreen(
+                                      roomNo: room.roomNo,
+                                      roomid: room.id!,
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          )
+                    : const Center(
+                        child: Text("No Available Vacancies"),
                       ),
-                      itemBuilder: (context, index) {
-                        final RoomModel room = controller.vacantRooms[index];
-                        return RoomsCard(
-                          roomNumber: room.roomNo.toString(),
-                          vaccentBedNumber: room.vacancy.toString(),
-                          onTap: () {
-                            showAdaptiveDialog(
-                              barrierColor: Colors.transparent,
-                              context: context,
-                              builder: (context) => AddBookingScreen(
-                                roomNo: room.roomNo,
-                                roomid: room.id!,
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    )
-                  : const Center(
-                      child: Text("No Available Vacancies"),
-                    )
+              )
             ],
           ),
         ),

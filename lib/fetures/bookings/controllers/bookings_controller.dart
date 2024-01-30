@@ -17,47 +17,38 @@ class BookingsController with ChangeNotifier {
   final dateController = TextEditingController();
 
   final BookingRepository bookingController = BookingRepository();
-
   final ConnectionChecker connectionController = ConnectionChecker();
-
   final RoomsRepository roomController = RoomsRepository();
-
   final OwnerRepository ownerRepository = OwnerRepository();
-
   final FirebaseAuth auth = FirebaseAuth.instance;
 
+  List<BookingsModel> allBookings = [];
   List<BookingsModel> bookings = [];
   List<BookingsModel> bookingsWithinThisWeek = [];
-
   List<RoomModel> vacantRooms = [];
-
   bool isAdvancePaid = true;
-
   bool isBookingsLoading = false;
-
+  bool isRoomsLoading = false;
   DateTime checkInDate = DateTime.now();
-
   bool isEditing = false;
-
   String? updatingBookingId;
 
 //------------------------------------------------------------------ fetching vacant rooms
 
   fetchVacantRooms() async {
     try {
+      isRoomsLoading = true;
       List<RoomModel> allRooms = await roomController.fetchData();
-
       // Filter out vacant rooms (Vacancy > 0)
       vacantRooms = allRooms.where((room) => room.vacancy > 0).toList();
       vacantRooms.sort((a, b) => a.roomNo.compareTo(b.roomNo));
-
-      notifyListeners();
     } catch (e) {
       print(e.toString());
       // Handle the error appropriately, e.g., log, display a message, etc.
       rethrow; // or return an empty list or handle the error appropriately
     } finally {
-      return;
+      isRoomsLoading = false;
+      notifyListeners();
     }
   }
 
@@ -66,8 +57,9 @@ class BookingsController with ChangeNotifier {
     try {
       isBookingsLoading = true;
       print("Fetching Bookings ");
-      bookings = await bookingController.fetchData();
-      bookings.sort((a, b) => a.checkIn.compareTo(b.checkIn));
+      allBookings = await bookingController.fetchData();
+      allBookings.sort((a, b) => a.checkIn.compareTo(b.checkIn));
+      bookings = allBookings;
       await filterBooking();
 
       isBookingsLoading = false;
@@ -90,7 +82,7 @@ class BookingsController with ChangeNotifier {
     final currentDate = DateTime.now();
 
     // Filter bookings with check-in date within this week
-    final thisWeekBookings = bookings.where((booking) {
+    final thisWeekBookings = allBookings.where((booking) {
       final daysDifference = booking.checkIn.difference(currentDate).inDays;
       return daysDifference >= 0 && daysDifference < 7;
     }).toList();
@@ -233,6 +225,42 @@ class BookingsController with ChangeNotifier {
     updatingBookingId = booking.id;
     isAdvancePaid = booking.advancePaid;
     notifyListeners();
+  }
+
+  //---------------------------------------------------------------------------bookings filter
+  String selectedFilter = "All";
+  List<String> filters = ["All", "This Week", "This Month"];
+  int selectedDays = 7;
+  selectFilter(filter) async {
+    selectedFilter = filter;
+    if (selectedFilter == "This Week") {
+      selectedDays = 7;
+      filterBookings();
+    } else if (selectedFilter == "This Month") {
+      selectedDays = 30;
+      filterBookings();
+    } else if (selectedFilter == "All") {
+      bookings = allBookings;
+    }
+    notifyListeners();
+  }
+
+  filterBookings() async {
+    try {
+      // Get the current date and time
+      final currentDate = DateTime.now();
+
+      // Filter bookings with check-in date within this week
+      final filteredBookings = allBookings.where((booking) {
+        final daysDifference = booking.checkIn.difference(currentDate).inDays;
+        return daysDifference >= 0 && daysDifference < selectedDays;
+      }).toList();
+
+      bookings = filteredBookings;
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
   }
 
   //-----------------------------------------------------------------------on cancel

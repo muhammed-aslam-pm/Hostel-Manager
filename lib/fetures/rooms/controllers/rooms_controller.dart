@@ -60,12 +60,11 @@ class RoomsController with ChangeNotifier {
   fetchRoomsData() async {
     try {
       isRoomsLoading = true;
-      notifyListeners();
+
       allRooms = await controller.fetchData();
       allRooms.sort((a, b) => a.roomNo.compareTo(b.roomNo));
       rooms = allRooms;
       isRoomsLoading = false;
-      notifyListeners();
     } catch (e) {
       print(e.toString());
       // Add a return statement or rethrow the exception

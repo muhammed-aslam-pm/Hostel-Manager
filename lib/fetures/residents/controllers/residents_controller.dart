@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/fetures/bookings/controllers/bookings_controller.dart';
@@ -40,7 +39,7 @@ class ResidentsController with ChangeNotifier {
   List<RoomModel> vacantRooms = [];
   List<String> vacantRoomNoList = [];
   String? selectedRoom = "0";
-  String selectedRoomId = "";
+  String? selectedRoomId = "";
   DateTime? checkInDate;
   DateTime? checkOutDate;
   File? selectedImage;
@@ -55,11 +54,10 @@ class ResidentsController with ChangeNotifier {
   bool isEditing = false;
   bool isResidentsLoading = false;
 
-// ------------------------------------------------Fetch Resident detailes
+// -----------------------------------------------------------------------------Fetch Resident detailes
   Future<void> fetchResidents() async {
     try {
       isResidentsLoading = true;
-      notifyListeners();
 
       residents = await residentsRepository.fetchData();
       residents.sort((a, b) => a.roomNo.compareTo(b.roomNo));
@@ -72,18 +70,44 @@ class ResidentsController with ChangeNotifier {
     }
   }
 
-//--------------------------------------------------Fetch Vacant Rooms
+//------------------------------------------------------------------------------Fetch Vacant Rooms
   fetchVacantRooms() async {
     try {
-      List<RoomModel> allRooms = await roomController.fetchData();
-      // Filter out vacant rooms (Vacancy > 0)
-      vacantRooms = allRooms.where((room) => room.vacancy > 0).toList();
-      vacantRooms.sort((a, b) => a.roomNo.compareTo(b.roomNo));
-      vacantRoomNoList =
-          vacantRooms.map((room) => room.roomNo.toString()).toList();
+      vacantRoomNoList.clear();
 
-      selectedRoom = vacantRoomNoList[0].toString();
-      selectedRoomId = vacantRooms[0].id!;
+      if (roomController != null) {
+        List<RoomModel> allRooms = await roomController.fetchData();
+
+        // Filter out vacant rooms (Vacancy > 0)
+        vacantRooms = allRooms.where((room) => room.vacancy > 0).toList();
+
+        if (vacantRooms.isNotEmpty) {
+          // Create a Set to keep track of unique room numbers
+          Set<String> uniqueRoomNumbers = Set();
+
+          vacantRooms.sort((a, b) => a.roomNo.compareTo(b.roomNo));
+
+          for (RoomModel room in vacantRooms) {
+            String roomNumber = room.roomNo.toString();
+
+            // Check if the room number hasn't been added before
+            if (!uniqueRoomNumbers.contains(roomNumber)) {
+              vacantRoomNoList.add(roomNumber);
+              uniqueRoomNumbers.add(roomNumber);
+            }
+          }
+
+          if (vacantRoomNoList.isNotEmpty) {
+            selectedRoom = vacantRoomNoList[0].toString();
+            selectedRoomId = vacantRooms[0].id!;
+          }
+        } else {
+          // Handle case when all rooms are occupied
+          selectedRoom = null; // or provide a default value
+          selectedRoomId = null; // or provide a default value
+        }
+      }
+
       notifyListeners();
     } catch (e) {
       print(e.toString());
@@ -91,7 +115,7 @@ class ResidentsController with ChangeNotifier {
     }
   }
 
-//-------------------------------------------------Add Resident
+//-------------------------------------------------------------------------------Add Resident
   addResident(BuildContext context) async {
     try {
       final isConnected = await connectionController.isConnected();
@@ -113,7 +137,7 @@ class ResidentsController with ChangeNotifier {
           name: nameController.text,
           profilePic: imageUrl ?? "",
           roomNo: int.parse(selectedRoom!),
-          roomId: selectedRoomId,
+          roomId: selectedRoomId!,
           phone: phoneNoController.text,
           email: emailController.text,
           address: addressController.text,
@@ -155,7 +179,7 @@ class ResidentsController with ChangeNotifier {
       final Map<String, dynamic> data = {'NoOfVacancy': hostelVacancy};
       await ownerRepository.accountSetup(data);
       //refresh the page
-
+      Navigator.pop(context);
       refreshpage(context);
     } catch (e) {
       print(e.toString());
@@ -166,7 +190,7 @@ class ResidentsController with ChangeNotifier {
     }
   }
 
-//------------------------------------------------Edit Resident detaile
+//-------------------------------------------------------------------------------Edit Resident detaile
 
   Future<void> editResident(BuildContext context) async {
     try {
@@ -190,7 +214,7 @@ class ResidentsController with ChangeNotifier {
           name: nameController.text,
           profilePic: imageUrl ?? oldImage ?? "",
           roomNo: int.parse(selectedRoom!),
-          roomId: selectedRoomId,
+          roomId: selectedRoomId!,
           phone: phoneNoController.text,
           email: emailController.text,
           address: addressController.text,
@@ -208,6 +232,7 @@ class ResidentsController with ChangeNotifier {
       } else {
         try {
           await residentsRepository.updateResident(resident);
+          Navigator.pop(context);
           // await updateRoom(newResidentId: editingResidnt!.id.toString());
 
           // Fetch information about the old room
@@ -234,7 +259,7 @@ class ResidentsController with ChangeNotifier {
 
           // Fetch information about the new room
           final RoomModel? newRoom = await roomController.fetchSingleRoom(
-            roomId: selectedRoomId,
+            roomId: selectedRoomId!,
           );
 
           // Update the new room's data
@@ -252,7 +277,7 @@ class ResidentsController with ChangeNotifier {
           };
           await roomController.updateSingleField(
             json: newRoomData,
-            roomId: selectedRoomId,
+            roomId: selectedRoomId!,
           );
 
           refreshpage(context);
@@ -269,7 +294,7 @@ class ResidentsController with ChangeNotifier {
     }
   }
 
-//------------------------------------------------Add bookings to resident
+//--------------------------------------------------------------------------------Add bookings to resident
   addBookingToResident(BookingsModel booking, BuildContext context) {
     nameController.text = booking.name;
     phoneNoController.text = booking.phoneNo;
@@ -293,7 +318,7 @@ class ResidentsController with ChangeNotifier {
     );
   }
 
-//------------------------------------------------Delete Resident
+//------------------------------------------------------------------------------Delete Resident
   Future<void> deleteResident(
       {required BuildContext context, required ResidentModel resident}) async {
     try {
@@ -327,13 +352,14 @@ class ResidentsController with ChangeNotifier {
 
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Resident deleted Successfull")));
+      Navigator.pop(context);
       refreshpage(context);
     } catch (e) {
       print(e);
     }
   }
 
-//-------------------------------------------------On edit
+//--------------------------------------------------------------------------------On edit
   onEdit(ResidentModel resident, BuildContext context) async {
     await fetchVacantRooms();
     isEditing = true;
@@ -358,6 +384,8 @@ class ResidentsController with ChangeNotifier {
     oldRoomNo = resident.roomNo;
     editingResidentId = resident.id;
     editingResidnt = resident;
+    vacantRoomNoList.add(resident.roomNo.toString());
+
     notifyListeners();
     showModalBottomSheet(
       isScrollControlled: true,
@@ -376,7 +404,7 @@ class ResidentsController with ChangeNotifier {
   Future<void> updateRoom({required String newResidentId}) async {
     try {
       final RoomModel? room =
-          await roomController.fetchSingleRoom(roomId: selectedRoomId);
+          await roomController.fetchSingleRoom(roomId: selectedRoomId!);
       final currentVacancy = room!.vacancy;
       final int vacancy = currentVacancy - 1;
       final currentResidents = room.residents;
@@ -388,7 +416,7 @@ class ResidentsController with ChangeNotifier {
         "Residents": currentResidents
       };
       await roomController.updateSingleField(
-          json: json, roomId: selectedRoomId);
+          json: json, roomId: selectedRoomId!);
     } catch (e) {
       print(e);
     }
@@ -420,7 +448,7 @@ class ResidentsController with ChangeNotifier {
     fetchResidents();
     fetchVacantRooms();
     notifyListeners();
-    Navigator.pop(context);
+
     selectedImage = null;
     imageUrl = null;
     checkInDate = null;
@@ -442,7 +470,7 @@ class ResidentsController with ChangeNotifier {
     notifyListeners();
   }
 
-//------------------------------------------------select room
+//------------------------------------------------------------------------------select room
   selectRoom(room) async {
     selectedRoom = room;
     selectedRoomId = findRoomByRoomNo(int.parse(selectedRoom!));
@@ -451,7 +479,7 @@ class ResidentsController with ChangeNotifier {
     print(selectedRoomId);
   }
 
-//------------------------------------------------fetching RoomId
+//------------------------------------------------------------------------------fetching RoomId
   String findRoomByRoomNo(int roomNumber) {
     // Find the first room in vacantRooms with the specified room number
     RoomModel? room = vacantRooms.firstWhere(

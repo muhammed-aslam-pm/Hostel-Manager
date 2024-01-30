@@ -81,7 +81,7 @@ class ResidentDetailesScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Hero(
-                      tag: "resident",
+                      tag: resident.name,
                       child: Container(
                         height: 110,
                         width: 110,

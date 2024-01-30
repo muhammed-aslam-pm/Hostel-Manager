@@ -90,12 +90,15 @@ class BookedResidentDetailesScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Center(
-                    child: CircleAvatar(
-                      radius: 55,
-                      backgroundColor: ColorConstants.secondaryColor4,
-                      child: const Icon(
-                        Icons.person,
-                        size: 50,
+                    child: Hero(
+                      tag: detailes.name,
+                      child: CircleAvatar(
+                        radius: 55,
+                        backgroundColor: ColorConstants.secondaryColor4,
+                        child: const Icon(
+                          Icons.person,
+                          size: 50,
+                        ),
                       ),
                     ),
                   ),

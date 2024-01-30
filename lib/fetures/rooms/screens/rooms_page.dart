@@ -5,7 +5,6 @@ import 'package:hostel_management_app/fetures/profile/controllers/user_controlle
 import 'package:hostel_management_app/fetures/rooms/widgets/rooms_loading_card.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
-import 'package:hostel_management_app/commens/widgets/date_sorting_button.dart';
 import 'package:hostel_management_app/commens/widgets/room_card.dart';
 import 'package:hostel_management_app/fetures/rooms/screens/room_detailes_screen.dart';
 import 'package:hostel_management_app/fetures/rooms/screens/rooms_adding_form.dart';
@@ -52,13 +51,18 @@ class _OwnerRoomsPageState extends State<OwnerRoomsPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Consumer<RoomsController>(
-                    builder: (context, value, child) => CustomDropdownButton(
-                        selectedValue: value.selctedFilter,
-                        items: value.filters,
-                        onChanged: (p0) => value.selectFilter(p0),
-                        height: 50,
-                        width: 140),
+                  Expanded(
+                    child: Consumer<RoomsController>(
+                      builder: (context, value, child) => CustomDropdownButton(
+                          selectedValue: value.selctedFilter,
+                          items: value.filters,
+                          onChanged: (p0) => value.selectFilter(p0),
+                          height: 50,
+                          width: double.infinity),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
                   ),
                   Row(
                     children: [

@@ -42,12 +42,15 @@ class ResidentsDetailescard extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CircleAvatar(
-                  radius: 20,
-                  backgroundColor: ColorConstants.secondaryColor4,
-                  backgroundImage:
-                      image.isNotEmpty ? NetworkImage(image) : null,
-                  child: image.isEmpty ? const Icon(Icons.person) : null,
+                Hero(
+                  tag: name,
+                  child: CircleAvatar(
+                    radius: 20,
+                    backgroundColor: ColorConstants.secondaryColor4,
+                    backgroundImage:
+                        image.isNotEmpty ? NetworkImage(image) : null,
+                    child: image.isEmpty ? const Icon(Icons.person) : null,
+                  ),
                 ),
                 const SizedBox(
                   width: 10,

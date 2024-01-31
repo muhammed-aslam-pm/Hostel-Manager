@@ -6,7 +6,7 @@ class ResidentsRepository {
   final _db = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  //----------------------------------------------Fetch Resident Detailes
+  //----------------------------------------------------------------------------Fetch Resident Detailes
 
   Future<List<ResidentModel>> fetchData() async {
     try {
@@ -33,7 +33,7 @@ class ResidentsRepository {
     }
   }
 
-  //---------------------------------------------------fetchResident detailes with id
+  //----------------------------------------------------------------------------fetchResident detailes with id
 
   Future<List<ResidentModel>> fetchResidentsByIds(
       List<String> residentIds) async {
@@ -68,7 +68,7 @@ class ResidentsRepository {
     }
   }
 
-  // ---------------------------------------------Add Residents
+  // ---------------------------------------------------------------------------Add Residents
 
   Future<String> addResidents(ResidentModel resident) async {
     try {
@@ -89,7 +89,7 @@ class ResidentsRepository {
       rethrow;
     }
   }
-//---------------------------------------------------delete Resident
+//------------------------------------------------------------------------------delete Resident
 
   Future<void> deleteResident(String residentId) async {
     try {
@@ -106,7 +106,7 @@ class ResidentsRepository {
     }
   }
 
-//----------------------------------------------------delete list of documents
+//------------------------------------------------------------------------------delete list of documents
   Future<void> deleteListOfResidents(List<String> residentIds) async {
     try {
       final userId = _auth.currentUser!.uid;
@@ -125,7 +125,7 @@ class ResidentsRepository {
     }
   }
 
-// -------------------------------------------------delete with room no
+// -----------------------------------------------------------------------------delete with room no
   Future<void> deleteResidentsByRoomNo(int roomNo) async {
     try {
       final userId = _auth.currentUser!.uid;
@@ -153,7 +153,7 @@ class ResidentsRepository {
     }
   }
 
-  //------------------------------------------------update resident Detailes
+  //----------------------------------------------------------------------------update resident Detailes
 
   Future<void> updateResident(ResidentModel resident) async {
     final userId = _auth.currentUser!.uid;
@@ -170,7 +170,7 @@ class ResidentsRepository {
     }
   }
 
-//------------------------------------------------update romm no only
+//------------------------------------------------------------------------------update romm no only
 
   Future<void> updateResidentsRoomNo(int oldRoomNo, int newRoomNo) async {
     final userId = _auth.currentUser!.uid;
@@ -193,6 +193,23 @@ class ResidentsRepository {
             .doc(residentDoc.id)
             .update({"RoomNo": newRoomNo});
       }
+    } catch (e) {
+      print("Something went wrong: $e");
+      rethrow;
+    }
+  }
+
+//------------------------------------------------------------------------------update Singlefield
+  Future<void> updateSingleField(String id, Map<String, dynamic> json) async {
+    final userId = _auth.currentUser!.uid;
+
+    try {
+      await _db
+          .collection("Owners")
+          .doc(userId)
+          .collection("Residents")
+          .doc(id)
+          .update(json);
     } catch (e) {
       print("Something went wrong: $e");
       rethrow;

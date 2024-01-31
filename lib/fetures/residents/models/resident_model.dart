@@ -14,6 +14,7 @@ class ResidentModel {
       required this.purposOfStay,
       required this.checkIn,
       required this.checkOut,
+      required this.nextRentDate,
       required this.isRentPaid});
   final String? id;
   final String profilePic;
@@ -27,6 +28,7 @@ class ResidentModel {
   final String purposOfStay;
   final DateTime checkIn;
   final DateTime checkOut;
+  final DateTime nextRentDate;
   final bool isRentPaid;
 
   Map<String, dynamic> toJson() {
@@ -41,6 +43,7 @@ class ResidentModel {
       "EmargencyContact": emargencyContact,
       "CheckIn": checkIn,
       "CheckOut": checkOut,
+      "NextRentDate": nextRentDate,
       "Rentpaid": isRentPaid,
       "Purpose": purposOfStay
     };
@@ -62,6 +65,7 @@ class ResidentModel {
           purposOfStay: data["Purpose"] ?? "",
           checkIn: (data['CheckIn'] as Timestamp).toDate(),
           checkOut: (data['CheckOut'] as Timestamp).toDate(),
+          nextRentDate: (data['NextRentDate'] as Timestamp).toDate(),
           isRentPaid: data["Rentpaid"] ?? false,
           profilePic: data["ProfilePhoto"] ?? '');
     } else {
@@ -81,5 +85,6 @@ class ResidentModel {
       purposOfStay: '',
       checkIn: DateTime(2000),
       checkOut: DateTime(2000),
+      nextRentDate: DateTime(2000),
       isRentPaid: false);
 }

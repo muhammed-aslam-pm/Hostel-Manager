@@ -320,22 +320,35 @@ class _DashBoardPageState extends State<DashBoardPage> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(25),
-                child: SizedBox(
-                  height: 339,
-                  child: ListView.separated(
-                    itemCount: 10,
-                    separatorBuilder: (context, index) => Container(
-                      color: ColorConstants.secondaryWhiteColor,
-                      height: 12,
-                    ),
-                    itemBuilder: (context, index) => PendingPaymentCard(
-                        roomNumber: "26",
-                        date: "12 sep",
-                        amount: "800",
-                        profilePhot1: ImageConstants.ownerHomeProfilePhoto2,
-                        profilePhot2: ImageConstants.ownerHomeProfilePhoto3),
+              Consumer<DashboardController>(
+                builder: (context, value, child) => Padding(
+                  padding: const EdgeInsets.all(25),
+                  child: SizedBox(
+                    height: value.pendingPayments.length == 1
+                        ? 100
+                        : value.pendingPayments.length == 1
+                            ? 200
+                            : 339,
+                    child: ListView.separated(
+                        itemCount: value.pendingPayments.length,
+                        physics: ScrollPhysics(),
+                        separatorBuilder: (context, index) => Container(
+                              color: ColorConstants.secondaryWhiteColor,
+                              height: 12,
+                            ),
+                        itemBuilder: (context, index) {
+                          Map<String, dynamic> pendingPayment =
+                              value.pendingPayments[index];
+                          return PendingPaymentCard(
+                              roomNumber: pendingPayment["RoomNo"].toString(),
+                              date: DateFormat('dd MMM').format(
+                                  pendingPayment["Residents"][0].nextRentDate),
+                              amount: pendingPayment["TotalAmount"].toString(),
+                              profilePhot1:
+                                  ImageConstants.ownerHomeProfilePhoto2,
+                              profilePhot2:
+                                  ImageConstants.ownerHomeProfilePhoto3);
+                        }),
                   ),
                 ),
               ),

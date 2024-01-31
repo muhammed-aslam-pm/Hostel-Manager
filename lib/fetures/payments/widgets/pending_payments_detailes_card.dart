@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:hostel_management_app/fetures/residents/models/resident_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
+
 import 'package:hostel_management_app/fetures/payments/widgets/pyment_name_card.dart';
+import 'package:intl/intl.dart';
 
 class PendingPaymentDetailesCard extends StatelessWidget {
-  const PendingPaymentDetailesCard({super.key});
+  const PendingPaymentDetailesCard(
+      {super.key, required this.roomNo, required this.residents});
 
-  get roomNumber => null;
+  final String roomNo;
+  final List<ResidentModel> residents;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +45,7 @@ class PendingPaymentDetailesCard extends StatelessWidget {
                   style: TextStyleConstants.bookingsRoomNumber,
                 ),
                 Text(
-                  "01",
+                  roomNo,
                   style: TextStyleConstants.bookingsRoomNumber,
                 )
               ],
@@ -49,7 +54,15 @@ class PendingPaymentDetailesCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 10, left: 10),
             child: Column(
-              children: List.generate(4, (index) => const PaymentNameCard()),
+              children: List.generate(
+                  residents.length,
+                  (index) => PaymentNameCard(
+                        name: residents[index].name,
+                        date: DateFormat('dd MMM')
+                            .format(residents[index].nextRentDate),
+                        rentAmount: "5000",
+                        resident: residents[index],
+                      )),
             ),
           )
         ],

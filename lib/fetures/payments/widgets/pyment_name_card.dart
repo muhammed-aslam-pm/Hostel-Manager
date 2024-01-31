@@ -6,7 +6,16 @@ import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/fetures/residents/screens/resident_deatailes_screen.dart';
 
 class PaymentNameCard extends StatelessWidget {
-  const PaymentNameCard({super.key});
+  const PaymentNameCard(
+      {super.key,
+      required this.name,
+      required this.date,
+      required this.rentAmount,
+      required this.resident});
+  final String name;
+  final String date;
+  final String rentAmount;
+  final ResidentModel resident;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +27,7 @@ class PaymentNameCard extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => ResidentDetailesScreen(
-                resident: ResidentModel.empty(),
+                resident: resident,
               ),
             ),
           );
@@ -50,7 +59,7 @@ class PaymentNameCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Aslam",
+                        name,
                         style: TextStyleConstants.dashboardBookingName,
                       ),
                       const SizedBox(
@@ -62,7 +71,7 @@ class PaymentNameCard extends StatelessWidget {
                             ImageConstants.calenderIcon,
                           ),
                           Text(
-                            "28 sep due",
+                            "$date due",
                             style: TextStyleConstants.dashboardPendingDue,
                           ),
                         ],
@@ -83,7 +92,8 @@ class PaymentNameCard extends StatelessWidget {
                   const SizedBox(
                     width: 4,
                   ),
-                  Text("5750", style: TextStyleConstants.dashboardBookinRoomNo),
+                  Text(rentAmount,
+                      style: TextStyleConstants.dashboardBookinRoomNo),
                 ],
               ),
             ],

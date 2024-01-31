@@ -132,7 +132,7 @@ class ResidentsController with ChangeNotifier {
           print("image : ${e.toString()}");
         }
       }
-
+      DateTime nextMonthDate = checkInDate!.add(Duration(days: 30));
       final resident = ResidentModel(
           name: nameController.text,
           profilePic: imageUrl ?? "",
@@ -145,6 +145,7 @@ class ResidentsController with ChangeNotifier {
           purposOfStay: purposeController.text,
           checkIn: checkInDate!,
           checkOut: checkOutDate!,
+          nextRentDate: nextMonthDate,
           isRentPaid: true);
 
       String documentId = await residentsRepository.addResidents(resident);
@@ -208,6 +209,7 @@ class ResidentsController with ChangeNotifier {
           print("image : ${e.toString()}");
         }
       }
+      DateTime nextMonthDate = checkInDate!.add(Duration(days: 30));
 
       final resident = ResidentModel(
           id: editingResidentId,
@@ -222,6 +224,7 @@ class ResidentsController with ChangeNotifier {
           purposOfStay: purposeController.text,
           checkIn: checkInDate!,
           checkOut: checkOutDate!,
+          nextRentDate: nextMonthDate,
           isRentPaid: true);
 
       if (editingResidnt!.roomNo == int.parse(selectedRoom!)) {

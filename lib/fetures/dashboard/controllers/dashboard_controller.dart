@@ -3,6 +3,8 @@ import 'package:hostel_management_app/fetures/residents/controllers/residents_re
 import 'package:hostel_management_app/fetures/profile/controllers/owner_repository.dart';
 import 'package:hostel_management_app/fetures/profile/models/owner_model.dart';
 import 'package:hostel_management_app/fetures/residents/models/resident_model.dart';
+import 'package:hostel_management_app/fetures/rooms/controllers/rooms_repository.dart';
+import 'package:hostel_management_app/fetures/rooms/models/room_model.dart';
 import 'package:intl/intl.dart';
 
 class DashboardController with ChangeNotifier {
@@ -14,8 +16,13 @@ class DashboardController with ChangeNotifier {
   bool isFilterLoading = false;
   List<ResidentModel> allResidents = [];
   List<ResidentModel> rentPendingResidents = [];
+  List<ResidentModel> paymentDueResidents = [];
+  List<Map<String, dynamic>> pendingPayments = [];
+  int totalPentingAmount = 0;
+
   final OwnerRepository controller = OwnerRepository();
   final ResidentsRepository residentsRepository = ResidentsRepository();
+  final roomController = RoomsRepository();
 
   fetchData() async {
     try {
@@ -25,7 +32,8 @@ class DashboardController with ChangeNotifier {
       user = currentUser;
       notifyListeners();
       getVacatingRooms();
-      getPendingPayments();
+      await updatePendingPayments();
+
       isFilterLoading = false;
       notifyListeners();
     } catch (e) {
@@ -58,12 +66,39 @@ class DashboardController with ChangeNotifier {
     }
   }
 
-  getPendingPayments() async {
-    for (ResidentModel resident in allResidents) {
-      if (resident.isRentPaid == false) {
-        rentPendingResidents.add(resident);
+  updatePendingPayments() async {
+    try {
+      print("---------------------Pending function caled");
+      paymentDueResidents.clear();
+      rentPendingResidents.clear();
+      totalPentingAmount = 0;
+      final currentDate = DateTime.now();
+      paymentDueResidents = allResidents
+          .where((resident) =>
+              currentDate.isAfter(resident.nextRentDate) ||
+              currentDate.isAtSameMomentAs(resident.nextRentDate))
+          .toList();
+      print(paymentDueResidents);
+      if (paymentDueResidents.isNotEmpty) {
+        Map<String, dynamic> json = {'Rentpaid': false};
+
+        for (int i = 0; i < paymentDueResidents.length; i++) {
+          await residentsRepository.updateSingleField(
+              paymentDueResidents[i].id!, json);
+        }
+        for (ResidentModel resident in allResidents) {
+          if (resident.isRentPaid == false) {
+            rentPendingResidents.add(resident);
+          }
+        }
+        pendingPayments =
+            await convertResidentsListToMapList(rentPendingResidents);
+        notifyListeners();
+        print(pendingPayments);
       }
-      notifyListeners();
+    } catch (e) {
+      // Handle the error
+      print('Error fetching residents data: $e');
     }
   }
 
@@ -83,6 +118,41 @@ class DashboardController with ChangeNotifier {
     }).toList();
 
     return result;
+  }
+
+  //Convert rent pending residents to map
+  Future<List<Map<String, dynamic>>> convertResidentsListToMapList(
+    List<ResidentModel> residentsList,
+  ) async {
+    Map<int, List<ResidentModel>> residentsMap = {};
+
+    for (var resident in residentsList) {
+      if (!residentsMap.containsKey(resident.roomNo)) {
+        residentsMap[resident.roomNo] = [];
+      }
+
+      residentsMap[resident.roomNo]!.add(resident);
+    }
+
+    List<Map<String, dynamic>> resultList = [];
+
+    for (var entry in residentsMap.entries) {
+      int roomNo = entry.key;
+      List<ResidentModel> residents = entry.value;
+
+      RoomModel roomModel =
+          await roomController.getRoomByRoomNo(roomNo) ?? RoomModel.empty();
+
+      int totalAmount = roomModel.rent * residents.length;
+      totalPentingAmount = totalPentingAmount + totalAmount;
+      resultList.add({
+        "RoomNo": roomNo,
+        "Residents": residents,
+        "TotalAmount": totalAmount,
+      });
+    }
+
+    return resultList;
   }
 
   selectFilter(filter) async {

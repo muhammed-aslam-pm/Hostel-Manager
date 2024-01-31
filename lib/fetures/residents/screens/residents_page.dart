@@ -65,7 +65,9 @@ class _ResidentsPageState extends State<ResidentsPage> {
                               color: ColorConstants.secondaryWhiteColor,
                               height: 10,
                             ),
-                        itemCount: 10)
+                        itemCount: controller.residents.isEmpty
+                            ? 10
+                            : controller.residents.length)
                     : ListView.separated(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),

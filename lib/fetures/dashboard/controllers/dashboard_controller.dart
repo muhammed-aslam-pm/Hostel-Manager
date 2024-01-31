@@ -11,6 +11,7 @@ class DashboardController with ChangeNotifier {
   String selectedValue = "This Week";
   int selectedDays = 7;
   List<String> sortingItems = ["This Week", "This Month", "This Year"];
+  bool isFilterLoading = false;
   List<ResidentModel> allResidents = [];
   List<ResidentModel> rentPendingResidents = [];
   final OwnerRepository controller = OwnerRepository();
@@ -18,12 +19,15 @@ class DashboardController with ChangeNotifier {
 
   fetchData() async {
     try {
+      isFilterLoading = true;
       final currentUser = await controller.fetchOwnerRecords();
       allResidents = await residentsRepository.fetchData();
       user = currentUser;
       notifyListeners();
       getVacatingRooms();
       getPendingPayments();
+      isFilterLoading = false;
+      notifyListeners();
     } catch (e) {
       user = OwnerModel.empty();
       notifyListeners();
@@ -33,6 +37,8 @@ class DashboardController with ChangeNotifier {
 
   getVacatingRooms() async {
     try {
+      isFilterLoading = true;
+
       // Get the current date and time
       final currentDate = DateTime.now();
 
@@ -46,6 +52,9 @@ class DashboardController with ChangeNotifier {
       notifyListeners();
     } catch (e) {
       print(e);
+    } finally {
+      isFilterLoading = false;
+      notifyListeners();
     }
   }
 
@@ -89,7 +98,8 @@ class DashboardController with ChangeNotifier {
       selectedDays = 365;
       notifyListeners();
     }
-    getVacatingRooms();
+
+    await getVacatingRooms();
   }
 
   String date() {

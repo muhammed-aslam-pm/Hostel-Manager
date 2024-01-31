@@ -3,6 +3,7 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/fetures/bookings/controllers/bookings_controller.dart';
 import 'package:hostel_management_app/fetures/dashboard/controllers/dashboard_controller.dart';
+import 'package:hostel_management_app/fetures/dashboard/widgets/vacant_rooms_loading.dart';
 import 'package:hostel_management_app/fetures/profile/controllers/user_controller.dart';
 import 'package:hostel_management_app/fetures/bookings/models/booking_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
@@ -63,9 +64,13 @@ class _DashBoardPageState extends State<DashBoardPage> {
             const SizedBox(
               height: 5,
             ),
-            Text(
-              controller.user!.ownwerName,
-              style: TextStyleConstants.homeMainTitle2,
+            SizedBox(
+              width: MediaQuery.sizeOf(context).width - 100,
+              child: Text(
+                controller.user!.ownwerName,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyleConstants.homeMainTitle2,
+              ),
             )
           ],
         ),
@@ -197,26 +202,44 @@ class _DashBoardPageState extends State<DashBoardPage> {
                   if (value.roomsGoingtoVacant.isNotEmpty) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: GridView.builder(
-                        shrinkWrap: true,
-                        physics: const ScrollPhysics(),
-                        itemCount: value.roomsGoingtoVacant.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 5,
-                          crossAxisSpacing: 10,
-                          mainAxisExtent: 80,
-                        ),
-                        itemBuilder: (context, index) => GoingToVaccentCard(
-                            roomNumber: value.roomsGoingtoVacant[index]
-                                    ["RoomNo"]
-                                .toString(),
-                            beadNumber: value.roomsGoingtoVacant[index]
-                                    ["Vacancy"]
-                                .toString(),
-                            backgroungColor: ColorConstants.secondaryColor4),
-                      ),
+                      child: value.isFilterLoading
+                          ? GridView.builder(
+                              shrinkWrap: true,
+                              physics: const ScrollPhysics(),
+                              itemCount: value.roomsGoingtoVacant.isEmpty
+                                  ? 2
+                                  : value.roomsGoingtoVacant.length,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 5,
+                                crossAxisSpacing: 10,
+                                mainAxisExtent: 80,
+                              ),
+                              itemBuilder: (context, index) =>
+                                  const VaccentLoadingCard())
+                          : GridView.builder(
+                              shrinkWrap: true,
+                              physics: const ScrollPhysics(),
+                              itemCount: value.roomsGoingtoVacant.length,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 5,
+                                crossAxisSpacing: 10,
+                                mainAxisExtent: 80,
+                              ),
+                              itemBuilder: (context, index) =>
+                                  GoingToVaccentCard(
+                                      roomNumber: value
+                                          .roomsGoingtoVacant[index]["RoomNo"]
+                                          .toString(),
+                                      beadNumber: value
+                                          .roomsGoingtoVacant[index]["Vacancy"]
+                                          .toString(),
+                                      backgroungColor:
+                                          ColorConstants.secondaryColor4),
+                            ),
                     );
                   } else {
                     return SizedBox(

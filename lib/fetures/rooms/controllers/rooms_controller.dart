@@ -131,6 +131,7 @@ class RoomsController with ChangeNotifier {
         roomNoController.clear();
         capacityController.clear();
         rentController.clear();
+        userController.fetchData();
         facilities = [];
         acSelected = false;
         wmSelected = false;
@@ -302,6 +303,7 @@ class RoomsController with ChangeNotifier {
       await controller.updadatRoom(room);
 
       fetchRoomsData();
+      userController.fetchData();
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Room Edited Successfully")));
       Navigator.pop(context);

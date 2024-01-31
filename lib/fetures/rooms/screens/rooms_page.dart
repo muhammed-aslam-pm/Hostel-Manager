@@ -31,7 +31,6 @@ class _OwnerRoomsPageState extends State<OwnerRoomsPage> {
     final controller = Provider.of<RoomsController>(
       context,
     );
-    final userController = Provider.of<UserController>(context);
     return Scaffold(
       backgroundColor: ColorConstants.primaryWhiteColor,
       appBar: AppBar(
@@ -64,54 +63,55 @@ class _OwnerRoomsPageState extends State<OwnerRoomsPage> {
                   const SizedBox(
                     width: 10,
                   ),
-                  Row(
-                    children: [
-                      Column(
-                        children: [
-                          Text(
-                            'Total Beds',
-                            style: TextStyleConstants.ownerRoomsText2,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CircleAvatar(
-                            radius: 15,
-                            backgroundColor:
-                                ColorConstants.roomsCircleAvatarColor,
-                            child: Text(
-                              userController.user?.noOfBeds.toString() ?? "0",
-                              style:
-                                  TextStyleConstants.ownerRoomsCircleAvtarText,
+                  Consumer<UserController>(
+                    builder: (context, value, child) => Row(
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              'Total Beds',
+                              style: TextStyleConstants.ownerRoomsText2,
                             ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            'Total Beds vaccent',
-                            style: TextStyleConstants.ownerRoomsText2,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CircleAvatar(
-                            radius: 15,
-                            backgroundColor: ColorConstants.primaryColor,
-                            child: Text(
-                              userController.user?.noOfVacancy.toString() ??
-                                  "0",
-                              style:
-                                  TextStyleConstants.ownerRoomsCircleAvtarText,
+                            const SizedBox(
+                              height: 10,
                             ),
-                          )
-                        ],
-                      ),
-                    ],
+                            CircleAvatar(
+                              radius: 15,
+                              backgroundColor:
+                                  ColorConstants.roomsCircleAvatarColor,
+                              child: Text(
+                                value.user?.noOfBeds.toString() ?? "0",
+                                style: TextStyleConstants
+                                    .ownerRoomsCircleAvtarText,
+                              ),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              'Total Beds vaccent',
+                              style: TextStyleConstants.ownerRoomsText2,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            CircleAvatar(
+                              radius: 15,
+                              backgroundColor: ColorConstants.primaryColor,
+                              child: Text(
+                                value.user?.noOfVacancy.toString() ?? "0",
+                                style: TextStyleConstants
+                                    .ownerRoomsCircleAvtarText,
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
                   )
                 ],
               ),
@@ -123,7 +123,9 @@ class _OwnerRoomsPageState extends State<OwnerRoomsPage> {
               builder: (context, value, child) => Expanded(
                 child: controller.isRoomsLoading
                     ? GridView.builder(
-                        itemCount: 15,
+                        itemCount: controller.rooms.isEmpty
+                            ? 15
+                            : controller.rooms.length,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,

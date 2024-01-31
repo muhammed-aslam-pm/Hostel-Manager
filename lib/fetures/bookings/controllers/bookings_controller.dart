@@ -33,7 +33,7 @@ class BookingsController with ChangeNotifier {
   bool isEditing = false;
   String? updatingBookingId;
 
-//------------------------------------------------------------------ fetching vacant rooms
+//----------------------------------------------------------------------------- fetching vacant rooms
 
   fetchVacantRooms() async {
     try {
@@ -52,7 +52,7 @@ class BookingsController with ChangeNotifier {
     }
   }
 
-  //------------------------------------------------------------------- fetch Bookings data
+  //--------------------------------------------------------------------------- fetch Bookings data
   fetchBookingsData() async {
     try {
       isBookingsLoading = true;
@@ -73,7 +73,7 @@ class BookingsController with ChangeNotifier {
     }
   }
 
-  //-------------------------------------------------------------------Filtering bookings
+  //----------------------------------------------------------------------------Filtering bookings
   filterBooking() async {
     // Clear the list before adding new data
     bookingsWithinThisWeek.clear();
@@ -91,7 +91,7 @@ class BookingsController with ChangeNotifier {
     bookingsWithinThisWeek.addAll(thisWeekBookings);
   }
 
-  //------------------------------------------------------------------------add booking
+  //----------------------------------------------------------------------------add booking
 
   addBooking({
     required BuildContext context,
@@ -146,7 +146,7 @@ class BookingsController with ChangeNotifier {
     }
   }
 
-  //------------------------------------------------------------------- delete booking
+  //--------------------------------------------------------------------------- delete booking
 
   deleteBooking({
     required BuildContext context,
@@ -189,7 +189,7 @@ class BookingsController with ChangeNotifier {
     }
   }
 
-  //------------------------------------------------------------------ Update Booking
+  //--------------------------------------------------------------------------- Update Booking
 
   updateBooking(BuildContext context) async {
     try {
@@ -214,7 +214,7 @@ class BookingsController with ChangeNotifier {
     }
   }
 
-//---------------------------------------------------------------------- on edit tap
+//----------------------------------------------------------------------------- on edit tap
 
   onEdit({required BookingsModel booking}) {
     isEditing = true;
@@ -227,7 +227,7 @@ class BookingsController with ChangeNotifier {
     notifyListeners();
   }
 
-  //---------------------------------------------------------------------------bookings filter
+  //----------------------------------------------------------------------------bookings filter
   String selectedFilter = "All";
   List<String> filters = ["All", "This Week", "This Month"];
   int selectedDays = 7;
@@ -263,7 +263,7 @@ class BookingsController with ChangeNotifier {
     }
   }
 
-  //-----------------------------------------------------------------------on cancel
+  //----------------------------------------------------------------------------on cancel
   onCanacel() {
     isEditing = false;
     nameController.clear();
@@ -273,7 +273,7 @@ class BookingsController with ChangeNotifier {
     notifyListeners();
   }
 
-//------------------------------------------------------------------------- check In date assigning
+//----------------------------------------------------------------------------- check In date assigning
 
   void setDate(DateTime date) {
     checkInDate = date;
@@ -282,13 +282,13 @@ class BookingsController with ChangeNotifier {
     notifyListeners();
   }
 
-//-------------------------------------------------------------------------- advance paid or not radio button function
+//----------------------------------------------------------------------------- advance paid or not radio button function
 
   void advance(bool value) {
     isAdvancePaid = value;
     notifyListeners();
   }
-//----------------------------------------------------------------------------Text field validation
+//------------------------------------------------------------------------------Text field validation
 
   fieldValidation(value) {
     if (value == null || value.isEmpty) {

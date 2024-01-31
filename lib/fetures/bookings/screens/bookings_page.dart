@@ -92,7 +92,9 @@ class _BookingsPageState extends State<BookingsPage> {
                                     color: ColorConstants.secondaryWhiteColor,
                                     height: 10,
                                   ),
-                              itemCount: 3)
+                              itemCount: value.bookings.isEmpty
+                                  ? 3
+                                  : value.bookings.length)
                           : ListView.builder(
                               itemCount: value.bookings.length,
                               itemBuilder: (context, index) {
@@ -183,7 +185,9 @@ class _BookingsPageState extends State<BookingsPage> {
                             physics: const NeverScrollableScrollPhysics(),
                             padding:
                                 const EdgeInsets.only(bottom: 10, left: 10),
-                            itemCount: controller.vacantRooms.length,
+                            itemCount: controller.vacantRooms.isEmpty
+                                ? 6
+                                : controller.vacantRooms.length,
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 3,

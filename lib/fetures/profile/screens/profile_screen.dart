@@ -156,12 +156,12 @@ class ProfileScreen extends StatelessWidget {
               ),
               gap,
               ProfileDetailesCard(
+                  title: "Owner Name", data: controller.user!.ownwerName),
+              gap,
+              ProfileDetailesCard(
                 title: "Address",
                 data: controller.user!.address,
               ),
-              gap,
-              ProfileDetailesCard(
-                  title: "Owner Name", data: controller.user!.ownwerName),
               gap,
               ProfileDetailesCard(
                   title: "Phone Number", data: controller.user!.mobileNumber),

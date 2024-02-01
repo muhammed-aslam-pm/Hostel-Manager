@@ -34,7 +34,7 @@ class ResidentsAddingPage extends StatelessWidget {
                           child: Hero(
                         tag: Form,
                         child: InkWell(
-                          onDoubleTap: () => controller.openImagePicker(),
+                          onTap: () => controller.openImagePicker(),
                           child: Consumer<ResidentsController>(
                             builder: (context, value, child) => CircleAvatar(
                               radius: 50,

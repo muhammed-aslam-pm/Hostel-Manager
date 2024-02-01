@@ -278,39 +278,49 @@ class _DashBoardPageState extends State<DashBoardPage> {
               const SizedBox(
                 height: 20,
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: List.generate(
-                        bookingsController.bookingsWithinThisWeek.length,
-                        (index) {
-                      BookingsModel booking =
-                          bookingsController.bookingsWithinThisWeek[index];
-                      return UpcomingBookings(
-                        name: booking.name,
-                        date: DateFormat('dd/MM/yyyy').format(booking.checkIn),
-                        roomNumber: booking.roomNO.toString(),
-                        beadNumber: "5",
-                        isAdvacePaid: booking.advancePaid,
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  BookedResidentDetailesScreen(
-                                index: index,
-                                isSorted: true,
-                              ),
-                            ),
-                          );
-                        },
-                      );
-                    }),
-                  ),
-                ),
-              ),
+              bookingsController.bookingsWithinThisWeek.isEmpty
+                  ? const Center(
+                      child: SizedBox(
+                        height: 50,
+                        child: Center(
+                          child: Text("No Bookings"),
+                        ),
+                      ),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: List.generate(
+                              bookingsController.bookingsWithinThisWeek.length,
+                              (index) {
+                            BookingsModel booking = bookingsController
+                                .bookingsWithinThisWeek[index];
+                            return UpcomingBookings(
+                              name: booking.name,
+                              date: DateFormat('dd/MM/yyyy')
+                                  .format(booking.checkIn),
+                              roomNumber: booking.roomNO.toString(),
+                              beadNumber: "5",
+                              isAdvacePaid: booking.advancePaid,
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        BookedResidentDetailesScreen(
+                                      index: index,
+                                      isSorted: true,
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          }),
+                        ),
+                      ),
+                    ),
               const SizedBox(
                 height: 33,
               ),
@@ -327,33 +337,45 @@ class _DashBoardPageState extends State<DashBoardPage> {
               Consumer<DashboardController>(
                 builder: (context, value, child) => Padding(
                   padding: const EdgeInsets.all(25),
-                  child: SizedBox(
-                    height: value.pendingPayments.length == 1
-                        ? 100
-                        : value.pendingPayments.length == 2
-                            ? 230
-                            : 339,
-                    child: ListView.separated(
-                        itemCount: value.pendingPayments.length,
-                        physics: const ScrollPhysics(),
-                        separatorBuilder: (context, index) => Container(
-                              color: ColorConstants.secondaryWhiteColor,
-                              height: 12,
+                  child: value.pendingPayments.isEmpty
+                      ? const Center(
+                          child: SizedBox(
+                            height: 50,
+                            child: Center(
+                              child: Text("No Pending Payments"),
                             ),
-                        itemBuilder: (context, index) {
-                          Map<String, dynamic> pendingPayment =
-                              value.pendingPayments[index];
-                          return PendingPaymentCard(
-                              roomNumber: pendingPayment["RoomNo"].toString(),
-                              date: DateFormat('dd MMM').format(
-                                  pendingPayment["Residents"][0].nextRentDate),
-                              amount: pendingPayment["TotalAmount"].toString(),
-                              profilePhot1:
-                                  ImageConstants.ownerHomeProfilePhoto2,
-                              profilePhot2:
-                                  ImageConstants.ownerHomeProfilePhoto3);
-                        }),
-                  ),
+                          ),
+                        )
+                      : SizedBox(
+                          height: value.pendingPayments.length == 1
+                              ? 100
+                              : value.pendingPayments.length == 2
+                                  ? 230
+                                  : 339,
+                          child: ListView.separated(
+                              itemCount: value.pendingPayments.length,
+                              physics: const ScrollPhysics(),
+                              separatorBuilder: (context, index) => Container(
+                                    color: ColorConstants.secondaryWhiteColor,
+                                    height: 12,
+                                  ),
+                              itemBuilder: (context, index) {
+                                Map<String, dynamic> pendingPayment =
+                                    value.pendingPayments[index];
+                                return PendingPaymentCard(
+                                    roomNumber:
+                                        pendingPayment["RoomNo"].toString(),
+                                    date: DateFormat('dd MMM').format(
+                                        pendingPayment["Residents"][0]
+                                            .nextRentDate),
+                                    amount: pendingPayment["TotalAmount"]
+                                        .toString(),
+                                    profilePhot1:
+                                        ImageConstants.ownerHomeProfilePhoto2,
+                                    profilePhot2:
+                                        ImageConstants.ownerHomeProfilePhoto3);
+                              }),
+                        ),
                 ),
               ),
               Center(

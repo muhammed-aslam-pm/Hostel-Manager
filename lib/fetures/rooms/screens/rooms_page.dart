@@ -121,11 +121,10 @@ class _OwnerRoomsPageState extends State<OwnerRoomsPage> {
             ),
             Consumer<RoomsController>(
               builder: (context, value, child) => Expanded(
-                child: controller.isRoomsLoading
+                child: value.isRoomsLoading
                     ? GridView.builder(
-                        itemCount: controller.rooms.isEmpty
-                            ? 15
-                            : controller.rooms.length,
+                        itemCount:
+                            value.rooms.isEmpty ? 15 : controller.rooms.length,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
@@ -136,34 +135,39 @@ class _OwnerRoomsPageState extends State<OwnerRoomsPage> {
                         itemBuilder: (context, index) =>
                             const RoomsLoadingCard(),
                       )
-                    : GridView.builder(
-                        itemCount: controller.rooms.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          crossAxisSpacing: 5,
-                          mainAxisSpacing: 25,
-                          mainAxisExtent: 95,
-                        ),
-                        itemBuilder: (context, index) {
-                          final room = controller.rooms[index];
+                    : value.rooms.isEmpty
+                        ? const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [Text("No Rooms Added yet")],
+                          )
+                        : GridView.builder(
+                            itemCount: value.rooms.length,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              crossAxisSpacing: 5,
+                              mainAxisSpacing: 25,
+                              mainAxisExtent: 95,
+                            ),
+                            itemBuilder: (context, index) {
+                              final room = value.rooms[index];
 
-                          return RoomsCard(
-                            roomNumber: room.roomNo.toString(),
-                            vaccentBedNumber: room.vacancy.toString(),
-                            onTap: () {
-                              showAdaptiveDialog(
-                                  context: context,
-                                  builder: (context) => RoomsViewScreen(
-                                        roomDetailes: room,
-                                        index: index,
-                                        isVacantRoom: false,
-                                      ),
-                                  barrierColor: Colors.transparent);
+                              return RoomsCard(
+                                roomNumber: room.roomNo.toString(),
+                                vaccentBedNumber: room.vacancy.toString(),
+                                onTap: () {
+                                  showAdaptiveDialog(
+                                      context: context,
+                                      builder: (context) => RoomsViewScreen(
+                                            roomDetailes: room,
+                                            index: index,
+                                            isVacantRoom: false,
+                                          ),
+                                      barrierColor: Colors.transparent);
+                                },
+                              );
                             },
-                          );
-                        },
-                      ),
+                          ),
               ),
             ),
           ],

@@ -71,6 +71,7 @@ class DashboardController with ChangeNotifier {
       print("---------------------Pending function caled");
       paymentDueResidents.clear();
       rentPendingResidents.clear();
+      pendingPayments.clear();
       totalPentingAmount = 0;
       final currentDate = DateTime.now();
       paymentDueResidents = allResidents

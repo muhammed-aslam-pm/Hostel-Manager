@@ -7,7 +7,7 @@ class BookingRepository with ChangeNotifier {
   final _db = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-//fetch Bookings
+//------------------------------------------------------------------------------fetch Bookings
 
   Future<List<BookingsModel>> fetchData() async {
     try {
@@ -27,7 +27,6 @@ class BookingRepository with ChangeNotifier {
           .map((documentSnapshot) =>
               BookingsModel.fromDocumentSnapshot(documentSnapshot))
           .toList();
-      print("romm models list");
 
       return roomModels;
     } catch (e) {
@@ -37,11 +36,11 @@ class BookingRepository with ChangeNotifier {
     }
   }
 
-  //Add new Booking
+  //----------------------------------------------------------------------------Add new Booking
 
   addBooking(BookingsModel booking) async {
     try {
-      final userId = await _auth.currentUser!.uid;
+      final userId = _auth.currentUser!.uid;
       await _db
           .collection("Owners")
           .doc(userId)
@@ -52,10 +51,10 @@ class BookingRepository with ChangeNotifier {
     }
   }
 
-  //Update Booking
+  //----------------------------------------------------------------------------Update Booking
 
   Future<void> updadatBooking(BookingsModel booking) async {
-    final userId = await _auth.currentUser!.uid;
+    final userId = _auth.currentUser!.uid;
     try {
       await _db
           .collection("Owners")
@@ -67,7 +66,7 @@ class BookingRepository with ChangeNotifier {
       print("Somthing went wrong");
     }
   }
-  //update only room no
+  //----------------------------------------------------------------------------update only room no
 
   Future<void> updateBookingsRoomNo(int oldRoomNo, int newRoomNo) async {
     final userId = _auth.currentUser!.uid;
@@ -96,7 +95,7 @@ class BookingRepository with ChangeNotifier {
     }
   }
 
-  //update single field
+  //----------------------------------------------------------------------------update single field
 
   Future<void> updadatSingleField(
       {required Map<String, dynamic> json, required String bookingId}) async {
@@ -113,7 +112,7 @@ class BookingRepository with ChangeNotifier {
     }
   }
 
-  // Delete a booking
+  //----------------------------------------------------------------------------Delete a booking
 
   Future<void> deleteBooking(String bookingId) async {
     try {
@@ -126,11 +125,10 @@ class BookingRepository with ChangeNotifier {
           .delete();
     } catch (e) {
       print(e.toString());
-      print("somthing went wrong");
     }
   }
 
-  //delete bookiing with room number
+  //----------------------------------------------------------------------------delete bookiing with room number
 
   Future<void> deleteBookingsByRoomNo(int roomNo) async {
     try {
@@ -155,7 +153,6 @@ class BookingRepository with ChangeNotifier {
       }
     } catch (e) {
       print(e.toString());
-      print("Something went wrong");
     }
   }
 }

@@ -3,8 +3,8 @@ import 'package:hostel_management_app/commens/widgets/custom_dropdown_button.dar
 import 'package:hostel_management_app/fetures/residents/controllers/residents_controller.dart';
 import 'package:hostel_management_app/fetures/residents/models/resident_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
+import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
-import 'package:hostel_management_app/commens/widgets/date_sorting_button.dart';
 import 'package:hostel_management_app/fetures/residents/widgets/resident_loading_card.dart';
 import 'package:hostel_management_app/fetures/residents/screens/resident_deatailes_screen.dart';
 import 'package:hostel_management_app/fetures/residents/screens/residents_adding_form.dart';
@@ -78,35 +78,51 @@ class _ResidentsPageState extends State<ResidentsPage> {
                         itemCount: controller.residents.isEmpty
                             ? 10
                             : controller.residents.length)
-                    : ListView.separated(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          ResidentModel resident = controller.residents[index];
-                          return ResidentsDetailescard(
-                            roomNumber: resident.roomNo,
-                            joiningDate: DateFormat('dd MMM yyyy')
-                                .format(resident.checkIn),
-                            name: resident.name,
-                            isFeePaid: resident.isRentPaid,
-                            image: resident.profilePic,
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ResidentDetailesScreen(
-                                    residentId: resident.id!,
-                                  ),
-                                ),
+                    : value.residents.isEmpty
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Center(
+                                child:
+                                    Image.asset(ImageConstants.emptyListImage),
+                              ),
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              const Text("Residents List is Empty !")
+                            ],
+                          )
+                        : ListView.separated(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              ResidentModel resident =
+                                  controller.residents[index];
+                              return ResidentsDetailescard(
+                                roomNumber: resident.roomNo,
+                                joiningDate: DateFormat('dd MMM yyyy')
+                                    .format(resident.checkIn),
+                                name: resident.name,
+                                isFeePaid: resident.isRentPaid,
+                                image: resident.profilePic,
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          ResidentDetailesScreen(
+                                        residentId: resident.id!,
+                                      ),
+                                    ),
+                                  );
+                                },
                               );
                             },
-                          );
-                        },
-                        separatorBuilder: (context, index) => Divider(
-                              color: ColorConstants.secondaryWhiteColor,
-                              height: 10,
-                            ),
-                        itemCount: controller.residents.length),
+                            separatorBuilder: (context, index) => Divider(
+                                  color: ColorConstants.secondaryWhiteColor,
+                                  height: 10,
+                                ),
+                            itemCount: value.residents.length),
               )
             ],
           ),

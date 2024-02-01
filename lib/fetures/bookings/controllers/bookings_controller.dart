@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/fetures/bookings/controllers/bookings_repository.dart';
@@ -43,8 +45,6 @@ class BookingsController with ChangeNotifier {
       vacantRooms = allRooms.where((room) => room.vacancy > 0).toList();
       vacantRooms.sort((a, b) => a.roomNo.compareTo(b.roomNo));
     } catch (e) {
-      print(e.toString());
-      // Handle the error appropriately, e.g., log, display a message, etc.
       rethrow; // or return an empty list or handle the error appropriately
     } finally {
       isRoomsLoading = false;
@@ -56,7 +56,7 @@ class BookingsController with ChangeNotifier {
   fetchBookingsData() async {
     try {
       isBookingsLoading = true;
-      print("Fetching Bookings ");
+
       allBookings = await bookingController.fetchData();
       allBookings.sort((a, b) => a.checkIn.compareTo(b.checkIn));
       bookings = allBookings;
@@ -65,7 +65,6 @@ class BookingsController with ChangeNotifier {
       isBookingsLoading = false;
       notifyListeners();
     } catch (e) {
-      print(e.toString());
       rethrow; // or return an empty list or handle the error appropriately
     } finally {
       isBookingsLoading = false;
@@ -142,7 +141,8 @@ class BookingsController with ChangeNotifier {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Booking Added Successfull")));
     } catch (e) {
-      print(e.toString());
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Error: $e")));
     }
   }
 
@@ -185,7 +185,8 @@ class BookingsController with ChangeNotifier {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Record Deleted Successfully")));
     } catch (e) {
-      print(e.toString());
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Error: $e")));
     }
   }
 
@@ -210,7 +211,8 @@ class BookingsController with ChangeNotifier {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Record Edited Successfully")));
     } catch (e) {
-      print(e.toString());
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Error: $e")));
     }
   }
 
@@ -259,7 +261,7 @@ class BookingsController with ChangeNotifier {
       bookings = filteredBookings;
       notifyListeners();
     } catch (e) {
-      print(e);
+      rethrow;
     }
   }
 

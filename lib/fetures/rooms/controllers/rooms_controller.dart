@@ -49,6 +49,7 @@ class RoomsController with ChangeNotifier {
   List<RoomModel> rooms = [];
   List<int> facilities = [];
   List<ResidentModel>? residents = [];
+  List<String> oldResidents = [];
   bool isRoomsLoading = false;
 
   bool acSelected = false;
@@ -297,7 +298,7 @@ class RoomsController with ChangeNotifier {
           capacity: int.parse(capacityController.text.trim()),
           vacancy: roomVacancy,
           rent: int.parse(rentController.text.trim()),
-          residents: <String>[],
+          residents: oldResidents,
           facilities: facilities);
 
       await controller.updadatRoom(room);
@@ -335,6 +336,7 @@ class RoomsController with ChangeNotifier {
     oldRoomNo = room.roomNo;
     oldRoomCapacity = room.capacity;
     oldRoomVacancy = room.vacancy;
+    oldResidents = room.residents;
     editingRoomId = room.id;
     currentNoOfResidents = room.residents.length;
     notifyListeners();
@@ -353,8 +355,6 @@ class RoomsController with ChangeNotifier {
     }
 
     notifyListeners();
-
-    print(isEditing);
   }
 //------------------------------------------------------------------------------cancel button
 

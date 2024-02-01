@@ -95,7 +95,7 @@ class _ResidentsPageState extends State<ResidentsPage> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => ResidentDetailesScreen(
-                                    resident: resident,
+                                    residentId: resident.id!,
                                   ),
                                 ),
                               );

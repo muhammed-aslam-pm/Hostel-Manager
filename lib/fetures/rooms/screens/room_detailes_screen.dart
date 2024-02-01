@@ -339,8 +339,9 @@ class _RoomsViewScreenState extends State<RoomsViewScreen> {
                                             MaterialPageRoute(
                                               builder: (context) =>
                                                   ResidentDetailesScreen(
-                                                      resident: value
-                                                          .residents![index1]),
+                                                      residentId: value
+                                                          .residents![index1]
+                                                          .id!),
                                             ),
                                           );
                                         },

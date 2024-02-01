@@ -205,7 +205,7 @@ class RoomsAddingForm extends StatelessWidget {
                     if (roomController.formKey.currentState!.validate()) {
                       if (controller.isEditing) {
                         await controller.editRoom(context);
-                        Navigator.pop(context);
+                        
                       } else {
                         await userController.fetchData();
                         final currentNoOfCapacity =

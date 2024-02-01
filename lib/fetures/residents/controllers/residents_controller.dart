@@ -83,37 +83,35 @@ class ResidentsController with ChangeNotifier {
     try {
       vacantRoomNoList.clear();
 
-      if (roomController != null) {
-        List<RoomModel> allRooms = await roomController.fetchData();
+      List<RoomModel> allRooms = await roomController.fetchData();
 
-        // Filter out vacant rooms (Vacancy > 0)
-        vacantRooms = allRooms.where((room) => room.vacancy > 0).toList();
+      // Filter out vacant rooms (Vacancy > 0)
+      vacantRooms = allRooms.where((room) => room.vacancy > 0).toList();
 
-        if (vacantRooms.isNotEmpty) {
-          // Create a Set to keep track of unique room numbers
-          Set<String> uniqueRoomNumbers = Set();
+      if (vacantRooms.isNotEmpty) {
+        // Create a Set to keep track of unique room numbers
+        Set<String> uniqueRoomNumbers = Set();
 
-          vacantRooms.sort((a, b) => a.roomNo.compareTo(b.roomNo));
+        vacantRooms.sort((a, b) => a.roomNo.compareTo(b.roomNo));
 
-          for (RoomModel room in vacantRooms) {
-            String roomNumber = room.roomNo.toString();
+        for (RoomModel room in vacantRooms) {
+          String roomNumber = room.roomNo.toString();
 
-            // Check if the room number hasn't been added before
-            if (!uniqueRoomNumbers.contains(roomNumber)) {
-              vacantRoomNoList.add(roomNumber);
-              uniqueRoomNumbers.add(roomNumber);
-            }
+          // Check if the room number hasn't been added before
+          if (!uniqueRoomNumbers.contains(roomNumber)) {
+            vacantRoomNoList.add(roomNumber);
+            uniqueRoomNumbers.add(roomNumber);
           }
-
-          if (vacantRoomNoList.isNotEmpty) {
-            selectedRoom = vacantRoomNoList[0].toString();
-            selectedRoomId = vacantRooms[0].id!;
-          }
-        } else {
-          // Handle case when all rooms are occupied
-          selectedRoom = null; // or provide a default value
-          selectedRoomId = null; // or provide a default value
         }
+
+        if (vacantRoomNoList.isNotEmpty) {
+          selectedRoom = vacantRoomNoList[0].toString();
+          selectedRoomId = vacantRooms[0].id!;
+        }
+      } else {
+        // Handle case when all rooms are occupied
+        selectedRoom = null; // or provide a default value
+        selectedRoomId = null; // or provide a default value
       }
 
       notifyListeners();
@@ -157,17 +155,9 @@ class ResidentsController with ChangeNotifier {
           isRentPaid: true);
 
       String documentId = await residentsRepository.addResidents(resident);
-      if (documentId != null) {
-        // ignore: use_build_context_synchronously
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("ResidentAdded Successfully"),
-        ));
-      } else {
-        // ignore: use_build_context_synchronously
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Somthing went wrong"),
-        ));
-      }
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("ResidentAdded Successfully"),
+      ));
       if (isAddingaBookedResident) {
         await bookingsController.deleteBooking(
             context: context,
@@ -239,6 +229,7 @@ class ResidentsController with ChangeNotifier {
         await residentsRepository.updateResident(resident);
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text("Resident detailes Edited successfully")));
+        Navigator.pop(context);
         refreshpage(context);
       } else {
         try {
@@ -290,7 +281,7 @@ class ResidentsController with ChangeNotifier {
             json: newRoomData,
             roomId: selectedRoomId!,
           );
-
+          Navigator.pop(context);
           refreshpage(context);
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(

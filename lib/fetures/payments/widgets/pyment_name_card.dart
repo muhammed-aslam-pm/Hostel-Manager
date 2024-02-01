@@ -27,7 +27,7 @@ class PaymentNameCard extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => ResidentDetailesScreen(
-                resident: resident,
+                residentId: resident.id!,
               ),
             ),
           );

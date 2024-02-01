@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:hostel_management_app/commens/widgets/shimmer_loader.dart';
 import 'package:hostel_management_app/fetures/residents/models/resident_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
@@ -43,13 +45,32 @@ class PaymentNameCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  CircleAvatar(
-                    radius: 15,
-                    backgroundColor:
-                        ColorConstants.primaryColor.withOpacity(0.3),
-                    child: Icon(
-                      Icons.person,
-                      color: ColorConstants.primaryWhiteColor,
+                  Hero(
+                    tag: name,
+                    child: Container(
+                      height: 30,
+                      width: 30,
+                      decoration: BoxDecoration(
+                        color: ColorConstants.secondaryColor3,
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: resident.profilePic.isNotEmpty
+                            ? CachedNetworkImage(
+                                imageUrl: resident.profilePic,
+                                fit: BoxFit.cover,
+                                errorWidget: (context, url, error) =>
+                                    const Icon(Icons.error),
+                                progressIndicatorBuilder:
+                                    (context, url, progress) =>
+                                        const ShimmerEffect(
+                                            height: 30, width: 30, radius: 30),
+                              )
+                            : const Center(
+                                child: Icon(Icons.person),
+                              ),
+                      ),
                     ),
                   ),
                   const SizedBox(

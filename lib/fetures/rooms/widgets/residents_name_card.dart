@@ -25,7 +25,7 @@ class ResidentsNameCard extends StatelessWidget {
             Row(
               children: [
                 Hero(
-                  tag: "resident",
+                  tag: name,
                   child: Container(
                     height: 60,
                     width: 60,

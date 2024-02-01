@@ -43,8 +43,16 @@ class _ResidentDetailesScreenState extends State<ResidentDetailesScreen> {
     return StreamBuilder(
       stream: residentReference.snapshots(),
       builder: (context, snapshot) {
-        ResidentModel resident = ResidentModel.fromDocumentSnapshot(
-            snapshot.data! as DocumentSnapshot<Map<String, dynamic>>);
+        // ResidentModel resident = ResidentModel.fromDocumentSnapshot(
+        //     snapshot.data! as DocumentSnapshot<Map<String, dynamic>>);
+        ResidentModel? resident;
+        if (snapshot.hasData && snapshot.data != null) {
+          resident = ResidentModel.fromDocumentSnapshot(
+              snapshot.data! as DocumentSnapshot<Map<String, dynamic>>);
+        } else {
+          // Handle the case where snapshot data is null or not available
+          return CircularProgressIndicator(); // or any other appropriate widget
+        }
 
         return Scaffold(
           backgroundColor: ColorConstants.primaryWhiteColor,
@@ -70,7 +78,7 @@ class _ResidentDetailesScreenState extends State<ResidentDetailesScreen> {
                     PopupMenuItem(
                         child: const Text('Edit'),
                         onTap: () async {
-                          controller.onEdit(resident, context);
+                          controller.onEdit(resident!, context);
                         }),
                     PopupMenuItem(
                       child: Text(
@@ -84,12 +92,12 @@ class _ResidentDetailesScreenState extends State<ResidentDetailesScreen> {
                             title: 'Confirm Delete',
                             content: 'Are you sure you want to Delelte?',
                             onPressed: () => controller.deleteResident(
-                                context: context1, resident: resident),
+                                context: context1, resident: resident!),
                           ),
                         );
                         Navigator.pop(context);
                         controller.deleteResident(
-                            context: context, resident: resident);
+                            context: context, resident: resident!);
                       },
                     ),
                   ];
@@ -173,7 +181,7 @@ class _ResidentDetailesScreenState extends State<ResidentDetailesScreen> {
                       ),
                       InkWell(
                         onTap: () {
-                          if (!resident.isRentPaid) {
+                          if (!resident!.isRentPaid) {
                             showDialog(
                                 context: context,
                                 builder: (context) => ConfirmDialog(
@@ -183,7 +191,7 @@ class _ResidentDetailesScreenState extends State<ResidentDetailesScreen> {
                                       button1Text: "No",
                                       onPressed: () {
                                         controller.editRentPaid(
-                                            id: resident.id!,
+                                            id: resident!.id!,
                                             currentRentDate:
                                                 resident.nextRentDate,
                                             context: context);
@@ -201,9 +209,7 @@ class _ResidentDetailesScreenState extends State<ResidentDetailesScreen> {
                               horizontal: 10, vertical: 7),
                           child: Center(
                               child: Text(
-                            resident.isRentPaid
-                                ? "Fees Paid"
-                                : "Fees Not Paid",
+                            resident.isRentPaid ? "Fees Paid" : "Fees Not Paid",
                             style: TextStyleConstants.buttonText,
                           )),
                         ),

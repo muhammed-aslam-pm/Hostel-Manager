@@ -43,7 +43,7 @@ class _ResidentDetailesScreenState extends State<ResidentDetailesScreen> {
     return StreamBuilder(
       stream: residentReference.snapshots(),
       builder: (context, snapshot) {
-        ResidentModel resident3 = ResidentModel.fromDocumentSnapshot(
+        ResidentModel resident = ResidentModel.fromDocumentSnapshot(
             snapshot.data! as DocumentSnapshot<Map<String, dynamic>>);
 
         return Scaffold(
@@ -70,7 +70,7 @@ class _ResidentDetailesScreenState extends State<ResidentDetailesScreen> {
                     PopupMenuItem(
                         child: const Text('Edit'),
                         onTap: () async {
-                          controller.onEdit(resident3, context);
+                          controller.onEdit(resident, context);
                         }),
                     PopupMenuItem(
                       child: Text(
@@ -84,12 +84,12 @@ class _ResidentDetailesScreenState extends State<ResidentDetailesScreen> {
                             title: 'Confirm Delete',
                             content: 'Are you sure you want to Delelte?',
                             onPressed: () => controller.deleteResident(
-                                context: context1, resident: resident3),
+                                context: context1, resident: resident),
                           ),
                         );
                         Navigator.pop(context);
                         controller.deleteResident(
-                            context: context, resident: resident3);
+                            context: context, resident: resident);
                       },
                     ),
                   ];
@@ -110,7 +110,7 @@ class _ResidentDetailesScreenState extends State<ResidentDetailesScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Hero(
-                        tag: resident3.name,
+                        tag: resident.name,
                         child: Container(
                           height: 110,
                           width: 110,
@@ -120,9 +120,9 @@ class _ResidentDetailesScreenState extends State<ResidentDetailesScreen> {
                           ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(100),
-                            child: resident3.profilePic.isNotEmpty
+                            child: resident.profilePic.isNotEmpty
                                 ? CachedNetworkImage(
-                                    imageUrl: resident3.profilePic,
+                                    imageUrl: resident.profilePic,
                                     fit: BoxFit.cover,
                                     errorWidget: (context, url, error) =>
                                         const Icon(Icons.error),
@@ -162,7 +162,7 @@ class _ResidentDetailesScreenState extends State<ResidentDetailesScreen> {
                               width: 25,
                             ),
                             Text(
-                              resident3.roomNo.toString(),
+                              resident.roomNo.toString(),
                               style: TextStyleConstants.bookingsRoomNumber,
                             )
                           ],
@@ -173,7 +173,7 @@ class _ResidentDetailesScreenState extends State<ResidentDetailesScreen> {
                       ),
                       InkWell(
                         onTap: () {
-                          if (!resident3.isRentPaid) {
+                          if (!resident.isRentPaid) {
                             showDialog(
                                 context: context,
                                 builder: (context) => ConfirmDialog(
@@ -183,9 +183,9 @@ class _ResidentDetailesScreenState extends State<ResidentDetailesScreen> {
                                       button1Text: "No",
                                       onPressed: () {
                                         controller.editRentPaid(
-                                            id: resident3.id!,
+                                            id: resident.id!,
                                             currentRentDate:
-                                                resident3.nextRentDate,
+                                                resident.nextRentDate,
                                             context: context);
                                       },
                                     ));
@@ -194,14 +194,14 @@ class _ResidentDetailesScreenState extends State<ResidentDetailesScreen> {
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
-                              color: resident3.isRentPaid
+                              color: resident.isRentPaid
                                   ? ColorConstants.colorGreen
                                   : ColorConstants.colorRed),
                           padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 7),
                           child: Center(
                               child: Text(
-                            resident3.isRentPaid
+                            resident.isRentPaid
                                 ? "Fees Paid"
                                 : "Fees Not Paid",
                             style: TextStyleConstants.buttonText,
@@ -215,7 +215,7 @@ class _ResidentDetailesScreenState extends State<ResidentDetailesScreen> {
                   ),
                   DetailesCard(
                     tiltle: 'Name',
-                    data: resident3.name,
+                    data: resident.name,
                   ),
                   const Text("Phone Number"),
                   const SizedBox(
@@ -231,7 +231,7 @@ class _ResidentDetailesScreenState extends State<ResidentDetailesScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          resident3.phone,
+                          resident.phone,
                           style: TextStyleConstants.dashboardBookingName,
                         ),
                         const InkWell(
@@ -248,15 +248,15 @@ class _ResidentDetailesScreenState extends State<ResidentDetailesScreen> {
                   ),
                   DetailesCard(
                     tiltle: 'Email',
-                    data: resident3.email,
+                    data: resident.email,
                   ),
                   DetailesCard(
                     tiltle: 'Address',
-                    data: resident3.address,
+                    data: resident.address,
                   ),
                   DetailesCard(
                     tiltle: 'Purpose of Stay',
-                    data: resident3.purposOfStay,
+                    data: resident.purposOfStay,
                   ),
                   const Text("Eemergency Contact Number"),
                   const SizedBox(
@@ -272,7 +272,7 @@ class _ResidentDetailesScreenState extends State<ResidentDetailesScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          resident3.emargencyContact,
+                          resident.emargencyContact,
                           style: TextStyleConstants.dashboardBookingName,
                         ),
                         const InkWell(
@@ -289,11 +289,11 @@ class _ResidentDetailesScreenState extends State<ResidentDetailesScreen> {
                   ),
                   DetailesCard(
                     tiltle: 'CheckOut Date',
-                    data: DateFormat('dd/MM/yyyy').format(resident3.checkIn),
+                    data: DateFormat('dd/MM/yyyy').format(resident.checkIn),
                   ),
                   DetailesCard(
                     tiltle: 'CheckOut Date',
-                    data: DateFormat('dd/MM/yyyy').format(resident3.checkOut),
+                    data: DateFormat('dd/MM/yyyy').format(resident.checkOut),
                   ),
                 ],
               ),

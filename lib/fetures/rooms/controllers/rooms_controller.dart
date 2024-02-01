@@ -47,6 +47,8 @@ class RoomsController with ChangeNotifier {
   bool isResidentLoading = false;
   List<RoomModel> allRooms = [];
   List<RoomModel> rooms = [];
+  List<RoomModel> vacantRooms = [];
+
   List<int> facilities = [];
   List<ResidentModel>? residents = [];
   List<String> oldResidents = [];
@@ -69,6 +71,25 @@ class RoomsController with ChangeNotifier {
     } catch (e) {
       print(e.toString());
       // Add a return statement or rethrow the exception
+      rethrow; // or return an empty list or handle the error appropriately
+    } finally {
+      isRoomsLoading = false;
+      notifyListeners();
+    }
+  }
+
+//----------------------------------------------------------------------------- fetching vacant rooms
+
+  fetchVacantRooms() async {
+    try {
+      isRoomsLoading = true;
+      List<RoomModel> allRooms = await controller.fetchData();
+      // Filter out vacant rooms (Vacancy > 0)
+      vacantRooms = allRooms.where((room) => room.vacancy > 0).toList();
+      vacantRooms.sort((a, b) => a.roomNo.compareTo(b.roomNo));
+    } catch (e) {
+      print(e.toString());
+      // Handle the error appropriately, e.g., log, display a message, etc.
       rethrow; // or return an empty list or handle the error appropriately
     } finally {
       isRoomsLoading = false;

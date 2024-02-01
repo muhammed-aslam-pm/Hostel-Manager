@@ -15,8 +15,14 @@ import 'package:hostel_management_app/fetures/rooms/screens/rooms_adding_form.da
 import 'package:provider/provider.dart';
 
 class RoomsViewScreen extends StatefulWidget {
-  const RoomsViewScreen({super.key, required this.roomDetailes});
+  const RoomsViewScreen(
+      {super.key,
+      required this.roomDetailes,
+      required this.index,
+      required this.isVacantRoom});
   final RoomModel roomDetailes;
+  final int index;
+  final bool isVacantRoom;
   @override
   State<RoomsViewScreen> createState() => _RoomsViewScreenState();
 }
@@ -53,6 +59,9 @@ class _RoomsViewScreenState extends State<RoomsViewScreen> {
           padding: const EdgeInsets.all(15),
           child: Consumer<RoomsController>(
             builder: (context, value, child) {
+              RoomModel room = widget.isVacantRoom
+                  ? value.vacantRooms[widget.index]
+                  : value.rooms[widget.index];
               return Scaffold(
                 backgroundColor: Colors.transparent,
                 appBar: AppBar(
@@ -84,7 +93,7 @@ class _RoomsViewScreenState extends State<RoomsViewScreen> {
                                 Provider.of<RoomsController>(context,
                                         listen: false)
                                     .onEditTap(
-                                  room: widget.roomDetailes,
+                                  room: room,
                                 );
 
                                 showModalBottomSheet(
@@ -122,7 +131,7 @@ class _RoomsViewScreenState extends State<RoomsViewScreen> {
                                       context: context,
                                       currentCapacity: currentNoOfCapacity,
                                       currentVacancy: currentNoOfVacancy,
-                                      room: widget.roomDetailes);
+                                      room: room);
                             },
                           ),
                         ];
@@ -138,7 +147,7 @@ class _RoomsViewScreenState extends State<RoomsViewScreen> {
                       Column(
                         children: [
                           Hero(
-                            tag: widget.roomDetailes.roomNo.toString(),
+                            tag: room.roomNo.toString(),
                             child: CircleAvatar(
                                 radius: 25,
                                 backgroundColor:
@@ -157,7 +166,7 @@ class _RoomsViewScreenState extends State<RoomsViewScreen> {
                             ),
                           ),
                           Text(
-                            widget.roomDetailes.roomNo.toString(),
+                            room.roomNo.toString(),
                             style: TextStyleConstants.ownerRoomNumber3,
                           ),
                         ],
@@ -186,7 +195,7 @@ class _RoomsViewScreenState extends State<RoomsViewScreen> {
                                   ),
                                 ),
                                 Text(
-                                  "  ${widget.roomDetailes.rent}",
+                                  "  ${room.rent}",
                                   style:
                                       TextStyleConstants.dashboardBookingName,
                                 )
@@ -224,7 +233,7 @@ class _RoomsViewScreenState extends State<RoomsViewScreen> {
                                   style: TextStyleConstants.ownerRoomsText2,
                                 ),
                                 Text(
-                                  widget.roomDetailes.capacity.toString(),
+                                  room.capacity.toString(),
                                   style:
                                       TextStyleConstants.dashboardVacentRoom1,
                                 )
@@ -254,7 +263,7 @@ class _RoomsViewScreenState extends State<RoomsViewScreen> {
                                   style: TextStyleConstants.ownerRoomsText2,
                                 ),
                                 Text(
-                                  widget.roomDetailes.vacancy.toString(),
+                                  room.vacancy.toString(),
                                   style:
                                       TextStyleConstants.dashboardVacentRoom1,
                                 )
@@ -282,10 +291,9 @@ class _RoomsViewScreenState extends State<RoomsViewScreen> {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
-                          children: List.generate(
-                              widget.roomDetailes.facilities.length, (index) {
-                            final facilityIndex =
-                                widget.roomDetailes.facilities[index];
+                          children:
+                              List.generate(room.facilities.length, (index) {
+                            final facilityIndex = room.facilities[index];
                             return RoomFacilitiesCard(
                               name: controller.facilitiesList[facilityIndex]
                                   ["Facility"]!,
@@ -311,8 +319,8 @@ class _RoomsViewScreenState extends State<RoomsViewScreen> {
                         height: 20,
                       ),
                       Consumer<RoomsController>(
-                        builder: (context, value, child) => widget
-                                .roomDetailes.residents.isNotEmpty
+                        builder: (context, value, child) => room
+                                .residents.isNotEmpty
                             ? value.isResidentLoading
                                 ? ListView.separated(
                                     shrinkWrap: true,
@@ -324,7 +332,7 @@ class _RoomsViewScreenState extends State<RoomsViewScreen> {
                                         const SizedBox(
                                           height: 10,
                                         ),
-                                    itemCount: widget.roomDetailes.capacity)
+                                    itemCount: room.capacity)
                                 : ListView.separated(
                                     shrinkWrap: true,
                                     physics: const ScrollPhysics(),
@@ -351,8 +359,7 @@ class _RoomsViewScreenState extends State<RoomsViewScreen> {
                                         const SizedBox(
                                           height: 10,
                                         ),
-                                    itemCount:
-                                        widget.roomDetailes.residents.length)
+                                    itemCount: room.residents.length)
                             : const Center(
                                 child: Text("No Resdients on this room"),
                               ),

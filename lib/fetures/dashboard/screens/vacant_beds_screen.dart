@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/fetures/bookings/controllers/bookings_controller.dart';
 import 'package:hostel_management_app/fetures/profile/controllers/user_controller.dart';
+import 'package:hostel_management_app/fetures/rooms/controllers/rooms_controller.dart';
 import 'package:hostel_management_app/fetures/rooms/models/room_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
@@ -18,7 +19,7 @@ class VacantBedsScreen extends StatefulWidget {
 class _VacantBedsScreenState extends State<VacantBedsScreen> {
   @override
   void initState() {
-    Provider.of<BookingsController>(context, listen: false).fetchVacantRooms();
+    Provider.of<RoomsController>(context, listen: false).fetchVacantRooms();
     Provider.of<UserController>(context, listen: false).fetchData();
 
     super.initState();
@@ -123,6 +124,8 @@ class _VacantBedsScreenState extends State<VacantBedsScreen> {
                                 context: context,
                                 builder: (context) => RoomsViewScreen(
                                       roomDetailes: room,
+                                      index: index,
+                                      isVacantRoom: true,
                                     ),
                                 barrierColor: Colors.transparent);
                           },

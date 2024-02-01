@@ -156,6 +156,8 @@ class _OwnerRoomsPageState extends State<OwnerRoomsPage> {
                                   context: context,
                                   builder: (context) => RoomsViewScreen(
                                         roomDetailes: room,
+                                        index: index,
+                                        isVacantRoom: false,
                                       ),
                                   barrierColor: Colors.transparent);
                             },

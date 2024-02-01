@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/fetures/residents/controllers/residents_repository.dart';
 import 'package:hostel_management_app/fetures/profile/controllers/owner_repository.dart';
@@ -23,7 +25,7 @@ class DashboardController with ChangeNotifier {
   final OwnerRepository controller = OwnerRepository();
   final ResidentsRepository residentsRepository = ResidentsRepository();
   final roomController = RoomsRepository();
-
+//------------------------------------------------------------------------------Fetch data
   fetchData() async {
     try {
       isFilterLoading = true;
@@ -42,6 +44,7 @@ class DashboardController with ChangeNotifier {
       print(e);
     }
   }
+//------------------------------------------------------------------------------Fetch vacating Rooms
 
   getVacatingRooms() async {
     try {
@@ -65,10 +68,10 @@ class DashboardController with ChangeNotifier {
       notifyListeners();
     }
   }
+//------------------------------------------------------------------------------Update Pending payments
 
   updatePendingPayments() async {
     try {
-      print("---------------------Pending function caled");
       paymentDueResidents.clear();
       rentPendingResidents.clear();
       pendingPayments.clear();
@@ -79,7 +82,7 @@ class DashboardController with ChangeNotifier {
               currentDate.isAfter(resident.nextRentDate) ||
               currentDate.isAtSameMomentAs(resident.nextRentDate))
           .toList();
-      print(paymentDueResidents);
+
       if (paymentDueResidents.isNotEmpty) {
         Map<String, dynamic> json = {'Rentpaid': false};
 
@@ -98,10 +101,10 @@ class DashboardController with ChangeNotifier {
         print(pendingPayments);
       }
     } catch (e) {
-      // Handle the error
       print('Error fetching residents data: $e');
     }
   }
+//------------------------------------------------------------------------------get Vacancy Count
 
   List<Map<String, int>> getVacancyCount(
       List<ResidentModel> vacatingResidents) {
@@ -121,7 +124,7 @@ class DashboardController with ChangeNotifier {
     return result;
   }
 
-  //Convert rent pending residents to map
+  //----------------------------------------------------------------------------Convert rent pending residents to map
   Future<List<Map<String, dynamic>>> convertResidentsListToMapList(
     List<ResidentModel> residentsList,
   ) async {

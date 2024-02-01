@@ -45,6 +45,8 @@ class PendingPaymentsScreen extends StatelessWidget {
                           roomNo:
                               value.pendingPayments[index]["RoomNo"].toString(),
                           residents: value.pendingPayments[index]["Residents"],
+                          totalAmount: value.pendingPayments[index]
+                              ["TotalAmount"],
                         ),
                     separatorBuilder: (context, index) => const Divider(
                           height: 10,

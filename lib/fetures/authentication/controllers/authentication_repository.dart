@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, use_build_context_synchronously
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ class AuthenticationRepository extends ChangeNotifier {
   final OwnerRepository owner = OwnerRepository();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-// sign in w
+//------------------------------------------------------------------------------sign in with Email and Password
   Future<String?> signInWithEmailAndPassword(
       {required String email,
       required String password,
@@ -42,7 +42,7 @@ class AuthenticationRepository extends ChangeNotifier {
 
       //saving owner data
       await owner.saveOwnerRecords(newOwner);
-      // You might perform additional actions here upon successful sign-up
+
       return null; // Return null for successful sign-up
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -56,7 +56,7 @@ class AuthenticationRepository extends ChangeNotifier {
     }
   }
 
-//signin with google
+//------------------------------------------------------------------------------signin with google
   Future<String?> signInWithGoogle(BuildContext context) async {
     try {
       final GoogleSignInAccount? userAccount = await GoogleSignIn().signIn();
@@ -94,7 +94,7 @@ class AuthenticationRepository extends ChangeNotifier {
         }
 
         final bool isFirstTime = await userData['AccountSetupcompleted'];
-        print(' id first :$isFirstTime');
+
         if (!isFirstTime) {
           Navigator.pushAndRemoveUntil(
               context,
@@ -110,8 +110,6 @@ class AuthenticationRepository extends ChangeNotifier {
               ),
               (route) => false);
         }
-
-        // You might perform additional actions here upon successful sign-up
 
         // Return null for successful sign-up
         return null;
@@ -130,7 +128,7 @@ class AuthenticationRepository extends ChangeNotifier {
     }
   }
 
-  //reset password
+  //----------------------------------------------------------------------------reset password
 
   Future<void> resetPassword({required String email}) async {
     try {
@@ -140,6 +138,7 @@ class AuthenticationRepository extends ChangeNotifier {
           'Error: ${e.toString()}'); // Return generic error message for other exceptions
     }
   }
+  //----------------------------------------------------------------------------Delete Account
 
   Future<void> deleteAccount() async {
     try {

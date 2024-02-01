@@ -9,9 +9,13 @@ import 'package:intl/intl.dart';
 
 class PendingPaymentDetailesCard extends StatelessWidget {
   const PendingPaymentDetailesCard(
-      {super.key, required this.roomNo, required this.residents});
+      {super.key,
+      required this.roomNo,
+      required this.residents,
+      required this.totalAmount});
 
   final String roomNo;
+  final int totalAmount;
   final List<ResidentModel> residents;
 
   @override
@@ -60,7 +64,7 @@ class PendingPaymentDetailesCard extends StatelessWidget {
                         name: residents[index].name,
                         date: DateFormat('dd MMM')
                             .format(residents[index].nextRentDate),
-                        rentAmount: "5000",
+                        rentAmount: (totalAmount / residents.length).toString(),
                         resident: residents[index],
                       )),
             ),

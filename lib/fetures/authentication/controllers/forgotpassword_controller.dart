@@ -10,7 +10,7 @@ class ForgotPasswordController with ChangeNotifier {
   final loadingController = FullScreenLoader();
   final ConnectionChecker connection = ConnectionChecker();
   final AuthenticationRepository auth = AuthenticationRepository();
-
+//------------------------------------------------------------------------------Sent Reset Email
   sendPasswordResetEmail(context) async {
     try {
       //loading animation
@@ -40,6 +40,7 @@ class ForgotPasswordController with ChangeNotifier {
     }
   }
 
+//------------------------------------------------------------------------------Email validation
   emailValidation(String value) {
     if (value.isEmpty) {
       return "Email is required.";

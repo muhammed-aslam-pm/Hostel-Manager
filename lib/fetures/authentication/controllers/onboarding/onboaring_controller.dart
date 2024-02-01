@@ -33,7 +33,7 @@ class OnBoardingController with ChangeNotifier {
   String title2 = "Comfort Zone Awaits!";
   String description =
       "Discover the ease of room reservations, seamless communication, and a vibrant community.";
-
+//------------------------------------------------------------------------------On page change function
   onPageChange({required int index}) {
     title1 = onBoardingScreens[index]["title1"];
     title2 = onBoardingScreens[index]["title2"];
@@ -41,7 +41,7 @@ class OnBoardingController with ChangeNotifier {
 
     notifyListeners();
   }
-
+//------------------------------------------------------------------------------On smooth indicator dot click
   onDotClicked(index) {
     pageController.jumpToPage(index);
     notifyListeners();
@@ -56,11 +56,5 @@ class OnBoardingController with ChangeNotifier {
     );
   }
 
-  autoScroll() async {
-    await Future.delayed(const Duration(seconds: 3)).then((value) {
-      var currntPage = pageController.page;
-      pageController.jumpTo(currntPage! + 1);
-      notifyListeners();
-    });
-  }
+ 
 }

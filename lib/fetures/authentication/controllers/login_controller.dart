@@ -22,18 +22,20 @@ class LoginController with ChangeNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final loadingController = FullScreenLoader();
 
-  //remember credentials
+  //----------------------------------------------------------------------------remember credentials
   remember() {
     rememberCredentials = !rememberCredentials;
     notifyListeners();
   }
 
-  //fetch stored credential credential
+  //----------------------------------------------------------------------------fetch stored credential credential
   fetchStordCredentials() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     emailController.text = prefs.getString('email') ?? "";
     passwordController.text = prefs.getString('password') ?? "";
   }
+
+  //----------------------------------------------------------------------------Login
 
   Future<void> login(BuildContext context) async {
     try {
@@ -83,7 +85,6 @@ class LoginController with ChangeNotifier {
       if (e.code == 'user-not-found') {
         const ScaffoldMessenger(
             child: SnackBar(content: Text('No user found for that email.')));
-        print('No user found for that email.');
       } else if (e.code == 'wrong-password') {
         const ScaffoldMessenger(
             child: SnackBar(
@@ -95,13 +96,13 @@ class LoginController with ChangeNotifier {
     }
   }
 
-//hive password
+//------------------------------------------------------------------------------hide password
   togglePassword() {
     hidePassword = !hidePassword;
     notifyListeners();
   }
 
-//email and password validation
+//------------------------------------------------------------------------------email validation
 
   emailValidation(String value) {
     if (value.isEmpty) {
@@ -112,6 +113,7 @@ class LoginController with ChangeNotifier {
       return null;
     }
   }
+//------------------------------------------------------------------------------Password validation
 
   passwordValidation(value) {
     if (value == null || value.isEmpty) {

@@ -6,20 +6,10 @@ import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class OnBoardingScreen extends StatefulWidget {
+class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({super.key});
 
   @override
-  State<OnBoardingScreen> createState() => _OnBoardingScreenState();
-}
-
-class _OnBoardingScreenState extends State<OnBoardingScreen> {
-  @override
-  void initState() {
-    Provider.of<OnBoardingController>(context, listen: false).autoScroll();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     OnBoardingController onBoardingController =

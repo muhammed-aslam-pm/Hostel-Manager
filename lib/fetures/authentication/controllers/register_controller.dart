@@ -10,20 +10,20 @@ import 'package:hostel_management_app/fetures/home/screen/home_screen.dart';
 import 'package:provider/provider.dart';
 
 class SignInController with ChangeNotifier {
+  GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   bool hidePassword = true;
-  GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
 
   final ConnectionChecker connection = ConnectionChecker();
   final loadingController = FullScreenLoader();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
+//------------------------------------------------------------------------------Register
   signin(context) async {
     try {
-      // FullScreenLoader.openLoadinDialog(context);
+      //chec internet connection
       final isConnected = await connection.isConnected();
       final authProvider =
           Provider.of<AuthenticationRepository>(context, listen: false);
@@ -32,12 +32,12 @@ class SignInController with ChangeNotifier {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text("Network error")));
       }
+
       String? errorMessage = await authProvider.signInWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim(),
           name: nameController.text);
-      print("Error : $errorMessage");
-      // FullScreenLoader.stopLoadin(context);
+
       if (errorMessage == null) {
         if (authProvider.userCredential.user?.uid != null) {
           Navigator.push(
@@ -47,8 +47,6 @@ class SignInController with ChangeNotifier {
             ),
           );
         }
-        // Successful sign-up
-        // Navigate to the next screen or perform other actions
       } else {
         // Show error message to the user
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -68,13 +66,12 @@ class SignInController with ChangeNotifier {
             content: Text('The account already exists for that email.')));
       }
     } catch (e) {
-      print("error $e");
-    } finally {
-      // FullScreenLoader.stopLoadin(context);
-    }
+      return ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("error $e")));
+    } finally {}
   }
 
-//google signin
+//------------------------------------------------------------------------------google signin
 
   signInWithGoogle(context) async {
     try {
@@ -136,18 +133,18 @@ class SignInController with ChangeNotifier {
             content: Text('The account already exists for that email.')));
       }
     } catch (e) {
-      return ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('The  provided is too weak.')));
+      return ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("error $e")));
     }
   }
 
-// hide password
+// -----------------------------------------------------------------------------hide password
   togglePassword() {
     hidePassword = !hidePassword;
     notifyListeners();
   }
 
-//name form valitator
+//------------------------------------------------------------------------------name form valitator
 
   nameValidation(value) {
     if (value == null || value.isEmpty) {
@@ -156,6 +153,7 @@ class SignInController with ChangeNotifier {
       return null;
     }
   }
+//------------------------------------------------------------------------------email validation
 
   emailValidation(String value) {
     if (value.isEmpty) {
@@ -166,6 +164,7 @@ class SignInController with ChangeNotifier {
       return null;
     }
   }
+//------------------------------------------------------------------------------Password validation
 
   passwordValidation(value) {
     if (value == null || value.isEmpty) {

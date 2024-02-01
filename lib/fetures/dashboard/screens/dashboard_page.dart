@@ -330,12 +330,12 @@ class _DashBoardPageState extends State<DashBoardPage> {
                   child: SizedBox(
                     height: value.pendingPayments.length == 1
                         ? 100
-                        : value.pendingPayments.length == 1
-                            ? 200
+                        : value.pendingPayments.length == 2
+                            ? 230
                             : 339,
                     child: ListView.separated(
                         itemCount: value.pendingPayments.length,
-                        physics: ScrollPhysics(),
+                        physics: const ScrollPhysics(),
                         separatorBuilder: (context, index) => Container(
                               color: ColorConstants.secondaryWhiteColor,
                               height: 12,
@@ -385,64 +385,10 @@ class _DashBoardPageState extends State<DashBoardPage> {
                   ),
                 ),
               ),
-              // SizedBox(
-              //   height: 20,
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 20),
-              //   child: Hero(
-              //     tag: "Maintenance request",
-              //     child: Text(
-              //       "Maintenance Request",
-              //       style: TextStyleConstants.dashboardSubtitle1,
-              //     ),
-              //   ),
-              // ),
-              // SizedBox(
-              //   height: 13,
-              // ),
-              // SingleChildScrollView(
-              //   scrollDirection: Axis.horizontal,
-              //   child: Row(
-              //     children: List.generate(
-              //       10,
-              //       (index) => MaintenanceRequestCard(
-              //           roomNumber: "26",
-              //           complaint1: 'complaint1',
-              //           complaint2: 'complaint2',
-              //           day: '5'),
-              //     ),
-              //   ),
-              // )
             ],
           ),
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      //   onPressed: () {
-      //     showModalBottomSheet(
-      //       isScrollControlled: true,
-      //       context: context,
-      //       builder: (context) => Padding(
-      //         padding: EdgeInsets.only(
-      //             bottom: MediaQuery.of(context).viewInsets.bottom),
-      //         child: AnnouncementAddingPage(),
-      //       ),
-      //       elevation: 10,
-      //       shape: RoundedRectangleBorder(
-      //         borderRadius: BorderRadius.circular(15),
-      //       ),
-      //       useSafeArea: true,
-      //     );
-      //   },
-      //   child: Image.asset(
-      //     ImageConstants.announcementIcon,
-      //     color: ColorConstants.primaryBlackColor,
-      //   ),
-      //   backgroundColor: ColorConstants.primaryWhiteColor,
-      //   elevation: 20,
-      // ),
     );
   }
 }

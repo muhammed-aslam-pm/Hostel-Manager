@@ -126,41 +126,45 @@ class _DashBoardPageState extends State<DashBoardPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    RoomVaccentCard(
-                      title: "Beds Vacantnt",
-                      number: controller.user?.noOfVacancy.toString() ?? "",
-                      bgColor: ColorConstants.primaryColor,
-                      icon: Icon(
-                        FluentIcons.bed_20_regular,
-                        color: ColorConstants.primaryBlackColor,
-                        size: 26,
+                    Consumer<UserController>(
+                      builder: (context, value, child) => RoomVaccentCard(
+                        title: "Beds Vacantnt",
+                        number: value.user?.noOfVacancy.toString() ?? "",
+                        bgColor: ColorConstants.primaryColor,
+                        icon: Icon(
+                          FluentIcons.bed_20_regular,
+                          color: ColorConstants.primaryBlackColor,
+                          size: 26,
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const VacantBedsScreen(),
+                              ));
+                        },
                       ),
-                      onTap: () {
-                        Navigator.push(
+                    ),
+                    Consumer<DashboardController>(
+                      builder: (context, value, child) => RoomVaccentCard(
+                        title: "Paymenys penting",
+                        number: value.rentPendingResidents.length.toString(),
+                        bgColor: ColorConstants.secondaryColor3,
+                        icon: Icon(
+                          FluentIcons.conference_room_48_regular,
+                          color: ColorConstants.primaryBlackColor,
+                          size: 26,
+                        ),
+                        onTap: () {
+                          Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const VacantBedsScreen(),
-                            ));
-                      },
-                    ),
-                    RoomVaccentCard(
-                      title: "Paymenys penting",
-                      number: dashboardController.rentPendingResidents.length
-                          .toString(),
-                      bgColor: ColorConstants.secondaryColor3,
-                      icon: Icon(
-                        FluentIcons.conference_room_48_regular,
-                        color: ColorConstants.primaryBlackColor,
-                        size: 26,
+                              builder: (context) =>
+                                  const PendingPaymentsScreen(),
+                            ),
+                          );
+                        },
                       ),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const PendingPaymentsScreen(),
-                          ),
-                        );
-                      },
                     ),
                   ],
                 ),

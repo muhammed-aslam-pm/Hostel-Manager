@@ -50,10 +50,12 @@ class ResidentDetailesScreen extends StatelessWidget {
                       'Delete',
                       style: TextStyle(color: ColorConstants.colorRed),
                     ),
-                    onTap: () async {
-                      await showDialog(
+                    onTap: () {
+                      showDialog(
                         context: context,
-                        builder: (context1) => ConfirmDeletDialog(
+                        builder: (context1) => ConfirmDialog(
+                          title: 'Confirm Delete',
+                          content: 'Are you sure you want to Delelte?',
                           onPressed: () => controller.deleteResident(
                               context: context1, resident: resident),
                         ),
@@ -142,19 +144,40 @@ class ResidentDetailesScreen extends StatelessWidget {
                     const SizedBox(
                       width: 20,
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: resident.isRentPaid
-                              ? ColorConstants.colorGreen
-                              : ColorConstants.colorRed),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 7),
-                      child: Center(
-                          child: Text(
-                        resident.isRentPaid ? "Fees Paid" : "Fees Not Paid",
-                        style: TextStyleConstants.buttonText,
-                      )),
+                    InkWell(
+                      onTap: () {
+                        if (!resident.isRentPaid) {
+                          showDialog(
+                              context: context,
+                              builder: (context) => ConfirmDialog(
+                                    title: "Confirm Rent Paid",
+                                    content: "'Are you sure he/she rent paid",
+                                    button2Text: "Yes",
+                                    button1Text: "No",
+                                    onPressed: () {
+                                      controller.editRentPaid(
+                                          id: resident.id!,
+                                          currentRentDate:
+                                              resident.nextRentDate,
+                                          context: context);
+                                    },
+                                  ));
+                        }
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: resident.isRentPaid
+                                ? ColorConstants.colorGreen
+                                : ColorConstants.colorRed),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 7),
+                        child: Center(
+                            child: Text(
+                          resident.isRentPaid ? "Fees Paid" : "Fees Not Paid",
+                          style: TextStyleConstants.buttonText,
+                        )),
+                      ),
                     )
                   ],
                 ),

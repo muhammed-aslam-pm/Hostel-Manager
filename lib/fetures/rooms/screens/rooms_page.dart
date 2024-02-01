@@ -57,7 +57,7 @@ class _OwnerRoomsPageState extends State<OwnerRoomsPage> {
                           items: value.filters,
                           onChanged: (p0) => value.selectFilter(p0),
                           height: 50,
-                          width: double.infinity),
+                          width: MediaQuery.sizeOf(context).width * 0.37),
                     ),
                   ),
                   const SizedBox(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hostel_management_app/commens/widgets/custom_dropdown_button.dart';
 import 'package:hostel_management_app/fetures/residents/controllers/residents_controller.dart';
 import 'package:hostel_management_app/fetures/residents/models/resident_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
@@ -46,9 +47,18 @@ class _ResidentsPageState extends State<ResidentsPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: [DateSortingButton(title: "All Residents")],
+                children: [
+                  Consumer<ResidentsController>(
+                    builder: (context, value, child) => CustomDropdownButton(
+                        selectedValue: value.selctedFilter,
+                        items: value.filters,
+                        onChanged: (p0) => value.selectFilter(p0),
+                        height: 50,
+                        width: MediaQuery.sizeOf(context).width * 0.4),
+                  )
+                ],
               ),
               const SizedBox(
                 height: 20,

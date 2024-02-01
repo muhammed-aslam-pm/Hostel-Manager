@@ -35,6 +35,7 @@ class ResidentsController with ChangeNotifier {
   final OwnerRepository ownerRepository = OwnerRepository();
   final FirebaseAuth auth = FirebaseAuth.instance;
 
+  List<ResidentModel> allResidents = [];
   List<ResidentModel> residents = [];
   List<RoomModel> vacantRooms = [];
   List<String> vacantRoomNoList = [];
@@ -54,13 +55,20 @@ class ResidentsController with ChangeNotifier {
   bool isEditing = false;
   bool isResidentsLoading = false;
 
+  List<String> filters = [
+    "All Residents",
+    "Rent Penting",
+  ];
+  String selctedFilter = "All Residents";
+
 // -----------------------------------------------------------------------------Fetch Resident detailes
   Future<void> fetchResidents() async {
     try {
       isResidentsLoading = true;
 
-      residents = await residentsRepository.fetchData();
-      residents.sort((a, b) => a.roomNo.compareTo(b.roomNo));
+      allResidents = await residentsRepository.fetchData();
+      allResidents.sort((a, b) => a.roomNo.compareTo(b.roomNo));
+      residents = allResidents;
     } catch (e) {
       print(e.toString());
       rethrow;
@@ -132,7 +140,7 @@ class ResidentsController with ChangeNotifier {
           print("image : ${e.toString()}");
         }
       }
-      DateTime nextMonthDate = checkInDate!.add(Duration(days: 30));
+      DateTime nextMonthDate = checkInDate!.add(const Duration(days: 30));
       final resident = ResidentModel(
           name: nameController.text,
           profilePic: imageUrl ?? "",
@@ -209,7 +217,7 @@ class ResidentsController with ChangeNotifier {
           print("image : ${e.toString()}");
         }
       }
-      DateTime nextMonthDate = checkInDate!.add(Duration(days: 30));
+      DateTime nextMonthDate = checkInDate!.add(const Duration(days: 30));
 
       final resident = ResidentModel(
           id: editingResidentId,
@@ -402,8 +410,25 @@ class ResidentsController with ChangeNotifier {
     );
     notifyListeners();
   }
+//------------------------------------------------------------------------------Edit rentpaid
 
-//------------------------------------------------update room data
+  editRentPaid(
+      {required String id,
+      required DateTime currentRentDate,
+      required BuildContext context}) async {
+    try {
+      DateTime nextDate = currentRentDate.add(const Duration(days: 30));
+      Map<String, dynamic> json = {"NextRentDate": nextDate, "Rentpaid": true};
+      await residentsRepository.updateSingleField(id, json);
+      showSnackbar(context: context, content: "Rent Updated successfully");
+      Navigator.pop(context);
+    } catch (e) {
+      showSnackbar(context: context, content: e.toString());
+      rethrow;
+    }
+  }
+
+//------------------------------------------------------------------------------update room data
   Future<void> updateRoom({required String newResidentId}) async {
     try {
       final RoomModel? room =
@@ -425,7 +450,7 @@ class ResidentsController with ChangeNotifier {
     }
   }
 
-//------------------------------------------------select Image
+//------------------------------------------------------------------------------select Image
   Future<void> openImagePicker() async {
     try {
       final XFile? pickedImage = await ImagePicker().pickImage(
@@ -446,7 +471,7 @@ class ResidentsController with ChangeNotifier {
     }
   }
 
-//------------------------------------------------refresh page
+//------------------------------------------------------------------------------refresh page
   refreshpage(BuildContext context) {
     fetchResidents();
     fetchVacantRooms();
@@ -473,6 +498,21 @@ class ResidentsController with ChangeNotifier {
     notifyListeners();
   }
 
+  //----------------------------------------------------------------------------filter Rooms
+
+  selectFilter(filter) async {
+    isResidentsLoading = true;
+    selctedFilter = filter;
+    if (selctedFilter == "All Residents") {
+      residents = allResidents;
+    } else if (selctedFilter == "Rent Penting") {
+      residents =
+          allResidents.where((element) => element.isRentPaid == false).toList();
+    }
+    isResidentsLoading = false;
+    notifyListeners();
+  }
+
 //------------------------------------------------------------------------------select room
   selectRoom(room) async {
     selectedRoom = room;
@@ -491,30 +531,31 @@ class ResidentsController with ChangeNotifier {
     return room.id!;
   }
 
-//-------------------------------------------------------------------------Set checkIn date
+//------------------------------------------------------------------------------Set checkIn date
   void setCheckInDate(DateTime date) {
-    if (date != null) {
-      checkInDate = date;
-      checkInDateController.text = DateFormat('dd/MM/yyy').format(date);
-      notifyListeners();
-    }
+    checkInDate = date;
+    checkInDateController.text = DateFormat('dd/MM/yyy').format(date);
+    notifyListeners();
   }
 
-//-------------------------------------------------------------------------Set checkOut date
+//------------------------------------------------------------------------------Set checkOut date
   void setCheckOutDate(DateTime date) {
-    if (date != null) {
-      checkOutDate = date;
-      checkOutDateController.text = DateFormat('dd/MM/yyy').format(date);
-      notifyListeners();
-    }
+    checkOutDate = date;
+    checkOutDateController.text = DateFormat('dd/MM/yyy').format(date);
+    notifyListeners();
   }
 
-//----------------------------------------------------------------------------Text field validation
+//-----------------------------------------------------------------------------Text field validation
   fieldValidation(value) {
     if (value == null || value.isEmpty) {
       return "this Field is required.";
     } else {
       return null;
     }
+  }
+
+  showSnackbar({required BuildContext context, required String content}) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(content)));
   }
 }

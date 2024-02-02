@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/fetures/profile/controllers/account_setup_screen_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
@@ -58,14 +60,30 @@ class AccountSetupScreen extends StatelessWidget {
                               Positioned(
                                 child: Hero(
                                   tag: Form,
-                                  child: CircleAvatar(
-                                    radius: 50,
-                                    backgroundColor:
-                                        ColorConstants.secondaryColor4,
-                                    child: Icon(
-                                      Icons.person,
-                                      color: ColorConstants.primaryBlackColor,
-                                      size: 40,
+                                  child: InkWell(
+                                    onTap: () => controller.openImagePicker(),
+                                    child:
+                                        Consumer<AccountSetUpScreenController>(
+                                      builder: (context, value, child) =>
+                                          CircleAvatar(
+                                        radius: 50,
+                                        backgroundColor:
+                                            ColorConstants.secondaryColor4,
+                                        backgroundImage: controller
+                                                    .selectedImage !=
+                                                null
+                                            ? FileImage(File(
+                                                controller.selectedImage!.path))
+                                            : null,
+                                        child: controller.selectedImage == null
+                                            ? Icon(
+                                                Icons.person,
+                                                color: ColorConstants
+                                                    .primaryBlackColor,
+                                                size: 40,
+                                              )
+                                            : null,
+                                      ),
                                     ),
                                   ),
                                 ),

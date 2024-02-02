@@ -133,16 +133,24 @@ class _ResidentsPageState extends State<ResidentsPage> {
         onPressed: () {
           Provider.of<ResidentsController>(context, listen: false)
               .fetchVacantRooms();
-          showModalBottomSheet(
-            isScrollControlled: true,
-            context: context,
-            builder: (context) => const ResidentsAddingPage(),
-            elevation: 10,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-            ),
-            useSafeArea: true,
-          );
+          if (controller.vacantRoomNoList.isEmpty) {
+            showDialog(
+              context: context,
+              builder: (context) =>
+                  const AlertDialog(title: Text("No Vacant Rooms Available !")),
+            );
+          } else {
+            showModalBottomSheet(
+              isScrollControlled: true,
+              context: context,
+              builder: (context) => const ResidentsAddingPage(),
+              elevation: 10,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+              ),
+              useSafeArea: true,
+            );
+          }
         },
         backgroundColor: ColorConstants.primaryWhiteColor,
         elevation: 50,

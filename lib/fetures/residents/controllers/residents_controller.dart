@@ -386,7 +386,9 @@ class ResidentsController with ChangeNotifier {
     oldRoomNo = resident.roomNo;
     editingResidentId = resident.id;
     editingResidnt = resident;
-    vacantRoomNoList.add(resident.roomNo.toString());
+    if (!vacantRoomNoList.contains(resident.roomNo.toString())) {
+      vacantRoomNoList.add(resident.roomNo.toString());
+    }
 
     notifyListeners();
     showModalBottomSheet(

@@ -33,6 +33,7 @@ class LoginController with ChangeNotifier {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     emailController.text = prefs.getString('email') ?? "";
     passwordController.text = prefs.getString('password') ?? "";
+    notifyListeners();
   }
 
   //----------------------------------------------------------------------------Login
@@ -40,6 +41,7 @@ class LoginController with ChangeNotifier {
   Future<void> login(BuildContext context) async {
     try {
       // start loading screen
+      FullScreenLoader.openLoadinDialog(context);
 
       final credential = await _auth.signInWithEmailAndPassword(
         email: emailController.text.trim(),
@@ -64,6 +66,7 @@ class LoginController with ChangeNotifier {
             .doc(credential.user?.uid)
             .get();
         final bool isFirstTime = await userData['AccountSetupcompleted'];
+        FullScreenLoader.stopLoadin(context);
 
         if (!isFirstTime) {
           Navigator.pushAndRemoveUntil(

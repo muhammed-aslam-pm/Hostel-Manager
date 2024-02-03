@@ -8,15 +8,16 @@ class FullScreenLoader {
     return showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => Container(
+      builder: (context1) => Container(
         height: double.infinity,
         width: double.infinity,
         color: ColorConstants.primaryWhiteColor,
+        padding: const EdgeInsets.all(40),
         child: Center(
           child: LottieBuilder.asset(
             AnimationConstants.loading,
-            width: 250,
-            height: 100,
+            width: double.infinity,
+            height: double.infinity,
           ),
         ),
       ),

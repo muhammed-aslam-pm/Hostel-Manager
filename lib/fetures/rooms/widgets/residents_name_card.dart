@@ -9,7 +9,7 @@ class ResidentsNameCard extends StatelessWidget {
       {super.key, required this.name, this.onTap, required this.image});
   final String name;
   final void Function()? onTap;
-  final image;
+  final String image;
   @override
   Widget build(BuildContext context) {
     return InkWell(

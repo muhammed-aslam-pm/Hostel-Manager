@@ -33,7 +33,7 @@ class _ResidentDetailesScreenState extends State<ResidentDetailesScreen> {
         .doc(uid)
         .collection("Residents")
         .doc(widget.residentId);
-    // TODO: implement initState
+
     super.initState();
   }
 
@@ -51,7 +51,7 @@ class _ResidentDetailesScreenState extends State<ResidentDetailesScreen> {
               snapshot.data! as DocumentSnapshot<Map<String, dynamic>>);
         } else {
           // Handle the case where snapshot data is null or not available
-          return CircularProgressIndicator(); // or any other appropriate widget
+          return const CircularProgressIndicator(); // or any other appropriate widget
         }
 
         return Scaffold(

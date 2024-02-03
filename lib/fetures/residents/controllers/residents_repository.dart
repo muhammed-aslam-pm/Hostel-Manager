@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hostel_management_app/fetures/residents/models/resident_model.dart';
@@ -56,9 +58,7 @@ class ResidentsRepository {
         if (result.exists) {
           final residentModel = ResidentModel.fromDocumentSnapshot(result);
           residentModels.add(residentModel);
-        } else {
-          print("Document not found for residentId: $residentId");
-        }
+        } else {}
       }
 
       return residentModels;

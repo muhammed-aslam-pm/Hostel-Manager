@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -20,7 +22,7 @@ class OwnerRepository with ChangeNotifier {
 
   Future<OwnerModel?> fetchOwnerRecords() async {
     try {
-      final currentUser = await _auth.currentUser;
+      final currentUser = _auth.currentUser;
       final documentSnapshot =
           await _db.collection("Owners").doc(currentUser?.uid).get();
 
@@ -30,11 +32,12 @@ class OwnerRepository with ChangeNotifier {
     } catch (e) {
       print(e);
     }
+    return null;
   }
 
   Future<void> accountSetup(Map<String, dynamic> json) async {
     try {
-      final currentUser = await _auth.currentUser;
+      final currentUser = _auth.currentUser;
       await _db.collection("Owners").doc(currentUser!.uid).update(json);
     } catch (e) {
       print(e);
@@ -66,5 +69,6 @@ class OwnerRepository with ChangeNotifier {
     } catch (e) {
       print(e);
     }
+    return null;
   }
 }

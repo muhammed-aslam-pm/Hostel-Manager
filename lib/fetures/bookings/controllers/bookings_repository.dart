@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -31,8 +33,8 @@ class BookingRepository with ChangeNotifier {
       return roomModels;
     } catch (e) {
       print("Error: $e");
-      // Handle the error appropriately, e.g., log, display a message, etc.
-      rethrow; // Re-throwing the exception for higher-level error handling
+
+      rethrow;
     }
   }
 

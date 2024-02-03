@@ -73,6 +73,7 @@ class BookedResidentDetailesScreen extends StatelessWidget {
                               bookingId: detailes.id.toString(),
                               roomId: detailes.roomId),
                         );
+                        // ignore: use_build_context_synchronously
                         Navigator.pop(context);
                       },
                     ),

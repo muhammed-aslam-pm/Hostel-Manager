@@ -1,4 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// ignore_for_file: use_build_context_synchronously, avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/fetures/bookings/controllers/bookings_repository.dart';
 import 'package:hostel_management_app/commens/functions/connection_checher.dart';
@@ -14,7 +15,7 @@ import 'package:hostel_management_app/utils/image_constants.dart';
 
 class RoomsController with ChangeNotifier {
   List<Map<String, String>> facilitiesList = [
-    {"Facility": "AC", "Image": ImageConstants.ACIcon},
+    {"Facility": "AC", "Image": ImageConstants.acIcon},
     {"Facility": "WiFi", "Image": ImageConstants.wifiIcon},
     {"Facility": "Washingmachine", "Image": ImageConstants.washingMachineIcon},
     {"Facility": "Attached Bathroom", "Image": ImageConstants.bathroomIcon},
@@ -69,9 +70,7 @@ class RoomsController with ChangeNotifier {
       rooms = allRooms;
       isRoomsLoading = false;
     } catch (e) {
-      print(e.toString());
-      // Add a return statement or rethrow the exception
-      rethrow; // or return an empty list or handle the error appropriately
+      rethrow;
     } finally {
       isRoomsLoading = false;
       notifyListeners();
@@ -88,9 +87,7 @@ class RoomsController with ChangeNotifier {
       vacantRooms = allRooms.where((room) => room.vacancy > 0).toList();
       vacantRooms.sort((a, b) => a.roomNo.compareTo(b.roomNo));
     } catch (e) {
-      print(e.toString());
-      // Handle the error appropriately, e.g., log, display a message, etc.
-      rethrow; // or return an empty list or handle the error appropriately
+      rethrow;
     } finally {
       isRoomsLoading = false;
       notifyListeners();
@@ -104,6 +101,7 @@ class RoomsController with ChangeNotifier {
     } catch (e) {
       print(e);
     }
+    return null;
   }
 
 //------------------------------------------------------------------------------fetchResidents
@@ -113,7 +111,7 @@ class RoomsController with ChangeNotifier {
 
       residents = await residentsRepository.fetchResidentsByIds(residentIds);
     } catch (e) {
-      print(e);
+      rethrow;
     } finally {
       isResidentLoading = false;
       notifyListeners();
@@ -131,7 +129,6 @@ class RoomsController with ChangeNotifier {
       required int currentCapacity,
       required int currentVacancy}) async {
     try {
-      print("Vacancy : $currentVacancy");
       final isConnected = await connection.isConnected();
       if (!isConnected) {
         ScaffoldMessenger.of(context)
@@ -165,7 +162,6 @@ class RoomsController with ChangeNotifier {
 
       int noOfBeds = currentCapacity + int.parse(capacityController.text);
       int noOfVacancy = currentVacancy + int.parse(capacityController.text);
-      print(noOfVacancy);
 
       await userRepoController
           .accountSetup({"NoOfBeds": noOfBeds, "NoOfVacancy": noOfVacancy});
@@ -262,14 +258,14 @@ class RoomsController with ChangeNotifier {
                     "Can't Edit the Room",
                     style: TextStyle(color: ColorConstants.colorRed),
                   ),
-                  content: Text(
+                  content: const Text(
                       "This room has more occupents than the given capacity.change the capacity and try again!"),
                   actions: [
                     OutlinedButton(
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: Text("Try Again"))
+                        child: const Text("Try Again"))
                   ],
                 ));
         return;

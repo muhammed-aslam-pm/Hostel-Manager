@@ -38,7 +38,7 @@ class BookingTextField extends StatelessWidget {
             borderSide:
                 BorderSide(width: 2, color: ColorConstants.primaryWhiteColor),
           ),
-          suffixIcon: suffix != null ? suffix : null,
+          suffixIcon: suffix,
         ),
       ),
     );

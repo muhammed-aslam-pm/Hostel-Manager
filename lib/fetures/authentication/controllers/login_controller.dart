@@ -21,6 +21,7 @@ class LoginController with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final loadingController = FullScreenLoader();
+  bool isLoading = false;
 
   //----------------------------------------------------------------------------remember credentials
   remember() {
@@ -41,7 +42,8 @@ class LoginController with ChangeNotifier {
   Future<void> login(BuildContext context) async {
     try {
       // start loading screen
-      FullScreenLoader.openLoadinDialog(context);
+      isLoading = true;
+      notifyListeners();
 
       final credential = await _auth.signInWithEmailAndPassword(
         email: emailController.text.trim(),
@@ -66,8 +68,8 @@ class LoginController with ChangeNotifier {
             .doc(credential.user?.uid)
             .get();
         final bool isFirstTime = await userData['AccountSetupcompleted'];
-        FullScreenLoader.stopLoadin(context);
-
+        isLoading = false;
+        notifyListeners();
         if (!isFirstTime) {
           Navigator.pushAndRemoveUntil(
               context,
@@ -86,16 +88,18 @@ class LoginController with ChangeNotifier {
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        const ScaffoldMessenger(
-            child: SnackBar(content: Text('No user found for that email.')));
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('No user found for that email.')));
       } else if (e.code == 'wrong-password') {
-        const ScaffoldMessenger(
-            child: SnackBar(
-                content: Text('Wrong password provided for that user.')));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Wrong password provided for that user.')));
       } else {
-        ScaffoldMessenger(
-            child: SnackBar(content: Text('OOps ${e.toString()}')));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('OOps ${e.code.toString()}')));
       }
+    } finally {
+      isLoading = false;
+      notifyListeners();
     }
   }
 

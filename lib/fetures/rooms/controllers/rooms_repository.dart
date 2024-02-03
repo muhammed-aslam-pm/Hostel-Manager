@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +9,7 @@ class RoomsRepository with ChangeNotifier {
   final _db = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-//fetch Rooms
+//------------------------------------------------------------------------------fetch Rooms
 
   Future<List<RoomModel>> fetchData() async {
     try {
@@ -27,12 +29,12 @@ class RoomsRepository with ChangeNotifier {
       return roomModels;
     } catch (e) {
       print("Error: $e");
-      // Handle the error appropriately, e.g., log, display a message, etc.
-      rethrow; // Re-throwing the exception for higher-level error handling
+
+      rethrow;
     }
   }
 
-  //fetch single room
+  //----------------------------------------------------------------------------fetch single room
 
   Future<RoomModel?> fetchSingleRoom({required String roomId}) async {
     try {
@@ -54,14 +56,15 @@ class RoomsRepository with ChangeNotifier {
       }
     } catch (e) {
       print("Error: $e");
-      // Handle the error appropriately, e.g., log, display a message, etc.
-      rethrow; // Re-throwing the exception for higher-level error handling
+
+      rethrow;
     }
+    return null;
   }
 
   Future<RoomModel?> getRoomByRoomNo(int roomNo) async {
     try {
-      final userId = await _auth.currentUser!.uid;
+      final userId = _auth.currentUser!.uid;
       final querySnapshot = await _db
           .collection("Owners")
           .doc(userId)
@@ -83,11 +86,11 @@ class RoomsRepository with ChangeNotifier {
     }
   }
 
-//Add new Room
+//------------------------------------------------------------------------------Add new Room
 
   addRoom(RoomModel room) async {
     try {
-      final userId = await _auth.currentUser!.uid;
+      final userId = _auth.currentUser!.uid;
       await _db
           .collection("Owners")
           .doc(userId)
@@ -98,10 +101,10 @@ class RoomsRepository with ChangeNotifier {
     }
   }
 
-  //Update room
+  //----------------------------------------------------------------------------Update room
 
   Future<void> updadatRoom(RoomModel room) async {
-    final userId = await _auth.currentUser!.uid;
+    final userId = _auth.currentUser!.uid;
     try {
       await _db
           .collection("Owners")
@@ -114,12 +117,12 @@ class RoomsRepository with ChangeNotifier {
     }
   }
 
-  //update single field
+  //----------------------------------------------------------------------------update single field
 
   Future<void> updateSingleField(
       {required Map<String, dynamic> json, required String roomId}) async {
     try {
-      final currentUser = await _auth.currentUser;
+      final currentUser = _auth.currentUser;
       await _db
           .collection("Owners")
           .doc(currentUser!.uid)
@@ -132,11 +135,10 @@ class RoomsRepository with ChangeNotifier {
     }
   }
 
-  // Delete a room
+  //--------------------------------------------------------------------------- Delete a room
 
   Future<void> deleteRoom(String roomId) async {
     try {
-      print("room repo");
       final userId = _auth.currentUser!.uid;
       await _db
           .collection("Owners")
@@ -144,7 +146,6 @@ class RoomsRepository with ChangeNotifier {
           .collection("Rooms")
           .doc(roomId)
           .delete();
-      print("repo deleted");
     } catch (e) {
       print("somthing went wrong");
     }

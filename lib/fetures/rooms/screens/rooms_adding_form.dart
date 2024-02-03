@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/fetures/rooms/controllers/rooms_controller.dart';
 import 'package:hostel_management_app/fetures/profile/controllers/user_controller.dart';
@@ -145,7 +147,7 @@ class RoomsAddingForm extends StatelessWidget {
                 FacilityCard(
                   facility: "AC",
                   onTap: () => controller.onSelect(0),
-                  image: ImageConstants.ACIcon,
+                  image: ImageConstants.acIcon,
                   isSelected: roomController.acSelected,
                 ),
                 FacilityCard(
@@ -205,7 +207,6 @@ class RoomsAddingForm extends StatelessWidget {
                     if (roomController.formKey.currentState!.validate()) {
                       if (controller.isEditing) {
                         await controller.editRoom(context);
-                        
                       } else {
                         await userController.fetchData();
                         final currentNoOfCapacity =

@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, avoid_print
 
 import 'dart:io';
 import 'package:flutter/foundation.dart';
@@ -90,7 +90,6 @@ class ResidentsController with ChangeNotifier {
 
       if (vacantRooms.isNotEmpty) {
         // Create a Set to keep track of unique room numbers
-        Set<String> uniqueRoomNumbers = Set();
 
         vacantRooms.sort((a, b) => a.roomNo.compareTo(b.roomNo));
 
@@ -98,9 +97,8 @@ class ResidentsController with ChangeNotifier {
           String roomNumber = room.roomNo.toString();
 
           // Check if the room number hasn't been added before
-          if (!uniqueRoomNumbers.contains(roomNumber)) {
+          if (!vacantRoomNoList.contains(roomNumber)) {
             vacantRoomNoList.add(roomNumber);
-            uniqueRoomNumbers.add(roomNumber);
           }
         }
 
@@ -511,8 +509,6 @@ class ResidentsController with ChangeNotifier {
     selectedRoom = room;
     selectedRoomId = findRoomByRoomNo(int.parse(selectedRoom!));
     notifyListeners();
-    print(selectedRoom);
-    print(selectedRoomId);
   }
 
 //------------------------------------------------------------------------------fetching RoomId

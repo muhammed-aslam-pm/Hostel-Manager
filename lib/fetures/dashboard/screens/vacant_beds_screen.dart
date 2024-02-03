@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hostel_management_app/fetures/bookings/controllers/bookings_controller.dart';
 import 'package:hostel_management_app/fetures/profile/controllers/user_controller.dart';
 import 'package:hostel_management_app/fetures/rooms/controllers/rooms_controller.dart';
 import 'package:hostel_management_app/fetures/rooms/models/room_model.dart';
@@ -27,7 +26,7 @@ class _VacantBedsScreenState extends State<VacantBedsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Provider.of<BookingsController>(context);
+    final controller = Provider.of<RoomsController>(context);
     final userController = Provider.of<UserController>(context);
     return Scaffold(
       backgroundColor: ColorConstants.primaryWhiteColor,

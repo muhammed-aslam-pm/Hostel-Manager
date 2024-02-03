@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, avoid_print
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -23,7 +25,7 @@ class AccountSetUpScreenController with ChangeNotifier {
         imageUrl = await controller.uploadImage(
             'Owners/Images/Profile', XFile(selectedImage!.path));
       } catch (e) {
-        print("image : ${e.toString()}");
+        print(e);
       }
     }
     final Map<String, dynamic> jason = {

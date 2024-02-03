@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/commens/widgets/custom_dropdown_button.dart';
 import 'package:hostel_management_app/fetures/residents/controllers/residents_controller.dart';
@@ -23,6 +25,7 @@ class _ResidentsPageState extends State<ResidentsPage> {
   @override
   void initState() {
     Provider.of<ResidentsController>(context, listen: false).fetchResidents();
+
     super.initState();
   }
 
@@ -130,8 +133,8 @@ class _ResidentsPageState extends State<ResidentsPage> {
       ),
       floatingActionButton: FloatingActionButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        onPressed: () {
-          Provider.of<ResidentsController>(context, listen: false)
+        onPressed: () async {
+          await Provider.of<ResidentsController>(context, listen: false)
               .fetchVacantRooms();
           if (controller.vacantRoomNoList.isEmpty) {
             showDialog(
@@ -143,7 +146,11 @@ class _ResidentsPageState extends State<ResidentsPage> {
             showModalBottomSheet(
               isScrollControlled: true,
               context: context,
-              builder: (context) => const ResidentsAddingPage(),
+              builder: (context) => Padding(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: const ResidentsAddingPage(),
+              ),
               elevation: 10,
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(20)),

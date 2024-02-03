@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/fetures/authentication/controllers/authentication_repository.dart';
 import 'package:hostel_management_app/commens/functions/loading_controller.dart';
@@ -10,6 +12,8 @@ class UserController with ChangeNotifier {
   OwnerModel? user = OwnerModel.empty();
   final OwnerRepository controller = OwnerRepository();
   final loadingController = FullScreenLoader();
+
+  //----------------------------------------------------------------------------Fetch user data
 
   fetchData() async {
     try {
@@ -38,6 +42,7 @@ class UserController with ChangeNotifier {
     addressController.text = user!.address;
     roonNoController.text = user!.noOfRooms.toString();
   }
+  //----------------------------------------------------------------------------Update user data
 
   updateData(context) async {
     try {
@@ -65,6 +70,7 @@ class UserController with ChangeNotifier {
       print(e.toString());
     }
   }
+  //----------------------------------------------------------------------------Delte user
 
   deleteUserAccount(context) async {
     try {
@@ -81,6 +87,7 @@ class UserController with ChangeNotifier {
       print(e.toString());
     }
   }
+  //----------------------------------------------------------------------------Upload profile pick
 
   uploadUserProfilePicture(context) async {
     try {

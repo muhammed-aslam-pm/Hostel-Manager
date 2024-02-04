@@ -341,6 +341,7 @@ class _RoomsViewScreenState extends State<RoomsViewScreen> {
                                         name: value.residents![index1].name,
                                         image:
                                             value.residents![index1].profilePic,
+                                        phoneNo: value.residents![index1].phone,
                                         onTap: () {
                                           Navigator.push(
                                             context,

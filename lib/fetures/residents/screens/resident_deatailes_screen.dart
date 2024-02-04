@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hostel_management_app/commens/functions/make_phone_call.dart';
 import 'package:hostel_management_app/fetures/residents/controllers/residents_controller.dart';
 import 'package:hostel_management_app/fetures/residents/models/resident_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
@@ -240,8 +241,11 @@ class _ResidentDetailesScreenState extends State<ResidentDetailesScreen> {
                           resident.phone,
                           style: TextStyleConstants.dashboardBookingName,
                         ),
-                        const InkWell(
-                          child: Icon(
+                        InkWell(
+                          onTap: () {
+                            makePhoneCall(resident!.phone, context);
+                          },
+                          child: const Icon(
                             Icons.call,
                             size: 28,
                           ),
@@ -281,8 +285,11 @@ class _ResidentDetailesScreenState extends State<ResidentDetailesScreen> {
                           resident.emargencyContact,
                           style: TextStyleConstants.dashboardBookingName,
                         ),
-                        const InkWell(
-                          child: Icon(
+                        InkWell(
+                          onTap: () {
+                            makePhoneCall(resident!.emargencyContact, context);
+                          },
+                          child: const Icon(
                             Icons.call,
                             size: 28,
                           ),

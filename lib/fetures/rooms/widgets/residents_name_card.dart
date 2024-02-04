@@ -1,15 +1,21 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:hostel_management_app/commens/functions/make_phone_call.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/commens/widgets/shimmer_loader.dart';
 
 class ResidentsNameCard extends StatelessWidget {
   const ResidentsNameCard(
-      {super.key, required this.name, this.onTap, required this.image});
+      {super.key,
+      required this.name,
+      this.onTap,
+      required this.image,
+      required this.phoneNo});
   final String name;
   final void Function()? onTap;
   final String image;
+  final String phoneNo;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -62,7 +68,9 @@ class ResidentsNameCard extends StatelessWidget {
               ],
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                makePhoneCall(phoneNo, context);
+              },
               icon: Icon(
                 Icons.call,
                 color: ColorConstants.primaryColor,

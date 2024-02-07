@@ -261,18 +261,9 @@ class _DashBoardPageState extends State<DashBoardPage> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Upcoming Bookings",
-                      style: TextStyleConstants.dashboardSubtitle1,
-                    ),
-                    Text(
-                      "Show all ",
-                      style: TextStyleConstants.dashboardSubtitle2,
-                    )
-                  ],
+                child: Text(
+                  "Upcoming Bookings",
+                  style: TextStyleConstants.dashboardSubtitle1,
                 ),
               ),
               const SizedBox(

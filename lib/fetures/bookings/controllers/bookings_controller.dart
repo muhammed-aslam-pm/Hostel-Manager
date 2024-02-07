@@ -83,7 +83,7 @@ class BookingsController with ChangeNotifier {
     // Filter bookings with check-in date within this week
     final thisWeekBookings = allBookings.where((booking) {
       final daysDifference = booking.checkIn.difference(currentDate).inDays;
-      return daysDifference >= 0 && daysDifference < 7;
+      return daysDifference < 20;
     }).toList();
 
     // Move the filtered bookings to another list

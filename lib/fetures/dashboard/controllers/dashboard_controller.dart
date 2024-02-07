@@ -56,7 +56,7 @@ class DashboardController with ChangeNotifier {
       // Filter bookings with check-in date within this week
       final thisWeekVaccating = allResidents.where((resident) {
         final daysDifference = resident.checkOut.difference(currentDate).inDays;
-        return daysDifference >= 0 && daysDifference < selectedDays;
+        return daysDifference < selectedDays;
       }).toList();
 
       roomsGoingtoVacant = getVacancyCount(thisWeekVaccating);

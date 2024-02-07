@@ -44,7 +44,7 @@ class ResidentsController with ChangeNotifier {
   DateTime? checkInDate;
   DateTime? checkOutDate;
   File? selectedImage;
-  String? oldImage;
+  String oldImage = "";
   String? imageUrl;
   String? editingRoomId;
   String? editingResidentId;
@@ -210,7 +210,7 @@ class ResidentsController with ChangeNotifier {
       final resident = ResidentModel(
           id: editingResidentId,
           name: nameController.text,
-          profilePic: imageUrl ?? oldImage ?? "",
+          profilePic: imageUrl ?? oldImage,
           roomNo: int.parse(selectedRoom!),
           roomId: selectedRoomId!,
           phone: phoneNoController.text,
@@ -473,7 +473,7 @@ class ResidentsController with ChangeNotifier {
     checkInDate = null;
     checkOutDate = null;
     selectedImage = null;
-    oldImage = null;
+    oldImage = '';
     editingRoomId = null;
     editingResidentId = null;
     oldRoomNo = null;

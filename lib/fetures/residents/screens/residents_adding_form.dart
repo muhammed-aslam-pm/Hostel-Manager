@@ -28,13 +28,13 @@ class ResidentsAddingPage extends StatelessWidget {
                 child: SizedBox(
                   height: 100,
                   width: 100,
-                  child: Stack(
-                    children: [
-                      Positioned(
-                          child: Hero(
-                        tag: Form,
-                        child: InkWell(
-                          onTap: () => controller.openImagePicker(),
+                  child: InkWell(
+                    onTap: () => controller.openImagePicker(),
+                    child: Stack(
+                      children: [
+                        Positioned(
+                            child: Hero(
+                          tag: Form,
                           child: Consumer<ResidentsController>(
                             builder: (context, value, child) => CircleAvatar(
                               radius: 50,
@@ -42,8 +42,12 @@ class ResidentsAddingPage extends StatelessWidget {
                               backgroundImage: controller.selectedImage != null
                                   ? FileImage(
                                       File(controller.selectedImage!.path))
-                                  : null,
-                              child: controller.selectedImage == null
+                                  : controller.oldImage != ""
+                                      ? NetworkImage(controller.oldImage)
+                                          as ImageProvider<Object>?
+                                      : null,
+                              child: controller.selectedImage == null &&
+                                      controller.oldImage == ""
                                   ? Icon(
                                       Icons.person,
                                       color: ColorConstants.primaryBlackColor,
@@ -52,18 +56,18 @@ class ResidentsAddingPage extends StatelessWidget {
                                   : null,
                             ),
                           ),
-                        ),
-                      )),
-                      Positioned(
-                        bottom: 3,
-                        right: 3,
-                        child: CircleAvatar(
-                          radius: 13,
-                          backgroundColor: ColorConstants.secondaryColor5,
-                          child: const Icon(Icons.add),
-                        ),
-                      )
-                    ],
+                        )),
+                        Positioned(
+                          bottom: 3,
+                          right: 3,
+                          child: CircleAvatar(
+                            radius: 13,
+                            backgroundColor: ColorConstants.secondaryColor5,
+                            child: const Icon(Icons.add),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

@@ -29,14 +29,43 @@ class DashBoardPage extends StatefulWidget {
   State<DashBoardPage> createState() => _DashBoardPageState();
 }
 
-class _DashBoardPageState extends State<DashBoardPage> {
+class _DashBoardPageState extends State<DashBoardPage>
+    with TickerProviderStateMixin {
   final con = DashboardController();
+  late AnimationController _controller1;
+  late Animation<Offset> _animation1;
+  late AnimationController _controller2;
+  late Animation<Offset> _animation2;
   @override
   void initState() {
     Provider.of<UserController>(context, listen: false).fetchData();
     Provider.of<BookingsController>(context, listen: false).fetchBookingsData();
     Provider.of<DashboardController>(context, listen: false).fetchData();
     super.initState();
+    _controller1 = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+    _controller2 = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+    _animation1 = Tween<Offset>(
+      begin: const Offset(-1.0, 0.0),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+      parent: _controller1,
+      curve: Curves.easeInOut,
+    ));
+    _animation2 = Tween<Offset>(
+      begin: const Offset(1.0, 0.0),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+      parent: _controller2,
+      curve: Curves.easeInOut,
+    ));
+    _controller1.forward();
+    _controller2.forward();
   }
 
   @override
@@ -127,43 +156,50 @@ class _DashBoardPageState extends State<DashBoardPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Consumer<UserController>(
-                      builder: (context, value, child) => RoomVaccentCard(
-                        title: "Beds Vacantnt",
-                        number: value.user?.noOfVacancy.toString() ?? "",
-                        bgColor: ColorConstants.primaryColor,
-                        icon: Icon(
-                          FluentIcons.bed_20_regular,
-                          color: ColorConstants.primaryBlackColor,
-                          size: 26,
+                      builder: (context, value, child) => SlideTransition(
+                        position: _animation1,
+                        child: RoomVaccentCard(
+                          title: "Beds Vacantnt",
+                          number: value.user?.noOfVacancy.toString() ?? "",
+                          bgColor: ColorConstants.primaryColor,
+                          icon: Icon(
+                            FluentIcons.bed_20_regular,
+                            color: ColorConstants.primaryBlackColor,
+                            size: 26,
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const VacantBedsScreen(),
+                                ));
+                          },
                         ),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const VacantBedsScreen(),
-                              ));
-                        },
                       ),
                     ),
                     Consumer<DashboardController>(
-                      builder: (context, value, child) => RoomVaccentCard(
-                        title: "Paymenys penting",
-                        number: value.rentPendingResidents.length.toString(),
-                        bgColor: ColorConstants.secondaryColor3,
-                        icon: Icon(
-                          FluentIcons.conference_room_48_regular,
-                          color: ColorConstants.primaryBlackColor,
-                          size: 26,
+                      builder: (context, value, child) => SlideTransition(
+                        position: _animation2,
+                        child: RoomVaccentCard(
+                          title: "Paymenys penting",
+                          number: value.rentPendingResidents.length.toString(),
+                          bgColor: ColorConstants.secondaryColor3,
+                          icon: Icon(
+                            FluentIcons.conference_room_48_regular,
+                            color: ColorConstants.primaryBlackColor,
+                            size: 26,
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const PendingPaymentsScreen(),
+                              ),
+                            );
+                          },
                         ),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const PendingPaymentsScreen(),
-                            ),
-                          );
-                        },
                       ),
                     ),
                   ],
@@ -403,5 +439,12 @@ class _DashBoardPageState extends State<DashBoardPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _controller1.dispose();
+    _controller2.dispose();
+    super.dispose();
   }
 }

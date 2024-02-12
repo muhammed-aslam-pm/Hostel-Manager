@@ -39,11 +39,12 @@ class AccountSetUpScreenController with ChangeNotifier {
 
     controller.accountSetup(jason);
 
-    Navigator.push(
+    Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
           builder: (context) => const HomeScreen(),
-        ));
+        ),
+        (route) => false);
   }
 
   //------------------------------------------------------------------------------select Image

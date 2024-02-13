@@ -3,6 +3,7 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/fetures/bookings/controllers/bookings_controller.dart';
 import 'package:hostel_management_app/fetures/dashboard/controllers/dashboard_controller.dart';
+import 'package:hostel_management_app/fetures/dashboard/widgets/pending_loading_card.dart';
 import 'package:hostel_management_app/fetures/dashboard/widgets/vacant_rooms_loading.dart';
 import 'package:hostel_management_app/fetures/profile/controllers/user_controller.dart';
 import 'package:hostel_management_app/fetures/bookings/models/booking_model.dart';
@@ -353,45 +354,66 @@ class _DashBoardPageState extends State<DashBoardPage>
               Consumer<DashboardController>(
                 builder: (context, value, child) => Padding(
                   padding: const EdgeInsets.all(25),
-                  child: value.pendingPayments.isEmpty
-                      ? const Center(
-                          child: SizedBox(
-                            height: 50,
-                            child: Center(
-                              child: Text("No Pending Payments"),
-                            ),
-                          ),
-                        )
-                      : SizedBox(
+                  child: value.isPaymentsLoading
+                      ? SizedBox(
                           height: value.pendingPayments.length == 1
                               ? 100
                               : value.pendingPayments.length == 2
                                   ? 230
                                   : 339,
                           child: ListView.separated(
-                              itemCount: value.pendingPayments.length,
+                              itemCount: value.pendingPayments.isEmpty
+                                  ? 2
+                                  : value.pendingPayments.length,
                               physics: const ScrollPhysics(),
                               separatorBuilder: (context, index) => Container(
                                     color: ColorConstants.secondaryWhiteColor,
                                     height: 12,
                                   ),
-                              itemBuilder: (context, index) {
-                                Map<String, dynamic> pendingPayment =
-                                    value.pendingPayments[index];
-                                return PendingPaymentCard(
-                                    roomNumber:
-                                        pendingPayment["RoomNo"].toString(),
-                                    date: DateFormat('dd MMM').format(
-                                        pendingPayment["Residents"][0]
-                                            .nextRentDate),
-                                    amount: pendingPayment["TotalAmount"]
-                                        .toString(),
-                                    profilePhot1:
-                                        ImageConstants.ownerHomeProfilePhoto2,
-                                    profilePhot2:
-                                        ImageConstants.ownerHomeProfilePhoto3);
-                              }),
-                        ),
+                              itemBuilder: (context, index) =>
+                                  const PendingLoadingCard()),
+                        )
+                      : value.pendingPayments.isEmpty
+                          ? const Center(
+                              child: SizedBox(
+                                height: 50,
+                                child: Center(
+                                  child: Text("No Pending Payments"),
+                                ),
+                              ),
+                            )
+                          : SizedBox(
+                              height: value.pendingPayments.length == 1
+                                  ? 100
+                                  : value.pendingPayments.length == 2
+                                      ? 230
+                                      : 339,
+                              child: ListView.separated(
+                                  itemCount: value.pendingPayments.length,
+                                  physics: const ScrollPhysics(),
+                                  separatorBuilder: (context, index) =>
+                                      Container(
+                                        color:
+                                            ColorConstants.secondaryWhiteColor,
+                                        height: 12,
+                                      ),
+                                  itemBuilder: (context, index) {
+                                    Map<String, dynamic> pendingPayment =
+                                        value.pendingPayments[index];
+                                    return PendingPaymentCard(
+                                        roomNumber:
+                                            pendingPayment["RoomNo"].toString(),
+                                        date: DateFormat('dd MMM').format(
+                                            pendingPayment["Residents"][0]
+                                                .nextRentDate),
+                                        amount: pendingPayment["TotalAmount"]
+                                            .toString(),
+                                        profilePhot1: ImageConstants
+                                            .ownerHomeProfilePhoto2,
+                                        profilePhot2: ImageConstants
+                                            .ownerHomeProfilePhoto3);
+                                  }),
+                            ),
                 ),
               ),
               Center(

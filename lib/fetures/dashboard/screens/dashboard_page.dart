@@ -183,6 +183,7 @@ class _DashBoardPageState extends State<DashBoardPage>
                         position: _animation2,
                         child: RoomVaccentCard(
                           title: "Paymenys penting",
+                          isLoading: value.isPaymentsLoading,
                           number: value.rentPendingResidents.length.toString(),
                           bgColor: ColorConstants.secondaryColor3,
                           icon: Icon(
@@ -242,44 +243,29 @@ class _DashBoardPageState extends State<DashBoardPage>
                   if (value.roomsGoingtoVacant.isNotEmpty) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: value.isFilterLoading
-                          ? GridView.builder(
-                              shrinkWrap: true,
-                              physics: const ScrollPhysics(),
-                              itemCount: value.roomsGoingtoVacant.isEmpty
-                                  ? 2
-                                  : value.roomsGoingtoVacant.length,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 5,
-                                crossAxisSpacing: 10,
-                                mainAxisExtent: 80,
-                              ),
-                              itemBuilder: (context, index) =>
-                                  const VaccentLoadingCard())
-                          : GridView.builder(
-                              shrinkWrap: true,
-                              physics: const ScrollPhysics(),
-                              itemCount: value.roomsGoingtoVacant.length,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 5,
-                                crossAxisSpacing: 10,
-                                mainAxisExtent: 80,
-                              ),
-                              itemBuilder: (context, index) =>
-                                  GoingToVaccentCard(
-                                      roomNumber: value
-                                          .roomsGoingtoVacant[index]["RoomNo"]
-                                          .toString(),
-                                      beadNumber: value
-                                          .roomsGoingtoVacant[index]["Vacancy"]
-                                          .toString(),
-                                      backgroungColor:
-                                          ColorConstants.secondaryColor4),
-                            ),
+                      child: GridView.builder(
+                        shrinkWrap: true,
+                        physics: const ScrollPhysics(),
+                        itemCount: value.roomsGoingtoVacant.length,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 5,
+                          crossAxisSpacing: 10,
+                          mainAxisExtent: 80,
+                        ),
+                        itemBuilder: (context, index) => SlideTransition(
+                          position: index % 2 == 0 ? _animation1 : _animation2,
+                          child: GoingToVaccentCard(
+                              roomNumber: value.roomsGoingtoVacant[index]
+                                      ["RoomNo"]
+                                  .toString(),
+                              beadNumber: value.roomsGoingtoVacant[index]
+                                      ["Vacancy"]
+                                  .toString(),
+                              backgroungColor: ColorConstants.secondaryColor4),
+                        ),
+                      ),
                     );
                   } else {
                     return SizedBox(
@@ -324,25 +310,28 @@ class _DashBoardPageState extends State<DashBoardPage>
                               (index) {
                             BookingsModel booking = bookingsController
                                 .bookingsWithinThisWeek[index];
-                            return UpcomingBookings(
-                              name: booking.name,
-                              date: DateFormat('dd/MM/yyyy')
-                                  .format(booking.checkIn),
-                              roomNumber: booking.roomNO.toString(),
-                              beadNumber: "5",
-                              isAdvacePaid: booking.advancePaid,
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        BookedResidentDetailesScreen(
-                                      index: index,
-                                      isSorted: true,
+                            return SlideTransition(
+                              position: _animation2,
+                              child: UpcomingBookings(
+                                name: booking.name,
+                                date: DateFormat('dd/MM/yyyy')
+                                    .format(booking.checkIn),
+                                roomNumber: booking.roomNO.toString(),
+                                beadNumber: "5",
+                                isAdvacePaid: booking.advancePaid,
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          BookedResidentDetailesScreen(
+                                        index: index,
+                                        isSorted: true,
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
+                                  );
+                                },
+                              ),
                             );
                           }),
                         ),

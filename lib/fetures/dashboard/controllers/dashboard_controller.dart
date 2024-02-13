@@ -16,6 +16,7 @@ class DashboardController with ChangeNotifier {
   int selectedDays = 7;
   List<String> sortingItems = ["This Week", "This Month", "This Year"];
   bool isFilterLoading = false;
+  bool isPaymentsLoading = false;
   List<ResidentModel> allResidents = [];
   List<ResidentModel> rentPendingResidents = [];
   List<ResidentModel> paymentDueResidents = [];
@@ -72,6 +73,7 @@ class DashboardController with ChangeNotifier {
 
   updatePendingPayments() async {
     try {
+      isPaymentsLoading = true;
       paymentDueResidents.clear();
       rentPendingResidents.clear();
       pendingPayments.clear();
@@ -97,11 +99,13 @@ class DashboardController with ChangeNotifier {
         }
         pendingPayments =
             await convertResidentsListToMapList(rentPendingResidents);
+        isFilterLoading = false;
         notifyListeners();
-        print(pendingPayments);
       }
     } catch (e) {
       print('Error fetching residents data: $e');
+    } finally {
+      isPaymentsLoading = false;
     }
   }
 //------------------------------------------------------------------------------get Vacancy Count

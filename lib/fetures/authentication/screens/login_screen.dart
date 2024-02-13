@@ -128,30 +128,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       const SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        height: 47,
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        color: ColorConstants.secondaryWhiteColor,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(ImageConstants.appleLogo),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "Sign in with Apple",
-                              style: TextStyleConstants.dashboardDate,
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      const SizedBox(
                         height: 40,
                       ),
                     ],

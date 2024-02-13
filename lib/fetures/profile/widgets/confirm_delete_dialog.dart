@@ -25,7 +25,7 @@ class ConfirmDeletDialog extends StatelessWidget {
         OutlinedButton(
           onPressed: () {
             Navigator.of(context)
-                .pop(false); // Dismiss the dialog and return false
+                .pop(false); 
           },
           child: const Text('Cancel'),
         ),

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/fetures/profile/controllers/user_controller.dart';
+import 'package:hostel_management_app/utils/animation_constants.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/commens/widgets/shimmer_loader.dart';
@@ -9,6 +10,7 @@ import 'package:hostel_management_app/fetures/profile/widgets/confirm_delete_dia
 import 'package:hostel_management_app/fetures/profile/widgets/confirm_logout_dialog.dart';
 import 'package:hostel_management_app/fetures/profile/widgets/profile_detailes_card.dart';
 import 'package:hostel_management_app/fetures/profile/widgets/room_no_card.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -114,7 +116,7 @@ class ProfileScreen extends StatelessWidget {
             children: [
               Hero(
                 tag: "profile",
-                child: Consumer(
+                child: Consumer<UserController>(
                   builder: (context, value, child) {
                     return Container(
                       height: 110,
@@ -123,23 +125,29 @@ class ProfileScreen extends StatelessWidget {
                         color: ColorConstants.primaryWhiteColor,
                         borderRadius: BorderRadius.circular(100),
                       ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(100),
-                        child: controller.user!.profilePictuer.isNotEmpty
-                            ? CachedNetworkImage(
-                                imageUrl: controller.user!.profilePictuer,
-                                fit: BoxFit.cover,
-                                errorWidget: (context, url, error) =>
-                                    const Icon(Icons.error),
-                                progressIndicatorBuilder:
-                                    (context, url, progress) =>
-                                        const ShimmerEffect(
-                                            height: 110,
-                                            width: 110,
-                                            radius: 100),
-                              )
-                            : Image.asset(ImageConstants.profileImage),
-                      ),
+                      child: value.isProfileUploading
+                          ? Center(
+                              child: LottieBuilder(
+                                  lottie:
+                                      AssetLottie(AnimationConstants.loading2)),
+                            )
+                          : ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              child: controller.user!.profilePictuer.isNotEmpty
+                                  ? CachedNetworkImage(
+                                      imageUrl: controller.user!.profilePictuer,
+                                      fit: BoxFit.cover,
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error),
+                                      progressIndicatorBuilder:
+                                          (context, url, progress) =>
+                                              const ShimmerEffect(
+                                                  height: 110,
+                                                  width: 110,
+                                                  radius: 100),
+                                    )
+                                  : Image.asset(ImageConstants.profileImage),
+                            ),
                     );
                   },
                 ),

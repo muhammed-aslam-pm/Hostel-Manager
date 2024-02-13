@@ -132,10 +132,7 @@ class SignInController with ChangeNotifier {
         return ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('The account already exists for that email.')));
       }
-    } catch (e) {
-      return ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("error $e")));
-    }
+    } catch (e) {}
   }
 
 // -----------------------------------------------------------------------------hide password

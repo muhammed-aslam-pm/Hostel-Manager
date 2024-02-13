@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
         .then((value) => Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => ScreenReDirector.redirectScreen(),
+              builder: (context) => ScreenReDirector().redirectScreen(),
             ),
             (route) => false));
     super.initState();

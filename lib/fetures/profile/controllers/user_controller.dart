@@ -12,6 +12,7 @@ class UserController with ChangeNotifier {
   OwnerModel? user = OwnerModel.empty();
   final OwnerRepository controller = OwnerRepository();
   final loadingController = FullScreenLoader();
+  bool isProfileUploading = false;
 
   //----------------------------------------------------------------------------Fetch user data
 
@@ -46,7 +47,6 @@ class UserController with ChangeNotifier {
 
   updateData(context) async {
     try {
-      FullScreenLoader.openLoadinDialog(context);
       final updatedUser = OwnerModel(
         id: user!.id,
         hostelName: hostelNameController.text,
@@ -62,7 +62,7 @@ class UserController with ChangeNotifier {
       );
       await controller.updateOwnerRecords(updatedUser);
       fetchData();
-      FullScreenLoader.stopLoadin(context);
+
       Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Profile Updated Successfull")));
@@ -76,6 +76,8 @@ class UserController with ChangeNotifier {
     try {
       final auth = AuthenticationRepository();
       await auth.deleteAccount();
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Account Deleted Successfully")));
 
       Navigator.pushAndRemoveUntil(
           context,
@@ -91,6 +93,7 @@ class UserController with ChangeNotifier {
 
   uploadUserProfilePicture(context) async {
     try {
+      isProfileUploading = true;
       final image = await ImagePicker().pickImage(
           source: ImageSource.gallery,
           imageQuality: 70,
@@ -104,10 +107,14 @@ class UserController with ChangeNotifier {
         controller.accountSetup(json);
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text("Profile picture Changed Sussefully")));
+
         fetchData();
+        isProfileUploading = false;
       }
     } catch (e) {
       print(e.toString());
+    } finally {
+      isProfileUploading = false;
     }
   }
 

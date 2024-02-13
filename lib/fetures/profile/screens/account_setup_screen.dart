@@ -150,6 +150,7 @@ class AccountSetupScreen extends StatelessWidget {
                           controller: controller.addressController,
                           maxLines: null,
                           expands: true,
+                          textAlignVertical: TextAlignVertical.top,
                           decoration: InputDecoration(
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),

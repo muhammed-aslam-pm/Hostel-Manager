@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hostel_management_app/fetures/profile/screens/account_setup_screen.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/fetures/authentication/screens/login_screen.dart';
@@ -15,12 +16,12 @@ class _SignUpSuccessfullScreeState extends State<SignUpSuccessfullScree> {
   void initState() {
     Future.delayed(const Duration(seconds: 1)).then(
       (value) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const LoginScreen(),
-          ),
-        );
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const AccountSetupScreen(),
+            ),
+            (route) => false);
       },
     );
     super.initState();

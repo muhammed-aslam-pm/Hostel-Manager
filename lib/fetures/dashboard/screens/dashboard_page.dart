@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:hostel_management_app/fetures/bookings/controllers/bookings_controller.dart';
 import 'package:hostel_management_app/fetures/dashboard/controllers/dashboard_controller.dart';
 import 'package:hostel_management_app/fetures/dashboard/widgets/pending_loading_card.dart';
-import 'package:hostel_management_app/fetures/dashboard/widgets/vacant_rooms_loading.dart';
 import 'package:hostel_management_app/fetures/profile/controllers/user_controller.dart';
 import 'package:hostel_management_app/fetures/bookings/models/booking_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
@@ -401,17 +400,15 @@ class _DashBoardPageState extends State<DashBoardPage>
                                     Map<String, dynamic> pendingPayment =
                                         value.pendingPayments[index];
                                     return PendingPaymentCard(
-                                        roomNumber:
-                                            pendingPayment["RoomNo"].toString(),
-                                        date: DateFormat('dd MMM').format(
-                                            pendingPayment["Residents"][0]
-                                                .nextRentDate),
-                                        amount: pendingPayment["TotalAmount"]
-                                            .toString(),
-                                        profilePhot1: ImageConstants
-                                            .ownerHomeProfilePhoto2,
-                                        profilePhot2: ImageConstants
-                                            .ownerHomeProfilePhoto3);
+                                      roomNumber:
+                                          pendingPayment["RoomNo"].toString(),
+                                      date: DateFormat('dd MMM').format(
+                                          pendingPayment["Residents"][0]
+                                              .nextRentDate),
+                                      amount: pendingPayment["TotalAmount"]
+                                          .toString(),
+                                      residents: pendingPayment["Residents"],
+                                    );
                                   }),
                             ),
                 ),

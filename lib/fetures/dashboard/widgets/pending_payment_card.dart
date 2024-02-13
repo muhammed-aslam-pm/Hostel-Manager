@@ -1,24 +1,24 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hostel_management_app/fetures/residents/models/resident_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/fetures/payments/screens/pending_payments_screen.dart';
 
 class PendingPaymentCard extends StatelessWidget {
-  const PendingPaymentCard(
-      {super.key,
-      required this.roomNumber,
-      required this.date,
-      required this.amount,
-      required this.profilePhot1,
-      required this.profilePhot2});
+  const PendingPaymentCard({
+    super.key,
+    required this.roomNumber,
+    required this.date,
+    required this.amount,
+    required this.residents,
+  });
   final String roomNumber;
   final String date;
   final String amount;
-  final String profilePhot1;
-  final String profilePhot2;
+  final List<ResidentModel> residents;
 
   @override
   Widget build(BuildContext context) {
@@ -78,16 +78,27 @@ class PendingPaymentCard extends StatelessWidget {
                               left: 0,
                               child: CircleAvatar(
                                 radius: 12,
-                                backgroundImage: AssetImage(profilePhot1),
+                                backgroundImage: residents[0].profilePic == ""
+                                    ? null
+                                    : NetworkImage(residents[0].profilePic),
                               )),
-                          Positioned(
-                              left: 15,
-                              child: CircleAvatar(
-                                radius: 12,
-                                backgroundImage: AssetImage(profilePhot2),
-                              )),
-                          const Positioned(
-                              right: 0, bottom: 4, child: Text("+2"))
+                          residents.length > 1
+                              ? Positioned(
+                                  left: 15,
+                                  child: CircleAvatar(
+                                    radius: 12,
+                                    backgroundImage: residents[1].profilePic ==
+                                            ""
+                                        ? null
+                                        : NetworkImage(residents[1].profilePic),
+                                  ))
+                              : residents.length > 2
+                                  ? Positioned(
+                                      right: 0,
+                                      bottom: 4,
+                                      child: Text("+${residents.length - 2}"),
+                                    )
+                                  : const SizedBox()
                         ],
                       ),
                     )

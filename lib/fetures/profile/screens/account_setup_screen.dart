@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/fetures/profile/controllers/account_setup_screen_controller.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
@@ -7,12 +9,29 @@ import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/commens/widgets/login_button.dart';
 import 'package:provider/provider.dart';
 
-class AccountSetupScreen extends StatelessWidget {
+class AccountSetupScreen extends StatefulWidget {
   const AccountSetupScreen({super.key});
+
+  @override
+  State<AccountSetupScreen> createState() => _AccountSetupScreenState();
+}
+
+class _AccountSetupScreenState extends State<AccountSetupScreen> {
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  String profilePhoto = "";
+
+  fetchprofile() async {
+    final currentUser = _auth.currentUser;
+    final documentSnapshot =
+        await _db.collection("Owners").doc(currentUser?.uid).get();
+    profilePhoto = documentSnapshot['ProfilePictuer'];
+  }
 
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<AccountSetUpScreenController>(context);
+
     return Scaffold(
       backgroundColor: ColorConstants.secondaryWhiteColor,
       body: SafeArea(
@@ -69,20 +88,23 @@ class AccountSetupScreen extends StatelessWidget {
                                         radius: 50,
                                         backgroundColor:
                                             ColorConstants.secondaryColor4,
-                                        backgroundImage: controller
-                                                    .selectedImage !=
-                                                null
-                                            ? FileImage(File(
-                                                controller.selectedImage!.path))
-                                            : null,
-                                        child: controller.selectedImage == null
-                                            ? Icon(
-                                                Icons.person,
-                                                color: ColorConstants
-                                                    .primaryBlackColor,
-                                                size: 40,
-                                              )
-                                            : null,
+                                        backgroundImage: profilePhoto != ""
+                                            ? NetworkImage(profilePhoto)
+                                                as ImageProvider<Object>?
+                                            : controller.selectedImage != null
+                                                ? FileImage(File(controller
+                                                    .selectedImage!.path))
+                                                : null,
+                                        child:
+                                            controller.selectedImage == null &&
+                                                    profilePhoto == ""
+                                                ? Icon(
+                                                    Icons.person,
+                                                    color: ColorConstants
+                                                        .primaryBlackColor,
+                                                    size: 40,
+                                                  )
+                                                : null,
                                       ),
                                     ),
                                   ),
@@ -116,6 +138,8 @@ class AccountSetupScreen extends StatelessWidget {
                         height: 50,
                         child: TextFormField(
                           controller: controller.hostelNameController,
+                          validator: (value) =>
+                              controller.nameValidation(value),
                           decoration: InputDecoration(
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -124,6 +148,12 @@ class AccountSetupScreen extends StatelessWidget {
                                     color: ColorConstants.primaryColor),
                               ),
                               focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(
+                                    width: 2,
+                                    color: ColorConstants.primaryColor),
+                              ),
+                              errorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide: BorderSide(
                                     width: 2,
@@ -151,6 +181,8 @@ class AccountSetupScreen extends StatelessWidget {
                           maxLines: null,
                           expands: true,
                           textAlignVertical: TextAlignVertical.top,
+                          validator: (value) =>
+                              controller.nameValidation(value),
                           decoration: InputDecoration(
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -159,6 +191,12 @@ class AccountSetupScreen extends StatelessWidget {
                                     color: ColorConstants.primaryColor),
                               ),
                               focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(
+                                    width: 2,
+                                    color: ColorConstants.primaryColor),
+                              ),
+                              errorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide: BorderSide(
                                     width: 2,
@@ -182,6 +220,8 @@ class AccountSetupScreen extends StatelessWidget {
                         height: 50,
                         child: TextFormField(
                           controller: controller.phoneNumberController,
+                          validator: (value) =>
+                              controller.nameValidation(value),
                           decoration: InputDecoration(
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -190,6 +230,12 @@ class AccountSetupScreen extends StatelessWidget {
                                     color: ColorConstants.primaryColor),
                               ),
                               focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(
+                                    width: 2,
+                                    color: ColorConstants.primaryColor),
+                              ),
+                              errorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide: BorderSide(
                                     width: 2,
@@ -215,6 +261,8 @@ class AccountSetupScreen extends StatelessWidget {
                             width: 100,
                             child: TextFormField(
                               controller: controller.roomNumberController,
+                              validator: (value) =>
+                                  controller.nameValidation(value),
                               decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
@@ -223,6 +271,12 @@ class AccountSetupScreen extends StatelessWidget {
                                         color: ColorConstants.primaryColor),
                                   ),
                                   focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide(
+                                        width: 2,
+                                        color: ColorConstants.primaryColor),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide: BorderSide(
                                         width: 2,
@@ -245,9 +299,12 @@ class AccountSetupScreen extends StatelessWidget {
                       LoginButton(
                         buttonName: "Continue",
                         onTap: () {
-                          Provider.of<AccountSetUpScreenController>(context,
-                                  listen: false)
-                              .updateOwnerRecords(context);
+                          if (controller.accountSetupFormKey.currentState!
+                              .validate()) {
+                            Provider.of<AccountSetUpScreenController>(context,
+                                    listen: false)
+                                .updateOwnerRecords(context, profilePhoto);
+                          }
                         },
                       )
                     ],

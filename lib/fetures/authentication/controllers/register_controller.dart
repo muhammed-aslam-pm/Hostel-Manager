@@ -76,7 +76,7 @@ class SignInController with ChangeNotifier {
   signInWithGoogle(context) async {
     try {
       //start loading animation
-      FullScreenLoader.openLoadinDialog(context);
+      // FullScreenLoader.openLoadinDialog(context);
 
       //checking internet connection
       final isConnected = await connection.isConnected();
@@ -91,8 +91,31 @@ class SignInController with ChangeNotifier {
 
       //invoking signup function
       String? errorMessage = await authProvider.signInWithGoogle(context);
+      // FullScreenLoader.stopLoadin(context);
       if (errorMessage == null) {
         // Successful sign-up
+        // if (authProvider.userCredentialGoogle.user!.uid != null) {
+        //   final DocumentSnapshot userData = await _firestore
+        //       .collection("Owners")
+        //       .doc(authProvider.userCredentialGoogle.user!.uid)
+        //       .get();
+        //   final bool isFirstTime = await userData['AccountSetupcompleted'];
+
+        //   if (!isFirstTime) {
+        //     Navigator.push(
+        //         context,
+        //         MaterialPageRoute(
+        //           builder: (context) => const AccountSetupScreen(),
+        //         ));
+        //   } else {
+        //     Navigator.push(
+        //       context,
+        //       MaterialPageRoute(
+        //         builder: (context) => const HomeScreen(),
+        //       ),
+        //     );
+        //   }
+        // }
         // Navigate to the next screen or perform other actions
       } else {
         // Show error message to the user
@@ -102,28 +125,6 @@ class SignInController with ChangeNotifier {
       }
 
       //navigating to desired pages
-      if (authProvider.userCredentialGoogle.user?.uid != null) {
-        final DocumentSnapshot userData = await _firestore
-            .collection("Owners")
-            .doc(authProvider.userCredentialGoogle.user?.uid)
-            .get();
-        final bool isFirstTime = await userData['AccountSetupcompleted'];
-
-        if (!isFirstTime) {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const AccountSetupScreen(),
-              ));
-        } else {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const HomeScreen(),
-            ),
-          );
-        }
-      }
     } on PlatformException catch (e) {
       if (e.code == 'weak-password') {
         return ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -132,7 +133,9 @@ class SignInController with ChangeNotifier {
         return ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('The account already exists for that email.')));
       }
-    } catch (e) {}
+    } catch (e) {
+      print('error :$e');
+    }
   }
 
 // -----------------------------------------------------------------------------hide password

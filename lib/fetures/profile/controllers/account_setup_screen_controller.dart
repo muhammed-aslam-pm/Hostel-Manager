@@ -19,7 +19,7 @@ class AccountSetUpScreenController with ChangeNotifier {
 
   final OwnerRepository controller = OwnerRepository();
 
-  Future<void> updateOwnerRecords(BuildContext context) async {
+  Future<void> updateOwnerRecords(BuildContext context, String pro) async {
     if (selectedImage != null) {
       try {
         imageUrl = await controller.uploadImage(
@@ -32,7 +32,7 @@ class AccountSetUpScreenController with ChangeNotifier {
       'HostelName': hostelNameController.text,
       'Address': addressController.text,
       'MobileNumber': phoneNumberController.text,
-      'ProfilePictuer': imageUrl ?? "",
+      'ProfilePictuer': imageUrl ?? pro,
       'NoOfRooms': int.parse(roomNumberController.text),
       'AccountSetupcompleted': true
     };
@@ -63,6 +63,15 @@ class AccountSetUpScreenController with ChangeNotifier {
       }
     } catch (e) {
       print(e);
+    }
+  }
+  //------------------------------------------------------------------------------ form valitator
+
+  nameValidation(value) {
+    if (value == null || value.isEmpty) {
+      return "This field is required.";
+    } else {
+      return null;
     }
   }
 }

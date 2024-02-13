@@ -13,6 +13,7 @@ class AuthenticationRepository extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   late UserCredential userCredential;
   late UserCredential userCredentialGoogle;
+
   final OwnerRepository owner = OwnerRepository();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -65,7 +66,8 @@ class AuthenticationRepository extends ChangeNotifier {
 
       final credential = GoogleAuthProvider.credential(
           accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
-      final userCredentialGoogle = await _auth.signInWithCredential(credential);
+      userCredentialGoogle = await _auth.signInWithCredential(credential);
+      notifyListeners();
 
       // ignore: unnecessary_null_comparison
       if (userCredentialGoogle != null) {
@@ -92,8 +94,10 @@ class AuthenticationRepository extends ChangeNotifier {
           // Save owner data
           await owner.saveOwnerRecords(newOwner);
         }
+        final DocumentSnapshot newUserData =
+            await _firestore.collection("Owners").doc(userId).get();
 
-        final bool isFirstTime = await userData['AccountSetupcompleted'];
+        final bool isFirstTime = await newUserData['AccountSetupcompleted'];
 
         if (!isFirstTime) {
           Navigator.pushAndRemoveUntil(
@@ -145,6 +149,8 @@ class AuthenticationRepository extends ChangeNotifier {
       final curentUser = _auth.currentUser;
       await owner.deleteOwnerRecords(curentUser!.uid);
       await _auth.currentUser!.delete();
+      await GoogleSignIn().signOut();
+      await FirebaseAuth.instance.signOut();
     } catch (e) {
       print(
           'Error: ${e.toString()}'); // Return generic error message for other exceptions

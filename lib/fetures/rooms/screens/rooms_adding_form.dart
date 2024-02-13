@@ -53,6 +53,11 @@ class RoomsAddingForm extends StatelessWidget {
                               borderSide: BorderSide(
                                   width: 2, color: ColorConstants.primaryColor),
                             ),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                  width: 2, color: ColorConstants.primaryColor),
+                            ),
                           ),
                           keyboardType: TextInputType.number,
                           validator: (value) =>
@@ -91,6 +96,11 @@ class RoomsAddingForm extends StatelessWidget {
                               borderSide: BorderSide(
                                   width: 2, color: ColorConstants.primaryColor),
                             ),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                  width: 2, color: ColorConstants.primaryColor),
+                            ),
                           ),
                           keyboardType: TextInputType.number,
                           validator: (value) =>
@@ -123,6 +133,11 @@ class RoomsAddingForm extends StatelessWidget {
                         width: 1.5, color: ColorConstants.primaryColor),
                   ),
                   focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(
+                        width: 2, color: ColorConstants.primaryColor),
+                  ),
+                  errorBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide(
                         width: 2, color: ColorConstants.primaryColor),

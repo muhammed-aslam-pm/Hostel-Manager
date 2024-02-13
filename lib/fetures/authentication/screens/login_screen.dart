@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/fetures/authentication/controllers/login_controller.dart';
 import 'package:hostel_management_app/fetures/authentication/controllers/register_controller.dart';
-import 'package:hostel_management_app/utils/animation_constants.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
 import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/fetures/authentication/screens/signup_screen.dart';
-import 'package:lottie/lottie.dart';
+
 import 'package:provider/provider.dart';
 
 import '../widgets/login_form.dart';

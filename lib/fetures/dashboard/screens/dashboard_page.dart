@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:hostel_management_app/commens/widgets/shimmer_loader.dart';
 import 'package:hostel_management_app/fetures/bookings/controllers/bookings_controller.dart';
 import 'package:hostel_management_app/fetures/dashboard/controllers/dashboard_controller.dart';
 import 'package:hostel_management_app/fetures/dashboard/widgets/pending_loading_card.dart';
@@ -119,18 +120,24 @@ class _DashBoardPageState extends State<DashBoardPage>
                 height: 40,
                 width: 40,
                 decoration: BoxDecoration(
-                  color: ColorConstants.primaryWhiteColor,
-                  shape: BoxShape.circle,
-                  image: controller.user!.profilePictuer.isNotEmpty
-                      ? DecorationImage(
-                          image: CachedNetworkImageProvider(
-                            controller.user!.profilePictuer,
-                          ),
+                  color: ColorConstants.secondaryColor3,
+                  borderRadius: BorderRadius.circular(100),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: controller.user!.profilePictuer.isNotEmpty
+                      ? CachedNetworkImage(
+                          imageUrl: controller.user!.profilePictuer,
                           fit: BoxFit.cover,
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
+                          progressIndicatorBuilder: (context, url, progress) =>
+                              const ShimmerEffect(
+                                  height: 40, width: 40, radius: 40),
                         )
-                      : DecorationImage(
-                          image: AssetImage(ImageConstants.profileImage),
-                          fit: BoxFit.fitWidth),
+                      : const Center(
+                          child: Icon(Icons.person),
+                        ),
                 ),
               ),
             ),

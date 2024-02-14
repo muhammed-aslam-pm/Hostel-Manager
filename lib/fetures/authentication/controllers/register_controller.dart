@@ -1,12 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hostel_management_app/fetures/authentication/controllers/authentication_repository.dart';
 import 'package:hostel_management_app/commens/functions/connection_checher.dart';
 import 'package:hostel_management_app/commens/functions/loading_controller.dart';
-import 'package:hostel_management_app/fetures/profile/screens/account_setup_screen.dart';
 import 'package:hostel_management_app/fetures/authentication/screens/signup_successfull_page.dart';
-import 'package:hostel_management_app/fetures/home/screen/home_screen.dart';
 import 'package:provider/provider.dart';
 
 class SignInController with ChangeNotifier {
@@ -16,13 +13,13 @@ class SignInController with ChangeNotifier {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   bool hidePassword = true;
-
   final ConnectionChecker connection = ConnectionChecker();
   final loadingController = FullScreenLoader();
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
 //------------------------------------------------------------------------------Register
   signin(context) async {
     try {
+      FullScreenLoader.openLoadinDialog(context);
       //chec internet connection
       final isConnected = await connection.isConnected();
       final authProvider =
@@ -48,6 +45,7 @@ class SignInController with ChangeNotifier {
           );
         }
       } else {
+        FullScreenLoader.stopLoadin(context);
         // Show error message to the user
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(errorMessage),
@@ -76,7 +74,7 @@ class SignInController with ChangeNotifier {
   signInWithGoogle(context) async {
     try {
       //start loading animation
-      // FullScreenLoader.openLoadinDialog(context);
+      FullScreenLoader.openLoadinDialog(context);
 
       //checking internet connection
       final isConnected = await connection.isConnected();
@@ -92,39 +90,12 @@ class SignInController with ChangeNotifier {
       //invoking signup function
       String? errorMessage = await authProvider.signInWithGoogle(context);
       // FullScreenLoader.stopLoadin(context);
-      if (errorMessage == null) {
-        // Successful sign-up
-        // if (authProvider.userCredentialGoogle.user!.uid != null) {
-        //   final DocumentSnapshot userData = await _firestore
-        //       .collection("Owners")
-        //       .doc(authProvider.userCredentialGoogle.user!.uid)
-        //       .get();
-        //   final bool isFirstTime = await userData['AccountSetupcompleted'];
-
-        //   if (!isFirstTime) {
-        //     Navigator.push(
-        //         context,
-        //         MaterialPageRoute(
-        //           builder: (context) => const AccountSetupScreen(),
-        //         ));
-        //   } else {
-        //     Navigator.push(
-        //       context,
-        //       MaterialPageRoute(
-        //         builder: (context) => const HomeScreen(),
-        //       ),
-        //     );
-        //   }
-        // }
-        // Navigate to the next screen or perform other actions
-      } else {
+      if (errorMessage != null) {
         // Show error message to the user
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(errorMessage),
         ));
       }
-
-      //navigating to desired pages
     } on PlatformException catch (e) {
       if (e.code == 'weak-password') {
         return ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

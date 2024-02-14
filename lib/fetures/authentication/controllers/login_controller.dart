@@ -42,13 +42,8 @@ class LoginController with ChangeNotifier {
   Future<void> login(BuildContext context) async {
     try {
       // start loading screen
-      isLoading = true;
-      notifyListeners();
-
-      final credential = await _auth.signInWithEmailAndPassword(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim(),
-      );
+      FullScreenLoader.openLoadinDialog(context);
+      print("started");
 
       // store credentials in local storage
 
@@ -57,19 +52,25 @@ class LoginController with ChangeNotifier {
         prefs.setString('email', emailController.text.trim());
         prefs.setString('password', passwordController.text.trim());
       }
+      print("sign started");
+      final credential = await _auth.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+      print(credential);
 
       //Navigate to home page
-      emailController.clear();
-      passwordController.clear();
-
+      print("signed");
       if (credential.user?.uid != null) {
+        print("success");
+        emailController.clear();
+        passwordController.clear();
         final DocumentSnapshot userData = await _firestore
             .collection("Owners")
             .doc(credential.user?.uid)
             .get();
         final bool isFirstTime = await userData['AccountSetupcompleted'];
-        isLoading = false;
-        notifyListeners();
+
         if (!isFirstTime) {
           Navigator.pushAndRemoveUntil(
               context,
@@ -85,7 +86,11 @@ class LoginController with ChangeNotifier {
               ),
               (route) => false);
         }
+      } else {
+        print("failed");
+        FullScreenLoader.stopLoadin(context);
       }
+      print("completed");
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -97,9 +102,7 @@ class LoginController with ChangeNotifier {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text('OOps ${e.code.toString()}')));
       }
-    } finally {
-      isLoading = false;
-      notifyListeners();
+      FullScreenLoader.stopLoadin(context);
     }
   }
 

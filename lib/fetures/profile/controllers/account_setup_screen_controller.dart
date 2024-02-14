@@ -45,6 +45,11 @@ class AccountSetUpScreenController with ChangeNotifier {
           builder: (context) => const HomeScreen(),
         ),
         (route) => false);
+    hostelNameController.clear();
+    addressController.clear();
+    phoneNumberController.clear();
+    imageUrl = '';
+    roomNumberController.clear();
   }
 
   //------------------------------------------------------------------------------select Image

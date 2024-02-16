@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:hostel_management_app/fetures/profile/controllers/owner_repository.dart';
+import 'package:hostel_management_app/fetures/profile/controllers/user_repository.dart';
 import 'package:hostel_management_app/fetures/profile/models/owner_model.dart';
 import 'package:hostel_management_app/fetures/profile/screens/account_setup_screen.dart';
 import 'package:hostel_management_app/fetures/home/screen/home_screen.dart';
@@ -14,7 +14,7 @@ class AuthenticationRepository extends ChangeNotifier {
   late UserCredential userCredential;
   late UserCredential userCredentialGoogle;
 
-  final OwnerRepository owner = OwnerRepository();
+  final UserRepository owner = UserRepository();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 //------------------------------------------------------------------------------sign in with Email and Password

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hostel_management_app/fetures/bookings/controllers/bookings_repository.dart';
 import 'package:hostel_management_app/commens/functions/connection_checher.dart';
 import 'package:hostel_management_app/fetures/rooms/controllers/rooms_repository.dart';
-import 'package:hostel_management_app/fetures/profile/controllers/owner_repository.dart';
+import 'package:hostel_management_app/fetures/profile/controllers/user_repository.dart';
 import 'package:hostel_management_app/fetures/bookings/models/booking_model.dart';
 import 'package:hostel_management_app/fetures/profile/models/owner_model.dart';
 import 'package:hostel_management_app/fetures/rooms/models/room_model.dart';
@@ -21,7 +21,7 @@ class BookingsController with ChangeNotifier {
   final BookingRepository bookingController = BookingRepository();
   final ConnectionChecker connectionController = ConnectionChecker();
   final RoomsRepository roomController = RoomsRepository();
-  final OwnerRepository ownerRepository = OwnerRepository();
+  final UserRepository ownerRepository = UserRepository();
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   List<BookingsModel> allBookings = [];

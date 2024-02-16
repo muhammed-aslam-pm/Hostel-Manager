@@ -3,14 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/fetures/authentication/controllers/authentication_repository.dart';
 import 'package:hostel_management_app/commens/functions/loading_controller.dart';
-import 'package:hostel_management_app/fetures/profile/controllers/owner_repository.dart';
+import 'package:hostel_management_app/fetures/profile/controllers/user_repository.dart';
 import 'package:hostel_management_app/fetures/profile/models/owner_model.dart';
 import 'package:hostel_management_app/fetures/authentication/screens/login_screen.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UserController with ChangeNotifier {
   OwnerModel? user = OwnerModel.empty();
-  final OwnerRepository controller = OwnerRepository();
+  final UserRepository controller = UserRepository();
   final loadingController = FullScreenLoader();
   bool isProfileUploading = false;
 

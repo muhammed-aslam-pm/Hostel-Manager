@@ -8,7 +8,7 @@ import 'package:hostel_management_app/commens/functions/connection_checher.dart'
 import 'package:hostel_management_app/fetures/residents/controllers/residents_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hostel_management_app/fetures/rooms/controllers/rooms_repository.dart';
-import 'package:hostel_management_app/fetures/profile/controllers/owner_repository.dart';
+import 'package:hostel_management_app/fetures/profile/controllers/user_repository.dart';
 import 'package:hostel_management_app/fetures/bookings/models/booking_model.dart';
 import 'package:hostel_management_app/fetures/profile/models/owner_model.dart';
 import 'package:hostel_management_app/fetures/residents/models/resident_model.dart';
@@ -32,7 +32,7 @@ class ResidentsController with ChangeNotifier {
   final ConnectionChecker connectionController = ConnectionChecker();
   final BookingsController bookingsController = BookingsController();
   final RoomsRepository roomController = RoomsRepository();
-  final OwnerRepository ownerRepository = OwnerRepository();
+  final UserRepository ownerRepository = UserRepository();
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   List<ResidentModel> allResidents = [];

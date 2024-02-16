@@ -8,7 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hostel_management_app/fetures/profile/models/owner_model.dart';
 import 'package:image_picker/image_picker.dart';
 
-class OwnerRepository with ChangeNotifier {
+class UserRepository with ChangeNotifier {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 

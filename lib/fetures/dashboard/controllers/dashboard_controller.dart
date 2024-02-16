@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:hostel_management_app/fetures/residents/controllers/residents_repository.dart';
-import 'package:hostel_management_app/fetures/profile/controllers/owner_repository.dart';
+import 'package:hostel_management_app/fetures/profile/controllers/user_repository.dart';
 import 'package:hostel_management_app/fetures/profile/models/owner_model.dart';
 import 'package:hostel_management_app/fetures/residents/models/resident_model.dart';
 import 'package:hostel_management_app/fetures/rooms/controllers/rooms_repository.dart';
@@ -23,7 +23,7 @@ class DashboardController with ChangeNotifier {
   List<Map<String, dynamic>> pendingPayments = [];
   int totalPentingAmount = 0;
 
-  final OwnerRepository controller = OwnerRepository();
+  final UserRepository controller = UserRepository();
   final ResidentsRepository residentsRepository = ResidentsRepository();
   final roomController = RoomsRepository();
 //------------------------------------------------------------------------------Fetch data

@@ -3,7 +3,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:hostel_management_app/fetures/profile/controllers/owner_repository.dart';
+import 'package:hostel_management_app/fetures/profile/controllers/user_repository.dart';
 import 'package:hostel_management_app/fetures/home/screen/home_screen.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -17,7 +17,7 @@ class AccountSetUpScreenController with ChangeNotifier {
   File? selectedImage;
   GlobalKey<FormState> accountSetupFormKey = GlobalKey<FormState>();
 
-  final OwnerRepository controller = OwnerRepository();
+  final UserRepository controller = UserRepository();
 
   Future<void> updateOwnerRecords(BuildContext context, String pro) async {
     if (selectedImage != null) {

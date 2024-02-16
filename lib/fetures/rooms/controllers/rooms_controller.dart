@@ -5,7 +5,7 @@ import 'package:hostel_management_app/fetures/bookings/controllers/bookings_repo
 import 'package:hostel_management_app/commens/functions/connection_checher.dart';
 import 'package:hostel_management_app/fetures/residents/controllers/residents_repository.dart';
 import 'package:hostel_management_app/fetures/rooms/controllers/rooms_repository.dart';
-import 'package:hostel_management_app/fetures/profile/controllers/owner_repository.dart';
+import 'package:hostel_management_app/fetures/profile/controllers/user_repository.dart';
 import 'package:hostel_management_app/fetures/profile/controllers/user_controller.dart';
 import 'package:hostel_management_app/fetures/profile/models/owner_model.dart';
 import 'package:hostel_management_app/fetures/residents/models/resident_model.dart';
@@ -35,7 +35,7 @@ class RoomsController with ChangeNotifier {
   final RoomsRepository controller = RoomsRepository();
   final ConnectionChecker connection = ConnectionChecker();
   final UserController userController = UserController();
-  final OwnerRepository userRepoController = OwnerRepository();
+  final UserRepository userRepoController = UserRepository();
   final ResidentsRepository residentsRepository = ResidentsRepository();
   final BookingRepository bookingRepository = BookingRepository();
 

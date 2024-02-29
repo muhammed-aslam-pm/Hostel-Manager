@@ -54,6 +54,7 @@ dependencies:
   fluentui_system_icons: ^1.1.224
   intl: ^0.19.0
   url_launcher: ^6.2.4
+  change_app_package_name: ^1.1.0
 
 dev_dependencies:
   flutter_test:

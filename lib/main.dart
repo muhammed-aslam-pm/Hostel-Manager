@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
           create: (context) => OnBoardingController(),
         ),
         ChangeNotifierProvider(
-          create: (context) => OwnerNavBarController(),
+          create: (context) => NavBarController(),
         ),
         ChangeNotifierProvider(
           create: (context) => ResidentsController(),

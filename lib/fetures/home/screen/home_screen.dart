@@ -9,20 +9,18 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    OwnerNavBarController navBarController =
-        Provider.of<OwnerNavBarController>(context);
+    NavBarController navBarController = Provider.of<NavBarController>(context);
     return Scaffold(
       backgroundColor: ColorConstants.primaryWhiteColor,
-      body: Provider.of<OwnerNavBarController>(context).ownerPages[
-          Provider.of<OwnerNavBarController>(context).selectedIndex],
+      body: Provider.of<NavBarController>(context)
+          .ownerPages[Provider.of<NavBarController>(context).selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         elevation: 0,
         backgroundColor: ColorConstants.primaryWhiteColor,
         type: BottomNavigationBarType.fixed,
         currentIndex: navBarController.selectedIndex,
         onTap: (value) {
-          Provider.of<OwnerNavBarController>(context, listen: false)
-              .onNavTap(value);
+          Provider.of<NavBarController>(context, listen: false).onNavTap(value);
         },
         selectedLabelStyle: TextStyle(
             fontSize: 12,

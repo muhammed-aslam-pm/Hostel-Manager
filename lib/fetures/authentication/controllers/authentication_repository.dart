@@ -61,12 +61,16 @@ class AuthenticationRepository extends ChangeNotifier {
   Future<String?> signInWithGoogle(BuildContext context) async {
     try {
       final GoogleSignInAccount? userAccount = await GoogleSignIn().signIn();
+      print(userAccount);
       final GoogleSignInAuthentication? googleAuth =
           await userAccount?.authentication;
+      print(googleAuth);
 
       final credential = GoogleAuthProvider.credential(
           accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
+      print(credential);
       userCredentialGoogle = await _auth.signInWithCredential(credential);
+      print(userCredential);
       notifyListeners();
 
       // ignore: unnecessary_null_comparison
@@ -128,6 +132,7 @@ class AuthenticationRepository extends ChangeNotifier {
       }
       return e.message; // Return error message for other exceptions
     } catch (e) {
+      print('Error: ${e.toString()}');
       return 'Error: ${e.toString()}'; // Return generic error message for other exceptions
     }
   }
@@ -138,8 +143,7 @@ class AuthenticationRepository extends ChangeNotifier {
     try {
       await _auth.sendPasswordResetEmail(email: email);
     } catch (e) {
-      print(
-          'Error: ${e.toString()}'); 
+      print('Error: ${e.toString()}');
     }
   }
   //----------------------------------------------------------------------------Delete Account
@@ -152,8 +156,7 @@ class AuthenticationRepository extends ChangeNotifier {
       await GoogleSignIn().signOut();
       await FirebaseAuth.instance.signOut();
     } catch (e) {
-      print(
-          'Error: ${e.toString()}'); 
+      print('Error: ${e.toString()}');
     }
   }
 }

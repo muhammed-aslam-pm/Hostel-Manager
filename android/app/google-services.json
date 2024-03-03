@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "721358647180-rlqdohgb0idlvcqru0sgkbihm2ejg83j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hostel_management_app",
+            "certificate_hash": "61a0706b4942bd0b53948ba7871bb1f0d42063f2"
+          }
+        },
+        {
           "client_id": "721358647180-hchma104slfjtm5bg0s9irr16r7dl2f7.apps.googleusercontent.com",
           "client_type": 3
         }

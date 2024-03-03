@@ -52,17 +52,15 @@ class LoginController with ChangeNotifier {
         prefs.setString('email', emailController.text.trim());
         prefs.setString('password', passwordController.text.trim());
       }
-      print("sign started");
+
       final credential = await _auth.signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
-      print(credential);
 
       //Navigate to home page
-      print("signed");
+
       if (credential.user?.uid != null) {
-        print("success");
         emailController.clear();
         passwordController.clear();
         final DocumentSnapshot userData = await _firestore
@@ -87,10 +85,8 @@ class LoginController with ChangeNotifier {
               (route) => false);
         }
       } else {
-        print("failed");
         FullScreenLoader.stopLoadin(context);
       }
-      print("completed");
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         ScaffoldMessenger.of(context).showSnackBar(

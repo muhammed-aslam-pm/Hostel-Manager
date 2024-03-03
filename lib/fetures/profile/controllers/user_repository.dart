@@ -12,7 +12,7 @@ class UserRepository with ChangeNotifier {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future<void> saveOwnerRecords(OwnerModel owner) async {
+  Future<void> saveUserRecords(OwnerModel owner) async {
     try {
       await _db.collection("Owners").doc(owner.id).set(owner.toJson());
     } catch (e) {

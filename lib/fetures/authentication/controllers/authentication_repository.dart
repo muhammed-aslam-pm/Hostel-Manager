@@ -14,7 +14,7 @@ class AuthenticationRepository extends ChangeNotifier {
   late UserCredential userCredential;
   late UserCredential userCredentialGoogle;
 
-  final UserRepository owner = UserRepository();
+  final UserRepository user = UserRepository();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 //------------------------------------------------------------------------------sign in with Email and Password
@@ -42,7 +42,7 @@ class AuthenticationRepository extends ChangeNotifier {
           isAccountSetupCompleted: false);
 
       //saving owner data
-      await owner.saveOwnerRecords(newOwner);
+      await user.saveUserRecords(newOwner);
 
       return null; // Return null for successful sign-up
     } on FirebaseAuthException catch (e) {
@@ -92,7 +92,7 @@ class AuthenticationRepository extends ChangeNotifier {
           );
 
           // Save owner data
-          await owner.saveOwnerRecords(newOwner);
+          await user.saveUserRecords(newOwner);
         }
         final DocumentSnapshot newUserData =
             await _firestore.collection("Owners").doc(userId).get();
@@ -139,7 +139,7 @@ class AuthenticationRepository extends ChangeNotifier {
       await _auth.sendPasswordResetEmail(email: email);
     } catch (e) {
       print(
-          'Error: ${e.toString()}'); // Return generic error message for other exceptions
+          'Error: ${e.toString()}'); 
     }
   }
   //----------------------------------------------------------------------------Delete Account
@@ -147,13 +147,13 @@ class AuthenticationRepository extends ChangeNotifier {
   Future<void> deleteAccount() async {
     try {
       final curentUser = _auth.currentUser;
-      await owner.deleteOwnerRecords(curentUser!.uid);
+      await user.deleteOwnerRecords(curentUser!.uid);
       await _auth.currentUser!.delete();
       await GoogleSignIn().signOut();
       await FirebaseAuth.instance.signOut();
     } catch (e) {
       print(
-          'Error: ${e.toString()}'); // Return generic error message for other exceptions
+          'Error: ${e.toString()}'); 
     }
   }
 }

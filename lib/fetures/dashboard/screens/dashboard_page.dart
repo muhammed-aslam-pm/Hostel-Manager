@@ -8,7 +8,6 @@ import 'package:hostel_management_app/fetures/dashboard/widgets/pending_loading_
 import 'package:hostel_management_app/fetures/profile/controllers/user_controller.dart';
 import 'package:hostel_management_app/fetures/bookings/models/booking_model.dart';
 import 'package:hostel_management_app/utils/color_constants.dart';
-import 'package:hostel_management_app/utils/image_constants.dart';
 import 'package:hostel_management_app/utils/text_style_constatnts.dart';
 import 'package:hostel_management_app/fetures/payments/screens/pending_payments_screen.dart';
 import 'package:hostel_management_app/fetures/bookings/screens/booked_resident_detailes_screen.dart';
